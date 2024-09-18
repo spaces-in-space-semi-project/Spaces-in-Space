@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Header</title>
+</head>
+<body>
+    <header th:fragment="header">
+        <h1>Spaces in Space</h1>
+
+        <nav class="nav-container">
+            <ul class="main-nav-left horizontal-list">
+                <li><a th:href="@{/}">PRODUCTS</a></li>
+                <li><a th:href="@{/}">ABOUT US</a></li>
+                <li><a th:href="@{/}">FAQS</a></li>
+            </ul>
+
+            <ul class="main-nav-right horizontal-list" sec:authorize="isAnonymous()">
+                <li><a th:href="@{auth/login}">LOGIN</a></li>
+                <li><a th:href="@{member/signup}">SIGNUP</a></li>
+            </ul>
+
+            <div class="logout-container" sec:authorize="isAuthenticated()">
+                <form th:action="@{/auth/logout}" th:method="post">
+                    <button>로그아웃</button>
+                </form>
+            </div>
+        </nav>
+    </header>
+</body>
+</html>

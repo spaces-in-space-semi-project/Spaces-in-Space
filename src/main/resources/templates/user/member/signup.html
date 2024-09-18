@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Signup</title>
+</head>
+<body>
+    <h1>회원가입 페이지</h1>
+
+    <form th:action="@{/templates/user/member/signup}" method="post">
+        아이디 : <input type="text" name="memberId"/><br>
+        비밀번호 : <input type="password" name="memberPw"/><br>
+        이름 : <input type="text" name="memberName"/><br>
+        이메일 : <input type="email" name="memberEmail"/><br>
+        전화번호 : <input type="tel" name="memberPhone"/><br>
+        배송주소 : <input type="text" name="memberAddress"/><br>
+        <br>
+        <button>회원가입</button>
+    </form>
+
+    <script th:inline="javascript">
+        const message = [[${ message }]];
+        if (message) {
+            alert(message);
+        }
+    </script>
+</body>
+</html>

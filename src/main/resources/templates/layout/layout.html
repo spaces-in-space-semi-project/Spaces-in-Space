@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- 공통 style.css 파일 -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title th:replace="${pageTitle}">Spaces in Space</title>
+</head>
+<body>
+    <!-- 공통 header -->
+    <header th:replace="fragments/header :: header"></header>
+
+    <!-- 각 페이지 본문(main content) 들어가는 자리-->
+    <main>
+        <th:block th:replace="${mainContent}"></th:block>
+    </main>
+
+    <!-- 공통 footer-->
+    <footer th:replace="fragments/footer :: footer"></footer>
+</body>
+</html>
