@@ -36,12 +36,12 @@ public class MemberController {
             message = "이미 해당 정보로 가입된 회원이 존재합니다.";
             System.out.println(message);
 
-            mv.setViewName("member/signup");
+            mv.setViewName("user/member/signup");
         } else if (result == 0) {
             message = "회원가입에 실패했습니다. 다시 시도해주세요.";
             System.out.println(message);
 
-            mv.setViewName("member/signup");
+            mv.setViewName("user/member/signup");
         } else if (result >= 1) {
             message = "회원가입이 성공적으로 완료되었습니다.";
             System.out.println(message);
@@ -51,16 +51,18 @@ public class MemberController {
             message = "알 수 없는 오류가 발생했습니다. 다시 시도해보시거나 관리자에게 문의해주세요.";
             System.out.println(message);
 
-            mv.setViewName("member/signup");
+            mv.setViewName("user/member/signup");
         }
 
         return mv;
     }
 
-    @GetMapping("myPage")
+    @GetMapping("update")
     public ModelAndView myPage(ModelAndView mv) {
-        mv.setViewName("user/member/myPage");
         mv.addObject("memberName", "회원");
+        mv.addObject("activeSection", "update");
+        mv.setViewName("user/member/myPage");
+
         return mv;
     }
 }

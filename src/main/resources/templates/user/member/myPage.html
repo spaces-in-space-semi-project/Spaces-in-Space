@@ -20,29 +20,48 @@
             text-align: center;
         }
 
+        .nav-btn.active {
+            background-color: #606465;  /* Highlight color for active button */
+        }
+
         /* Button hover effect */
         .nav-btn:hover {
             background-color: #606465;  /* Darker blue on hover */
         }
     </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const activeSection = document.body.dataset.activeSection;
+            if (activeSection) {
+                document.querySelector(`[data-target="${activeSection}"]`).classList.add('active');
+            }
+        });
+    </script>
 </head>
-<body>
+<body data-active-section="${activeSection}">
     <div th:replace="fragments/header :: header"></div>
 
     <h1>HELLO, <span th:text="${memberName}"></span>님!</h1>
 
     <nav class="mypage-nav-buttons">
-        <button class="nav-btn">UPDATE DATA</button>
-        <button class="nav-btn">MY CART</button>
-        <button class="nav-btn">MY ORDER</button>
-        <button class="nav-btn">MY REVIEW</button>
-        <button class="nav-btn">INQUIRY</button>
-        <button class="nav-btn">DELETE ACCOUNT</button>
+        <a th:href="@{/user/member/update}" class="nav-btn" data-target="update">UPDATE DATA</a>
+        <a th:href="@{/}" class="nav-btn" data-target="cart">MY CART</a>
+        <a th:href="@{/}" class="nav-btn" data-target="order">MY ORDER</a>
+        <a th:href="@{/}" class="nav-btn" data-target="review">MY REVIEW</a>
+        <a th:href="@{/}" class="nav-btn" data-target="inquiry">INQUIRY</a>
+        <a th:href="@{/}" class="nav-btn" data-target="delete">DELETE ACCOUNT</a>
     </nav>
 
-
     <main>
-
+        <div th:switch="${activeSection}">
+            <div th:case="'update'" th:replace="user/member/update :: update"></div>
+<!--            <div th:case="'cart'" th:replace="user/ :: cart"></div>-->
+<!--            <div th:case="'order'" th:replace="user/ :: order"></div>-->
+<!--            <div th:case="'review'" th:replace="user/ :: order"></div>-->
+<!--            <div th:case="'inquiry'" th:replace="user/ :: order"></div>-->
+<!--            <div th:case="'delete'" th:replace="user/member/delete :: order"></div>-->
+        </div>
     </main>
 
     <div th:replace="fragments/footer :: footer"></div>
