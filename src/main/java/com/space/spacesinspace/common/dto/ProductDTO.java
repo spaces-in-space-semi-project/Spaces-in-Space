@@ -1,18 +1,18 @@
 package com.space.spacesinspace.common.dto;
 
 public class ProductDTO {
-    int productCode;
-    int categoryCode;
-    String productName;
-    String productImageOriginal;
-    String productImageThumbnail;
-    int productPrice;
-    String productDeliverTime;
-    int productDeliverCost;
-    String productSize;
-    String productMaterial;
-    String productDescription;
-    String productDeleteYn;
+    private int productCode;
+    private int categoryCode;
+    private String productName;
+    private String productImageOriginal;
+    private String productImageThumbnail;
+    private int productPrice;
+    private String productDeliverTime;
+    private int productDeliverCost;
+    private String productSize;
+    private String productMaterial;
+    private String productDescription;
+    private String productDeleteYn;
 
     public ProductDTO() {
     }
