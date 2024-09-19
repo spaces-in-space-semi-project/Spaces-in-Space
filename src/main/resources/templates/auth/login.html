@@ -6,25 +6,26 @@
     <title>Login</title>
 </head>
 <body>
-
     <div th:replace="fragments/header :: header"></div>
 
     <main>
-        <form th:action="@{/auth/login}" th:method="POST">
-            <label>아이디 : </label>
-            <input type="text" id="memberId" name="memberId"/>
-            <br>
-            <label>비밀번호 : </label>
-            <input type="password" id="memberPw" name="memberPw"/>
-            <br>
-            <button>로그인</button>
-        </form>
+        <div class="login-form">
+            <form th:action="@{/auth/login}" th:method="POST">
+                <label>아이디 : </label>
+                <input type="text" id="memberId" name="memberId"/>
+                <br>
+                <label>비밀번호 : </label>
+                <input type="password" id="memberPw" name="memberPw"/>
+                <br>
+                <button>로그인</button>
+            </form>
+        </div>
 
-        <br>
-        <button th:action="@{/member/signup}">회원가입</button>
+        <div class="signup-btn">
+            <button type="button" onclick="location.href='/user/member/signup'">회원가입</button>
+        </div>
     </main>
 
     <div th:replace="fragments/footer :: footer"></div>
-
 </body>
 </html>

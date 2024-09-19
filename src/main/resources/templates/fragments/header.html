@@ -17,7 +17,6 @@
 
             <ul class="main-nav-right horizontal-list" sec:authorize="isAnonymous()">
                 <li><a th:href="@{auth/login}">LOGIN</a></li>
-                <li><a th:href="@{member/signup}">SIGNUP</a></li>
             </ul>
 
             <div class="logout-container" sec:authorize="isAuthenticated()">

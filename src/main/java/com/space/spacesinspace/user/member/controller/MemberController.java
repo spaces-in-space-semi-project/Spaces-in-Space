@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("/member/*")
+@RequestMapping("/user/member/*")
 public class MemberController {
 
     private MemberService memberService;
@@ -22,7 +22,9 @@ public class MemberController {
     }
 
     @GetMapping("signup")
-    public void signup() {}
+    public String signup() {
+        return "/user/member/signup";
+    }
 
     @PostMapping("signup")
     public ModelAndView signup(ModelAndView mv, @ModelAttribute SignupDTO newMember) {
