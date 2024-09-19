@@ -1,6 +1,6 @@
 package com.space.spacesinspace.common.dto;
 
-public class ReviewDTO {
+public class dReviewDTO {
 
     private int reviewCode;
     private int productCode;
