@@ -56,4 +56,11 @@ public class MemberController {
 
         return mv;
     }
+
+    @GetMapping("myPage")
+    public ModelAndView myPage(ModelAndView mv) {
+        mv.setViewName("user/member/myPage");
+        mv.addObject("memberName", "회원");
+        return mv;
+    }
 }

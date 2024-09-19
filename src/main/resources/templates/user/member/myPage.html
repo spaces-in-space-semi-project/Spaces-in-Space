@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>My Page</title>
+
+    <style>
+        /* Styling for individual buttons */
+        .nav-btn {
+            background-color: #35373c;  /* Blue background */
+            color: white;               /* White text */
+            border: none;               /* Remove default borders */
+            padding: 5px 15px;         /* Padding inside the button */
+            font-size: 14px;            /* Button text size */
+            cursor: pointer;            /* Show pointer cursor on hover */
+            border-radius: 8px;         /* Rounded corners */
+            min-width: 180px; /* Minimum button width */
+            /*flex-grow: 1;     !* Allow the buttons to expand *!*/
+            text-align: center;
+        }
+
+        /* Button hover effect */
+        .nav-btn:hover {
+            background-color: #606465;  /* Darker blue on hover */
+        }
+    </style>
+</head>
+<body>
+    <div th:replace="fragments/header :: header"></div>
+
+    <h1>HELLO, <span th:text="${memberName}"></span>님!</h1>
+
+    <nav class="mypage-nav-buttons">
+        <button class="nav-btn">UPDATE DATA</button>
+        <button class="nav-btn">MY CART</button>
+        <button class="nav-btn">MY ORDER</button>
+        <button class="nav-btn">MY REVIEW</button>
+        <button class="nav-btn">INQUIRY</button>
+        <button class="nav-btn">DELETE ACCOUNT</button>
+    </nav>
+
+
+    <main>
+
+    </main>
+
+    <div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>
