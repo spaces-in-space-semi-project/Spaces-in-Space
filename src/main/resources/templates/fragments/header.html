@@ -15,11 +15,14 @@
                 <li><a th:href="@{/}">FAQS</a></li>
             </ul>
 
-            <ul class="main-nav-right horizontal-list" sec:authorize="isAnonymous()">
-                <li><a th:href="@{auth/login}">LOGIN</a></li>
+            <!-- 로그인 전 -->
+            <ul class="main-nav-right horizontal-list">
+                <li sec:authorize="isAnonymous()"><a th:href="@{auth/login}">LOGIN</a></li>
             </ul>
 
+            <!-- 로그인 후 -->
             <div class="logout-container" sec:authorize="isAuthenticated()">
+                <a th:href="@{/user/member/update}">MY PAGE</a>
                 <form th:action="@{/auth/logout}" th:method="post">
                     <button>로그아웃</button>
                 </form>
