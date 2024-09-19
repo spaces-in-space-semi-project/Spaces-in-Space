@@ -138,3 +138,6 @@ CREATE TABLE IF NOT EXISTS faq_tbl (
     faq_title VARCHAR(255) NOT NULL COMMENT '공지제목',
     faq_detail TEXT NOT NULL COMMENT '공지내용'
 ) ENGINE=INNODB COMMENT '공지';
+
+INSERT INTO member_tbl (member_id, member_pw, member_name, member_email, member_phone, member_address, member_role, member_delete_yn)
+VALUES ('admin', '$2a$10$SOW/Hm3eQC1BL/iB3YV5DOc2r6ii4EkO/ioyfi9rrpe0Bk/4oP.ym', 'admin', 'admin@admin.com', '010-0000-0000', 'Some Address', 'ADMIN', 'N');
