@@ -14,17 +14,18 @@ import java.util.List;
 @RequestMapping("/user/pay/*")
 public class PayController {
 
-    @Autowired
+
     private final PayService payService;
 
+    @Autowired
     public PayController(PayService payservice) {
         this.payService = payservice;
     }
 
-    @GetMapping("payList")
-    public String payList() {return "user/pay/payList";}
+//    @GetMapping("payList")
+//    public String payList() {return "user/pay/payList";}
 
-    @PostMapping("payList")
+    @GetMapping("payList")
     public ModelAndView findPayList(ModelAndView mv){
 
         List<PayDTO> payList = payService.findPayList();
@@ -32,6 +33,7 @@ public class PayController {
         mv.addObject("payList", payList);
         mv.addObject("activeSection", "order");
         mv.setViewName("user/pay/payList");
+
         return mv;
     }
 

@@ -6,7 +6,7 @@ public class PayDTO {
 
     private int payCode;                // 결제코드
     private int memberCode;             // 회원코드
-    private java.util.Date payDate;     // 결제일자
+    private String payDate;             // 결제일자
     private int payTotalCnt;            // 총 결제수량
     private int payTotalPrice;          // 총 결제금액
     private String payAddress;          // 배송주소
@@ -22,7 +22,7 @@ public class PayDTO {
     public PayDTO() {
     }
 
-    public PayDTO(int payCode, int memberCode, Date payDate, int payTotalCnt, int payTotalPrice, String payAddress, String payReceiver, String payDeliverPhone, String payDeliverStatus, String payRefundYn, int payAccountNumber, int payCardNumber, int bankCode, int cardCompanyCode) {
+    public PayDTO(int payCode, int memberCode, String payDate, int payTotalCnt, int payTotalPrice, String payAddress, String payReceiver, String payDeliverPhone, String payDeliverStatus, String payRefundYn, int payAccountNumber, int payCardNumber, int bankCode, int cardCompanyCode) {
         this.payCode = payCode;
         this.memberCode = memberCode;
         this.payDate = payDate;
@@ -55,11 +55,11 @@ public class PayDTO {
         this.memberCode = memberCode;
     }
 
-    public Date getPayDate() {
+    public String getPayDate() {
         return payDate;
     }
 
-    public void setPayDate(Date payDate) {
+    public void setPayDate(String payDate) {
         this.payDate = payDate;
     }
 
