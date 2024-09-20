@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
-@RequestMapping("/user/product")
+@RequestMapping("/user/product/*")
 public class ProductController {
 
     private static final Logger logger = LogManager.getLogger(ProductController.class);

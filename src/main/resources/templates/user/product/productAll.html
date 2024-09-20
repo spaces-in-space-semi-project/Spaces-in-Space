@@ -72,6 +72,18 @@
         </a>
         <img src="path/to/your/image2.jpg" alt="Description of image 2">
         <img src="path/to/your/image3.jpg" alt="Description of image 3">
+
+           <table>
+              <tr>
+                 <th>상품번호</th>
+                 <th>상품가격</th>
+              </tr>
+              <tr th:each="product : ${ productList }">
+                 <td th:text="${ product.productCode }"></td>
+                 <td th:text="${ product.productPrice }"></td>
+
+              </tr>
+           </table>
     </div>
     123123123<!-- 여기에 추가 콘텐츠가 들어갑니다 -->
 </div>
