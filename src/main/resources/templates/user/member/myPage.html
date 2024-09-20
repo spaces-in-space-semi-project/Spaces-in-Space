@@ -33,13 +33,19 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const activeSection = document.body.dataset.activeSection;
+            console.log(activeSection); // Move the log inside the event listener
             if (activeSection) {
-                document.querySelector(`[data-target="${activeSection}"]`).classList.add('active');
+                const activeElement = document.querySelector(`[data-target="${activeSection}"]`);
+                if (activeElement) {
+                    activeElement.classList.add('active');
+                } else {
+                    console.error(`No element found with data-target="${activeSection}"`);
+                }
             }
         });
     </script>
 </head>
-<body data-active-section="${activeSection}">
+<body th:attr="data-active-section=${activeSection}">
     <div th:replace="fragments/header :: header"></div>
 
     <h1>HELLO, <span th:text="${memberName}"></span>님!</h1>
@@ -53,16 +59,30 @@
         <a th:href="@{/}" class="nav-btn" data-target="delete">DELETE ACCOUNT</a>
     </nav>
 
+<!--    <main>-->
+<!--        <div th:switch="${activeSection}">-->
+<!--            <div th:case="'update'" th:replace="user/member/update :: update"></div>-->
+<!--&lt;!&ndash;            <div th:case="'cart'" th:replace="user/ :: cart"></div>&ndash;&gt;-->
+<!--&lt;!&ndash;            <div th:case="'order'" th:replace="user/ :: order"></div>&ndash;&gt;-->
+<!--&lt;!&ndash;            <div th:case="'review'" th:replace="user/ :: order"></div>&ndash;&gt;-->
+<!--            <div th:case="'inquiry'" th:replace="user/inquiry/list :: inquiry"></div>-->
+<!--&lt;!&ndash;            <div th:case="'delete'" th:replace="user/member/delete :: order"></div>&ndash;&gt;-->
+<!--        </div>-->
+<!--    </main>-->
+
     <main>
         <div th:switch="${activeSection}">
-            <div th:case="'update'" th:replace="user/member/update :: update"></div>
-<!--            <div th:case="'cart'" th:replace="user/ :: cart"></div>-->
-<!--            <div th:case="'order'" th:replace="user/ :: order"></div>-->
-<!--            <div th:case="'review'" th:replace="user/ :: order"></div>-->
-<!--            <div th:case="'inquiry'" th:replace="user/inquiry/list :: inquiry"></div>-->
-<!--            <div th:case="'delete'" th:replace="user/member/delete :: order"></div>-->
+            <div th:case="'update'" th:include="user/member/update :: update"></div>
+            <div th:case="'inquiry'" th:include="user/inquiry/list :: inquiry"></div>
         </div>
     </main>
+
+<!--    <main>-->
+<!--        <div th:switch="${activeSection}">-->
+<!--            <div th:case="'update'">Update Section</div>-->
+<!--            <div th:case="'inquiry'">Inquiry Section</div>-->
+<!--        </div>-->
+<!--    </main>-->
 
     <div th:replace="fragments/footer :: footer"></div>
 </body>
