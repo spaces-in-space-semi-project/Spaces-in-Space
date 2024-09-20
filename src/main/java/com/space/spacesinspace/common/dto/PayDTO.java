@@ -6,7 +6,7 @@ public class PayDTO {
 
     private int payCode;                // 결제코드
     private int memberCode;             // 회원코드
-    private java.util.Date payDate;     // 결제일자
+    private String payDate;             // 결제일자
     private int payTotalCnt;            // 총 결제수량
     private int payTotalPrice;          // 총 결제금액
     private String payAddress;          // 배송주소
@@ -14,15 +14,15 @@ public class PayDTO {
     private String payDeliverPhone;     // 받는분 연락처
     private String payDeliverStatus;    // 배송 상태
     private String payRefundYn;         // 결제취소여부
-    private int payAccountNumber;       // 계좌번호
-    private int payCardNumber;          // 카드번호
+    private Long payAccountNumber;       // 계좌번호
+    private Long payCardNumber;          // 카드번호
     private int bankCode;               // 은행코드
     private int cardCompanyCode;        // 카드사코드
 
     public PayDTO() {
     }
 
-    public PayDTO(int payCode, int memberCode, Date payDate, int payTotalCnt, int payTotalPrice, String payAddress, String payReceiver, String payDeliverPhone, String payDeliverStatus, String payRefundYn, int payAccountNumber, int payCardNumber, int bankCode, int cardCompanyCode) {
+    public PayDTO(int payCode, int memberCode, String payDate, int payTotalCnt, int payTotalPrice, String payAddress, String payReceiver, String payDeliverPhone, String payDeliverStatus, String payRefundYn, Long payAccountNumber, Long payCardNumber, int bankCode, int cardCompanyCode) {
         this.payCode = payCode;
         this.memberCode = memberCode;
         this.payDate = payDate;
@@ -55,11 +55,11 @@ public class PayDTO {
         this.memberCode = memberCode;
     }
 
-    public Date getPayDate() {
+    public String getPayDate() {
         return payDate;
     }
 
-    public void setPayDate(Date payDate) {
+    public void setPayDate(String payDate) {
         this.payDate = payDate;
     }
 
@@ -119,19 +119,19 @@ public class PayDTO {
         this.payRefundYn = payRefundYn;
     }
 
-    public int getPayAccountNumber() {
+    public Long getPayAccountNumber() {
         return payAccountNumber;
     }
 
-    public void setPayAccountNumber(int payAccountNumber) {
+    public void setPayAccountNumber(Long payAccountNumber) {
         this.payAccountNumber = payAccountNumber;
     }
 
-    public int getPayCardNumber() {
+    public Long getPayCardNumber() {
         return payCardNumber;
     }
 
-    public void setPayCardNumber(int payCardNumber) {
+    public void setPayCardNumber(Long payCardNumber) {
         this.payCardNumber = payCardNumber;
     }
 
