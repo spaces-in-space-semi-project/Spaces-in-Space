@@ -2,6 +2,8 @@ package com.space.spacesinspace.user.inquiry.controller;
 
 import com.space.spacesinspace.common.dto.InquiryDTO;
 import com.space.spacesinspace.user.inquiry.model.service.InquiryService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +17,9 @@ import java.util.List;
 @RequestMapping("/user/inquiry/*")
 public class InquiryController {
 
-    private InquiryService inquiryService;
+    private static final Logger logger = LogManager.getLogger(InquiryController.class);
+
+    private final InquiryService inquiryService;
 
     @Autowired
     public InquiryController(InquiryService inquiryService) {
@@ -29,7 +33,7 @@ public class InquiryController {
 
         model.addAttribute("inquiryList", inquiryList);
 
-        model.addAttribute("activeSection", "inquiry");
+        model.addAttribute("activeSection", "inquiryList");
 
         return "user/inquiry/list";
     }
