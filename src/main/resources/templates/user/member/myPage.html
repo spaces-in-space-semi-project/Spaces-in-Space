@@ -47,7 +47,7 @@
     <nav class="mypage-nav-buttons">
         <a th:href="@{/user/member/update}" class="nav-btn" data-target="update">UPDATE DATA</a>
         <a th:href="@{/}" class="nav-btn" data-target="cart">MY CART</a>
-        <a th:href="@{/user/pay/paylist}" class="nav-btn" data-target="order">MY ORDER</a>
+        <a th:href="@{/user/pay/payList}" class="nav-btn" data-target="order">MY ORDER</a>
         <a th:href="@{/}" class="nav-btn" data-target="review">MY REVIEW</a>
         <a th:href="@{/}" class="nav-btn" data-target="inquiry">INQUIRY</a>
         <a th:href="@{/}" class="nav-btn" data-target="delete">DELETE ACCOUNT</a>
@@ -56,8 +56,8 @@
     <main>
         <div th:switch="${activeSection}">
             <div th:case="'update'" th:replace="user/member/update :: update"></div>
+<!--            <div th:case="'order'" th:replace="user/pay/payList :: order"></div>-->
 <!--            <div th:case="'cart'" th:replace="user/ :: cart"></div>-->
-<!--            <div th:case="'order'" th:replace="user/ :: order"></div>-->
 <!--            <div th:case="'review'" th:replace="user/ :: order"></div>-->
 <!--            <div th:case="'inquiry'" th:replace="user/ :: order"></div>-->
 <!--            <div th:case="'delete'" th:replace="user/member/delete :: order"></div>-->

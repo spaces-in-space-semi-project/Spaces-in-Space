@@ -5,15 +5,13 @@ import com.space.spacesinspace.user.pay.model.service.PayService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
 @Controller
+@RequestMapping("/user/pay/*")
 public class PayController {
 
     private final PayService payService;
@@ -23,27 +21,28 @@ public class PayController {
         this.payService = payservice;
     }
 
-    @GetMapping("user/pay/paylist")
+    @GetMapping("payList")
     public void payList() {}
 
-    @RequestMapping(value = "redirect:/",method = RequestMethod.POST)
-    public String findPayList(ModelAndView model){
+    @PostMapping("payList")
+    public ModelAndView findPayList(ModelAndView model){
 
         List<PayDTO> payList = payService.findPayList();
 
-        model.addObject("payList",payList);
-        model.setViewName("user/pay/paylist");
-        return "redirect:/";
+        model.addObject("payList", payList);
+        model.addObject("activeSection", "order");
+        model.setViewName("payList");
+        return model;
     }
 
-    @GetMapping("user/pay/paylist/{payCode}")
-    public String findPayDetail(@PathVariable int payCode, Model model){
+    @GetMapping("findPayDetail/{payCode}")
+    public String findPayDetail(@PathVariable("payCode") int payCode, Model model){
 
         PayDTO findPayDetail = payService.findPayDetail(payCode);
 
         model.addAttribute("findPayDetail",findPayDetail);
 
-        return "user/pay/findPayDetail";
+        return "findPayDetail";
     }
 
 }
