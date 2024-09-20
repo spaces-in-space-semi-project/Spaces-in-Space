@@ -15,7 +15,7 @@ import java.util.List;
 @RequestMapping("/user/inquiry/*")
 public class InquiryController {
 
-    private InquiryService inquiryService;
+    private final InquiryService inquiryService;
 
     @Autowired
     public InquiryController(InquiryService inquiryService) {
@@ -28,10 +28,10 @@ public class InquiryController {
         List<InquiryDTO> inquiryList = inquiryService.findAllInquiry();
 
         model.addAttribute("inquiryList", inquiryList);
-
+        model.addAttribute("memberName", "회원");
         model.addAttribute("activeSection", "inquiry");
 
-        return "user/inquiry/list";
+        return "user/member/myPage";
     }
 
     @GetMapping("detail/{code}")
