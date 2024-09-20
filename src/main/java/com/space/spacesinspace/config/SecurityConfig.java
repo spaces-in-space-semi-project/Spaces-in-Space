@@ -1,6 +1,7 @@
 package com.space.spacesinspace.config;
 
 import com.space.spacesinspace.exception.AuthFailHandler;
+import com.space.spacesinspace.exception.AuthSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -18,10 +19,12 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class SecurityConfig {
 
     private AuthFailHandler authFailHandler;
+    private AuthSuccessHandler authSuccessHandler;
 
     @Autowired
-    public SecurityConfig(AuthFailHandler authFailHandler) {
+    public SecurityConfig(AuthFailHandler authFailHandler, AuthSuccessHandler authSuccessHandler) {
         this.authFailHandler = authFailHandler;
+        this.authSuccessHandler = authSuccessHandler;
     }
 
     @Bean
@@ -37,7 +40,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> {
-            auth.requestMatchers("/auth/login", "user/member/signup", "/auth/fail", "/fragments/*", "/user/product/productAll","/main", "/").permitAll();
+            auth.requestMatchers("/auth/login", "auth/admin/login","user/member/signup", "/auth/fail", "/fragments/*", "/user/product/productAll", "user/faq/list","/main", "/").permitAll();
             auth.requestMatchers("/admin/*").hasAnyAuthority("ADMIN");
             auth.requestMatchers("/member/*").hasAnyAuthority("USER");
             auth.anyRequest().authenticated();
@@ -45,7 +48,15 @@ public class SecurityConfig {
             login.loginPage("/auth/login");
             login.usernameParameter("memberId");
             login.passwordParameter("memberPw");
-            login.defaultSuccessUrl("/", true);
+//            login.defaultSuccessUrl("/", true)
+            login.successHandler(authSuccessHandler);
+            login.failureHandler(authFailHandler);
+        }).formLogin(login -> {
+            login.loginPage("/auth/admin/login");  // Separate login page for admin
+            login.usernameParameter("memberId");
+            login.passwordParameter("memberPw");
+//            login.defaultSuccessUrl("/admin/member/selectAllMembers", true)  // Admin dashboard
+            login.successHandler(authSuccessHandler);
             login.failureHandler(authFailHandler);
         }).logout(logout -> {
             logout.logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout"));
