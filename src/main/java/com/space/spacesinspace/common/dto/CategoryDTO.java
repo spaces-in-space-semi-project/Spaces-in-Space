@@ -1,4 +1,4 @@
-package com.space.spacesinspace.user.product.model.dto;
+package com.space.spacesinspace.common.dto;
 
 public class CategoryDTO {
 

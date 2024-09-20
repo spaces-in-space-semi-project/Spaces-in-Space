@@ -1,7 +1,7 @@
 package com.space.spacesinspace.user.product.contrller;
 
 import com.space.spacesinspace.common.dto.ProductDTO;
-import com.space.spacesinspace.user.product.model.service.ProductService1;
+import com.space.spacesinspace.user.product.model.service.ProductService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,29 +16,30 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/user/product")
-public class ProductController1 {
+public class ProductController {
 
-    private static final Logger logger = LogManager.getLogger(ProductController1.class);
+    private static final Logger logger = LogManager.getLogger(ProductController.class);
 
-    private final ProductService1 productService1;
+    private final ProductService productService;
     private final MessageSource messageSource;
 
     @Autowired
-    public ProductController1(ProductService1 productService1, MessageSource messageSource) {
-        this.productService1 = productService1;
+    public ProductController(ProductService productService, MessageSource messageSource) {
+        this.productService = productService;
         this.messageSource = messageSource;
     }
 
     @GetMapping("/productAll")
     public String findAllProducts(Model model) {
-        List<ProductDTO> productList = productService1.findAllProducts();
+        List<ProductDTO> productList = productService.findAllProduct();
         model.addAttribute("productList", productList);
         return "user/product/productAll";
     }
 
+    @GetMapping("/productDetail/{code}")
     public String findProductDetail(@PathVariable("code") int code,
                                     Model model) {
-        ProductDTO product = productService1.findProductByCode(code);
+        ProductDTO product = productService.findProductByCode(code);
         model.addAttribute("product", product);
 
         return "product/productDetail";

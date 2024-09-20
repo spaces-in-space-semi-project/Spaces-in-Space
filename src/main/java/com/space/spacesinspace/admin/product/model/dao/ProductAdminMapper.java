@@ -1,16 +1,16 @@
 package com.space.spacesinspace.admin.product.model.dao;
 
 import com.space.spacesinspace.common.dto.ProductDTO;
-import com.space.spacesinspace.user.product.model.dto.CategoryDTO;
+import com.space.spacesinspace.common.dto.CategoryDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
 @Mapper
-public interface ProductMapper {
-    List<ProductDTO> findProduct();
+public interface ProductAdminMapper {
+    List<ProductDTO> findAllProduct();
 
-    List<CategoryDTO> findCategory();
+    List<CategoryDTO> findAllCategory();
 
     void registNewProduct(ProductDTO newProduct);
 

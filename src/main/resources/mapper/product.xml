@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.space.spacesinspace.user.product.model.dao.ProductMapper1">
+<mapper namespace="com.space.spacesinspace.user.product.model.dao.ProductMapper">
     <resultMap id="productResultMap" type="com.space.spacesinspace.common.dto.ProductDTO">
         <id property="productCode" column="product_code"/>
         <result property="categoryCode" column="category_code"/>
@@ -18,11 +18,15 @@
         <result property="productDeleteYn" column="product_delete_yn"/>
     </resultMap>
 
+    <resultMap id="categoryResultMap" type="com.space.spacesinspace.common.dto.CategoryDTO">
+        <id property="categoryCode" column="category_code"/>
+        <result property="categoryName" column="category_name"/>
+    </resultMap>
+
     <select id="findAllProduct" resultMap="productResultMap">
         SELECT
             product_code,
             category_code,
-
             product_name,
             product_image_original,
             product_image_thumbnail,
@@ -40,4 +44,66 @@
         ORDER BY
             product_code
     </select>
+
+    <select id="findAllCategory" resultMap="categoryResultMap">
+        SELECT
+            category_code,
+            category_name
+        FROM
+            tbl_category
+    </select>
+
+    <select id="findProductByCode" parameterType="int" resultMap="productResultMap">
+        SELECT
+            product_code,
+            category_code,
+            product_name,
+            product_image_original,
+            product_image_thumbnail,
+            product_price,
+            product_deliver_time,
+            product_deliever_cost,
+            product_size,
+            product_material,
+            product_description,
+            product_delete_yn
+        FROM
+            product_tbl
+        WHERE
+            product_code = #{code}
+    </select>
+
+    <insert id="registNewMenu" parameterType="com.space.spacesinspace.common.dto.ProductDTO"
+            useGeneratedKeys="true" keyProperty="code">
+        INSERT INTO
+            product_tbl
+        (
+            category_code,
+            product_name,
+            product_image_original,
+            product_image_thumbnail,
+            product_price,
+            product_deliver_time,
+            product_deliever_cost,
+            product_size,
+            product_material,
+            product_description,
+            product_delete_yn
+        )
+        VALUES
+        (
+        #{categoryCode},
+        #{name},
+        #{ImageOriginal},
+        #{ImageThumbnail},
+        #{price},
+        #{DeliverTime},
+        #{DelieverCost},
+        #{size},
+        #{material},
+        #{description},
+        #{DeleteYn},
+
+        )
+    </insert>
 </mapper>

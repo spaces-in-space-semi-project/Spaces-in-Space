@@ -2,9 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
     <title>Title</title>
+    <style>
+        .content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
 </head>
-<body>
-
+<body data-active-section="${activeSection}">
+<div th:replace="fragments/header :: header"></div>
+<h1>123123</h1>
+<div class="content">
+    123123
+</div>
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>
