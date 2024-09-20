@@ -24,13 +24,18 @@ h1 {
     width: 100%;
 }
 
-/* Logout button container */
+/* Flex container for logout-container */
 .logout-container {
-    align-self: flex-end; /* Aligns to the right */
-    margin: 10px 20px;    /* Spacing from the edges */
+    display: flex;          /* Aligns children horizontally */
+    align-items: center;    /* Ensures vertical alignment */
+    gap: 10px;              /* Space between MY PAGE and LOGOUT */
 }
 
-/* Style for the logout button */
+.logout-container a {
+    text-decoration: none;  /* Optional: to remove underline on MY PAGE */
+    color: blue;            /* Optional: link color */
+}
+
 .logout-container button {
     background-color: #000000;
     color: white;
@@ -43,13 +48,29 @@ h1 {
     background-color: #333232;
 }
 
-/* Navigation container */
 .nav-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
     padding: 10px 20px;
+}
+
+.main-nav-left,
+.main-nav-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 0;
+    margin: 0;
+}
+
+/* Styling for 마이페이지 nav container */
+.mypage-nav-buttons {
+    display: flex;              /* Aligns buttons horizontally */
+    justify-content: center;    /* Center the buttons horizontally */
+    gap: 15px;                  /* Space between the buttons */
+    padding: 20px;
 }
 
 /* Horizontal list for both left and right aligned menus */
@@ -59,11 +80,6 @@ h1 {
     margin: 0;
     display: flex;
     gap: 15px;
-}
-
-/* Flex containers for left and right nav menus */
-.main-nav-left, .main-nav-right {
-    display: flex;
 }
 
 /* Main content area */
