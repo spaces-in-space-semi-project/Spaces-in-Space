@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Detail</title>
+</head>
+<body>
+
+    <h2>문의글 상세 정보</h2>
+
+    <div>
+        <p>문의코드: <span th:text="${ inquiry.code }"></span></p>
+        <p>회원코드: <span th:text="${ member.code }"></span></p>
+        <p>문의제목: <span th:text="${ inquiry.title }"></span></p>
+        <p>문의내용: <span th:text="${ inquiry.detail }"></span></p>
+        <p>문의생성일: <span th:text="${ inquiry.date }"></span></p>
+        <p>문의수정일: <span th:text="${ inquiry.edit.date }"></span></p>
+    </div>
+</body>
+</html>

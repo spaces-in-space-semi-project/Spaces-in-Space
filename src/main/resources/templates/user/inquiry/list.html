@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Inquiry</title>
+</head>
+<body>
+    <h1>문의글 목록</h1>
+
+    <nav class="mypage-nav-buttons">
+        <a th:href="@{/user/member/update}" class="nav-btn" data-target="update">UPDATE DATA</a>
+        <a th:href="@{/}" class="nav-btn" data-target="cart">MY CART</a>
+        <a th:href="@{/}" class="nav-btn" data-target="order">MY ORDER</a>
+        <a th:href="@{/}" class="nav-btn" data-target="review">MY REVIEW</a>
+        <a th:href="@{/}" class="nav-btn" data-target="inquiry">INQUIRY</a>
+        <a th:href="@{/}" class="nav-btn" data-target="delete">DELETE ACCOUNT</a>
+    </nav>
+
+    <table>
+        <tr>
+            <th>문의코드</th>
+            <th>회원코드</th>
+            <th>문의제목</th>
+            <th>문의내용</th>
+            <th>문의생성일</th>
+            <th>문의수정일</th>
+        </tr>
+        <tr th:each="inquiry : ${ inquiryList }">
+            <td th:text="${ inquiry.code }"></td>
+            <td th:text="${ member.code }"></td>
+            <td th:text="${ inquiry.title }"></td>
+            <td th:text="${ inquiry.detail }"></td>
+            <td th:text="${ inquiry.date }"></td>
+            <td th:text="${ inquiry.edit.date }"></td>
+        </tr>
+    </table>
+</body>
+</html>
