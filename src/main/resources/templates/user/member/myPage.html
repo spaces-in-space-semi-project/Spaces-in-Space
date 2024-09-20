@@ -59,30 +59,17 @@
         <a th:href="@{/}" class="nav-btn" data-target="delete">DELETE ACCOUNT</a>
     </nav>
 
-<!--    <main>-->
-<!--        <div th:switch="${activeSection}">-->
-<!--            <div th:case="'update'" th:replace="user/member/update :: update"></div>-->
-<!--&lt;!&ndash;            <div th:case="'cart'" th:replace="user/ :: cart"></div>&ndash;&gt;-->
-<!--&lt;!&ndash;            <div th:case="'order'" th:replace="user/ :: order"></div>&ndash;&gt;-->
-<!--&lt;!&ndash;            <div th:case="'review'" th:replace="user/ :: order"></div>&ndash;&gt;-->
-<!--            <div th:case="'inquiry'" th:replace="user/inquiry/list :: inquiry"></div>-->
-<!--&lt;!&ndash;            <div th:case="'delete'" th:replace="user/member/delete :: order"></div>&ndash;&gt;-->
-<!--        </div>-->
-<!--    </main>-->
-
     <main>
         <div th:switch="${activeSection}">
             <div th:case="'update'" th:include="user/member/update :: update"></div>
             <div th:case="'inquiry'" th:include="user/inquiry/list :: inquiry"></div>
+            <!--            <div th:case="'cart'" th:include="user/ :: cart"></div>-->
+            <!--            <div th:case="'order'" th:include="user/ :: order"></div>-->
+            <!--            <div th:case="'review'" th:include="user/ :: order"></div>-->
+            <!--            <div th:case="'delete'" th:include="user/member/delete :: order"></div>-->
+
         </div>
     </main>
-
-<!--    <main>-->
-<!--        <div th:switch="${activeSection}">-->
-<!--            <div th:case="'update'">Update Section</div>-->
-<!--            <div th:case="'inquiry'">Inquiry Section</div>-->
-<!--        </div>-->
-<!--    </main>-->
 
     <div th:replace="fragments/footer :: footer"></div>
 </body>
