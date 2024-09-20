@@ -49,7 +49,7 @@
         <a th:href="@{/}" class="nav-btn" data-target="cart">MY CART</a>
         <a th:href="@{/}" class="nav-btn" data-target="order">MY ORDER</a>
         <a th:href="@{/}" class="nav-btn" data-target="review">MY REVIEW</a>
-        <a th:href="@{/}" class="nav-btn" data-target="inquiry">INQUIRY</a>
+        <a th:href="@{/user/inquiry/list}" class="nav-btn" data-target="inquiry">INQUIRY</a>
         <a th:href="@{/}" class="nav-btn" data-target="delete">DELETE ACCOUNT</a>
     </nav>
 
@@ -59,7 +59,7 @@
 <!--            <div th:case="'cart'" th:replace="user/ :: cart"></div>-->
 <!--            <div th:case="'order'" th:replace="user/ :: order"></div>-->
 <!--            <div th:case="'review'" th:replace="user/ :: order"></div>-->
-<!--            <div th:case="'inquiry'" th:replace="user/ :: order"></div>-->
+<!--            <div th:case="'inquiry'" th:replace="user/inquiry/list :: inquiry"></div>-->
 <!--            <div th:case="'delete'" th:replace="user/member/delete :: order"></div>-->
         </div>
     </main>
