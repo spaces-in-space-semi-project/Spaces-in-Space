@@ -10,9 +10,10 @@ import java.util.List;
 @Service
 public class FAQService {
 
-    @Autowired
+
     private FAQDAO faqDAO;
 
+    @Autowired
     public FAQService(FAQDAO faqDAO) {
         this.faqDAO = faqDAO;
     }
