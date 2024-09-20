@@ -15,7 +15,7 @@ import java.util.List;
 @RequestMapping("/user/inquiry/*")
 public class InquiryController {
 
-    private InquiryService inquiryService;
+    private final InquiryService inquiryService;
 
     @Autowired
     public InquiryController(InquiryService inquiryService) {

@@ -1,4 +1,4 @@
-package com.space.spacesinspace.common.dto;
+package com.space.spacesinspace.user.pay.model.dto;
 
 public class CardCompanyDTO {
 

@@ -36,8 +36,8 @@
             inquiry_date,
             inquiry_edit_date
         FROM
-            tbl_menu
+            inquiry_tbl
         WHERE
-            inquiry_code = #{code}
+            inquiry_code = #{ code }
     </select>
 </mapper>
