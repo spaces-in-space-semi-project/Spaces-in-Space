@@ -1,14 +1,18 @@
 package com.space.spacesinspace.user.member.controller;
 
+import com.space.spacesinspace.common.dto.MemberDTO;
 import com.space.spacesinspace.user.member.model.dto.SignupDTO;
 import com.space.spacesinspace.user.member.model.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.lang.reflect.Member;
 
 @Controller
 @RequestMapping("/user/member/*")
@@ -48,7 +52,7 @@ public class MemberController {
 
             mv.setViewName("auth/login");
         } else {
-            message = "알 수 없는 오류가 발생했습니다. 다시 시도해보시거나 관리자에게 문의해주세요.";
+            message = "알 수 없는 오류가 발생했습니다. 다시 시도해보시거나 관리자에게 문의해주세요..";
             System.out.println(message);
 
             mv.setViewName("user/member/signup");
@@ -58,8 +62,13 @@ public class MemberController {
     }
 
     @GetMapping("update")
-    public ModelAndView myPage(ModelAndView mv) {
+    public ModelAndView myPage(ModelAndView mv, @AuthenticationPrincipal MemberDTO member) {
+        String memberId = member.getUsername();
+
+        MemberDTO memberInfo = memberService.findByMemberId(memberId);
+
         mv.addObject("memberName", "회원");
+        mv.addObject("memberInfo", memberInfo);
         mv.addObject("activeSection", "update");
         mv.setViewName("user/member/myPage");
 
