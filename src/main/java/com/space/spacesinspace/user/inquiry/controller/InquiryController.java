@@ -16,6 +16,7 @@ import java.util.List;
 public class InquiryController {
 
     private final InquiryService inquiryService;
+    private Object memberCode;
 
     @Autowired
     public InquiryController(InquiryService inquiryService) {
@@ -25,7 +26,7 @@ public class InquiryController {
     @GetMapping("/list")
     public String findAllInquiry(Model model) {
 
-        List<InquiryDTO> inquiryList = inquiryService.findAllInquiry();
+        List<InquiryDTO> inquiryList = inquiryService.findAllInquiry(memberCode);
 
         model.addAttribute("inquiryList", inquiryList);
         model.addAttribute("memberName", "회원");

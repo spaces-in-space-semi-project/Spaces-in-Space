@@ -55,10 +55,10 @@
         <a th:href="@{/}" class="nav-btn" data-target="cart">MY CART</a>
         <a th:href="@{/}" class="nav-btn" data-target="order">MY ORDER</a>
         <a th:href="@{/}" class="nav-btn" data-target="review">MY REVIEW</a>
-        <a th:href="@{/user/inquiry/list}" class="nav-btn" data-target="inquiry">INQUIRY</a>
+        <a th:href="@{/user/inquiry/list/{code}(code=${ member_tbl })}" th:text="${ member.code }" class="nav-btn" data-target="inquiry">INQUIRY</a>
+<!--        <a th:href="@{/user/inquiry/list}" class="nav-btn" data-target="inquiry">INQUIRY</a>-->
         <a th:href="@{/}" class="nav-btn" data-target="delete">DELETE ACCOUNT</a>
     </nav>
-
 <!--    <main>-->
 <!--        <div th:switch="${activeSection}">-->
 <!--            <div th:case="'update'" th:replace="user/member/update :: update"></div>-->

@@ -8,9 +8,7 @@ import java.util.List;
 @Mapper
 public interface InquiryMapper {
 
-    static List<InquiryDTO> findAllInquiry() {
-        return null;
-    }
+    List<InquiryDTO> findAllInquiry(Object memberCode);
 
     InquiryDTO findInquiryByCode(int code);
 }
