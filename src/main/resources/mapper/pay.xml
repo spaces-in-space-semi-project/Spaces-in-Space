@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.space.spacesinspace.user.pay.model.dao.PayMapper">
+
+    <resultMap id="payResultMap" type="com.space.spacesinspace.common.dto.PayDTO">
+        <id property="payCode" column="pay_code"/>
+        <result property="memberCode" column="member_code"/>
+        <result property="payDate" column="payDate"/>
+        <result property="payTotalCnt" column="pay_total_cnt"/>
+        <result property="payTotalPrice" column="pay_total_price"/>
+        <result property="payAddress" column="pay_address"/>
+        <result property="payReceiver" column="pay_receiver"/>
+        <result property="payDeliverPhone" column="pay_deliver_phone"/>
+        <result property="payDeliverStatus" column="pay_deliver_status"/>
+        <result property="payRefundYn" column="pay_refund_yn"/>
+        <result property="payAccountNumber" column="pay_account_number"/>
+        <result property="bankCode" column="bank_code"/>
+        <result property="cardCompanyCode" column="card_company_code"/>
+    </resultMap>
+
+    <resultMap id="payDetailMap" type="com.space.spacesinspace.common.dto.PayDetailDTO">
+        <id property="payDetailCode" column="pay_detail_code"/>
+        <result property="payCode" column="pay_code"/>
+        <result property="productCode" column="product_code"/>
+        <result property="payDetailCnt" column="pay_detail_cnt"/>
+        <result property="payDetailPrice" column="pay_detail_price"/>
+    </resultMap>
+
+    <select id="findpayList" resultMap="payResultMap">
+        SELECT
+            pay_code,
+            pay_date,
+            pay_total_cnt,
+            pay_total_price,
+            pay_refund_yn
+        FROM
+            pay_detail_tbl
+        WHERE
+            pay_refund_yn = 'Y'
+        ORDER BY
+            pay_code
+    </select>
+
+    <select id="findPayDetail" resultMap="payResultMap">
+        SELECT
+            pay_date,
+            pay_code,
+            b.product_code,
+            c.member_name,
+            c.member.phone,
+            pay_refund_yn,
+            pay_total_price,
+            pay_account_number,
+            pay_card_number,
+            bank_code,
+            card_company_code
+            pay_receiver
+        FROM
+            pay_tbl
+        WHERE
+            pay_code = #{ code }
+        ORDER BY
+            pay_code
+    </select>
+
+</mapper>
