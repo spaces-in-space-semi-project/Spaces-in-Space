@@ -2,6 +2,42 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.space.spacesinspace.user.product.model.dao.ProductMapper">
+<mapper namespace="com.space.spacesinspace.user.product.model.dao.ProductMapper1">
+    <resultMap id="productResultMap" type="com.space.spacesinspace.common.dto.ProductDTO">
+        <id property="productCode" column="product_code"/>
+        <result property="categoryCode" column="category_code"/>
+        <result property="productName" column="product_name"/>
+        <result property="productImageOriginal" column="product_image_original"/>
+        <result property="productImageThumbnail" column="product_image_thumbnail"/>
+        <result property="productPrice" column="product_price"/>
+        <result property="productDeliverTime" column="product_deliver_time"/>
+        <result property="productDeliverCost" column="product_deliever_cost"/>
+        <result property="productSize" column="product_size"/>
+        <result property="productMaterial" column="product_material"/>
+        <result property="productDescription" column="product_description"/>
+        <result property="productDeleteYn" column="product_delete_yn"/>
+    </resultMap>
 
+    <select id="findAllProduct" resultMap="productResultMap">
+        SELECT
+            product_code,
+            category_code,
+
+            product_name,
+            product_image_original,
+            product_image_thumbnail,
+            product_price,
+            product_deliver_time,
+            product_deliever_cost,
+            product_size,
+            product_material,
+            product_description,
+            product_delete_yn
+        FROM
+            product_tbl
+        WHERE
+            product_delete_yn = 'Y'
+        ORDER BY
+            product_code
+    </select>
 </mapper>
