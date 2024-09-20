@@ -32,8 +32,9 @@ public class PayController {
         List<PayDTO> payList = payService.findPayList();
 
         mv.addObject("payList", payList);
+        mv.addObject("memberName", "회원");
         mv.addObject("activeSection", "order");
-        mv.setViewName("user/pay/payList");
+        mv.setViewName("user/member/myPage");
 
         return mv;
     }

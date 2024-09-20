@@ -95,3 +95,13 @@ footer {
     color: white;
     text-align: center;
 }
+
+table {
+    margin: 0 auto; /* 테이블을 수평으로 가운데 정렬 */
+    border-collapse: collapse; /* 테이블 경계선 겹침 방지 */
+}
+
+th, td {
+    padding: 10px; /* 셀 패딩 추가 */
+    text-align: center; /* 텍스트 가운데 정렬 */
+    border: 1px solid #ccc; /* 셀 경계선 추가 */

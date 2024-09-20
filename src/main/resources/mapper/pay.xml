@@ -29,6 +29,11 @@
         <result property="payDetailPrice" column="pay_detail_price"/>
     </resultMap>
 
+    <resultMap id="productMap" type="com.space.spacesinspace.common.dto.ProductDTO">
+        <id property="productCode" column="product_code"/>
+        <result property="productName" column="product_name"/>
+    </resultMap>
+
     <select id="findPayList" resultMap="payResultMap">
         SELECT
             pay_code,
@@ -47,6 +52,8 @@
             b.pay_date,
             b.pay_code,
             c.product_name,
+            d.member_name,
+            d.member_phone,
             a.pay_detail_cnt,
             a.pay_detail_price,
             b.pay_receiver,
@@ -61,6 +68,8 @@
             pay_tbl b ON (a.pay_code = b.pay_code)
         JOIN
             product_tbl c ON (a.product_code = c.product_code)
+        JOIN
+            member_tbl d ON (b.member_code = d.member_code)
         WHERE
             b.pay_code = #{ code }
         ORDER BY
