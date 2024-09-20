@@ -8,7 +8,7 @@
     <resultMap id="payResultMap" type="com.space.spacesinspace.common.dto.PayDTO">
         <id property="payCode" column="pay_code"/>
         <result property="memberCode" column="member_code"/>
-        <result property="payDate" column="payDate"/>
+        <result property="payDate" column="pay_date"/>
         <result property="payTotalCnt" column="pay_total_cnt"/>
         <result property="payTotalPrice" column="pay_total_price"/>
         <result property="payAddress" column="pay_address"/>
@@ -29,7 +29,7 @@
         <result property="payDetailPrice" column="pay_detail_price"/>
     </resultMap>
 
-    <select id="findpayList" resultMap="payResultMap">
+    <select id="findPayList" resultMap="payResultMap">
         SELECT
             pay_code,
             pay_date,
@@ -37,14 +37,12 @@
             pay_total_price,
             pay_refund_yn
         FROM
-            pay_detail_tbl
-        WHERE
-            pay_refund_yn = 'Y'
+            pay_tbl
         ORDER BY
             pay_code
     </select>
 
-    <select id="findPayDetail" resultMap="payResultMap">
+    <select id="findPayDetail" resultMap="payDetailMap">
         SELECT
             b.pay_date,
             b.pay_code,

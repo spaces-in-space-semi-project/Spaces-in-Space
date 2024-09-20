@@ -143,10 +143,10 @@ INSERT INTO member_tbl (member_id, member_pw, member_name, member_email, member_
 VALUES ('admin', '$2a$10$SOW/Hm3eQC1BL/iB3YV5DOc2r6ii4EkO/ioyfi9rrpe0Bk/4oP.ym', 'admin', 'admin@admin.com', '010-0000-0000', 'Some Address', 'ADMIN', 'N');
 
 INSERT INTO category_tbl (category_code, category_name)
-VALUES ('1','의자');
+VALUES ('2','테이블');
 
 INSERT INTO product_tbl (category_code, product_name, product_image_original, product_image_thumbnail, product_price, product_deliver_time, product_deliever_cost, product_size, product_material, product_description, product_delete_yn)
-VALUES ('1','의자','오리지널사진','썸네일사진','50000','240920','3','100','200','300','Y');
+VALUES ('2','테이블','오리지널사진','썸네일사진','50000','240920','3','100','200','300','Y');
 
 INSERT INTO bank_tbl (bank_code, bank_name) VALUES (1,'우리');
 

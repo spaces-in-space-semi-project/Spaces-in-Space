@@ -14,35 +14,36 @@ import java.util.List;
 @RequestMapping("/user/pay/*")
 public class PayController {
 
+    @Autowired
     private final PayService payService;
 
-    @Autowired
     public PayController(PayService payservice) {
         this.payService = payservice;
     }
 
     @GetMapping("payList")
-    public void payList() {}
+    public String payList() {return "user/pay/payList";}
 
     @PostMapping("payList")
-    public ModelAndView findPayList(ModelAndView model){
+    public ModelAndView findPayList(ModelAndView mv){
 
         List<PayDTO> payList = payService.findPayList();
 
-        model.addObject("payList", payList);
-        model.addObject("activeSection", "order");
-        model.setViewName("payList");
-        return model;
+        mv.addObject("payList", payList);
+        mv.addObject("activeSection", "order");
+        mv.setViewName("user/pay/payList");
+        return mv;
     }
 
-    @GetMapping("findPayDetail/{payCode}")
-    public String findPayDetail(@PathVariable("payCode") int payCode, Model model){
+    @GetMapping("/findPayDetail/{payCode}")
+    public ModelAndView findPayDetail(@PathVariable("payCode") int payCode, ModelAndView mv){
 
         PayDTO findPayDetail = payService.findPayDetail(payCode);
 
-        model.addAttribute("findPayDetail",findPayDetail);
+        mv.addObject("findPayDetail",findPayDetail);
+        mv.setViewName("user/pay/findPayDetail");
 
-        return "findPayDetail";
+        return mv;
     }
 
 }

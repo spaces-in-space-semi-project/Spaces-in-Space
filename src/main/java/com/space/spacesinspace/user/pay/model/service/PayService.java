@@ -10,9 +10,9 @@ import java.util.List;
 @Service
 public class PayService {
 
+    @Autowired
     public final PayMapper payMapper;
 
-    @Autowired
     public PayService(PayMapper payMapper) {
         this.payMapper = payMapper;
     }
