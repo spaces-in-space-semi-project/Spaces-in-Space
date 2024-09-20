@@ -1,16 +1,20 @@
-package com.space.spacesinspace.user.FAQ.model.dao;
+package com.space.spacesinspace.admin.FAQ.model.dao;
 
 import com.space.spacesinspace.common.dto.FAQDTO;
 import org.apache.ibatis.annotations.*;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Mapper
-public interface FAQDAO {
+public interface FAQAdminDAO {
 
     FAQDTO getFAQByCode(@Param("code") String code);
 
     List<FAQDTO> getAllFAQs();
-}
 
+    void insertFAQ(FAQDTO faq);
+
+    void updateFAQ(FAQDTO faq);
+
+    void deleteFAQ(@Param("code") String code);
+}

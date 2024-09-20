@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User FAQ</title>
+</head>
+<body>
+<h1>FAQ List for Users</h1>
+<ul>
+    <!-- Loop through the FAQs and display them -->
+    <li th:each="faq : ${faqs}">
+        <strong th:text="${faq.faqTitle}">FAQ Title</strong>
+        <p th:text="${faq.faqDetail}">FAQ Detail</p>
+    </li>
+</ul>
+</body>
+</html>

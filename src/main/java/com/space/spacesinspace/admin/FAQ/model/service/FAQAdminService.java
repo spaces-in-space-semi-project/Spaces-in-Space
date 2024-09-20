@@ -1,16 +1,22 @@
-package com.space.spacesinspace.user.FAQ.model.service;
+package com.space.spacesinspace.admin.FAQ.model.service;
 
-import com.space.spacesinspace.user.FAQ.model.dao.FAQDAO;
-import com.space.spacesinspace.user.FAQ.model.dto.FAQDTO;
+import com.space.spacesinspace.admin.FAQ.model.dao.FAQAdminDAO;
+import com.space.spacesinspace.common.dto.FAQDTO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-public class FAQService {
-    private FAQDAO faqDAO;
+@Service
+public class FAQAdminService {
 
-    public FAQService(FAQDAO faqDAO) {
+    @Autowired
+    private FAQAdminDAO faqDAO;
+
+    public FAQAdminService(FAQAdminDAO faqDAO) {
         this.faqDAO = faqDAO;
     }
+
 
     public FAQDTO getFAQByCode(String code) {
         return faqDAO.getFAQByCode(code);
