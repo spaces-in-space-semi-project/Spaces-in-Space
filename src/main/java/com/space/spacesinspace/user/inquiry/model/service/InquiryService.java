@@ -17,11 +17,15 @@ public class InquiryService {
         this.inquiryMapper = inquiryMapper;
     }
 
-    public List<InquiryDTO> findAllInquiry() {
-        return InquiryMapper.findAllInquiry();
-    }
+//    public List<InquiryDTO> findAllInquiry() {
+//        return InquiryMapper.findAllInquiry();
+//    }
 
     public InquiryDTO findInquiryByCode(int code) {
         return inquiryMapper.findInquiryByCode(code);
+    }
+
+    public List<InquiryDTO> findAllInquiryBy(int memberCode) {
+        return inquiryMapper.findAllInquiryBy(memberCode);
     }
 }
