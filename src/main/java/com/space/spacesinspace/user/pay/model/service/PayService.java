@@ -21,6 +21,6 @@ public class PayService {
         return payMapper.findPayList();
     }
 
-    public List<PayDTO> findPayDetail(int payCode) { return payMapper.findPayDetail(); }
+    public PayDTO findPayDetail(int payCode) { return payMapper.findPayDetail(payCode); }
 
 }

@@ -39,7 +39,7 @@ public class PayController {
     @GetMapping("user/pay/paylist/{payCode}")
     public String findPayDetail(@PathVariable int payCode, Model model){
 
-        List<PayDTO> findPayDetail = payService.findPayDetail(payCode);
+        PayDTO findPayDetail = payService.findPayDetail(payCode);
 
         model.addAttribute("findPayDetail",findPayDetail);
 

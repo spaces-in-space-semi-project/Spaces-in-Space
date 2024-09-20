@@ -46,20 +46,22 @@
 
     <select id="findPayDetail" resultMap="payResultMap">
         SELECT
-            pay_date,
-            pay_code,
+            a.pay_date,
+            a.pay_code,
             b.product_code,
             c.member_name,
             c.member.phone,
-            pay_refund_yn,
-            pay_total_price,
-            pay_account_number,
-            pay_card_number,
-            bank_code,
-            card_company_code
+            a.pay_refund_yn,
+            a.pay_total_price,
+            a.pay_account_number,
+            a.pay_card_number,
+            d.bank_name,
+            e.card_company_name,
             pay_receiver
         FROM
-            pay_tbl
+            pay_tbl a
+        JOIN
+            poduct_tbl
         WHERE
             pay_code = #{ code }
         ORDER BY

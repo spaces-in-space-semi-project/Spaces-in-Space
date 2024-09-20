@@ -11,5 +11,5 @@ public interface PayMapper {
 
     List<PayDTO> findPayList();
 
-    List<PayDTO> findPayDetail();
+    PayDTO findPayDetail(int payCode);
 }
