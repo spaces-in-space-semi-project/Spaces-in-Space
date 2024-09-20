@@ -3,8 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
+    <style>
+        /* Style the sidebar */
+        .sidebar-content {
+            width: 250px; /* Adjust the width of the sidebar */
+            height: 100vh; /* Full height */
+            position: fixed; /* Fix the position */
+            top: 0;
+            left: 0;
+            background-color: #6e6e6e; /* Background color (dark for admin feel) */
+            padding-top: 20px;
+            box-shadow: 2px 0px 5px rgba(0,0,0,0.5); /* Adds a subtle shadow for depth */
+            z-index: 1000; /* Ensures the sidebar stays on top */
+        }
+
+        /* Style the list items */
+        .nav-secondary {
+            list-style-type: none; /* Remove bullets */
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-item {
+            padding: 15px 20px;
+            text-align: left;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .nav-item:hover {
+            background-color: #2d3035; /* Highlight on hover */
+        }
+
+        .nav-item:active {
+            background-color: #1abc9c; /* Color when clicked */
+        }
+
+        /* Make sure the rest of the page content starts after the sidebar */
+        .main-content {
+            margin-left: 250px; /* Same as the width of the sidebar */
+            padding: 20px;
+        }
+    </style>
 </head>
 <body>
-
+<nav class="sidebar-content">
+    <ul class="nav nav-secondary">
+        <li class="nav-item">상품 관리</li>
+        <li class="nav-item">회원 관리</li>
+        <li class="nav-item">주문 관리</li>
+        <li class="nav-item">문의 관리</li>
+        <li class="nav-item">FAQ 관리</li>
+    </ul>
+</nav>
 </body>
 </html>

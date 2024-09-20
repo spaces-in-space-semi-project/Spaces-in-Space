@@ -5,19 +5,21 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <title>Title</title>
     <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 90vh; /* 페이지 전체 높이 사용 */
+        }
+
         .content {
             flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
     </style>
 </head>
 <body data-active-section="${activeSection}">
 <div th:replace="fragments/header :: header"></div>
-<h1>123123</h1>
 <div class="content">
-    123123
+<h1>123123</h1>
 </div>
 <div th:replace="fragments/footer :: footer"></div>
 </body>

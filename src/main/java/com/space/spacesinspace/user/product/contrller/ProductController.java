@@ -42,6 +42,6 @@ public class ProductController {
         ProductDTO product = productService.findProductByCode(code);
         model.addAttribute("product", product);
 
-        return "product/productDetail";
+        return "user/product/productDetail";
     }
 }
