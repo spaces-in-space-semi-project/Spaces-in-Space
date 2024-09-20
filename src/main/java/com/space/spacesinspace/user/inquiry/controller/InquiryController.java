@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
-@RequestMapping("/user/*")
+@RequestMapping("/user/inquiry/*")
 public class InquiryController {
 
     private InquiryService inquiryService;
@@ -29,6 +29,8 @@ public class InquiryController {
 
         model.addAttribute("inquiryList", inquiryList);
 
+        model.addAttribute("activeSection", "inquiry");
+
         return "user/inquiry/list";
     }
 
@@ -40,6 +42,6 @@ public class InquiryController {
 
         model.addAttribute("inquiry", inquiry);
 
-        return "inquiry/detail";
+        return "user/inquiry/detail";
     }
 }
