@@ -42,12 +42,12 @@
             pay_code
     </select>
 
-    <select id="findPayDetail" resultMap="payDetailMap">
+    <select id="findPayDetail" resultMap="payResultMap">
         SELECT
             b.pay_date,
             b.pay_code,
             c.product_name,
-            a.pay_detail.cnt,
+            a.pay_detail_cnt,
             a.pay_detail_price,
             b.pay_receiver,
             b.pay_deliver_phone,
@@ -62,9 +62,9 @@
         JOIN
             product_tbl c ON (a.product_code = c.product_code)
         WHERE
-            pay_code = #{ code }
+            b.pay_code = #{ code }
         ORDER BY
-            pay_code
+            b.pay_code
     </select>
 
 </mapper>

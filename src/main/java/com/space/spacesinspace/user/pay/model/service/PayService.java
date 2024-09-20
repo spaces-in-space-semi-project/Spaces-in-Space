@@ -1,6 +1,7 @@
 package com.space.spacesinspace.user.pay.model.service;
 
 import com.space.spacesinspace.common.dto.PayDTO;
+import com.space.spacesinspace.common.dto.PayDetailDTO;
 import com.space.spacesinspace.user.pay.model.dao.PayMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

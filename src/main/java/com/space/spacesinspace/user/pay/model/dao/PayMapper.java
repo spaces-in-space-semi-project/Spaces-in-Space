@@ -1,6 +1,7 @@
 package com.space.spacesinspace.user.pay.model.dao;
 
 import com.space.spacesinspace.common.dto.PayDTO;
+import com.space.spacesinspace.common.dto.PayDetailDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

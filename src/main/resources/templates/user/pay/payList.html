@@ -19,8 +19,8 @@
                 <th>결제취소여부</th>
             </tr>
             <tr th:each="pay : ${payList}">
-<!--                <td><a th:href="@{/user/pay/findPayDetail/{code}(code=${ pay.payCode})}" th:text="${ pay.payCode }"></a></td>-->
-                <td th:text="${pay.payCode}"></td>
+                <td><a th:href="@{/user/pay/findPayDetail/{code}(code=${ pay.payCode})}" th:text="${ pay.payCode }"></a></td>
+<!--                <td th:text="${pay.payCode}"></td>-->
                 <td th:text="${pay.payDate}"></td>
                 <td th:text="${pay.payTotalCnt}"></td>
                 <td th:text="${pay.payTotalPrice}"></td>
