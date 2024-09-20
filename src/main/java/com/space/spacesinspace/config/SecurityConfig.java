@@ -37,7 +37,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> {
-            auth.requestMatchers("/auth/login", "user/member/signup", "/auth/fail", "/fragments/*", "/user/product/productAll","/main", "/").permitAll();
+            auth.requestMatchers("/auth/login", "auth/admin/login","user/member/signup", "/auth/fail", "/fragments/*", "/user/product/productAll", "user/faq/list","/main", "/").permitAll();
             auth.requestMatchers("/admin/*").hasAnyAuthority("ADMIN");
             auth.requestMatchers("/member/*").hasAnyAuthority("USER");
             auth.anyRequest().authenticated();
@@ -47,6 +47,12 @@ public class SecurityConfig {
             login.passwordParameter("memberPw");
             login.defaultSuccessUrl("/", true);
             login.failureHandler(authFailHandler);
+        }).formLogin(login -> {
+            login.loginPage("/auth/admin/login")  // Separate login page for admin
+                    .usernameParameter("memberId")
+                    .passwordParameter("memberPw")
+                    .defaultSuccessUrl("/admin/member/selectAllMembers", true)  // Admin dashboard
+                    .failureHandler(authFailHandler);
         }).logout(logout -> {
             logout.logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout"));
             logout.deleteCookies("JSESSIONID");

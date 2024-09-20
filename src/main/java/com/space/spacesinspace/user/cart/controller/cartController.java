@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class cartController {
 
     @GetMapping("cartList")
-    public String cart(){}
+    public String cart(){return "";}
 
 
 }

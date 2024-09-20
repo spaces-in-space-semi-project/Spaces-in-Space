@@ -13,6 +13,9 @@ public class AuthController {
     @GetMapping("login")
     public void login() {}
 
+    @GetMapping("admin/login")
+    public void adminLogin() {}
+
     @GetMapping("fail")
     public ModelAndView loginFail(ModelAndView mv, @RequestParam String message) {
         mv.addObject("message", message);
