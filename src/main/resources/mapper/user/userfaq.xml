@@ -14,6 +14,6 @@
     </select>
 
     <select id="getFAQByCode" parameterType="String" resultMap="authenticatedFaq">
-        SELECT faq_code, faq_title, faq_detail FROM faq_tbl WHERE faq_code = #{faqCode}
+        SELECT faq_code, faq_title, faq_detail FROM faq_tbl WHERE faq_code = #{ faqCode }
     </select>
 </mapper>
