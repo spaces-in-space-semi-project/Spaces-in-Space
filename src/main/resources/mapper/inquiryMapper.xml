@@ -13,7 +13,7 @@
         <result property="inquiryEditDate" column="inquiry_edit_date"/>
     </resultMap>
 
-    <select id="findAllInquiry" resultMap="InquiryResultMap">
+    <select id="findAllInquiryBy" resultMap="InquiryResultMap">
         SELECT
             inquiry_code,
             member_code,
@@ -24,9 +24,7 @@
         FROM
             inquiry_tbl
         WHERE
-            member_code = #{ code }
-        ORDER BY
-            member_code
+            member_code = #{ memberCode }
     </select>
 
     <select id="findInquiryByCode" parameterType="int" resultMap="InquiryResultMap">

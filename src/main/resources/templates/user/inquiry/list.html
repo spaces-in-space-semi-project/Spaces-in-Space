@@ -22,8 +22,7 @@
                 </tr>
                 <tr th:each="inquiry : ${ inquiryList }">
                     <td th:text="${ inquiry.inquiryCode }"></td>
-                    <td><a th:href="@{/user/inquiry/detail/{code}(code=${ member.code })}"></a></td>
-                    <td th:text="${ inquiry.inquiryCode }"></a></td>
+                    <td><a th:href="@{/user/inquiry/detail/{code}(code=${ inquiry.inquiryCode })}"></a></td>
                     <td th:text="${ inquiry.memberCode }"></td>
                     <td th:text="${ inquiry.inquiryTitle }"></td>
                     <td th:text="${ inquiry.inquiryDetail }"></td>

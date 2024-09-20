@@ -25,7 +25,7 @@ public class InquiryService {
         return inquiryMapper.findInquiryByCode(code);
     }
 
-    public List<InquiryDTO> findAllInquiry(Object memberCode) {
-        return inquiryMapper.findAllInquiry(memberCode);
+    public List<InquiryDTO> findAllInquiryBy(int memberCode) {
+        return inquiryMapper.findAllInquiryBy(memberCode);
     }
 }
