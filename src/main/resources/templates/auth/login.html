@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <title>Login</title>
+
+    <script>
+        const message = `[[${message}]]`;
+        if (message) {
+            alert(message);
+        }
+    </script>
 </head>
 <body>
     <div th:replace="fragments/header :: header"></div>
