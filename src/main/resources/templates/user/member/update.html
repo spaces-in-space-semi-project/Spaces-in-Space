@@ -10,7 +10,6 @@
         <main class="update-form">
             <form th:action="@{/user/member/update}" method="post">
                 ID : <input type="text" name="memberId" th:value="${memberInfo.memberId}" readonly/><br>
-                PASSWORD : <input type="password" name="memberPw" th:value="${memberInfo.memberPw}"/><br>
                 NAME : <input type="text" name="memberName" th:value="${memberInfo.memberName}"/><br>
                 EMAIL : <input type="email" name="memberEmail" th:value="${memberInfo.memberEmail}"/><br>
                 PHONE : <input type="tel" name="memberPhone" th:value="${memberInfo.memberPhone}"/><br>

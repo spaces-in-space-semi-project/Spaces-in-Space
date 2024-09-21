@@ -40,7 +40,7 @@
         )
     </insert>
 
-    <select id="findByMemberId" resultMap="authenticatedMember">
+    <select id="findByMemberId" parameterType="String" resultMap="authenticatedMember">
         SELECT
             member_code,
             member_id,
@@ -54,4 +54,15 @@
         FROM member_tbl
         WHERE member_id = #{memberId}
     </select>
+
+    <update id="updateInfo" parameterType="com.space.spacesinspace.user.member.model.dto.UpdateMemberDTO">
+        UPDATE member_tbl
+        SET
+            member_name = #{memberName},
+            member_email = #{memberEmail},
+            member_phone = #{memberPhone},
+            member_address = #{memberAddress}
+        WHERE
+            member_id = #{memberId}
+    </update>
 </mapper>
