@@ -1,8 +1,10 @@
 package com.space.spacesinspace.user.inquiry.controller;
 
 import com.space.spacesinspace.common.dto.InquiryDTO;
+import com.space.spacesinspace.common.dto.MemberDTO;
 import com.space.spacesinspace.user.inquiry.model.service.InquiryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +18,7 @@ import java.util.List;
 public class InquiryController {
 
     private final InquiryService inquiryService;
+    private Object memberCode;
 
     @Autowired
     public InquiryController(InquiryService inquiryService) {
@@ -23,9 +26,11 @@ public class InquiryController {
     }
 
     @GetMapping("/list")
-    public String findAllInquiry(Model model) {
+    public String findAllInquiry(Model model, @AuthenticationPrincipal MemberDTO member) {
 
-        List<InquiryDTO> inquiryList = inquiryService.findAllInquiry();
+        int memberCode = member.getMemberCode();
+
+        List<InquiryDTO> inquiryList = inquiryService.findAllInquiryBy(memberCode);
 
         model.addAttribute("inquiryList", inquiryList);
         model.addAttribute("memberName", "회원");

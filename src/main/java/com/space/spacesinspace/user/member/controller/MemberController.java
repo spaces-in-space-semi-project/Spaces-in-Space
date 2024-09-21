@@ -52,7 +52,7 @@ public class MemberController {
 
             mv.setViewName("auth/login");
         } else {
-            message = "알 수 없는 오류가 발생했습니다. 다시 시도해보시거나 관리자에게 문의해주세요.";
+            message = "알 수 없는 오류가 발생했습니다. 다시 시도해보시거나 관리자에게 문의해주세요..";
             System.out.println(message);
 
             mv.setViewName("user/member/signup");
