@@ -1,4 +1,4 @@
-package com.space.spacesinspace.common.dto;
+package com.space.spacesinspace.user.cart.model.dto;
 
 public class CartDTO {
 

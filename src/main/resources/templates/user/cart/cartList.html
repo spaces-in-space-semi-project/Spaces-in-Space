@@ -11,7 +11,22 @@
 <div th:replace="fragments/header :: header"></div>
 
 <main>
-    <h1>장바구니 목록 연결</h1>
+    <p>사용자 결제 내역</p>
+    <p th:text="${cart != null ? cart.size() : '0'}">0</p> <!-- 리스트 크기 확인 -->
+    <table>
+        <tr>
+            <th>상품이름</th>
+            <th>회원이름</th>
+            <th>장바구니수량</th>
+            <th>장바구니금액</th>
+        </tr>
+        <tr th:each="cart : ${cart}">
+            <td th:text="${cart.productCode}"></td>
+            <td th:text="${cart.memberCode}"></td>
+            <td th:text="${cart.cartCnt}"></td>
+            <td th:text="${cart.cartPrice}"></td>
+        </tr>
+    </table>
 </main>
 
 <div th:replace="fragments/footer :: footer"></div>
