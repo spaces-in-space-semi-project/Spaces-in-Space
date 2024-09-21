@@ -45,7 +45,9 @@ public class PayController {
         PayDTO findPayDetail = payService.findPayDetail(payCode);
 
         mv.addObject("findPayDetail",findPayDetail);
-        mv.setViewName("user/pay/findPayDetail");
+        mv.addObject("memberName", "회원");
+        mv.addObject("activeSection", "orderDetail");
+        mv.setViewName("user/member/myPage");
 
         return mv;
     }

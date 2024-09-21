@@ -7,25 +7,22 @@
 </head>
 
 <body>
-
-<div th:replace="fragments/header :: header"></div>
-
-<main>
-    <h2>결제 상세 정보</h2>
-    <div>
-        <p>주문 날짜: <span th:text="${findPayDetail.payDate}"></span></p>
-        <p>주문 번호: <span th:text="${findPayDetail.payCode}"></span></p>
-        <p>주문자 이름: <span th:text="${findPayDetail.payReceiver}"></span></p>
-        <p>주문자 연락처: <span th:text="${findPayDetail.payDeliverPhone}"></span></p>
-        <p>주문 결제 상태: <span th:text="${findPayDetail.payRefundYn}"></span></p>
-        <p>주문 결제 금액: <span th:text="${findPayDetail.payTotalPrice}"></span></p>
-        <p>계좌번호: <span th:text="${findPayDetail.payAccountNumber}"></span></p>
-        <p>은행명: <span th:text="${findPayDetail.bankCode}"></span></p>
-        <p>카드번호: <span th:text="${findPayDetail.payCardNumber}"></span></p>
-        <p>카드사명: <span th:text="${findPayDetail.cardCompanyCode}"></span></p>
-    </div>
-</main>
-
-<div th:replace="fragments/footer :: footer"></div>
+<div th:fragment="orderDetail">
+    <main>
+        <h2>결제 상세 정보</h2>
+        <div>
+            <p>주문 날짜: <span th:text="${findPayDetail.payDate}"></span></p>
+            <p>주문 번호: <span th:text="${findPayDetail.payCode}"></span></p>
+            <p>주문자 이름: <span th:text="${findPayDetail.payReceiver}"></span></p>
+            <p>주문자 연락처: <span th:text="${findPayDetail.payDeliverPhone}"></span></p>
+            <p>주문 결제 상태: <span th:text="${findPayDetail.payRefundYn}"></span></p>
+            <p>주문 결제 금액: <span th:text="${findPayDetail.payTotalPrice}"></span></p>
+            <p>계좌번호: <span th:text="${findPayDetail.payAccountNumber}"></span></p>
+            <p>은행명: <span th:text="${findPayDetail.bankCode}"></span></p>
+            <p>카드번호: <span th:text="${findPayDetail.payCardNumber}"></span></p>
+            <p>카드사명: <span th:text="${findPayDetail.cardCompanyCode}"></span></p>
+        </div>
+    </main>
+</div>
 </body>
 </html>
