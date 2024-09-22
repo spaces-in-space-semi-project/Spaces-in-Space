@@ -6,14 +6,11 @@
     <title>Inquiry</title>
 
 </head>
-<body data-active-section="${inquiryList}">
+<body>
 
-    <div th:replace="fragments/header :: header"></div>
-
-    <h1>INQUIRY LIST</h1>
-
-    <main>
-        <div th:fragment="inquiry">
+    <div th:fragment="inquiry">
+        <main>
+            <h1>INQUIRY LIST</h1>
             <table>
                 <tr>
                     <th>문의코드</th>
@@ -24,19 +21,17 @@
                     <th>문의수정일</th>
                 </tr>
                 <tr th:each="inquiry : ${ inquiryList }">
-                    <td th:text="${ inquiry.code }"></td>
-                    <td><a th:href="@{/user/inquiry/detail/{code}(code=${ inquiry.code })}" th:text="${ inquiry.code }"></a></td>
-                    <td th:text="${ member.code }"></td>
-                    <td th:text="${ inquiry.title }"></td>
-                    <td th:text="${ inquiry.detail }"></td>
-                    <td th:text="${ inquiry.date }"></td>
-                    <td th:text="${ inquiry.edit.date }"></td>
+                    <td th:text="${ inquiry.inquiryCode }"></td>
+                    <td><a th:href="@{/user/inquiry/detail/{code}(code=${ inquiry.inquiryCode })}"></a></td>
+                    <td th:text="${ inquiry.memberCode }"></td>
+                    <td th:text="${ inquiry.inquiryTitle }"></td>
+                    <td th:text="${ inquiry.inquiryDetail }"></td>
+                    <td th:text="${ inquiry.inquiryDate }"></td>
+                    <td th:text="${ inquiry.inquiryEditDate }"></td>
                 </tr>
             </table>
-        </div>
-    </main>
-
-    <div th:replace="fragments/footer :: footer"></div>
+        </main>
+    </div>
 
 </body>
 </html>

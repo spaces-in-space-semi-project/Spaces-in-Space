@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <title>Signup</title>
+
+    <script>
+        const message = `[[${message}]]`;
+        if (message) {
+            alert(message);
+        }
+    </script>
 </head>
 <body>
     <div th:replace="fragments/header :: header"></div>
@@ -23,11 +30,11 @@
 
     <div th:replace="fragments/footer :: footer"></div>
 
-    <script th:inline="javascript">
-        const message = [[${ message }]];
-        if (message) {
-            alert(message);
-        }
-    </script>
+<!--    <script th:inline="javascript">-->
+<!--        const message = `[[${message}]]`;-->
+<!--        if (message) {-->
+<!--            alert(message);-->
+<!--        }-->
+<!--    </script>-->
 </body>
 </html>
