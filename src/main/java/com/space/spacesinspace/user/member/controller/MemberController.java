@@ -1,8 +1,11 @@
 package com.space.spacesinspace.user.member.controller;
 
+import com.space.spacesinspace.common.dto.MemberDTO;
 import com.space.spacesinspace.user.member.model.dto.SignupDTO;
+import com.space.spacesinspace.user.member.model.dto.UpdateMemberDTO;
 import com.space.spacesinspace.user.member.model.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -34,24 +37,90 @@ public class MemberController {
 
         if (result == null) {
             message = "이미 해당 정보로 가입된 회원이 존재합니다.";
-            System.out.println(message);
 
-            mv.setViewName("member/signup");
+            mv.addObject("message", message);
+            mv.setViewName("user/member/signup");
         } else if (result == 0) {
             message = "회원가입에 실패했습니다. 다시 시도해주세요.";
-            System.out.println(message);
 
-            mv.setViewName("member/signup");
+            mv.addObject("message", message);
+            mv.setViewName("user/member/signup");
         } else if (result >= 1) {
             message = "회원가입이 성공적으로 완료되었습니다.";
-            System.out.println(message);
 
+            mv.addObject("message", message);
             mv.setViewName("auth/login");
         } else {
-            message = "알 수 없는 오류가 발생했습니다. 다시 시도해보시거나 관리자에게 문의해주세요.";
+            message = "알 수 없는 오류가 발생했습니다. 다시 시도해보시거나 관리자에게 문의해주세요..";
+
+            mv.addObject("message", message);
+            mv.setViewName("user/member/signup");
+        }
+
+        return mv;
+    }
+
+    @GetMapping("update")
+    public ModelAndView update(ModelAndView mv, @AuthenticationPrincipal MemberDTO member) {
+        String memberId = member.getUsername();
+
+        MemberDTO memberInfo = memberService.findByMemberId(memberId);
+
+        mv.addObject("memberName", "회원");
+        mv.addObject("memberInfo", memberInfo);
+        mv.addObject("activeSection", "update");
+        mv.setViewName("user/member/myPage");
+
+        return mv;
+    }
+
+    @PostMapping("update")
+    public ModelAndView updateInfo(ModelAndView mv,
+                                   @AuthenticationPrincipal MemberDTO member,
+                                   @ModelAttribute UpdateMemberDTO memberUpdateInfo) {
+        Integer result = memberService.updateInfo(memberUpdateInfo);
+
+        String memberId = member.getUsername();
+        MemberDTO memberInfo = memberService.findByMemberId(memberId);
+
+        String message = null;
+
+        if (result == null) {
+            message = "정보 수정에 실패했습니다. 다시 시도해주세요.";
             System.out.println(message);
 
-            mv.setViewName("member/signup");
+            mv.addObject("memberName", "회원");
+            mv.addObject("memberInfo", memberInfo);
+            mv.addObject("activeSection", "update");
+            mv.addObject("message", message);
+            mv.setViewName("user/member/myPage");
+        } else if (result == 0) {
+            message = "정보 수정에 실패했습니다. 다시 시도해주세요.";
+            System.out.println(message);
+
+            mv.addObject("memberName", "회원");
+            mv.addObject("memberInfo", memberInfo);
+            mv.addObject("activeSection", "update");
+            mv.addObject("message", message);
+            mv.setViewName("user/member/myPage");
+        } else if (result >= 1) {
+            message = "정보 수정이 성공적으로 완료되었습니다.";
+            System.out.println(message);
+
+            mv.addObject("memberName", "회원");
+            mv.addObject("memberInfo", memberInfo);
+            mv.addObject("activeSection", "update");
+            mv.addObject("message", message);
+            mv.setViewName("user/member/myPage");
+        } else {
+            message = "알 수 없는 오류가 발생했습니다. 다시 시도해보시거나 관리자에게 문의해주세요..";
+            System.out.println(message);
+
+            mv.addObject("memberName", "회원");
+            mv.addObject("memberInfo", memberInfo);
+            mv.addObject("activeSection", "update");
+            mv.addObject("message", message);
+            mv.setViewName("user/member/myPage");
         }
 
         return mv;

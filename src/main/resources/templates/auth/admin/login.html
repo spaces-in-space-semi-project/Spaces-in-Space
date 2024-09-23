@@ -4,16 +4,11 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <title>Login</title>
-
-    <script>
-        const message = `[[${message}]]`;
-        if (message) {
-            alert(message);
-        }
-    </script>
 </head>
 <body>
     <div th:replace="fragments/header :: header"></div>
+
+    <h1>관리자 로그인</h1>
 
     <main>
         <div class="login-form">
@@ -26,10 +21,6 @@
                 <br>
                 <button>로그인</button>
             </form>
-        </div>
-
-        <div class="signup-btn">
-            <button type="button" onclick="location.href='/user/member/signup'">회원가입</button>
         </div>
     </main>
 

@@ -3,6 +3,7 @@ package com.space.spacesinspace.user.member.model.service;
 import com.space.spacesinspace.user.member.model.dao.MemberMapper;
 import com.space.spacesinspace.common.dto.MemberDTO;
 import com.space.spacesinspace.user.member.model.dto.SignupDTO;
+import com.space.spacesinspace.user.member.model.dto.UpdateMemberDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.BadSqlGrammarException;
@@ -49,5 +50,18 @@ public class MemberService {
         } else {
             return null;
         }
+    }
+
+    public Integer updateInfo(UpdateMemberDTO memberInfo) {
+        Integer result = null;
+
+        try {
+            result = memberMapper.updateInfo(memberInfo);
+        } catch (BadSqlGrammarException e) {
+            result = 0;
+            e.printStackTrace();
+        }
+
+        return result;
     }
 }

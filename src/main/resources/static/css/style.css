@@ -24,13 +24,18 @@ h1 {
     width: 100%;
 }
 
-/* Logout button container */
+/* Flex container for logout-container */
 .logout-container {
-    align-self: flex-end; /* Aligns to the right */
-    margin: 10px 20px;    /* Spacing from the edges */
+    display: flex;          /* Aligns children horizontally */
+    align-items: center;    /* Ensures vertical alignment */
+    gap: 10px;              /* Space between MY PAGE and LOGOUT */
 }
 
-/* Style for the logout button */
+.logout-container a {
+    text-decoration: none;  /* Optional: to remove underline on MY PAGE */
+    color: blue;            /* Optional: link color */
+}
+
 .logout-container button {
     background-color: #000000;
     color: white;
@@ -43,13 +48,29 @@ h1 {
     background-color: #333232;
 }
 
-/* Navigation container */
 .nav-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
     padding: 10px 20px;
+}
+
+.main-nav-left,
+.main-nav-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 0;
+    margin: 0;
+}
+
+/* Styling for 마이페이지 nav container */
+.mypage-nav-buttons {
+    display: flex;              /* Aligns buttons horizontally */
+    justify-content: center;    /* Center the buttons horizontally */
+    gap: 15px;                  /* Space between the buttons */
+    padding: 20px;
 }
 
 /* Horizontal list for both left and right aligned menus */
@@ -59,11 +80,6 @@ h1 {
     margin: 0;
     display: flex;
     gap: 15px;
-}
-
-/* Flex containers for left and right nav menus */
-.main-nav-left, .main-nav-right {
-    display: flex;
 }
 
 /* Main content area */
@@ -78,4 +94,65 @@ footer {
     background-color: #333;
     color: white;
     text-align: center;
+}
+
+/* faq css */
+/* 전체 바디 스타일 */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+    margin: 0;
+    padding: 0;
+}
+
+/* FAQ 컨테이너 */
+.userFaq-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* 질문 제목 스타일 */
+.userFaq-question {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+/* 질문 클릭 시 스타일 변경 */
+.userFaq-question:hover {
+    background-color: #f0f0f0;
+}
+
+/* 답변 스타일 */
+.userFaq-answer {
+    display: none; /* 기본적으로 숨김 */
+    font-size: 16px;
+    color: #555;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+/* 답변 보이기 */
+.userFaq-answer.active {
+    display: block;
+}
+
+/* 제목에 대한 간격 조정 */
+.userFaq-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #007BFF;
+    margin-bottom: 20px;
 }

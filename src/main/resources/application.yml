@@ -8,5 +8,12 @@ spring:
     username: space
     password: space
 
+#  thymeleaf:
+#    prefix: classpath:/templates/
+#    suffix: .html
+#    mode: HTML
+#    encoding: UTF-8
+#    cache: false
+
 mybatis:
   mapper-locations: mapper/**/*.xml
