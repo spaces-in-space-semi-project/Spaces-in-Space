@@ -15,13 +15,13 @@ public class PayDetailDTO {
     private String payDeliverStatus;// 배송 상태
     private Long payAccountNumber;   // 계좌번호
     private Long payCardNumber;      // 카드번호
-    private int bankName;           // 은행명
-    private int cardCompanyName;    // 카드사명
+    private String bankName;           // 은행명
+    private String cardCompanyName;    // 카드사명
 
     public PayDetailDTO() {
     }
 
-    public PayDetailDTO(int payDetailCode, int payCode, int productCode, int payDetailCnt, int payDetailPrice, String payDate, String payRefundYn, String productName, String payReceiver, String payDeliverPhone, String payDeliverStatus, Long payAccountNumber, Long payCardNumber, int bankName, int cardCompanyName) {
+    public PayDetailDTO(int payDetailCode, int payCode, int productCode, int payDetailCnt, int payDetailPrice, String payDate, String payRefundYn, String productName, String payReceiver, String payDeliverPhone, String payDeliverStatus, Long payAccountNumber, Long payCardNumber, String bankName, String cardCompanyName) {
         this.payDetailCode = payDetailCode;
         this.payCode = payCode;
         this.productCode = productCode;
@@ -135,19 +135,19 @@ public class PayDetailDTO {
         this.payCardNumber = payCardNumber;
     }
 
-    public int getBankName() {
+    public String getBankName() {
         return bankName;
     }
 
-    public void setBankName(int bankName) {
+    public void setBankName(String bankName) {
         this.bankName = bankName;
     }
 
-    public int getCardCompanyName() {
+    public String getCardCompanyName() {
         return cardCompanyName;
     }
 
-    public void setCardCompanyName(int cardCompanyName) {
+    public void setCardCompanyName(String cardCompanyName) {
         this.cardCompanyName = cardCompanyName;
     }
 
