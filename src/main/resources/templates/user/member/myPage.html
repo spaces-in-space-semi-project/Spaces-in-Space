@@ -43,6 +43,11 @@
                 }
             }
         });
+
+        const message = `[[${message}]]`;
+        if (message) {
+            alert(message);
+        }
     </script>
 </head>
 <body th:attr="data-active-section=${activeSection}">
