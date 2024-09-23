@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h3>신규 리뷰 등록</h3>
+    <form action="/user/review/regist" method="post">
+        <label>리뷰 사진 : </label><input type="text" name="photoOriginal"><br>
+        <label>리뷰 제목 : </label><input type="text" name="title"><br>
+        <label>리뷰 내용 : </label><input type="text" name="detail"><br>
+        <label>리뷰 별점 : </label><input type="number" name="rating"><br>
+        <label>리뷰 생성일 : </label><input type="text" name="date"><br>
+        <input type="submit" value="전송">
+    </form>
+</body>
+</html>

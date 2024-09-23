@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.space.spacesinspace.user.review.model.dao.ReviewMapper">
+
+    <resultMap id="ReviewResultMap" type="com.space.spacesinspace.user.review.model.dto.ReviewDTO">
+        <id property="reviewCode" column="review_code"/>
+        <result property="productCode" column="product_code"/>
+        <result property="memberCode" column="member_code"/>
+        <result property="reviewTitle" column="review_title"/>
+        <result property="reviewDetail" column="review_detail"/>
+        <result property="reviewPhotoOriginal" column="review_photo_original"/>
+        <result property="reviewPhotoThumbnail" column="review_photo_thumbnail"/>
+        <result property="reviewRating" column="review_rating"/>
+        <result property="reviewDate" column="review_date"/>
+        <result property="reviewEditDate" column="review_edit_date"/>
+    </resultMap>
+
+    <select id="findAllReviewBy" resultMap="ReviewResultMap">
+        SELECT
+            review_code,
+            product_code,
+            member_code,
+            review_title,
+            review_detail,
+            review_photo_original,
+            review_photo_thumbnail,
+            review_rating,
+            review_date,
+            review_edit_date
+        FROM
+            review_tbl
+        WHERE
+            member_code = #{ memberCode }
+    </select>
+
+    <select id="findReviewByCode" parameterType="int" resultMap="ReviewResultMap">
+        SELECT
+            review_code,
+            product_code,
+            member_code,
+            review_title,
+            review_detail,
+            review_photo_original,
+            review_photo_thumbnail,
+            review_rating,
+            review_date,
+            review_edit_date
+            )
+        FROM
+            review_tbl
+        WHERE
+            member_code = #{ code }
+    </select>
+
+    <insert id="registNewReview" parameterType="com.space.spacesinspace.user.review.model.dto.ReviewDTO" useGeneratedKeys="true" keyProperty="code">
+        INSERT INTO
+            review_tbl
+            (
+            product_code,
+            member_code,
+            review_title,
+            review_detail,
+            review_photo_original,
+            review_rating,
+            review_date
+            )
+        VALUES
+            (
+            #{code},
+            #{code},
+            #{title},
+            #{detail},
+            #{photoOriginal},
+            #{rating},
+            #{date}
+            )
+    </insert>
+
+    <delete id="deleteReview" parameterType="int">
+        DELETE
+        FROM
+            review_tbl
+        WHERE
+            review_code = #{ code }
+    </delete>
+
+    <update id="updateReview" parameterType="com.space.spacesinspace.user.review.model.dto.ReviewDTO">
+        UPDATE review_tbl
+        SET
+            review_title = #{ title },
+            review_detail = #{ detail },
+            review_photo_original = #{ photoOriginal },
+            review_rating = #{ rating },
+            review_date = #{ date }
+        WHERE
+            inquiry_code = #{ code }
+    </update>
+
+</mapper>

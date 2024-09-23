@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Review Detail</title>
+</head>
+<body>
+    <h1>REVIEW</h1>
+
+    <h2>리뷰 내용</h2>
+
+    <main>
+        <div th:fragment="inquiry">
+            <p>리뷰 코드: <span th:text="${ review.reviewCode }"></span></p>
+            <p>상품 코드: <span th:text="${ review.productCode }"></span></p>
+            <p>회원 코드: <span th:text="${ review.memberCode }"></span></p>
+            <p>리뷰 사진: <span th:text="${ review.reviewPhotoOriginal }"></span></p>
+            <p>리뷰 제목: <span th:text="${ review.reviewTitle}"></span></p>
+            <p>리뷰 내용: <span th:text="${ review.reviewDetail }"></span></p>
+            <p>리뷰 별점: <span th:text="${ review.reviewRating }"></span></p>
+            <p>리뷰 생성일: <span th:text="${ review.reviewDate }"></span></p>
+            <p>리뷰 수정일: <span th:text="${ review.reviewEditDate }"></span></p>
+        </div>
+    </main>
+
+    <button id="editButton">수정</button>
+
+    <form th:action="@{/user/review/detail/{code}(code=${ review.reviewCode })}" method="post">
+        <button type="submit">삭제</button>
+    </form>
+
+    <button onclick="location.href='/user/review/list'">리뷰 목록</button>
+
+    <script>
+        document.getElementById('editButton').addEventListener('click', function () {
+            window.location.href = '/user/list' + [[${inquiry.code}]];
+        });
+    </script>
+</body>
+</html>
