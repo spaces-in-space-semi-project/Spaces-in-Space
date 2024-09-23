@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Review</title>
+</head>
+<body>
+
+    <div th:fragment="review">
+        <h1>REVIEW LIST</h1>
+        <table>
+            <tr>
+                <th>리뷰 썸네일</th>
+                <th>리뷰 코드</th>
+                <th>상품 코드</th>
+                <th>회원 코드</th>
+                <th>리뷰 제목</th>
+                <th>리뷰 내용</th>
+                <th>리뷰 별점</th>
+                <th>리뷰 생성일</th>
+                <th>리뷰 수정일</th>
+            </tr>
+            <tr th:each="review : ${ reviewList }"
+                th:attr="onclick='location.href=\'http://localhost:8080/user/review/detail/' + ${ review.reviewCode } + '\';'"
+                style="width:100%; cursor:pointer;">
+            <td th:text="${ review.reviewPhotoOriginal }"></td>
+            <td th:text="${ review.reviewCode }"></td>
+            <td th:text="${ review.productCode }"></td>
+            <td th:text="${ review.memberCode }"></td>
+            <td th:text="${ review.reviewTitle }"></td>
+            <td th:text="${ review.reviewDetail }"></td>
+            <td th:text="${ review.reviewRating }"></td>
+            <td th:text="${ review.reviewDate }"></td>
+            <td>
+                <script>
+                    document.write(document.lastModified+"")
+                </script>
+            </td>
+        </table>
+    </div>
+
+</body>
+</html>

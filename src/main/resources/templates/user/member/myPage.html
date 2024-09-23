@@ -57,9 +57,9 @@
 
     <nav class="mypage-nav-buttons">
         <a th:href="@{/user/member/update}" class="nav-btn" data-target="update">UPDATE DATA</a>
-        <a th:href="@{/}" class="nav-btn" data-target="cart">MY CART</a>
-        <a th:href="@{/}" class="nav-btn" data-target="order">MY ORDER</a>
-        <a th:href="@{/}" class="nav-btn" data-target="review">MY REVIEW</a>
+        <a th:href="@{/user/cart/cartList}" class="nav-btn" data-target="cart">MY CART</a>
+        <a th:href="@{/user/pay/payList}" class="nav-btn" data-target="order">MY ORDER</a>
+        <a th:href="@{/user/review/list}" class="nav-btn" data-target="review">MY REVIEW</a>
         <a th:href="@{/user/inquiry/list}" class="nav-btn" data-target="inquiry">INQUIRY</a>
         <a th:href="@{/}" class="nav-btn" data-target="delete">DELETE ACCOUNT</a>
     </nav>
@@ -68,9 +68,10 @@
         <div th:switch="${activeSection}">
             <div th:case="'update'" th:include="user/member/update :: update"></div>
             <div th:case="'inquiry'" th:include="user/inquiry/list :: inquiry"></div>
-            <!--            <div th:case="'cart'" th:include="user/ :: cart"></div>-->
-            <!--            <div th:case="'order'" th:include="user/ :: order"></div>-->
-            <!--            <div th:case="'review'" th:include="user/ :: order"></div>-->
+            <div th:case="'order'" th:include="user/pay/payList :: order"></div>
+            <div th:case="'cart'" th:include="user/cart/cartList :: cart"></div>
+            <div th:case="'orderDetail'" th:include="user/pay/findPayDetail :: orderDetail"></div>
+            <div th:case="'review'" th:include="user/review/list :: review"></div>
             <!--            <div th:case="'delete'" th:include="user/member/delete :: order"></div>-->
 
         </div>

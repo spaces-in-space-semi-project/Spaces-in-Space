@@ -11,4 +11,10 @@ public interface InquiryMapper {
     List<InquiryDTO> findAllInquiryBy(int memberCode);
 
     InquiryDTO findInquiryByCode(int code);
+
+    void deleteInquiry(int code);
+
+    void updateInquiry(InquiryDTO inquiry);
+
+    void registNewInquiry(InquiryDTO newInquiry);
 }
