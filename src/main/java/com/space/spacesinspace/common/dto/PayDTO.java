@@ -13,7 +13,7 @@ public class PayDTO {
     private String payReceiver;         // 받는분 성함
     private String payDeliverPhone;     // 받는분 연락처
     private String payDeliverStatus;    // 배송 상태
-    private String payRefundYn;         // 결제취소여부
+    private String payRefundYn;         // 결제결제상태
     private Long payAccountNumber;       // 계좌번호
     private Long payCardNumber;          // 카드번호
     private int bankCode;               // 은행코드
