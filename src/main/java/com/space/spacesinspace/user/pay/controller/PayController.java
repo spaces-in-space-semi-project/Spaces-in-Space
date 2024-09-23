@@ -32,8 +32,9 @@ public class PayController {
         List<PayDTO> payList = payService.findPayList();
 
         mv.addObject("payList", payList);
+        mv.addObject("memberName", "회원");
         mv.addObject("activeSection", "order");
-        mv.setViewName("user/pay/payList");
+        mv.setViewName("user/member/myPage");
 
         return mv;
     }
@@ -41,10 +42,12 @@ public class PayController {
     @GetMapping("/findPayDetail/{payCode}")
     public ModelAndView findPayDetail(@PathVariable("payCode") int payCode, ModelAndView mv){
 
-        PayDTO findPayDetail = payService.findPayDetail(payCode);
+        PayDetailDTO findPayDetail = payService.findPayDetail(payCode);
 
         mv.addObject("findPayDetail",findPayDetail);
-        mv.setViewName("user/pay/findPayDetail");
+        mv.addObject("memberName", "회원");
+        mv.addObject("activeSection", "orderDetail");
+        mv.setViewName("user/member/myPage");
 
         return mv;
     }
