@@ -42,7 +42,7 @@ public class PayController {
     @GetMapping("/findPayDetail/{payCode}")
     public ModelAndView findPayDetail(@PathVariable("payCode") int payCode, ModelAndView mv){
 
-        PayDTO findPayDetail = payService.findPayDetail(payCode);
+        PayDetailDTO findPayDetail = payService.findPayDetail(payCode);
 
         mv.addObject("findPayDetail",findPayDetail);
         mv.addObject("memberName", "회원");
