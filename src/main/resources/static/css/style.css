@@ -95,3 +95,64 @@ footer {
     color: white;
     text-align: center;
 }
+
+/* faq css */
+/* 전체 바디 스타일 */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+    margin: 0;
+    padding: 0;
+}
+
+/* FAQ 컨테이너 */
+.userFaq-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* 질문 제목 스타일 */
+.userFaq-question {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+/* 질문 클릭 시 스타일 변경 */
+.userFaq-question:hover {
+    background-color: #f0f0f0;
+}
+
+/* 답변 스타일 */
+.userFaq-answer {
+    display: none; /* 기본적으로 숨김 */
+    font-size: 16px;
+    color: #555;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+/* 답변 보이기 */
+.userFaq-answer.active {
+    display: block;
+}
+
+/* 제목에 대한 간격 조정 */
+.userFaq-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #007BFF;
+    margin-bottom: 20px;
+}
