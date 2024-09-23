@@ -88,7 +88,7 @@
     <a th:href="@{/admin/product/productEdit/{code}(code=${product.productCode})}">
     <button id="update-button">상품수정</button>
     </a>
-
+    <form th:action="@{/menu/delete/{code}(code=${menu.code})}" method="post">
     <button type="submit">삭제하기</button>
 </div>
 <div class="main-content">
