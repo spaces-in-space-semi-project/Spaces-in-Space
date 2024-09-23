@@ -21,6 +21,7 @@ public class InquiryDTO {
         this.inquiryEditDate = inquiryEditDate;
     }
 
+
     public int getInquiryCode() {
         return inquiryCode;
     }
@@ -80,4 +81,5 @@ public class InquiryDTO {
                 ", inquiryEditDate='" + inquiryEditDate + '\'' +
                 '}';
     }
+
 }
