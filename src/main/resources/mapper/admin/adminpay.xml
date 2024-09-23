@@ -39,21 +39,19 @@
         <result property="cardCompanyName" column="card_company_name"/>
     </resultMap>
 
-    <select id="findPayList" resultMap="payResultMap">
+    <select id="showPayList" resultMap="payResultMap">
         SELECT
-            a.pay_code,
-            a.pay_date,
-            a.pay_total_cnt,
-            a.pay_total_price,
-            a.pay_refund_yn
+        a.pay_code,
+        a.pay_date,
+        a.pay_total_cnt,
+        a.pay_total_price,
+        a.pay_refund_yn
         FROM
-            pay_tbl a
+        pay_tbl a
         JOIN
-            member_tbl b ON (a.member_code = b.member_code)
-        WHERE
-            b.member_id = #{loggedInUsername}
+        member_tbl b ON (a.member_code = b.member_code)
         ORDER BY
-            pay_code
+        pay_code
     </select>
 
     <select id="findPayDetail" resultMap="payDetailMap">
