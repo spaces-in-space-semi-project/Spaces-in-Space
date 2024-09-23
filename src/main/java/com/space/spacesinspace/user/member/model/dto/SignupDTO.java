@@ -1,5 +1,7 @@
 package com.space.spacesinspace.user.member.model.dto;
 
+import org.springframework.stereotype.Component;
+
 public class SignupDTO {
 
     private String memberId;

@@ -16,6 +16,12 @@
         <result property="memberDeleteYn" column="member_delete_yn"/>
     </resultMap>
 
+    <select id="checkDuplicateId" resultType="Integer">
+        SELECT count(*)
+        FROM member_tbl
+        WHERE member_id = #{memberId}
+    </select>
+
     <insert id="regist" parameterType="com.space.spacesinspace.user.member.model.dto.SignupDTO">
         INSERT INTO member_tbl
         (

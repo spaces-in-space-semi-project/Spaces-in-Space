@@ -6,6 +6,7 @@ import com.space.spacesinspace.user.member.model.dto.SignupDTO;
 import com.space.spacesinspace.user.member.model.dto.UpdateMemberDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -63,5 +64,9 @@ public class MemberService {
         }
 
         return result;
+    }
+
+    public boolean checkDuplicateId(String memberId) {
+        return memberMapper.checkDuplicateId(memberId) > 0;
     }
 }

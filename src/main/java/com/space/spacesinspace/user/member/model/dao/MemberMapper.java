@@ -16,4 +16,6 @@ public interface MemberMapper {
 
     @Transactional
     Integer updateInfo(UpdateMemberDTO memberInfo);
+
+    int checkDuplicateId(String memberId);
 }
