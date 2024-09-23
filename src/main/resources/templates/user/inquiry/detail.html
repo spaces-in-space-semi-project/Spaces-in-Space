@@ -3,11 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{/css/style.css}">
-    <title>Detail</title>
+    <title>detail</title>
 </head>
 <body>
-
-    <div th:replace="fragments/header :: header"></div>
 
     <h1>INQUIRY</h1>
 
@@ -15,15 +13,28 @@
 
     <main>
         <div th:fragment="inquiry">
-            <p>문의코드: <span th:text="${ inquiry.code }"></span></p>
-            <p>회원코드: <span th:text="${ member.code }"></span></p>
-            <p>문의제목: <span th:text="${ inquiry.title }"></span></p>
-            <p>문의내용: <span th:text="${ inquiry.detail }"></span></p>
-            <p>문의생성일: <span th:text="${ inquiry.date }"></span></p>
-            <p>문의수정일: <span th:text="${ inquiry.edit.date }"></span></p>
+            <p>문의코드: <span th:text="${ inquiry.inquiryCode }"></span></p>
+            <p>회원코드: <span th:text="${ inquiry.memberCode }"></span></p>
+            <p>문의제목: <span th:text="${ inquiry.inquiryTitle }"></span></p>
+            <p>문의내용: <span th:text="${ inquiry.inquiryDetail }"></span></p>
+            <p>문의생성일: <span th:text="${ inquiry.inquiryDate }"></span></p>
+            <p>문의수정일: <span th:text="${ inquiry.inquiryEditDate }"></span></p>
         </div>
     </main>
 
-    <div th:replace="fragments/footer :: footer"></div>
+    <button id="editButton">수정</button>
+
+    <form th:action="@{/user/inquiry/detail/{code}(code=${ inquiry.inquiryCode })}" method="post">
+        <button type="submit">삭제</button>
+    </form>
+
+    <button onclick="location.href='/user/list'">문의글 목록</button>
+
+    <script>
+        document.getElementById('editButton').addEventListener('click', function () {
+           window.location.href = '/user/list' + [[${inquiry.code}]];
+        });
+    </script>
+
 </body>
 </html>
