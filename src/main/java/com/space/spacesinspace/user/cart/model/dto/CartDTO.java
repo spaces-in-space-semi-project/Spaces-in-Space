@@ -74,6 +74,8 @@ public class CartDTO {
         return "CartDTO{" +
                 "productCode=" + productCode +
                 ", memberCode=" + memberCode +
+                ", productName='" + productName + '\'' +
+                ", memberName='" + memberName + '\'' +
                 ", cartCnt=" + cartCnt +
                 ", cartPrice=" + cartPrice +
                 '}';
