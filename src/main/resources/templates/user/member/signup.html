@@ -36,7 +36,7 @@
     </script>
 </head>
 <body>
-    <div th:replace="fragments/header :: header"></div>
+<div th:replace="fragments/header :: header"></div>
 
 <!--    <main class="signup-form">-->
 <!--        <form id="signupForm" th:action="@{/user/member/signup}" method="post">-->
@@ -51,168 +51,162 @@
 <!--        </form>-->
 <!--    </main>-->
 
-    <main class="signup-form">
-        <form id="signupForm" th:action="@{/user/member/signup}" method="post">
-            <div class="form-group">
-<!--                <label for="memberId">ID:</label>-->
-                <input type="text" name="memberId" id="memberId" placeholder="ID" />
-                <label id="label1"></label>
-                <div class="error-messages" id="errorMemberId"></div>
-            </div>
-            <div class="form-group">
-<!--                <label for="memberPw">PASSWORD:</label>-->
-                <input type="password" name="memberPw" id="memberPw" placeholder="비밀번호"/>
-                <div class="error-messages" id="errorMemberPw"></div>
-            </div>
-            <div class="form-group">
-<!--                <label for="memberName">NAME:</label>-->
-                <input type="text" name="memberName" id="memberName" placeholder="이름"/>
-                <div class="error-messages" id="errorMemberName"></div>
-            </div>
-            <div class="form-group">
-<!--                <label for="memberEmail">EMAIL:</label>-->
-                <input type="email" name="memberEmail" id="memberEmail" placeholder="email"/>
-                <div class="error-messages" id="errorMemberEmail"></div>
-            </div>
-            <div class="form-group">
-<!--                <label for="memberPhone">PHONE:</label>-->
-                <input type="tel" name="memberPhone" id="memberPhone" placeholder="전화번호"/>
-                <div class="error-messages" id="errorMemberPhone"></div>
-            </div>
-            <div class="form-group">
-<!--                <label for="memberAddress">ADDRESS:</label>-->
-                <input type="text" name="memberAddress" id="memberAddress" placeholder="배송지"/>
-                <div class="error-messages" id="errorMemberAddress"></div>
-            </div>
-            <br>
-            <button>SIGN UP</button>
-        </form>
-    </main>
+<main class="signup-form">
+    <form id="signupForm" th:action="@{/user/member/signup}" method="post">
+        <div class="form-group">
+            <!--                <label for="memberId">ID:</label>-->
+            <input type="text" name="memberId" id="memberId" placeholder="ID" />
+            <button type="button" id="checkIdButton">아이디 중복 체크</button>
+            <label id="label1"></label>
+            <div class="error-messages" id="errorMemberId"></div>
+        </div>
+        <div class="form-group">
+            <!--                <label for="memberPw">PASSWORD:</label>-->
+            <input type="password" name="memberPw" id="memberPw" placeholder="비밀번호"/>
+            <div class="error-messages" id="errorMemberPw"></div>
+        </div>
+        <div class="form-group">
+            <!--                <label for="memberName">NAME:</label>-->
+            <input type="text" name="memberName" id="memberName" placeholder="이름"/>
+            <div class="error-messages" id="errorMemberName"></div>
+        </div>
+        <div class="form-group">
+            <!--                <label for="memberEmail">EMAIL:</label>-->
+            <input type="email" name="memberEmail" id="memberEmail" placeholder="email"/>
+            <div class="error-messages" id="errorMemberEmail"></div>
+        </div>
+        <div class="form-group">
+            <!--                <label for="memberPhone">PHONE:</label>-->
+            <input type="tel" name="memberPhone" id="memberPhone" placeholder="전화번호"/>
+            <div class="error-messages" id="errorMemberPhone"></div>
+        </div>
+        <div class="form-group">
+            <!--                <label for="memberAddress">ADDRESS:</label>-->
+            <input type="text" name="memberAddress" id="memberAddress" placeholder="배송지"/>
+            <div class="error-messages" id="errorMemberAddress"></div>
+        </div>
+        <br>
+        <button id="signupSubmitButton" disabled>SIGN UP</button>
+    </form>
 
-    <div th:replace="fragments/footer :: footer"></div>
+</main>
 
-    <script th:inline="javascript">
-        document.addEventListener('DOMContentLoaded', function() {
-            // document.getElementById("memberId").addEventListener("focusout", function() {
-            //
-            //     var memberId = document.getElementById("memberId").value;
-            //
-            //     if (memberId === '' || memberId.length === 0) {
-            //         var label = document.getElementById("label1");
-            //         label.style.color = "red";
-            //         label.textContent = "공백은 ID로 사용할 수 없습니다.";
-            //         return false;
-            //     }
-            //
-            //     // AJAX 전송
-            //     var xhr = new XMLHttpRequest();
-            //     xhr.open("POST", "user/member/checkDuplicateId", true);
-            //     xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-            //
-            //     xhr.onreadystatechange = function () {
-            //         if (xhr.readyState === 4 && xhr.status === 200) {
-            //             var result = JSON.parse(xhr.responseText);
-            //             var label = document.getElementById("label1");
-            //             if (result === true) {
-            //                 label.style.color = "black";
-            //                 label.textContent = "사용 가능한 ID 입니다.";
-            //             } else {
-            //                 label.style.color = "red";
-            //                 label.textContent = "사용 불가능한 ID 입니다.";
-            //                 document.getElementById("memberId").value = '';
-            //             }
-            //         }
-            //     };
-            //
-            //     xhr.send(JSON.stringify({ memberId: memberId }));
-            // });
+<div th:replace="fragments/footer :: footer"></div>
 
-            document.getElementById('signupForm').addEventListener('submit', async function(event) {
-                let valid = true;
+<script th:inline="javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+        const memberIdInput = document.getElementById('memberId');
+        const checkIdButton = document.getElementById('checkIdButton');
+        const errorElement = document.getElementById('errorMemberId');
+        const submitButton = document.querySelector('button[type="submit"]');
 
-                // Clear previous error messages
-                const errorElements = document.querySelectorAll('.error-messages');
-                errorElements.forEach(el => {
-                    el.innerText = '';
-                    el.classList.remove('visible'); // Hide the message
-                });
+        checkIdButton.addEventListener('click', async function() {
+            const memberId = memberIdInput.value.trim();
 
-                // Validate ID
-                const memberId = this.memberId.value.trim();
-                if (!memberId) {
-                    valid = false;
-                    const errorMessage = document.getElementById('errorMemberId');
-                    errorMessage.innerText = 'ID is required.';
-                    errorMessage.classList.add('visible'); // Show the message
-                } else {
-                    // Check for duplicate ID asynchronously
-                    const response = await fetch(`/user/member/checkDuplicateId?memberId=${memberId}`);
-                    const isExists = await response.json();
+            if (!memberId) {
+                errorElement.innerText = 'ID is required.';
+                errorElement.classList.add('visible');
+                submitButton.disabled = true; // Disable submit button if ID is required
+                return;
+            }
 
-                    if (isExists) {
-                        valid = false;
-                        const errorMessage = document.getElementById('errorMemberId');
-                        errorMessage.innerText = 'ID already exists.';
-                        errorMessage.classList.add('visible'); // Show the message
+            try {
+                const response = await fetch(`/user/member/checkDuplicateId?memberId=${memberId}`);
+
+                // Log the response for debugging
+                console.log('Response Status:', response.status);
+                const responseText = await response.text(); // Read the response as text first
+
+                // Check if the response is valid JSON
+                let data;
+                try {
+                    data = JSON.parse(responseText);
+                } catch (jsonError) {
+                    throw new Error('Invalid JSON response');
+                }
+
+                // Log the parsed data for debugging
+                console.log('Response Data:', data);
+
+                // Check if data exists
+                if (data && typeof data.exists !== 'undefined') {
+                    if (data.exists) {
+                        errorElement.innerText = 'ID already exists.';
+                        errorElement.classList.add('visible');
+                        submitButton.disabled = true;
+                    } else {
+                        errorElement.innerText = 'ID is available.';
+                        errorElement.classList.add('visible');
+                        errorElement.style.color = 'green';
+                        submitButton.disabled = false;
                     }
+                } else {
+                    throw new Error('Invalid response format');
                 }
+            } catch (error) {
+                errorElement.innerText = 'Error checking ID duplication: ' + error.message;
+                errorElement.classList.add('visible');
+                submitButton.disabled = true;
+                console.error('Error during ID check:', error);
+            }
 
-                // Validate PASSWORD
-                const memberPw = this.memberPw.value.trim();
-                if (!memberPw) {
-                    valid = false;
-                    const errorMessage = document.getElementById('errorMemberPw');
-                    errorMessage.innerText = 'Password is required.';
-                    errorMessage.classList.add('visible');
-                }
+            // Validate PASSWORD
+            const memberPw = this.memberPw.value.trim();
+            if (!memberPw) {
+                valid = false;
+                const errorMessage = document.getElementById('errorMemberPw');
+                errorMessage.innerText = '비밀번호는 필수입니다.';
+                errorMessage.classList.add('visible');
+            }
 
-                // Validate NAME
-                const memberName = this.memberName.value.trim();
-                if (memberName.length < 3) {
-                    valid = false;
-                    const errorMessage = document.getElementById('errorMemberName');
-                    errorMessage.innerText = 'Name must be at least 3 characters long.';
-                    errorMessage.classList.add('visible');
-                }
+            // Validate NAME
+            const memberName = this.memberName.value.trim();
+            if (memberName.length < 3) {
+                valid = false;
+                const errorMessage = document.getElementById('errorMemberName');
+                errorMessage.innerText = '이름은 최소 3글자 이상이어야 합니다.';
+                errorMessage.classList.add('visible');
+            }
 
-                // Validate EMAIL
-                const memberEmail = this.memberEmail.value.trim();
-                if (!memberEmail) {
-                    valid = false;
-                    const errorMessage = document.getElementById('errorMemberEmail');
-                    errorMessage.innerText = 'Email is required.';
-                    errorMessage.classList.add('visible');
-                } else if (!/\S+@\S+\.\S+/.test(memberEmail)) {
-                    valid = false;
-                    const errorMessage = document.getElementById('errorMemberEmail');
-                    errorMessage.innerText = 'Email format is invalid.';
-                    errorMessage.classList.add('visible');
-                }
+            // Validate EMAIL
+            const memberEmail = this.memberEmail.value.trim();
+            if (!memberEmail) {
+                valid = false;
+                const errorMessage = document.getElementById('errorMemberEmail');
+                errorMessage.innerText = '이메일은 필수 입력사항입니다.';
+                errorMessage.classList.add('visible');
+            } else if (!/\S+@\S+\.\S+/.test(memberEmail)) {
+                valid = false;
+                const errorMessage = document.getElementById('errorMemberEmail');
+                errorMessage.innerText = '유효하지 않은 이메일입니다.';
+                errorMessage.classList.add('visible');
+            }
 
-                // Validate PHONE
-                const memberPhone = this.memberPhone.value.trim();
-                if (!memberPhone) {
-                    valid = false;
-                    const errorMessage = document.getElementById('errorMemberPhone');
-                    errorMessage.innerText = 'Phone number is required.';
-                    errorMessage.classList.add('visible');
-                }
+            // Validate PHONE
+            const memberPhone = this.memberPhone.value.trim();
+            if (!memberPhone) {
+                valid = false;
+                const errorMessage = document.getElementById('errorMemberPhone');
+                errorMessage.innerText = '연락처는 필수 입력사항입니다.';
+                errorMessage.classList.add('visible');
+            }
 
-                // Validate ADDRESS
-                const memberAddress = this.memberAddress.value.trim();
-                if (!memberAddress) {
-                    valid = false;
-                    const errorMessage = document.getElementById('errorMemberAddress');
-                    errorMessage.innerText = 'Address is required.';
-                    errorMessage.classList.add('visible');
-                }
+            // Validate ADDRESS
+            const memberAddress = this.memberAddress.value.trim();
+            if (!memberAddress) {
+                valid = false;
+                const errorMessage = document.getElementById('errorMemberAddress');
+                errorMessage.innerText = '배송지는 필수 입력사항입니다.';
+                errorMessage.classList.add('visible');
+            }
 
-                // Prevent form submission if invalid
-                if (!valid) {
-                    event.preventDefault();
-                }
-            });
+            // If all validation passes, submit the form
+            if (valid) {
+                this.submit(); // Manually submit the form if valid
+            }
         });
-    </script>
+    });
+
+</script>
 </body>
 </html>

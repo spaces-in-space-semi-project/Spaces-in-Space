@@ -12,6 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Controller
 @RequestMapping("/user/member/*")
 public class MemberController {
@@ -32,8 +35,11 @@ public class MemberController {
 
     @PostMapping("/checkDuplicateId")
     @ResponseBody
-    public boolean checkDuplicateId(@RequestParam String memberId) {
-       return memberService.checkDuplicateId(memberId);
+    public ResponseEntity<Map<String, Boolean>> checkDuplicateId(@RequestParam String memberId) {
+        boolean exists = memberService.checkDuplicateId(memberId); // Implement this service method
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("exists", exists);
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("signup")
