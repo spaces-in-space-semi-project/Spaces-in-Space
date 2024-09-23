@@ -23,9 +23,6 @@ public class PayController {
         this.payService = payservice;
     }
 
-//    @GetMapping("payList")
-//    public String payList() {return "user/pay/payList";}
-
     @GetMapping("payList")
     public ModelAndView findPayList(ModelAndView mv){
 

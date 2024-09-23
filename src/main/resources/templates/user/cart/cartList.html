@@ -10,12 +10,12 @@
 
 <div th:fragment="cart">
 <main>
-    <h1>사용자 결제 내역</h1>
+    <h1>장바구니 목록</h1>
     <table>
         <tr>
             <th>상품이름</th>
-            <th>장바구니수량</th>
-            <th>장바구니금액</th>
+            <th>수량</th>
+            <th>금액</th>
         </tr>
         <tr th:each="c : ${cart}">
             <td th:text="${c.productName}"></td>

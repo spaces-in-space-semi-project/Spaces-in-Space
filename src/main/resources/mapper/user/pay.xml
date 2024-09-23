@@ -83,4 +83,18 @@
         a.pay_code = #{ payCode }
     </select>
 
+    <select id="showPayList" resultMap="payResultMap">
+        SELECT
+        a.pay_code,
+        a.pay_date,
+        a.pay_total_cnt,
+        a.pay_total_price,
+        a.pay_refund_yn
+        FROM
+        pay_tbl a
+        JOIN
+        member_tbl b ON (a.member_code = b.member_code)
+        ORDER BY
+        pay_code
+    </select>
 </mapper>
