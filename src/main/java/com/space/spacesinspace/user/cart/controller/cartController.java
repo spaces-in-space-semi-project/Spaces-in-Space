@@ -27,7 +27,9 @@ public class cartController {
         List<CartDTO> cart = cartService.showCartView();
 
         mv.addObject("cart",cart);
-        mv.setViewName("user/cart/cartList");
+        mv.addObject("memberName", "회원");
+        mv.addObject("activeSection", "cart");
+        mv.setViewName("user/member/myPage");
 
         return mv;
     }
