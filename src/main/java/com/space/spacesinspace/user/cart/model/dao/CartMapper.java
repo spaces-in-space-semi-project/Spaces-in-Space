@@ -7,5 +7,5 @@ import java.util.List;
 
 @Mapper
 public interface CartMapper {
-    List<CartDTO> showCartView();
+    List<CartDTO> showCartView(String loggedInUsername);
 }

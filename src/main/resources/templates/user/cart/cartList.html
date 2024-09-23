@@ -16,15 +16,13 @@
     <table>
         <tr>
             <th>상품이름</th>
-            <th>회원이름</th>
             <th>장바구니수량</th>
             <th>장바구니금액</th>
         </tr>
-        <tr th:each="cart : ${cart}">
-            <td th:text="${cart.productCode}"></td>
-            <td th:text="${cart.memberCode}"></td>
-            <td th:text="${cart.cartCnt}"></td>
-            <td th:text="${cart.cartPrice}"></td>
+        <tr th:each="c : ${cart}">
+            <td th:text="${c.productName}"></td>
+            <td th:text="${c.cartCnt}"></td>
+            <td th:text="${c.cartPrice}"></td>
         </tr>
     </table>
 </main>

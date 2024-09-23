@@ -7,6 +7,8 @@
     <resultMap id="cartResultMap" type="com.space.spacesinspace.user.cart.model.dto.CartDTO">
         <id property="productCode" column="product_code"/>
         <result property="memberCode" column="member_code"/>
+        <result property="productName" column="product_name"/>
+        <result property="memberName" column="member_name"/>
         <result property="cartCnt" column="cart_cnt"/>
         <result property="cartPrice" column="cart_price"/>
     </resultMap>
@@ -14,7 +16,7 @@
     <select id="showCartView" resultMap="cartResultMap">
         SELECT
             c.product_name,
-            b.member_name,
+            b.member_id,
             a.cart_cnt,
             a.cart_price
         FROM
@@ -22,7 +24,9 @@
         JOIN
             member_tbl b ON (a.member_code = b.member_code)
         JOIN
-            product_tbl C ON (a.product_code = c.product_code)
+            product_tbl c ON (a.product_code = c.product_code)
+        WHERE
+            b.member_id = #{loggedInUsername}
     </select>
     
 </mapper>
