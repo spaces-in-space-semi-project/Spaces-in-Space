@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.space.spacesinspace.admin.FAQ.model.dao.FAQAdminDAO">
+    <resultMap id="authenticatedFaq" type="com.space.spacesinspace.common.dto.FAQDTO">
+        <id property="faqCode" column="faq_code"/>
+        <result property="faqTitle" column="faq_title"/>
+        <result property="faqDetail" column="faq_detail"/>
+    </resultMap>
+
+    <insert id="insertFAQ" parameterType="com.space.spacesinspace.common.dto.FAQDTO">
+        INSERT INTO faq_tbl (faq_code, faq_title, faq_detail)
+        VALUES (#{faqCode}, #{faqTitle}, #{faqDetail})
+    </insert>
+
+    <update id="updateFAQ" parameterType="com.space.spacesinspace.common.dto.FAQDTO">
+        UPDATE faq_tbl SET faq_title = #{faqTitle}, faq_detail = #{faqDetail}
+        WHERE faq_code = #{faqCode}
+    </update>
+
+    <delete id="deleteFAQ" parameterType="String">
+        DELETE FROM faq_tbl WHERE faq_code = #{faqCode}
+    </delete>
+
+    <select id="getAllFAQs" resultMap="authenticatedFaq">
+        SELECT faq_code, faq_title, faq_detail FROM faq_tbl
+    </select>
+
+    <select id="getFAQByCode" parameterType="String" resultMap="authenticatedFaq">
+        SELECT faq_code, faq_title, faq_detail FROM faq_tbl WHERE faq_code = #{faqCode}
+    </select>
+</mapper>

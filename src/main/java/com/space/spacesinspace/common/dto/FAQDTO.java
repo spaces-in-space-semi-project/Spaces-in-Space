@@ -1,20 +1,15 @@
 package com.space.spacesinspace.common.dto;
 
-import org.springframework.security.core.GrantedAuthority;
-
-import java.util.ArrayList;
-import java.util.Collection;
-
-public class FaqDTO {
+public class FAQDTO {
 
     private int faqCode;
     private String faqTitle;
     private String faqDetail;
 
-    public FaqDTO() {
+    public FAQDTO() {
     }
 
-    public FaqDTO(int faqCode, String faqTitle, String faqDetail) {
+    public FAQDTO(int faqCode, String faqTitle, String faqDetail) {
         this.faqCode = faqCode;
         this.faqTitle = faqTitle;
         this.faqDetail = faqDetail;
