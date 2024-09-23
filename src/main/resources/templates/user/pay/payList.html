@@ -13,16 +13,17 @@
             <tr>
                 <th>결제번호</th>
                 <th>주문날짜</th>
+                <th>배송상태</th>
                 <th>주문수량</th>
                 <th>주문금액</th>
-                <th>결제취소여부</th>
             </tr>
             <tr th:each="pay : ${payList}">
                 <td><a th:href="@{/user/pay/findPayDetail/{code}(code=${ pay.payCode})}" th:text="${ pay.payCode }"></a></td>
                 <td th:text="${pay.payDate}"></td>
+                <td th:text="${pay.payDeliverStatus}"></td>
                 <td th:text="${pay.payTotalCnt}"></td>
                 <td th:text="${pay.payTotalPrice}"></td>
-                <td th:text="${pay.payRefundYn}"></td>
+                <td><button type="submit" onclick="location.href='../review/regist'">REVIEW</button></td>
             </tr>
             </table>
         </main>

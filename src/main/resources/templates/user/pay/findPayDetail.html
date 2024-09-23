@@ -17,12 +17,27 @@
             <p>주문 결제 상태: <span th:text="${findPayDetail.payRefundYn}"></span></p>
             <p>주문 결제 수량: <span th:text="${findPayDetail.payDetailCnt}"></span></p>
             <p>주문 결제 금액: <span th:text="${findPayDetail.payDetailPrice}"></span></p>
+            <p>배송 상태: <span th:text="${findPayDetail.payDeliverStatus}"></span></p>
             <p>은행명: <span th:text="${findPayDetail.bankName}"></span></p>
             <p>계좌번호: <span th:text="${findPayDetail.payAccountNumber}"></span></p>
             <p>카드사명: <span th:text="${findPayDetail.cardCompanyName}"></span></p>
             <p>카드번호: <span th:text="${findPayDetail.payCardNumber}"></span></p>
         </div>
-        <button onclick="location.href='/user/pay/payList'">주문취소</button>
+        <!-- 배송 상태가 '배송전'일 경우에만 주문 취소 버튼을 보이도록 설정 -->
+        <button th:if="${findPayDetail.payDeliverStatus == '배송전'}" onclick="confirmCancel()">주문취소</button>
+
+        <script>
+            function confirmCancel() {
+                const confirmation = confirm("주문을 취소하시겠습니까?");
+                if (confirmation) {
+                    // 주문 취소 처리 (예: 취소 페이지로 이동)
+                    location.href = '/user/pay/payList';
+                } else {
+                    // 취소할 경우 아무 작업도 하지 않음
+                    return;
+                }
+            }
+        </script>
     </main>
 </div>
 </body>

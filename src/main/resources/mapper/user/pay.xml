@@ -43,9 +43,9 @@
         SELECT
             a.pay_code,
             a.pay_date,
+            a.pay_deliever_status,
             a.pay_total_cnt,
-            a.pay_total_price,
-            a.pay_refund_yn
+            a.pay_total_price
         FROM
             pay_tbl a
         JOIN
