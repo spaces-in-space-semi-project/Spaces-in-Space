@@ -25,4 +25,5 @@ public class PayService {
 
     public PayDTO findPayDetail(int payCode) { return payMapper.findPayDetail(payCode); }
 
+
 }

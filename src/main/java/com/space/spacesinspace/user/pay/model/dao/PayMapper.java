@@ -9,7 +9,6 @@ import java.util.List;
 @Mapper
 public interface PayMapper {
 
-
     List<PayDTO> findPayList();
 
     PayDTO findPayDetail(int payCode);
