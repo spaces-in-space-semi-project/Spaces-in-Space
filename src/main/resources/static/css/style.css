@@ -1,4 +1,5 @@
 /* Global styles */
+
 html, body {
     height: 100%;
     margin: 0;
@@ -7,22 +8,30 @@ html, body {
 }
 
 /* Header styles */
+/* Header 아래쪽에 그림자와 구분선 추가 */
 header {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
-    /*background-color: #f4f4f4; !* Optional: Background color for visibility *!*/
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* 하단 그림자 */
+    margin-bottom: 20px; /* 본문과의 간격 */
+    background-color: #fafafa; /* 배경색 */
+    border-bottom: 1px solid #bab2b2; /* 구분선 */
 }
 
-/* Header title */
-h1 {
+/* 헤더 내부의 제목 부분에 추가 스타일 (선택 사항) */
+h2 {
     text-align: center;
     margin: 0;
-    padding: 7px;
-    /*border: 1px solid black;*/
-    width: 100%;
+    padding: 5px;
+    font-size: 22px;
+    font-weight: bold;
+    color: #333;
+    /*background-color: #fff; !* 헤더의 배경색과 맞춤 *!*/
+    /*border-bottom: 2px solid #e0e0e0; !* 제목 바로 아래 구분선 *!*/
 }
+
 
 /* Flex container for logout-container */
 .logout-container {
@@ -33,7 +42,7 @@ h1 {
 
 .logout-container a {
     text-decoration: none;  /* Optional: to remove underline on MY PAGE */
-    color: blue;            /* Optional: link color */
+    color: #403f3f;            /* Optional: link color */
 }
 
 .logout-container button {
@@ -104,6 +113,7 @@ body {
     margin: 0;
     padding: 0;
 }
+
 
 /* FAQ 컨테이너 */
 .userFaq-container {
