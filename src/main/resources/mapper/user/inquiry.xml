@@ -38,7 +38,7 @@
         FROM
             inquiry_tbl
         WHERE
-            inquiry_code = #{ code }
+            member_code = #{ code }
     </select>
 
     <insert id="registNewInquiry" parameterType="com.space.spacesinspace.common.dto.InquiryDTO" useGeneratedKeys="true" keyProperty="code">
@@ -58,8 +58,6 @@
     <update id="updateInquiry" parameterType="com.space.spacesinspace.common.dto.InquiryDTO">
         UPDATE inquiry_tbl
         SET
-            inquiry_code = #{ code },
-            member_code = #{ memberCode },
             inquiry_title = #{ title },
             inquiry_detail = #{ detail },
             inquiry_date = #{ date },

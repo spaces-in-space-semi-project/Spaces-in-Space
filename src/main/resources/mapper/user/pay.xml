@@ -28,7 +28,7 @@
         <result property="payDetailCnt" column="pay_detail_cnt"/>
         <result property="payDetailPrice" column="pay_detail_price"/>
         <result property="payDate" column="pay_date"/>
-        <result property="payRefundYn" column="pay_reFund_yn"/>
+        <result property="payRefundYn" column="pay_refund_yn"/>
         <result property="productName" column="product_name"/>
         <result property="payReceiver" column="pay_receiver"/>
         <result property="payDeliverPhone" column="pay_deliver_phone"/>
