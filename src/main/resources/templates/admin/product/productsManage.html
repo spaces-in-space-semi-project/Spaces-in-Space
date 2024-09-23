@@ -124,7 +124,9 @@
 <!-- Button Container -->
 <div class="button-container">
     <button id="all-button">상품관리</button>
+    <a th:href="@{/admin/product/productRegist}">
     <button id="insert-button">상품등록</button>
+    </a>
 </div>
 
 <!-- Search Container -->
@@ -142,6 +144,16 @@
     <a th:href="@{/admin/product/productDetail/1}">
     <img src="path/to/your/thumbnail.jpg" alt="Thumbnail" class="thumbnail" />
     </a>
+    <table>
+        <tr>
+            <th>상품번호</th>
+            <th>상품가격</th>
+        </tr>
+        <tr th:each="product : ${ productList }">
+            <td th:text="${ product.productCode }"></td>
+            <td th:text="${ product.productPrice }"></td>
+        </tr>
+    </table>
 </div>
 </body>
 </html>

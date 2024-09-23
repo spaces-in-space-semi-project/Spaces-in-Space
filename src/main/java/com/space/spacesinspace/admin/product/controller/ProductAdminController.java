@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Locale;
 
 @Controller
-@RequestMapping("/admin/product")
+@RequestMapping("admin/product")
 public class ProductAdminController {
     private static final Logger logger = LogManager.getLogger(ProductAdminController.class);
 
@@ -30,7 +30,7 @@ public class ProductAdminController {
     }
 
     @GetMapping("/productsManage")    // 전체 조회
-    public String findProduct(Model model) {
+    public String findAllProduct(Model model) {
         List<ProductDTO> productList = productAdminService.findAllProduct();
         model.addAttribute("productList", productList);
         return "admin/product/productsManage";
@@ -42,14 +42,15 @@ public class ProductAdminController {
     @GetMapping(value="category", produces = "application/json; charset=UTF-8")
     @ResponseBody
     public List<CategoryDTO> findCategoryList() {
+        System.out.println("JavaScript 내장 함수인 fetch");
         return productAdminService.findAllCategory();
     }
 
     @PostMapping("prdouctRegist")
-    public String registMenu(ProductDTO newProduct, RedirectAttributes rAttr, Locale locale) {
+    public String registProduct(ProductDTO newProduct, RedirectAttributes rAttr, Locale locale) {
         productAdminService.registNewProduct(newProduct);
         logger.info("Locale : {}", locale);
-        rAttr.addFlashAttribute("successMessage", messageSource.getMessage("registMenu", null, locale));
+        rAttr.addFlashAttribute("successMessage", messageSource.getMessage("registProduct", null, locale));
         return "redirect:/admin/product/productsManage";
     }
 
@@ -62,7 +63,7 @@ public class ProductAdminController {
         return "admin/product/productDetail";
     }
 
-    @GetMapping("/ProductEdit/{code}") // 수정 페이지
+    @GetMapping("/productEdit/{code}") // 수정 페이지
     public String showEditProductForm(@PathVariable("code") int code,
                                    Model model) {
         ProductDTO product = productAdminService.findProductByCode(code);
@@ -72,15 +73,14 @@ public class ProductAdminController {
     }
 
     @PostMapping("/update") // 수정 요청
-    public String updateMenu(ProductDTO product, RedirectAttributes rAttr) {
-
+    public String updateProduct(ProductDTO product, RedirectAttributes rAttr) {
         productAdminService.updateProduct(product);
         rAttr.addFlashAttribute("successMessage", "상품이 성공적으로 수정되었습니다.");
         return "redirect:/admin/product/productDetail/" + product.getProductCode();
     }
 
     @PostMapping("/delete/{code}") // 메뉴 삭제
-    public String deleteMenu(@PathVariable("code") int code,
+    public String deleteProduct(@PathVariable("code") int code,
                              RedirectAttributes rAttr) {
 
         productAdminService.deleteProduct(code);

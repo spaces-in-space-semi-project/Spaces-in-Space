@@ -3,8 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        /* Style the buttons container */
+        .button-container {
+            position: absolute;
+            Bottom: 20px;
+            left: 835px;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        button {
+            padding: 5px 15px;
+            font-size: 14px;
+            color: white;
+            background-color: #35373c;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .button-container button:hover {
+            background-color: #0056b3; /* Hover effect for buttons */
+        }
+
+    </style>
 </head>
 <body>
+<div class="button-container">
+    <a th:href="@{/admin/product/productsManage/}">
+        <button type="button">상품수정</button>
+    </a>
+</div>
+<form th:action="@{/product/update}" th:object="${product}" method="post">
+    <input type="hidden" th:field="*{productCode}" />
+    <div>
+        <label for="price">상품 가격:</label>
+        <input type="number" id="price" th:field="*{productPrice}" required />
+    </div>
+</form>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const currentCategoryCode = `[[${product.categoryCode}]]`;
+        fetch("/product/category")
+            .then(res => res.json())
+            .then(data => {
+                const categoryCodeSelect = document.getElementById('categoryCode');
+                data.forEach(category => {
+                    const option = document.createElement('option');
+                    option.value = category.code;
+                    option.textContent = category.name;
+                    if (category.code.toString() === currentCategoryCode.toString()) {
+                        option.selected = true;
+                    }
 
+                    categoryCodeSelect.appendChild(option);
+                });
+                categoryCodeSelect.value = currentCategoryCode;
+            });
+    });
+</script>
 </body>
 </html>

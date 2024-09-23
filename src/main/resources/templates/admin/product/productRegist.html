@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        /* Style the buttons container */
+        .button-container {
+            position: absolute;
+            Bottom: 20px;
+            left: 835px;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        button {
+            padding: 5px 15px;
+            font-size: 14px;
+            color: white;
+            background-color: #35373c;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .button-container button:hover {
+            background-color: #0056b3; /* Hover effect for buttons */
+        }
+
+    </style>
+</head>
+<body>
+<div class="button-container">
+    <a th:href="@{/admin/product/productsManage/}">
+    <button type="button">상품등록</button>
+
+    </a>
+</div>
+</body>
+</html>
