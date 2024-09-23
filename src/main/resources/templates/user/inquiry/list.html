@@ -22,7 +22,6 @@
                 <tr th:each="inquiry : ${ inquiryList }"
                     th:attr="onclick='location.href=\'http://localhost:8080/user/inquiry/detail/' + ${ inquiry.inquiryCode } + '\';'"
                     style="width:100%; cursor:pointer;">
-<!--                    <td><a th:href="@{/user/inquiry/detail/{code}(code=${ inquiry.inquiryCode })}" th:text="${ inquiry.inquiryCode }"></a></td>-->
                     <td th:text="${ inquiry.inquiryCode }"></td>
                     <td th:text="${ inquiry.memberCode }"></td>
                     <td th:text="${ inquiry.inquiryTitle }"></td>
