@@ -31,16 +31,29 @@
     </style>
 </head>
 <body>
-<div class="button-container">
-    <a th:href="@{/admin/product/productsManage/}">
-        <button type="button">상품수정</button>
-    </a>
-</div>
-<form th:action="@{/product/update}" th:object="${product}" method="post">
+
+
+<form th:action="@{/admin/product/update}" th:object="${product}" method="post">
     <input type="hidden" th:field="*{productCode}" />
+    <div>
+        <label for="name">상품 이름:</label>
+        <input type="text" id="name" th:field="*{productName}" required />
+    </div>
+    <div>
+        <label for="image">상품 이미지:</label>
+        <input type="text" id="image" th:field="*{productImageOriginal}" required />
+    </div>
+    <div>
+        <label for="thumbnail">상품 썸네일:</label>
+        <input type="text" id="thumbnail" th:field="*{productImageThumbnail}" required />
+    </div>
     <div>
         <label for="price">상품 가격:</label>
         <input type="number" id="price" th:field="*{productPrice}" required />
+    </div>
+
+    <div class="button-container">
+        <button type="submit">수정하기</button>
     </div>
 </form>
 <script>

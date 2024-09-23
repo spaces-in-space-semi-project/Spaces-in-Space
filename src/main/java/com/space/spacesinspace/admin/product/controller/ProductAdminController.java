@@ -46,11 +46,9 @@ public class ProductAdminController {
         return productAdminService.findAllCategory();
     }
 
-    @PostMapping("prdouctRegist")
+    @PostMapping("productRegist")
     public String registProduct(ProductDTO newProduct, RedirectAttributes rAttr, Locale locale) {
         productAdminService.registNewProduct(newProduct);
-        logger.info("Locale : {}", locale);
-        rAttr.addFlashAttribute("successMessage", messageSource.getMessage("registProduct", null, locale));
         return "redirect:/admin/product/productsManage";
     }
 
@@ -76,7 +74,7 @@ public class ProductAdminController {
     public String updateProduct(ProductDTO product, RedirectAttributes rAttr) {
         productAdminService.updateProduct(product);
         rAttr.addFlashAttribute("successMessage", "상품이 성공적으로 수정되었습니다.");
-        return "redirect:/admin/product/productDetail/" + product.getProductCode();
+        return "redirect:/admin/product/productsManage";
     }
 
     @PostMapping("/delete/{code}") // 메뉴 삭제

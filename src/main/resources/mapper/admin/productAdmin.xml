@@ -11,7 +11,7 @@
         <result property="productImageThumbnail" column="product_image_thumbnail"/>
         <result property="productPrice" column="product_price"/>
         <result property="productDeliverTime" column="product_deliver_time"/>
-        <result property="productDeliverCost" column="product_deliever_cost"/>
+        <result property="productDelieverCost" column="product_deliever_cost"/>
         <result property="productSize" column="product_size"/>
         <result property="productMaterial" column="product_material"/>
         <result property="productDescription" column="product_description"/>
@@ -75,7 +75,7 @@
     </select>
 
     <insert id="registNewProduct" parameterType="com.space.spacesinspace.common.dto.ProductDTO"
-            useGeneratedKeys="true" keyProperty="code">
+            useGeneratedKeys="true" keyProperty="productCode">
         INSERT INTO
             product_tbl
         (
@@ -104,7 +104,6 @@
             #{productMaterial},
             #{productDescription},
             #{productDeleteYn}
-
         )
     </insert>
 
@@ -112,17 +111,17 @@
         UPDATE
             product_tbl
         SET
-            category_code = #{categoryCode}
-            product_name = #{productName}
-            product_image_original = #{productImageOriginal}
-            product_image_thumbnail = #{productImageThumbnail}
+<!--            category_code = #{categoryCode},-->
+            product_name = #{productName},
+            product_image_original = #{productImageOriginal},
+            product_image_thumbnail = #{productImageThumbnail},
             product_price = #{productPrice}
-            product_deliver_time = #{productDeliverTime}
-            product_deliever_cost = #{productDelieverCost}
-            product_size = #{productSize}
-            product_material = #{productMaterial}
-            product_description = #{productDescription}
-            product_delete_yn = #{productDeleteYn}
+<!--            product_deliver_time = #{productDeliverTime},-->
+<!--            product_deliever_cost = #{productDelieverCost},-->
+<!--            product_size = #{productSize},-->
+<!--            product_material = #{productMaterial},-->
+<!--            product_description = #{productDescription},-->
+<!--            product_delete_yn = #{productDeleteYn}-->
         WHERE
             product_code = #{productCode}
     </update>

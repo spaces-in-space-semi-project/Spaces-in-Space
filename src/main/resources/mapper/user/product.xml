@@ -11,7 +11,7 @@
         <result property="productImageThumbnail" column="product_image_thumbnail"/>
         <result property="productPrice" column="product_price"/>
         <result property="productDeliverTime" column="product_deliver_time"/>
-        <result property="productDeliverCost" column="product_deliever_cost"/>
+        <result property="productDelieverCost" column="product_deliever_cost"/>
         <result property="productSize" column="product_size"/>
         <result property="productMaterial" column="product_material"/>
         <result property="productDescription" column="product_description"/>

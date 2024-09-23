@@ -31,11 +31,35 @@
     </style>
 </head>
 <body>
-<div class="button-container">
-    <a th:href="@{/admin/product/productsManage/}">
-    <button type="button">상품등록</button>
+<form action="/admin/product/productRegist" method="post">
+    <label>카테고리 코드 : </label><input type="number" name="categoryCode" required><br>
+    <label>상품 이름 : </label><input type="test" name="productName"><br>
+    <label>상품 이미지 : </label><input type="text" name="productImageOriginal"><br>
+    <label>상품 썸네일 : </label><input type="text" name="productImageThumbnail"><br>
+    <label>상품 가격 : </label><input type="number" name="productPrice"><br>
+    <label>상품 배달시간 : </label><input type="text" name="productDeliverTime"><br>
+    <label>상품 배달비용 : </label><input type="number" name="productDelieverCost"><br>
+    <label>상품 상품사이즈 : </label><input type="text" name="productSize"><br>
+    <label>상품 상품소재  : </label><input type="text" name="productMaterial"><br>
+    <label>상품 설명 : </label><input type="text" name="productDescription"><br>
+    <label>상품 삭제여부 : </label><input type="text" name="productDeleteYn"><br>
+    <div class="button-container">
+        <button type="submit">등록하기</button>
+    </div>
+</form>
 
-    </a>
-</div>
+<script>
+    fetch("/product/category")
+        .then(res => res.json())
+        .then(data => {
+            const $categoryCode = document.getElementById('categoryCode');
+            for (let index in data) {
+                const $option = document.createElement('option');
+                $option.value = data[index].code;
+                $option.textContent = data[index].name;
+                $categoryCode.appendChild($option);
+            }
+        });
+</script>
 </body>
 </html>
