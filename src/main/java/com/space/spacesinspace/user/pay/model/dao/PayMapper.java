@@ -12,4 +12,6 @@ public interface PayMapper {
     List<PayDTO> findPayList(String loggedInUsername);
 
     PayDetailDTO findPayDetail(int payCode);
+
+    List<PayDTO> showPayList();
 }
