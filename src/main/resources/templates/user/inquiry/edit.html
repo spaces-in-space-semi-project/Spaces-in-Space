@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" th:href="@{/css/style.css}">
+    <title>edit</title>
+</head>
+<body>
+    <h2>문의글 수정</h2>
+
+    <form th:action="@{/inquiry/update}" th:object="${inquiry}" method="post">
+        <input type="hidden" th:field="*{ inquiry.inquiryCode }"/>
+        <div>
+            <label for="title">문의제목:</label>
+            <input type="text" id="title" th:field="*{ inquiry.inquiryTitle }" required/>
+        </div>
+        <div>
+            <label for="detail">문의내용:</label>
+            <input type="text" id="detail" th:field="*{ inquiry.inquiryDetail }" required/>
+        </div>
+        <div>
+            <div>
+                <button type="submit">수정하기</button>
+            </div>
+            <div>
+                <button onclick="history.back()">취소</button>
+            </div>
+        </div>
+    </form>
+</body>
+</html>
