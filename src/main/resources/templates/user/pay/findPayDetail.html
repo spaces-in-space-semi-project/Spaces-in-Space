@@ -11,8 +11,8 @@
         <h2>결제 상세 정보</h2>
         <div>
             <p>주문 날짜: <span th:text="${findPayDetail.payDate}"></span></p>
-            <p>주문 번호: <span th:text="${findPayDetail.productName}"></span></p>
-            <p>배송받을 이름: <span th:text="${findPayDetail.payReceiver}"></span></p>
+            <p>상품 이름: <span th:text="${findPayDetail.productName}"></span></p>
+            <p>배송자명: <span th:text="${findPayDetail.payReceiver}"></span></p>
             <p>배송받을 연락처: <span th:text="${findPayDetail.payDeliverPhone}"></span></p>
             <p>주문 결제 상태: <span th:text="${findPayDetail.payRefundYn}"></span></p>
             <p>주문 결제 수량: <span th:text="${findPayDetail.payDetailCnt}"></span></p>
