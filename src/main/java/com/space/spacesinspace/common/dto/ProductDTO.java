@@ -8,7 +8,7 @@ public class ProductDTO {
     private String productImageThumbnail;
     private int productPrice;
     private String productDeliverTime;
-    private int productDeliverCost;
+    private int productDelieverCost;
     private String productSize;
     private String productMaterial;
     private String productDescription;
@@ -17,7 +17,7 @@ public class ProductDTO {
     public ProductDTO() {
     }
 
-    public ProductDTO(int productCode, int categoryCode, String productName, String productImageOriginal, String productImageThumbnail, int productPrice, String productDeliverTime, int productDeliverCost, String productSize, String productMaterial, String productDescription, String productDeleteYn) {
+    public ProductDTO(int productCode, int categoryCode, String productName, String productImageOriginal, String productImageThumbnail, int productPrice, String productDeliverTime, int productDelieverCost, String productSize, String productMaterial, String productDescription, String productDeleteYn) {
         this.productCode = productCode;
         this.categoryCode = categoryCode;
         this.productName = productName;
@@ -25,7 +25,7 @@ public class ProductDTO {
         this.productImageThumbnail = productImageThumbnail;
         this.productPrice = productPrice;
         this.productDeliverTime = productDeliverTime;
-        this.productDeliverCost = productDeliverCost;
+        this.productDelieverCost = productDelieverCost;
         this.productSize = productSize;
         this.productMaterial = productMaterial;
         this.productDescription = productDescription;
@@ -88,12 +88,12 @@ public class ProductDTO {
         this.productDeliverTime = productDeliverTime;
     }
 
-    public int getProductDeliverCost() {
-        return productDeliverCost;
+    public int getProductDelieverCost() {
+        return productDelieverCost;
     }
 
-    public void setProductDeliverCost(int productDeliverCost) {
-        this.productDeliverCost = productDeliverCost;
+    public void setProductDelieverCost(int productDelieverCost) {
+        this.productDelieverCost = productDelieverCost;
     }
 
     public String getProductSize() {
@@ -138,7 +138,7 @@ public class ProductDTO {
                 ", productImageThumbnail='" + productImageThumbnail + '\'' +
                 ", productPrice=" + productPrice +
                 ", productDeliverTime='" + productDeliverTime + '\'' +
-                ", productDeliverCost=" + productDeliverCost +
+                ", productDeliverCost=" + productDelieverCost +
                 ", productSize='" + productSize + '\'' +
                 ", productMaterial='" + productMaterial + '\'' +
                 ", productDescription='" + productDescription + '\'' +

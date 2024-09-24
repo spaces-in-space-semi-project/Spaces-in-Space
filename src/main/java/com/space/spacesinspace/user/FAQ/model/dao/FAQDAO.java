@@ -9,7 +9,7 @@ import java.util.List;
 @Mapper
 public interface FAQDAO {
 
-    FAQDTO getFAQByCode(@Param("code") String code);
+    FAQDTO getFAQByCode(@Param("faqCode") String faqCode);
 
     List<FAQDTO> getAllFAQs();
 }

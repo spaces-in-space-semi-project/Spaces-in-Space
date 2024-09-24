@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.ui.Model;
 import java.util.List;
 
-
-
 @Controller
 @RequestMapping("user/faq/*")
 public class FAQController {
