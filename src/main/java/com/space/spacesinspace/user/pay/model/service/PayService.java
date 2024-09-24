@@ -54,4 +54,8 @@ public class PayService {
     public PayDetailDTO findAdminPayDetail(int payCode) {
         return payMapper.findAdminPayDetail(payCode);
     }
+
+    public PayDTO payProgress(int productCode) {
+        return payMapper.payProgress(productCode);
+    }
 }

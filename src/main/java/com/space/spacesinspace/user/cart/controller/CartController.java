@@ -4,23 +4,23 @@ import com.space.spacesinspace.user.cart.model.dto.CartDTO;
 import com.space.spacesinspace.user.cart.model.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
 @Controller
 @RequestMapping("user/cart/*")
-public class cartController {
+public class CartController {
 
-    CartService cartService;
+    private CartService cartService;
 
     @Autowired
-    public cartController(CartService cartService) {
+    public CartController(CartService cartService) {
         this.cartService = cartService;
     }
 
+    // 장바구니 목록 전체 조회
     @GetMapping("cartList")
     public ModelAndView showCartView(ModelAndView mv){
 
@@ -32,6 +32,20 @@ public class cartController {
         mv.setViewName("user/member/myPage");
 
         return mv;
+    }
+
+    // 수량 변경  , 이거 우선순위 뒤로 미룸. 원룸이면 1개만 사라.
+    @PostMapping(value="update", produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public void updateCartItem(@RequestBody CartDTO cartDTO) {
+        System.out.println("cartDTO = " + cartDTO);
+        cartService.updateCartItem(cartDTO.getProductCode(), cartDTO.getCartCnt());
+    }
+
+    @PostMapping("/delete/{productCode}")
+    public String deleteCartMenu(@PathVariable("productCode") int productCode){
+        cartService.deleteCartMenu(productCode);
+        return "redirect:/user/cart/cartList";
     }
 
 

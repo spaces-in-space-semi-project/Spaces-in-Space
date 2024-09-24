@@ -49,4 +49,13 @@ public class PayController {
         return mv;
     }
 
+    @PostMapping("payProgress")
+    public ModelAndView payProgress(ModelAndView mv,int productCode){
+        PayDTO payProgress = payService.payProgress(productCode);
+        mv.addObject("payProgress",payProgress);
+        mv.setViewName("user/pay/payProgress");
+        return mv;
+
+    }
+
 }

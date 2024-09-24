@@ -125,5 +125,9 @@
             a.pay_code = #{ payCode }
     </select>
 
+<!--    <select id="payProgress" resultMap="payResultMap">-->
+<!--        -->
+<!--    </select>-->
+
 
 </mapper>

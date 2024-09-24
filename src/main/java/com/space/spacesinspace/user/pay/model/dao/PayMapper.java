@@ -20,4 +20,7 @@ public interface PayMapper {
 
     // 관리자가 모든 주문의 전체내역중에서, 코드로 상세 조회
     PayDetailDTO findAdminPayDetail(int payCode);
+
+    // 상품페이지에서 구매 버튼을 눌렀을때 넘어가는 결제 메소드
+    PayDTO payProgress(int productCode);
 }

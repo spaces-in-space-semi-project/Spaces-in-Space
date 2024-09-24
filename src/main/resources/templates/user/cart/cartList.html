@@ -3,26 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{/css/style.css}">
-    <title th:text="${pageTitle}">Spaces in Space</title>
+    <title th:text="${pageTitle}">장바구니</title>
 </head>
-
 <body>
-
 <div th:fragment="cart">
-<main>
-    <h1>장바구니 목록</h1>
-    <table>
-        <tr>
-            <th>상품이름</th>
-            <th>수량</th>
-            <th>금액</th>
-        </tr>
-        <tr th:each="c : ${cart}">
-            <td th:text="${c.productName}"></td>
-            <td th:text="${c.cartCnt}"></td>
-            <td th:text="${c.cartPrice}"></td>
-        </tr>
-    </table>
-</main>
+    <main>
+        <h1>장바구니 목록</h1>
+        <table>
+            <thead>
+            <tr>
+                <th>선택</th>
+                <th>상품이름</th>
+                <th>수량</th>
+                <th>금액</th>
+                <th>총 금액</th>
+                <th>삭제</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="c : ${cart}">
+            <form th:action="@{/user/cart/delete/{productCode}(productCode=${c.productCode})}" method="post">
+                <td><input type="checkbox" checked class="cart"/></td>
+                <td th:text="${c.productName}"></td>
+<!--                <td>-->
+<!--                    <input type="number" min="1" th:value="${c.cartCnt}" class="cart-count"/>-->
+<!--                </td>-->
+                <td th:text="${c.cartCnt}"></td>
+                <td th:text="${c.cartPrice}"></td>
+                <td th:text="${c.cartPrice} * ${c.cartCnt}"></td>
+                <td><button type="submit">삭제하기</button></td>
+            </form>
+            </tr>
+            </tbody>
+        </table>
+<!--        <button type="button">수량 변경</button>-->
+        <button type="button" th:href="@{user/pay/payProgress}">결제하기</button>
+    </main>
+</div>
+
 </body>
 </html>
