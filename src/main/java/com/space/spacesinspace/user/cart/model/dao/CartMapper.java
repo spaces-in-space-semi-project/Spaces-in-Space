@@ -1,5 +1,6 @@
 package com.space.spacesinspace.user.cart.model.dao;
 
+import com.space.spacesinspace.common.dto.ProductDTO;
 import com.space.spacesinspace.user.cart.model.dto.CartDTO;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -11,5 +12,7 @@ public interface CartMapper {
 
     void updateCartItem(int productCode, int cartCnt);
 
-    void deleteCartItem(String productCode);
+    void deleteCartMenu(int productCode);
+
+    void insertCartMenu(CartDTO newMenu);
 }

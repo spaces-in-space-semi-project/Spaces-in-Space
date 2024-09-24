@@ -17,10 +17,12 @@
                 <th>수량</th>
                 <th>금액</th>
                 <th>총 금액</th>
+                <th>삭제</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="c : ${cart}">
+            <form th:action="@{/user/cart/delete/{productCode}(productCode=${c.productCode})}" method="post">
                 <td><input type="checkbox" checked class="cart"/></td>
                 <td th:text="${c.productName}"></td>
                 <td>
@@ -28,9 +30,14 @@
                 </td>
                 <td th:text="${c.cartPrice}"></td>
                 <td th:text="${c.cartPrice} * ${c.cartCnt}"></td>
+                <td><button type="submit">삭제하기</button></td>
+            </form>
             </tr>
             </tbody>
         </table>
+        <form th:action="@{/user/cart/insert/{productCode}(productCode=${c.productCode})}" method="post">
+            <button type=botton>장바구니추가</button>
+        </form>
         <button type="button">수량 변경</button>
         <button type="button" th:href="@{user/pay/payprogress}">결제하기</button>
     </main>

@@ -8,13 +8,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping("user/cart/*")
 public class CartController {
 
-    CartService cartService;
+    private CartService cartService;
 
     @Autowired
     public CartController(CartService cartService) {
@@ -35,7 +34,7 @@ public class CartController {
         return mv;
     }
 
-    // 수량 변경 처리
+    // 수량 변경  , 이거 우선순위 뒤로 미룸. 원룸이면 1개만 사라.
     @PostMapping(value="update", produces = "application/json; charset=UTF-8")
     @ResponseBody
     public void updateCartItem(@RequestBody CartDTO cartDTO) {
@@ -43,12 +42,16 @@ public class CartController {
         cartService.updateCartItem(cartDTO.getProductCode(), cartDTO.getCartCnt());
     }
 
-    // 삭제 처리
-    @PostMapping("delete")
-    @ResponseBody
-    public void deleteCartItem(@RequestBody Map<String, String> payload) {
-        String productCode = payload.get("id");
-        cartService.deleteCartItem(productCode);
+    @PostMapping("/delete/{productCode}")
+    public String deleteCartMenu(@PathVariable("productCode") int productCode){
+        cartService.deleteCartMenu(productCode);
+        return "redirect:/user/cart/cartList";
+    }
+
+    @PostMapping("insert")
+    public String insertCartMenu(CartDTO newMenu){
+        cartService.insertCartMenu(newMenu);
+        return "redirect:/user/cart/cartList";
     }
 
 }
