@@ -8,6 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,5 +38,15 @@ public class CartService {
         } else {
             return new ArrayList<>();  // 로그인이 안 된 경우 빈 리스트 반환
         }
+    }
+
+    @Transactional
+    public void updateCartItem(int productCode, int cartCnt) {
+        cartMapper.updateCartItem(productCode,cartCnt);
+    }
+
+    @Transactional
+    public void deleteCartItem(String productCode) {
+        cartMapper.deleteCartItem(productCode);
     }
 }

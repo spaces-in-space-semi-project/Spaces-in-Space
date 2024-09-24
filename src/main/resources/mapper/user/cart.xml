@@ -15,6 +15,7 @@
     
     <select id="showCartView" resultMap="cartResultMap">
         SELECT
+            a.product_code,
             c.product_name,
             b.member_id,
             a.cart_cnt,
@@ -28,5 +29,16 @@
         WHERE
             b.member_id = #{loggedInUsername}
     </select>
-    
+
+    <update id="updateCartItem" parameterType="map">
+        UPDATE cart_tbl
+        SET cart_cnt = #{ cartCnt }
+        WHERE product_code = #{ productCode }
+    </update>
+
+
+    <delete id="deleteCartItem" parameterType="java.lang.String">
+        DELETE FROM cart_tbl
+        WHERE product_code = #{ productCode }
+    </delete>
 </mapper>

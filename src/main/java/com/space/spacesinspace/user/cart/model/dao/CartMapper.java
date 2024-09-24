@@ -8,4 +8,8 @@ import java.util.List;
 @Mapper
 public interface CartMapper {
     List<CartDTO> showCartView(String loggedInUsername);
+
+    void updateCartItem(int productCode, int cartCnt);
+
+    void deleteCartItem(String productCode);
 }
