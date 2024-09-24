@@ -51,10 +51,13 @@ h2 {
     border: none;
     padding: 0.5rem 1rem;
     cursor: pointer;
+    margin-right: 15px;
 }
 
 .logout-container button:hover {
     background-color: #333232;
+    margin-right: 15px;
+
 }
 
 .nav-container {
@@ -65,13 +68,18 @@ h2 {
     padding: 10px 20px;
 }
 
-.main-nav-left,
-.main-nav-right {
+.main-nav-left a {
+    text-decoration: none;
+    color: black;
+    margin-left: 12px;
+}
+
+.main-nav-right a{
     display: flex;
     align-items: center;
     gap: 15px;
     padding: 0;
-    margin: 0;
+    margin-right: 12px;
 }
 
 /* Styling for 마이페이지 nav container */
@@ -166,3 +174,5 @@ body {
     color: #007BFF;
     margin-bottom: 20px;
 }
+
+
