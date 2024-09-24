@@ -2,24 +2,24 @@ package com.space.spacesinspace.common.dto;
 
 public class FAQDTO {
 
-    private int faqCode;
+    private String faqCode;
     private String faqTitle;
     private String faqDetail;
 
     public FAQDTO() {
     }
 
-    public FAQDTO(int faqCode, String faqTitle, String faqDetail) {
+    public FAQDTO(String faqCode, String faqTitle, String faqDetail) {
         this.faqCode = faqCode;
         this.faqTitle = faqTitle;
         this.faqDetail = faqDetail;
     }
 
-    public int getFaqCode() {
+    public String getFaqCode() {
         return faqCode;
     }
 
-    public void setFaqCode(int faqCode) {
+    public void setFaqCode(String faqCode) {
         this.faqCode = faqCode;
     }
 
