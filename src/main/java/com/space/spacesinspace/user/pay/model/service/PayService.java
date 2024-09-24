@@ -16,7 +16,7 @@ import java.util.List;
 public class PayService {
 
 
-    public final PayMapper payMapper;
+    private PayMapper payMapper;
 
     @Autowired
     public PayService(PayMapper payMapper) {
@@ -35,7 +35,7 @@ public class PayService {
 
     public PayDetailDTO findPayDetail(int payCode) { return payMapper.findPayDetail(payCode); }
 
-/*=============================================================================================*/
+/*================================================================================================*/
 
     public String getLoggedInUsername() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -49,5 +49,9 @@ public class PayService {
 
     public List<PayDTO> showPayList() {
         return payMapper.showPayList();
+    }
+
+    public PayDetailDTO findAdminPayDetail(int payCode) {
+        return payMapper.findAdminPayDetail(payCode);
     }
 }
