@@ -82,6 +82,6 @@ public class InquiryController {
 
         rAttr.addFlashAttribute("successMessage", "문의글 수정이 완료되었습니다.");
 
-        return "redirect:/user/inquiry/detail/" + inquiry.getInquiryCode();
+        return "redirect:/user/inquiry/detail" + inquiry.getInquiryCode();
     }
 }

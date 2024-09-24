@@ -13,12 +13,12 @@
 
     <main>
         <div th:fragment="inquiry">
-            <p>문의코드: <span th:text="${ inquiry.inquiryCode }"></span></p>
-            <p>회원코드: <span th:text="${ inquiry.memberCode }"></span></p>
-            <p>문의제목: <span th:text="${ inquiry.inquiryTitle }"></span></p>
-            <p>문의내용: <span th:text="${ inquiry.inquiryDetail }"></span></p>
-            <p>문의생성일: <span th:text="${ inquiry.inquiryDate }"></span></p>
-            <p>문의수정일: <span th:text="${ inquiry.inquiryEditDate }"></span></p>
+            <p>문의 코드: <span th:text="${ inquiry.inquiryCode }"></span></p>
+            <p>회원 코드: <span th:text="${ inquiry.memberCode }"></span></p>
+            <p>문의 제목: <span th:text="${ inquiry.inquiryTitle }"></span></p>
+            <p>문의 내용: <span th:text="${ inquiry.inquiryDetail }"></span></p>
+            <p>문의 생성일: <span th:text="${ inquiry.inquiryDate }"></span></p>
+            <p>문의 수정일: <span th:text="${ inquiry.inquiryEditDate }"></span></p>
         </div>
     </main>
 
@@ -28,11 +28,11 @@
         <button type="submit">삭제</button>
     </form>
 
-    <button onclick="location.href='/user/list'">문의글 목록</button>
+    <button onclick="location.href='/user/inquiry/list'">문의글 목록</button>
 
     <script>
         document.getElementById('editButton').addEventListener('click', function () {
-           window.location.href = '/user/list' + [[${inquiry.code}]];
+           window.location.href = '/user/list' + [[${inquiry.inquiryCode}]];
         });
     </script>
 

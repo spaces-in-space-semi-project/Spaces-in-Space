@@ -12,17 +12,16 @@
             <h1>INQUIRY LIST</h1>
             <table>
                 <tr>
-                    <th>문의코드</th>
-                    <th>회원코드</th>
-                    <th>문의제목</th>
-                    <th>문의내용</th>
-                    <th>문의생성일</th>
-                    <th>문의수정일</th>
+                    <th>문의 코드</th>
+                    <th>회원 코드</th>
+                    <th>문의 제목</th>
+                    <th>문의 내용</th>
+                    <th>문의 생성일</th>
+                    <th>문의 수정일</th>
                 </tr>
                 <tr th:each="inquiry : ${ inquiryList }"
                     th:attr="onclick='location.href=\'http://localhost:8080/user/inquiry/detail/' + ${ inquiry.inquiryCode } + '\';'"
                     style="width:100%; cursor:pointer;">
-<!--                    <td><a th:href="@{/user/inquiry/detail/{code}(code=${ inquiry.inquiryCode })}" th:text="${ inquiry.inquiryCode }"></a></td>-->
                     <td th:text="${ inquiry.inquiryCode }"></td>
                     <td th:text="${ inquiry.memberCode }"></td>
                     <td th:text="${ inquiry.inquiryTitle }"></td>

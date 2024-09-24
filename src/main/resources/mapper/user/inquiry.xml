@@ -58,8 +58,6 @@
     <update id="updateInquiry" parameterType="com.space.spacesinspace.common.dto.InquiryDTO">
         UPDATE inquiry_tbl
         SET
-            inquiry_code = #{ code },
-            member_code = #{ memberCode },
             inquiry_title = #{ title },
             inquiry_detail = #{ detail },
             inquiry_date = #{ date },
