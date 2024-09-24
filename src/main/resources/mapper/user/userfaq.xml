@@ -29,4 +29,5 @@
         WHERE
             faq_code = #{faqCode}
     </select>
+
 </mapper>

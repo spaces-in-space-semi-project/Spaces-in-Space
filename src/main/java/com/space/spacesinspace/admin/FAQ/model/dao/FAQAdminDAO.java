@@ -8,7 +8,7 @@ import java.util.List;
 @Mapper
 public interface FAQAdminDAO {
 
-    FAQDTO getFAQByCode(@Param("code") String code);
+    FAQDTO getFAQByCode(@Param("faqCode") String faqCode);
 
     List<FAQDTO> getAllFAQs();
 
@@ -16,5 +16,5 @@ public interface FAQAdminDAO {
 
     void updateFAQ(FAQDTO faq);
 
-    void deleteFAQ(@Param("code") String code);
+    void deleteFAQ(@Param("faqCode") String faqCode);
 }
