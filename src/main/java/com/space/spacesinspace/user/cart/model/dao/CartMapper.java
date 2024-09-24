@@ -14,5 +14,4 @@ public interface CartMapper {
 
     void deleteCartMenu(int productCode);
 
-    void insertCartMenu(CartDTO newMenu);
 }

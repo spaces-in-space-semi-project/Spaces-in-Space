@@ -1,11 +1,9 @@
 package com.space.spacesinspace.user.cart.model.service;
 
 
-import com.space.spacesinspace.common.dto.ProductDTO;
 import com.space.spacesinspace.user.cart.model.dao.CartMapper;
 import com.space.spacesinspace.user.cart.model.dto.CartDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -54,8 +52,4 @@ public class CartService {
         cartMapper.deleteCartMenu(productCode);
     }
 
-    @Transactional
-    public void insertCartMenu(CartDTO newMenu) {
-        cartMapper.insertCartMenu(newMenu);
-    }
 }

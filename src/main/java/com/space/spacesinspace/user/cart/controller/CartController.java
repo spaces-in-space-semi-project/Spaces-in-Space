@@ -48,10 +48,5 @@ public class CartController {
         return "redirect:/user/cart/cartList";
     }
 
-    @PostMapping("insert")
-    public String insertCartMenu(CartDTO newMenu){
-        cartService.insertCartMenu(newMenu);
-        return "redirect:/user/cart/cartList";
-    }
 
 }

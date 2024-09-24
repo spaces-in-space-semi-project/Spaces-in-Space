@@ -35,9 +35,6 @@
             </tr>
             </tbody>
         </table>
-        <form th:action="@{/user/cart/insert/{productCode}(productCode=${c.productCode})}" method="post">
-            <button type=botton>장바구니추가</button>
-        </form>
         <button type="button">수량 변경</button>
         <button type="button" th:href="@{user/pay/payprogress}">결제하기</button>
     </main>

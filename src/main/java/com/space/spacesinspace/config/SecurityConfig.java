@@ -40,7 +40,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> {
-            auth.requestMatchers("/auth/login", "auth/admin/login","user/member/signup", "/auth/fail", "/fragments/*", "/user/product/productAll", "/user/product/productDetail", "user/faq/list","/main", "/").permitAll();
+            auth.requestMatchers("/auth/login", "/auth/admin/login","/user/member/signup", "/auth/fail", "/fragments/*", "/user/product/productAll", "/user/product/productDetail", "user/faq/list","/main", "/").permitAll();
             auth.requestMatchers("/admin/*").hasAnyAuthority("ADMIN");
             auth.requestMatchers("/member/*").hasAnyAuthority("USER");
             auth.anyRequest().authenticated();
@@ -67,7 +67,7 @@ public class SecurityConfig {
             session.maximumSessions(1);
             session.invalidSessionUrl("/");
         }).csrf(csrf -> {
-           csrf.disable();
+            csrf.disable();
         });
 
         return http.build();

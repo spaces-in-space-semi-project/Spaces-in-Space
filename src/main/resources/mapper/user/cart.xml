@@ -41,8 +41,4 @@
         WHERE product_code = #{ productCode }
     </delete>
 
-    <insert id="insertCartMenu" parameterMap="com.space.spacesinspace.user.cart.model.dto.CartDTO">
-        INSERT INTO cart_tbl (product_code,member_code,cart_cnt,cart_price)
-        VALUES (#{productCode},#{memberCode},#{cartCnt},#{cartPrice})
-    </insert>
 </mapper>
