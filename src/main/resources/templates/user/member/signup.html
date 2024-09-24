@@ -6,13 +6,47 @@
     <title>Signup</title>
 
     <style>
+        .form-container {
+            max-width: 350px; /* Set max-width of the form */
+            margin: 0 auto; /* Center the form horizontally */
+            padding: 20px; /* Add padding inside the form */
+            /*border: 1px solid #ddd; !* Optional: Add a border *!*/
+            /*border-radius: 8px; !* Optional: Rounded corners *!*/
+            /*box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); !* Optional: Add a subtle shadow *!*/
+            /*background-color: #f9f9f9; !* Optional: Background color *!*/
+        }
+
         .form-group {
-            margin-bottom: 4px; /* Space between input groups */
+            margin-bottom: 3px; /* Increased space between input groups */
         }
 
         label {
-            display: block; /* Ensures label is above the input */
-            margin-bottom: 2px; /* Space between label and input */
+            display: block; /* Ensure label is above the input */
+            margin-bottom: 4px; /* Add more space between label and input */
+            font-size: 14px;
+            text-align: left;
+        }
+
+        input, button {
+            width: 100%; /* Ensure input fields take up full width of the container */
+            padding: 10px; /* Add padding for better user experience */
+            margin-top: 4px;
+            box-sizing: border-box; /* Ensure padding is included in the element's total width and height */
+            border-radius: 8px;
+            border: 1px;
+        }
+
+        button {
+            background-color: #5e8a45; /* Button background */
+            color: #fff; /* Button text color */
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 12px;
+        }
+
+        button:disabled {
+            background-color: #ccc; /* Disabled button color */
         }
 
         .error-messages {
@@ -26,6 +60,7 @@
         .error-messages.visible {
             visibility: visible; /* Show when there's an error */
         }
+
     </style>
 
     <script>
@@ -52,43 +87,44 @@
 <!--    </main>-->
 
 <main class="signup-form">
-    <form id="signupForm" th:action="@{/user/member/signup}" method="post">
-        <div class="form-group">
-            <!--                <label for="memberId">ID:</label>-->
-            <input type="text" name="memberId" id="memberId" placeholder="ID" />
-            <button type="button" id="checkIdButton">아이디 중복 체크</button>
-            <label id="label1"></label>
-            <div class="error-messages" id="errorMemberId"></div>
-        </div>
-        <div class="form-group">
-            <!--                <label for="memberPw">PASSWORD:</label>-->
-            <input type="password" name="memberPw" id="memberPw" placeholder="비밀번호"/>
-            <div class="error-messages" id="errorMemberPw"></div>
-        </div>
-        <div class="form-group">
-            <!--                <label for="memberName">NAME:</label>-->
-            <input type="text" name="memberName" id="memberName" placeholder="이름"/>
-            <div class="error-messages" id="errorMemberName"></div>
-        </div>
-        <div class="form-group">
-            <!--                <label for="memberEmail">EMAIL:</label>-->
-            <input type="email" name="memberEmail" id="memberEmail" placeholder="email"/>
-            <div class="error-messages" id="errorMemberEmail"></div>
-        </div>
-        <div class="form-group">
-            <!--                <label for="memberPhone">PHONE:</label>-->
-            <input type="tel" name="memberPhone" id="memberPhone" placeholder="전화번호"/>
-            <div class="error-messages" id="errorMemberPhone"></div>
-        </div>
-        <div class="form-group">
-            <!--                <label for="memberAddress">ADDRESS:</label>-->
-            <input type="text" name="memberAddress" id="memberAddress" placeholder="배송지"/>
-            <div class="error-messages" id="errorMemberAddress"></div>
-        </div>
-        <br>
-        <button id="signupSubmitButton" disabled>SIGN UP</button>
-    </form>
-
+    <div class="form-container">
+        <form id="signupForm" th:action="@{/user/member/signup}" method="post">
+            <div class="form-group">
+                <label for="memberId">ID:</label>
+                <input type="text" name="memberId" id="memberId" placeholder="ID" />
+                <button type="button" id="checkIdButton">아이디 중복 체크</button>
+                <label id="label1"></label>
+                <div class="error-messages" id="errorMemberId"></div>
+            </div>
+            <div class="form-group">
+                <label for="memberPw">PASSWORD:</label>
+                <input type="password" name="memberPw" id="memberPw" placeholder="비밀번호" />
+                <div class="error-messages" id="errorMemberPw"></div>
+            </div>
+            <div class="form-group">
+                <label for="memberName">NAME:</label>
+                <input type="text" name="memberName" id="memberName" placeholder="이름" />
+                <div class="error-messages" id="errorMemberName"></div>
+            </div>
+            <div class="form-group">
+                <label for="memberEmail">EMAIL:</label>
+                <input type="email" name="memberEmail" id="memberEmail" placeholder="email" />
+                <div class="error-messages" id="errorMemberEmail"></div>
+            </div>
+            <div class="form-group">
+                <label for="memberPhone">PHONE:</label>
+                <input type="tel" name="memberPhone" id="memberPhone" placeholder="전화번호" />
+                <div class="error-messages" id="errorMemberPhone"></div>
+            </div>
+            <div class="form-group">
+                <label for="memberAddress">ADDRESS:</label>
+                <input type="text" name="memberAddress" id="memberAddress" placeholder="배송지" />
+                <div class="error-messages" id="errorMemberAddress"></div>
+            </div>
+            <br>
+            <button id="signupSubmitButton" disabled>SIGN UP</button>
+        </form>
+    </div>
 </main>
 
 <div th:replace="fragments/footer :: footer"></div>
@@ -98,7 +134,7 @@
         const memberIdInput = document.getElementById('memberId');
         const checkIdButton = document.getElementById('checkIdButton');
         const errorElement = document.getElementById('errorMemberId');
-        const submitButton = document.querySelector('button[type="submit"]');
+        const submitButton = document.getElementById('signupSubmitButton');
 
         checkIdButton.addEventListener('click', async function() {
             const memberId = memberIdInput.value.trim();
@@ -106,107 +142,150 @@
             if (!memberId) {
                 errorElement.innerText = 'ID is required.';
                 errorElement.classList.add('visible');
-                submitButton.disabled = true; // Disable submit button if ID is required
+                checkFormValidity();
+                return;
+            }
+
+            // 한글이 포함되어 있는지 확인
+            if (/[\u3131-\uD79D]/.test(memberId)) {
+                errorElement.innerText = 'ID는 한글을 포함할 수 없습니다.';
+                errorElement.classList.add('visible');
+                errorElement.style.color = 'red';
+                checkFormValidity();
                 return;
             }
 
             try {
-                const response = await fetch(`/user/member/checkDuplicateId?memberId=${memberId}`);
+                const response = await fetch(`/user/member/checkDuplicateId?memberId=${memberId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
 
-                // Log the response for debugging
-                console.log('Response Status:', response.status);
-                const responseText = await response.text(); // Read the response as text first
-
-                // Check if the response is valid JSON
-                let data;
-                try {
-                    data = JSON.parse(responseText);
-                } catch (jsonError) {
-                    throw new Error('Invalid JSON response');
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
                 }
 
-                // Log the parsed data for debugging
-                console.log('Response Data:', data);
+                const isDuplicate = await response.json();
 
-                // Check if data exists
-                if (data && typeof data.exists !== 'undefined') {
-                    if (data.exists) {
-                        errorElement.innerText = 'ID already exists.';
-                        errorElement.classList.add('visible');
-                        submitButton.disabled = true;
-                    } else {
-                        errorElement.innerText = 'ID is available.';
-                        errorElement.classList.add('visible');
-                        errorElement.style.color = 'green';
-                        submitButton.disabled = false;
-                    }
+                if (isDuplicate) {
+                    errorElement.innerText = 'ID already exists.';
+                    errorElement.classList.add('visible');
+                    errorElement.style.color = 'red';
                 } else {
-                    throw new Error('Invalid response format');
+                    errorElement.innerText = 'ID is available.';
+                    errorElement.classList.add('visible');
+                    errorElement.style.color = 'green';
                 }
             } catch (error) {
                 errorElement.innerText = 'Error checking ID duplication: ' + error.message;
                 errorElement.classList.add('visible');
-                submitButton.disabled = true;
                 console.error('Error during ID check:', error);
             }
 
-            // Validate PASSWORD
-            const memberPw = this.memberPw.value.trim();
+            checkFormValidity();
+        });
+
+        document.getElementById('signupForm').addEventListener('submit', function(event) {
+            let valid = true;
+
+            const memberPw = document.getElementById('memberPw').value.trim();
+            const errorPwElement = document.getElementById('errorMemberPw');
             if (!memberPw) {
+                errorPwElement.innerText = '비밀번호는 필수입니다.';
+                errorPwElement.classList.add('visible');
                 valid = false;
-                const errorMessage = document.getElementById('errorMemberPw');
-                errorMessage.innerText = '비밀번호는 필수입니다.';
-                errorMessage.classList.add('visible');
+            } else {
+                errorPwElement.innerText = '';
+                errorPwElement.classList.remove('visible');
             }
 
-            // Validate NAME
-            const memberName = this.memberName.value.trim();
+            const memberName = document.getElementById('memberName').value.trim();
+            const errorNameElement = document.getElementById('errorMemberName');
             if (memberName.length < 3) {
+                errorNameElement.innerText = '이름은 최소 3글자 이상이어야 합니다.';
+                errorNameElement.classList.add('visible');
                 valid = false;
-                const errorMessage = document.getElementById('errorMemberName');
-                errorMessage.innerText = '이름은 최소 3글자 이상이어야 합니다.';
-                errorMessage.classList.add('visible');
+            } else {
+                errorNameElement.innerText = '';
+                errorNameElement.classList.remove('visible');
             }
 
-            // Validate EMAIL
-            const memberEmail = this.memberEmail.value.trim();
+            const memberEmail = document.getElementById('memberEmail').value.trim();
+            const errorEmailElement = document.getElementById('errorMemberEmail');
             if (!memberEmail) {
+                errorEmailElement.innerText = '이메일은 필수 입력사항입니다.';
+                errorEmailElement.classList.add('visible');
                 valid = false;
-                const errorMessage = document.getElementById('errorMemberEmail');
-                errorMessage.innerText = '이메일은 필수 입력사항입니다.';
-                errorMessage.classList.add('visible');
             } else if (!/\S+@\S+\.\S+/.test(memberEmail)) {
+                errorEmailElement.innerText = '유효하지 않은 이메일입니다.';
+                errorEmailElement.classList.add('visible');
                 valid = false;
-                const errorMessage = document.getElementById('errorMemberEmail');
-                errorMessage.innerText = '유효하지 않은 이메일입니다.';
-                errorMessage.classList.add('visible');
+            } else {
+                errorEmailElement.innerText = '';
+                errorEmailElement.classList.remove('visible');
             }
 
-            // Validate PHONE
-            const memberPhone = this.memberPhone.value.trim();
+            const memberPhone = document.getElementById('memberPhone').value.trim();
+            const errorPhoneElement = document.getElementById('errorMemberPhone');
+            const phoneRegex = /^[0-9-]+$/;  // 숫자와 -만 허용
             if (!memberPhone) {
+                errorPhoneElement.innerText = '연락처는 필수 입력사항입니다.';
+                errorPhoneElement.classList.add('visible');
                 valid = false;
-                const errorMessage = document.getElementById('errorMemberPhone');
-                errorMessage.innerText = '연락처는 필수 입력사항입니다.';
-                errorMessage.classList.add('visible');
+            } else if (!phoneRegex.test(memberPhone)) {
+                errorPhoneElement.innerText = '유효하지 않은 연락처 형식입니다. 숫자와 -만 입력 가능합니다.';
+                errorPhoneElement.classList.add('visible');
+                valid = false;
+            } else {
+                errorPhoneElement.innerText = '';
+                errorPhoneElement.classList.remove('visible');
             }
 
-            // Validate ADDRESS
-            const memberAddress = this.memberAddress.value.trim();
+            const memberAddress = document.getElementById('memberAddress').value.trim();
+            const errorAddressElement = document.getElementById('errorMemberAddress');
             if (!memberAddress) {
+                errorAddressElement.innerText = '배송지는 필수 입력사항입니다.';
+                errorAddressElement.classList.add('visible');
                 valid = false;
-                const errorMessage = document.getElementById('errorMemberAddress');
-                errorMessage.innerText = '배송지는 필수 입력사항입니다.';
-                errorMessage.classList.add('visible');
+            } else {
+                errorAddressElement.innerText = '';
+                errorAddressElement.classList.remove('visible');
             }
 
-            // If all validation passes, submit the form
-            if (valid) {
-                this.submit(); // Manually submit the form if valid
+            if (!valid) {
+                event.preventDefault();
+                submitButton.disabled = true;
             }
         });
-    });
 
+        const inputs = document.querySelectorAll('#signupForm input');
+        inputs.forEach(input => {
+            input.addEventListener('input', function() {
+                checkFormValidity();
+            });
+        });
+
+        function checkFormValidity() {
+            let formIsValid = true;
+
+            const memberId = memberIdInput.value.trim();
+            if (!memberId || document.getElementById('errorMemberId').innerText.includes('exists') ||
+                document.getElementById('errorMemberId').innerText.includes('한글을 포함할 수 없습니다')) {
+                formIsValid = false;
+            }
+
+            inputs.forEach(input => {
+                if (!input.value.trim()) {
+                    formIsValid = false;
+                }
+            });
+
+            submitButton.disabled = !formIsValid;
+        }
+    });
 </script>
+
 </body>
 </html>

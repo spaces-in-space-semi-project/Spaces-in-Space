@@ -6,6 +6,7 @@ import com.space.spacesinspace.user.member.model.dto.UpdateMemberDTO;
 import com.space.spacesinspace.user.member.model.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -35,11 +36,9 @@ public class MemberController {
 
     @PostMapping("/checkDuplicateId")
     @ResponseBody
-    public ResponseEntity<Map<String, Boolean>> checkDuplicateId(@RequestParam String memberId) {
+    public ResponseEntity<Boolean> checkDuplicateId(@RequestParam String memberId) {
         boolean exists = memberService.checkDuplicateId(memberId); // Implement this service method
-        Map<String, Boolean> response = new HashMap<>();
-        response.put("exists", exists);
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(exists);
     }
 
     @PostMapping("signup")
