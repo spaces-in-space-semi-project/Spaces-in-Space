@@ -28,11 +28,8 @@
         }
     </style>
 </head>
-<body>
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <title th:text="${pageTitle}">Spaces in Space</title>
-</head>
-
 <body>
 <div th:fragment="adminOrder">
     <main>
@@ -41,20 +38,19 @@
             <tr>
                 <th>결제번호</th>
                 <th>주문날짜</th>
+                <th>배송상태</th>
                 <th>주문수량</th>
                 <th>주문금액</th>
-                <th>결제취소여부</th>
             </tr>
             <tr th:each="pay : ${payList}">
                 <td><a th:href="@{/admin/pay/adminPayDetail/{payCode}(payCode=${ pay.payCode})}" th:text="${ pay.payCode }"></a></td>
                 <td th:text="${pay.payDate}"></td>
+                <td th:text="${pay.getPayDeliverStatus}"></td>
                 <td th:text="${pay.payTotalCnt}"></td>
                 <td th:text="${pay.payTotalPrice}"></td>
-                <td th:text="${pay.payRefundYn}"></td>
             </tr>
         </table>
     </main>
 </div>
-
 </body>
 </html>

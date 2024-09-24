@@ -25,7 +25,7 @@
         </div>
         <!-- 배송 상태가 '배송전'일 경우에만 주문 취소 버튼을 보이도록 설정 -->
         <button th:if="${findPayDetail.payDeliverStatus == '배송전'}" onclick="confirmCancel()">주문취소</button>
-
+    </main>
         <script>
             function confirmCancel() {
                 const confirmation = confirm("주문을 취소하시겠습니까?");
@@ -38,7 +38,7 @@
                 }
             }
         </script>
-    </main>
+
 </div>
 </body>
 </html>
