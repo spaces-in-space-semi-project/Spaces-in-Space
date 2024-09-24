@@ -6,7 +6,7 @@
 </head>
 <body>
     <script th:inline="javascript">
-        alert([[${message}]]);
+        alert(`[[${message}]]`);
         window.location.replace("/auth/login");
     </script>
 </body>

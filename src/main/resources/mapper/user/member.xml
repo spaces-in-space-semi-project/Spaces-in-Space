@@ -22,6 +22,12 @@
         WHERE member_id = #{memberId}
     </select>
 
+    <select id="findIdByEmail" resultType="String">
+        SELECT member_id
+        FROM member_tbl
+        WHERE member_email = #{memberEmail}
+    </select>
+
     <insert id="regist" parameterType="com.space.spacesinspace.user.member.model.dto.SignupDTO">
         INSERT INTO member_tbl
         (

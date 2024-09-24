@@ -41,6 +41,24 @@ public class MemberController {
         return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(exists);
     }
 
+    @GetMapping(value = "/findId")
+    public ResponseEntity<Map<String, Object>> findIdByEmail(@RequestParam("userEmail") String email) {
+        Map<String, Object> response = new HashMap<>();
+        try {
+            String foundId = memberService.findIdByEmail(email);
+            if (foundId != null) {
+                response.put("id", foundId);
+                return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(response);
+            } else {
+                response.put("message", "아이디를 찾을 수 없습니다.");
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).contentType(MediaType.APPLICATION_JSON).body(response);
+            }
+        } catch (Exception e) {
+            response.put("message", "오류가 발생했습니다. 다시 시도해 주세요.");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).contentType(MediaType.APPLICATION_JSON).body(response);
+        }
+    }
+
     @PostMapping("signup")
     public ModelAndView signup(ModelAndView mv, @ModelAttribute SignupDTO newMember) {
         Integer result = memberService.regist(newMember);
@@ -89,45 +107,25 @@ public class MemberController {
         String memberId = member.getUsername();
         MemberDTO memberInfo = memberService.findByMemberId(memberId);
 
-        String message = null;
-
-        if (result == null) {
+        // Default message based on the result
+        String message;
+        if (result == null || result == 0) {
             message = "정보 수정에 실패했습니다. 다시 시도해주세요.";
-            System.out.println(message);
-
-            mv.addObject("memberName", "회원");
-            mv.addObject("memberInfo", memberInfo);
-            mv.addObject("activeSection", "update");
-            mv.addObject("message", message);
-            mv.setViewName("user/member/myPage");
-        } else if (result == 0) {
-            message = "정보 수정에 실패했습니다. 다시 시도해주세요.";
-            System.out.println(message);
-
-            mv.addObject("memberName", "회원");
-            mv.addObject("memberInfo", memberInfo);
-            mv.addObject("activeSection", "update");
-            mv.addObject("message", message);
-            mv.setViewName("user/member/myPage");
         } else if (result >= 1) {
             message = "정보 수정이 성공적으로 완료되었습니다.";
-            System.out.println(message);
-
-            mv.addObject("memberName", "회원");
-            mv.addObject("memberInfo", memberInfo);
-            mv.addObject("activeSection", "update");
-            mv.addObject("message", message);
-            mv.setViewName("user/member/myPage");
         } else {
-            message = "알 수 없는 오류가 발생했습니다. 다시 시도해보시거나 관리자에게 문의해주세요..";
-            System.out.println(message);
-
-            mv.addObject("memberName", "회원");
-            mv.addObject("memberInfo", memberInfo);
-            mv.addObject("activeSection", "update");
-            mv.addObject("message", message);
-            mv.setViewName("user/member/myPage");
+            message = "알 수 없는 오류가 발생했습니다. 다시 시도해보시거나 관리자에게 문의해주세요.";
         }
+
+        // Log the message
+        System.out.println(message);
+
+        // Set common attributes for the ModelAndView
+        mv.addObject("memberName", "회원");
+        mv.addObject("memberInfo", memberInfo);
+        mv.addObject("activeSection", "update");
+        mv.addObject("message", message);
+        mv.setViewName("user/member/myPage");
 
         return mv;
     }

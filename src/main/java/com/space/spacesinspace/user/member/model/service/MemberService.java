@@ -69,4 +69,8 @@ public class MemberService {
     public boolean checkDuplicateId(String memberId) {
         return memberMapper.checkDuplicateId(memberId) > 0;
     }
+
+    public String findIdByEmail(String email) {
+       return memberMapper.findIdByEmail(email);
+    }
 }

@@ -18,4 +18,6 @@ public interface MemberMapper {
     Integer updateInfo(UpdateMemberDTO memberInfo);
 
     int checkDuplicateId(String memberId);
+
+    String findIdByEmail(String email);
 }
