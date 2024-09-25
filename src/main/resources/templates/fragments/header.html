@@ -7,14 +7,19 @@
 <body>
     <header th:fragment="header">
 
-        <img th:src="@{/img/logo.png}" alt="Logo" style="width: 70px; height: 70px;" />
+        <div class="d-flex justify-content-center">
+            <a th:href="@{/}">
+                <img th:src="@{/img/logo.png}" alt="Logo" style="width: 70px; height: 70px;" />
+            </a>
+        </div>
 
-
-        <h2>SPACES IN SPACE</h2>
+        <h2>
+            <a th:href="@{/}" style="text-decoration: none; color: inherit;">SPACES IN SPACE</a>
+        </h2>
 
         <nav class="nav-container">
             <ul class="main-nav-left horizontal-list">
-                <li><a th:href="@{/}">PRODUCTS</a></li>
+                <li><a th:href="@{/user/product/productAll}">PRODUCTS</a></li>
                 <li><a th:href="@{/}">ABOUT US</a></li>
                 <li><a th:href="@{/user/faq/list}">FAQS</a></li>
             </ul>

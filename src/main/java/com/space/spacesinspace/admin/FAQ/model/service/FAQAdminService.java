@@ -10,32 +10,36 @@ import java.util.List;
 @Service
 public class FAQAdminService {
 
+    private final FAQAdminDAO faqAdminDAO;
+
     @Autowired
-    private FAQAdminDAO faqDAO;
-
-    public FAQAdminService(FAQAdminDAO faqDAO) {
-        this.faqDAO = faqDAO;
+    public FAQAdminService(FAQAdminDAO faqAdminDAO) {
+        this.faqAdminDAO = faqAdminDAO;
     }
 
-
-    public FAQDTO getFAQByCode(String code) {
-        return faqDAO.getFAQByCode(code);
-    }
-
+    // 모든 FAQ 목록 조회
     public List<FAQDTO> getAllFAQs() {
-        return faqDAO.getAllFAQs();
+        return faqAdminDAO.getAllFAQs(); // DAO를 통해 모든 FAQ 조회
     }
 
-    public void addFAQ(FAQDTO faq) {
-        faqDAO.insertFAQ(faq);
+    // 특정 faqCode로 FAQ 조회
+    public FAQDTO getFAQByCode(String faqCode) {
+        return faqAdminDAO.getFAQByCode(faqCode); // DAO를 통해 FAQ 조회
     }
 
-    public void updateFAQ(FAQDTO faq) {
-        faqDAO.updateFAQ(faq);
+    // 새로운 FAQ 생성
+    public void createFAQ(FAQDTO faqDTO) {
+        faqAdminDAO.insertFAQ(faqDTO); // DAO를 통해 새로운 FAQ 추가
     }
 
-    public void deleteFAQ(String code) {
-        faqDAO.deleteFAQ(code);
+    // FAQ 수정
+    public void updateFAQ(String faqCode, FAQDTO faqDTO) {
+        faqDTO.setFaqCode(faqCode); // DTO에 faqCode 설정
+        faqAdminDAO.updateFAQ(faqDTO); // DAO를 통해 FAQ 업데이트
+    }
+
+    // FAQ 삭제
+    public void deleteFAQ(String faqCode) {
+        faqAdminDAO.deleteFAQ(faqCode); // DAO를 통해 FAQ 삭제
     }
 }
-
