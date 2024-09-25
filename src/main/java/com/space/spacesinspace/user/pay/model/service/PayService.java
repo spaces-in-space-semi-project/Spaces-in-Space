@@ -64,4 +64,7 @@ public class PayService {
     public MemberDTO payProgressUser(int memberCode) {
         return payMapper.payProgressUser(memberCode);
     }
+
+    public void deletePayMenu(int payCode) {
+    }
 }

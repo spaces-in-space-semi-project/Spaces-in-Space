@@ -188,5 +188,9 @@
         WHERE member_code = #{memberCode}
     </select>
 
+    <delete id="deletePayMenu" parameterType="int">
+        DELETE FROM pay_tbl
+        WHERE pay_code = #{ payCode }
+    </delete>
 
 </mapper>
