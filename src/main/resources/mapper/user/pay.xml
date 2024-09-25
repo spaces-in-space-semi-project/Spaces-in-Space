@@ -39,6 +39,33 @@
         <result property="cardCompanyName" column="card_company_name"/>
     </resultMap>
 
+    <resultMap id="payProgressMap" type="com.space.spacesinspace.common.dto.ProductDTO">
+        <id property="productCode" column="product_code"/>
+        <result property="categoryCode" column="category_code"/>
+        <result property="productName" column="product_name"/>
+        <result property="productImageOriginal" column="product_image_original"/>
+        <result property="productImageThumbnail" column="product_image_thumbnail"/>
+        <result property="productPrice" column="product_price"/>
+        <result property="productDeliverTime" column="product_deliver_time"/>
+        <result property="productDelieverCost" column="product_deliever_cost"/>
+        <result property="productSize" column="product_size"/>
+        <result property="productMaterial" column="product_material"/>
+        <result property="productDescription" column="product_description"/>
+        <result property="productDeleteYn" column="product_delete_yn"/>
+    </resultMap>
+
+    <resultMap id="authenticatedMember" type="com.space.spacesinspace.common.dto.MemberDTO">
+        <id property="memberCode" column="member_code"/>
+        <result property="memberId" column="member_id"/>
+        <result property="memberPw" column="member_pw"/>
+        <result property="memberName" column="member_name"/>
+        <result property="memberEmail" column="member_email"/>
+        <result property="memberPhone" column="member_phone"/>
+        <result property="memberAddress" column="member_address"/>
+        <result property="memberRole" column="member_role"/>
+        <result property="memberDeleteYn" column="member_delete_yn"/>
+    </resultMap>
+
     <select id="findPayList" resultMap="payResultMap">
         SELECT
             a.pay_code,
@@ -125,9 +152,41 @@
             a.pay_code = #{ payCode }
     </select>
 
-<!--    <select id="payProgress" resultMap="payResultMap">-->
-<!--        -->
-<!--    </select>-->
+    <select id="payProgress" parameterType="int" resultMap="payProgressMap">
+        SELECT
+            product_code,
+            category_code,
+            product_name,
+            product_image_original,
+            product_image_thumbnail,
+            product_price,
+            product_deliver_time,
+            product_deliever_cost,
+            product_size,
+            product_material,
+            product_description,
+            product_delete_yn
+        FROM
+            product_tbl
+        WHERE
+            product_delete_yn = 'Y' AND
+            product_code = #{ productCode }
+    </select>
+
+    <select id="payProgressUser" parameterType="int" resultMap="authenticatedMember">
+        SELECT
+        member_code,
+        member_id,
+        member_pw,
+        member_name,
+        member_email,
+        member_phone,
+        member_address,
+        member_role,
+        member_delete_yn
+        FROM member_tbl
+        WHERE member_code = #{memberCode}
+    </select>
 
 
 </mapper>

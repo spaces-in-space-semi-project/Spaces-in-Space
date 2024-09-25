@@ -1,7 +1,9 @@
 package com.space.spacesinspace.user.pay.model.dao;
 
+import com.space.spacesinspace.common.dto.MemberDTO;
 import com.space.spacesinspace.common.dto.PayDTO;
 import com.space.spacesinspace.common.dto.PayDetailDTO;
+import com.space.spacesinspace.common.dto.ProductDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -21,6 +23,8 @@ public interface PayMapper {
     // 관리자가 모든 주문의 전체내역중에서, 코드로 상세 조회
     PayDetailDTO findAdminPayDetail(int payCode);
 
-    // 상품페이지에서 구매 버튼을 눌렀을때 넘어가는 결제 메소드
-    PayDTO payProgress(int productCode);
+    // 상품페이지에서 구매 버튼을 눌렀을때 넘어가는 상품 정보
+    ProductDTO payProgress(int productCode);
+
+    MemberDTO payProgressUser(int memberCode);
 }

@@ -1,7 +1,9 @@
 package com.space.spacesinspace.user.pay.controller;
 
+import com.space.spacesinspace.common.dto.MemberDTO;
 import com.space.spacesinspace.common.dto.PayDTO;
 import com.space.spacesinspace.common.dto.PayDetailDTO;
+import com.space.spacesinspace.common.dto.ProductDTO;
 import com.space.spacesinspace.user.pay.model.service.PayService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -49,13 +51,21 @@ public class PayController {
         return mv;
     }
 
-    @PostMapping("payProgress")
-    public ModelAndView payProgress(ModelAndView mv,int productCode){
-        PayDTO payProgress = payService.payProgress(productCode);
-        mv.addObject("payProgress",payProgress);
+    @GetMapping("payProgress")
+    public ModelAndView payProgress(ModelAndView mv,
+                                    @RequestParam(value = "productCode", required = false, defaultValue = "0")int productCode,
+                                    @RequestParam(value = "memberCode", required = false, defaultValue = "0")int memberCode){
+
+        ProductDTO payProgress = payService.payProgress(productCode);
+        MemberDTO payProgressUser = payService.payProgressUser(memberCode);
+
+        mv.addObject("payProgress", payProgress);
+        mv.addObject("payProgressUser", payProgressUser);
+
         mv.setViewName("user/pay/payProgress");
         return mv;
-
     }
+
+
 
 }

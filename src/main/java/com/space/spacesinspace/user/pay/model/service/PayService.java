@@ -1,7 +1,9 @@
 package com.space.spacesinspace.user.pay.model.service;
 
+import com.space.spacesinspace.common.dto.MemberDTO;
 import com.space.spacesinspace.common.dto.PayDTO;
 import com.space.spacesinspace.common.dto.PayDetailDTO;
+import com.space.spacesinspace.common.dto.ProductDTO;
 import com.space.spacesinspace.user.pay.model.dao.PayMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -55,7 +57,11 @@ public class PayService {
         return payMapper.findAdminPayDetail(payCode);
     }
 
-    public PayDTO payProgress(int productCode) {
+    public ProductDTO payProgress(int productCode) {
         return payMapper.payProgress(productCode);
+    }
+
+    public MemberDTO payProgressUser(int memberCode) {
+        return payMapper.payProgressUser(memberCode);
     }
 }
