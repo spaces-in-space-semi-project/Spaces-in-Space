@@ -1,4 +1,4 @@
-package com.space.spacesinspace.user.product.contrller;
+package com.space.spacesinspace.user.product.controller;
 
 import com.space.spacesinspace.common.dto.ProductDTO;
 import com.space.spacesinspace.user.product.model.service.ProductService;
@@ -29,10 +29,11 @@ public class ProductController {
         this.messageSource = messageSource;
     }
 
-    @GetMapping("/productAll")
+    @GetMapping("productAll")
     public String findAllProducts(Model model) {
         List<ProductDTO> productList = productService.findAllProduct();
         model.addAttribute("productList", productList);
+        model.addAttribute("img", "static/uploadedFiles/img/single" + "/" + productList);
         return "user/product/productAll";
     }
 
