@@ -31,7 +31,8 @@ public class ProductAdminController {
         this.productAdminService = productAdminService;
     }
 
-    @GetMapping("/productsManage")    // 전체 조회
+    // 전체 조회
+    @GetMapping("productsManage")
     public ModelAndView findAllProduct(ModelAndView mv) {
         List<ProductDTO> productList = productAdminService.findAllProduct();
         mv.addObject("productList", productList);
@@ -40,32 +41,35 @@ public class ProductAdminController {
         return mv;
     }
 
+    // 카테고리 조회
     @GetMapping(value = "findCategory", produces = "application/json; charset=UTF-8")
     @ResponseBody
     public List<CategoryDTO> findCategoryList() {
         return productAdminService.findAllCategory();
     }
 
-    @GetMapping("productRegist") // 등록 페이지
+    // 상품 등록 페이지 이동
+    @GetMapping("productRegist")
     public ModelAndView registProduct(ModelAndView mv) {
         mv.addObject("activeSection", "productRegist");
         mv.setViewName("admin/layout/adminLayout");
         return mv;
     }
 
-    @PostMapping("/productRegist")
-    public ModelAndView registProduct(
-            @RequestParam("categoryCode") int categoryCode,
-            @RequestParam("productName") String productName,
-            @RequestParam("productPrice") int productPrice,
-            @RequestParam("productDeliverTime") String productDeliverTime,
-            @RequestParam("productDelieverCost") int productDelieverCost,
-            @RequestParam("productSize") String productSize,
-            @RequestParam("productMaterial") String productMaterial,
-            @RequestParam("productDescription") String productDescription,
-            @RequestParam("productImageOriginal") MultipartFile productImageOriginal,
-            RedirectAttributes redirectAttributes,
-            ModelAndView mv) throws IOException {
+    // 상품 등록
+    @PostMapping("productRegist")
+    public ModelAndView registProduct(@RequestParam("categoryCode") int categoryCode,
+                                      @RequestParam("productName") String productName,
+                                      @RequestParam("productPrice") int productPrice,
+                                      @RequestParam("productDeliverTime") String productDeliverTime,
+                                      @RequestParam("productDelieverCost") int productDelieverCost,
+                                      @RequestParam("productSize") String productSize,
+                                      @RequestParam("productMaterial") String productMaterial,
+                                      @RequestParam("productDescription") String productDescription,
+                                      @RequestParam("productImageOriginal") MultipartFile productImageOriginal,
+                                      RedirectAttributes redirectAttributes,
+                                      ModelAndView mv) throws IOException {
+        
         ProductDTO newProduct = new ProductDTO();
         newProduct.setCategoryCode(categoryCode);
         newProduct.setProductName(productName);
@@ -76,7 +80,7 @@ public class ProductAdminController {
         newProduct.setProductMaterial(productMaterial);
         newProduct.setProductDescription(productDescription);
 
-        // Define the directory for image uploads
+        // directory 선언
         Resource resource = resourceLoader.getResource("classpath:static/uploadedFiles/img");
         String filePath = null;
         if (!resource.exists()) {
@@ -94,7 +98,7 @@ public class ProductAdminController {
                     .getAbsolutePath();
         }
 
-        // Generate unique names for the uploaded file and thumbnail
+        // 랜덤으로 유니크한 파일명 생성
         String originalFileName = productImageOriginal.getOriginalFilename();
         String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
         String savedName = UUID.randomUUID().toString().replace("-", "") + extension;
@@ -103,22 +107,22 @@ public class ProductAdminController {
         File thumbnailFile = new File(filePath + "/" + thumbnailName);
 
         try {
-            // Save the uploaded image
+            // 파일 저장
             productImageOriginal.transferTo(originalFile);
 
-            // Generate a thumbnail using Thumbnailator
+            // Thumbnailator 사용하여 썸네일 생성
             Thumbnails.of(originalFile)
                     .size(160, 90) // Define thumbnail dimensions
                     .toFile(thumbnailFile);
 
-            // Set paths in ProductDTO
+            // DTO에 저장된 파일의 경로를 String으로 저장
             newProduct.setProductImageOriginal("/uploadedFiles/img/" + savedName);
             newProduct.setProductImageThumbnail("/uploadedFiles/img/" + thumbnailName);
 
-            // Call service to save the product
+            // 상품 등록 로직
             Integer result = productAdminService.registNewProduct(newProduct);
-            String message;
 
+            String message;
             if (result == null || result == 0) {
                 message = "상품등록에 실패했습니다. 다시 시도해주세요.";
                 mv.setViewName("redirect:/admin/product/productRegist");
@@ -137,16 +141,18 @@ public class ProductAdminController {
             if (thumbnailFile.exists()) {
                 thumbnailFile.delete();
             }
-            System.err.println("[Failed] File upload or thumbnail generation failed!");
+            System.err.println("[Failed] 파일 업로드 또는 썸네일 생성 실패");
             e.printStackTrace();
+
+            redirectAttributes.addFlashAttribute("message", "파일 업로드 중 오류가 발생했습니다. 다시 시도해주세요.");
             mv.setViewName("redirect:/admin/product/productRegist");
-            mv.addObject("message", "파일 업로드 중 오류가 발생했습니다. 다시 시도해주세요.");
         }
 
         return mv;
     }
 
-    @GetMapping("/productDetail/{code}")
+    // 상품 상제 조회
+    @GetMapping("productDetail/{code}")
     public ModelAndView findProductDetail(@PathVariable("code") int code, ModelAndView mv) {
         ProductDTO product = productAdminService.findProductByCode(code);
         mv.addObject("product", product);
@@ -156,7 +162,8 @@ public class ProductAdminController {
         return mv;
     }
 
-    @PostMapping("/productUpdate") // 수정 요청
+    // 상품 수정
+    @PostMapping("productUpdate")
     public ModelAndView updateProduct(@RequestParam("productCode") int productCode,
                                       @RequestParam("categoryCode") int categoryCode,
                                       @RequestParam("productName") String productName,
@@ -171,6 +178,7 @@ public class ProductAdminController {
                                       @RequestParam("productImageOriginal") MultipartFile productImageOriginal,
                                       RedirectAttributes redirectAttributes,
                                       ModelAndView mv) throws IOException {
+
         ProductDTO newProduct = new ProductDTO();
         newProduct.setProductCode(productCode);
         newProduct.setCategoryCode(categoryCode);
@@ -195,9 +203,8 @@ public class ProductAdminController {
             filePath = resource.getFile().getAbsolutePath();
         }
 
-        // Check if a new file is uploaded
+        // 새로운 파일이 업로드 되었을 때만 동작
         if (!productImageOriginal.isEmpty()) {
-            // Generate unique names for the uploaded file and thumbnail
             String originalFileName = productImageOriginal.getOriginalFilename();
             int dotIndex = originalFileName.lastIndexOf(".");
             String extension = dotIndex != -1 ? originalFileName.substring(dotIndex) : "";
@@ -207,42 +214,43 @@ public class ProductAdminController {
             File thumbnailFile = new File(filePath + "/" + thumbnailName);
 
             try {
-                // Save the uploaded image
+                // 업로드 된 이미지 저장
                 productImageOriginal.transferTo(originalFile);
 
-                // Generate a thumbnail using Thumbnailator
+                // Thumbnailator로 썸네일 생성
                 Thumbnails.of(originalFile)
                         .size(160, 90) // Define thumbnail dimensions
                         .toFile(thumbnailFile);
 
-                // Set paths in ProductDTO
+                // ProductDTO에 경로 담기
                 newProduct.setProductImageOriginal("/uploadedFiles/img/" + savedName);
                 newProduct.setProductImageThumbnail("/uploadedFiles/img/" + thumbnailName);
 
             } catch (IOException e) {
-                // Handle exceptions and rollback if needed
+                // 오류가 났을 경우 파일 삭제
                 if (originalFile.exists()) {
                     originalFile.delete();
                 }
                 if (thumbnailFile.exists()) {
                     thumbnailFile.delete();
                 }
-                System.err.println("[Failed] File upload or thumbnail generation failed!");
+                System.err.println("[Failed] 파일 업로드 또는 썸네일 생성 실패");
                 e.printStackTrace();
                 mv.setViewName("redirect:/admin/product/productRegist");
-                mv.addObject("message", "파일 업로드 중 오류가 발생했습니다. 다시 시도해주세요.");
+
+                redirectAttributes.addFlashAttribute("message", "파일 업로드 중 오류가 발생했습니다. 다시 시도해주세요.");
                 return mv;
             }
         } else {
-            // Use existing paths if no new file is uploaded
+            // 새로운 파일이 없으면 기존의 경로 ProductDTO에 담기
             newProduct.setProductImageOriginal(existingImageOriginal);
             newProduct.setProductImageThumbnail(existingImageThumbnail);
         }
 
-        // Call service to save the product
+        // 업데이트된 정보 저장
         Integer result = productAdminService.updateProduct(newProduct);
-        String message;
 
+        String message;
         if (result == null || result == 0) {
             message = "상품수정에 실패했습니다. 다시 시도해주세요.";
             mv.setViewName("redirect:/admin/product/productRegist");
@@ -255,17 +263,18 @@ public class ProductAdminController {
         return mv;
     }
 
-    @PostMapping("/productDelete") // 메뉴 삭제
+    // 상품 삭제
+    @PostMapping("/productDelete")
     public ModelAndView deleteProduct(@RequestParam("productCode") int productCode, RedirectAttributes rAttr, ModelAndView mv) {
         Integer result =  productAdminService.deleteProduct(productCode);
 
         String message;
 
         if (result == null || result == 0) {
-            message = "상품삭제에 실패했습니다. 다시 시도해주세요.";
+            message = "상품 삭제에 실패했습니다. 다시 시도해주세요.";
             mv.setViewName("redirect:/admin/product/productUpdate");
         } else {
-            message = "상품을 성공적으로 수정했습니다.";
+            message = "상품을 성공적으로 삭제했습니다.";
             mv.setViewName("redirect:/admin/product/productsManage");
         }
 

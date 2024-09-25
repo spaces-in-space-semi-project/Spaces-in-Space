@@ -8,18 +8,19 @@
 <body>
     <div th:fragment="product">
         <main>
-            <!-- Button Container -->
-            <div class="button-container">
-                <a th:href="@{/admin/product/productRegist}">
-                    <button id="insert-button">상품등록</button>
+            <!-- Search and Button Container -->
+            <div class="d-flex justify-content-end mb-3">
+                <a th:href="@{/admin/product/productRegist}" class="btn btn-primary me-2">
+                    상품등록
                 </a>
+                <div class="input-group" style="width: 250px;">
+                    <input type="text" class="form-control" placeholder="검색..." aria-label="Search">
+                    <button class="btn btn-outline-secondary" type="button">검색</button>
+                </div>
             </div>
 
-            <!-- Search Container -->
-            <div class="search-container">
-                <input type="text" placeholder="검색..." />
-                <button>검색</button>
-            </div>
+            <div id="grid" class="mt-4"></div>
+            <div id="pagination" class="d-flex justify-content-center mt-3"></div>
 
         <!--    <table>-->
         <!--        <tr>-->
@@ -36,48 +37,84 @@
         <!--        </tr>-->
         <!--    </table>-->
 
-            <div id="grid" style="margin-top: 20px;"></div>
-
             <script th:inline="javascript">
-                let menuList = /*[[${ productList }]]*/ [];
+                let productList = /*[[${ productList }]]*/ [];
+                const totalItems = productList.length; // Total number of items
+                const itemsPerPage = 10; // Number of items per page
 
+                // Initialize TUI Pagination
+                const pagination = new tui.Pagination(document.getElementById('pagination'), {
+                    totalItems: totalItems,
+                    itemsPerPage: itemsPerPage,
+                    visiblePages: 5,
+                    centerAlign: true,
+                    firstItem: '<span class="tui-page-btn tui-first">«</span>',
+                    prevItem: '<span class="tui-page-btn tui-prev">‹</span>',
+                    nextItem: '<span class="tui-page-btn tui-next">›</span>',
+                    lastItem: '<span class="tui-page-btn tui-last">»</span>'
+                });
+
+                // Initialize TUI Grid without pageOptions
                 const grid = new tui.Grid({
                     el: document.getElementById('grid'),
-                    data: menuList,
+                    data: productList.slice(0, itemsPerPage),
                     scrollX: false,
-                    scrollY: false,
+                    scrollY: true,
                     columns: [
                         {
                             header: '상품코드',
-                            name: 'productCode'
+                            name: 'productCode',
+                            sortable: true,
+                            align: 'center',
+                            width: 100
                         },
                         {
                             header: '상품카테고리',
-                            name: 'categoryCode'
+                            name: 'categoryCode',
+                            sortable: true,
+                            align: 'center',
+                            width: 150
                         },
                         {
                             header: '상품명',
                             name: 'productName',
                             sortable: true,
-                            sortingType: 'desc'
+                            sortingType: 'desc',
+                            width: 500
                         },
                         {
                             header: '상품가격',
                             sortable: true,
-                            name: 'productPrice'
+                            name: 'productPrice',
+                            align: 'right'
+                        },
+                        {
+                            header: '상품배달비',
+                            name: 'productDelieverCost',
+                            sortable: true,
+                            align: 'right'
                         }
                     ]
                 });
 
-                // 행 클릭 이벤트 처리
-                grid.on('click', (ev) => {
-                    const rowKey = ev.rowKey; // 클릭된 행의 키
-                    const rowData = grid.getRow(rowKey); // 클릭된 행의 데이터 가져오기
+                // Handle pagination page change and update grid data manually
+                pagination.on('beforeMove', (event) => {
+                    const currentPage = event.page;
+                    const startIdx = (currentPage - 1) * itemsPerPage;
+                    const endIdx = startIdx + itemsPerPage;
+                    grid.resetData(productList.slice(startIdx, endIdx));
+                    return true;
+                });
 
-                    // 상품 상세 페이지로 이동 (예: 상품코드를 기준으로 이동)
+                // Attach the row click event listener
+                grid.on('click', (ev) => {
+                    const rowKey = ev.rowKey;
+                    const rowData = grid.getRow(rowKey);
+
+                    // Check if row data exists and navigate to the detail page
                     if (rowData && rowData.productCode) {
-                        const detailUrl = `/admin/product/productDetail/${rowData.productCode}`; // 상세 페이지 URL 생성
-                        window.location.href = detailUrl; // 해당 URL로 이동
+                        const detailUrl = `/admin/product/productDetail/${rowData.productCode}`;
+                        window.location.href = detailUrl;
                     }
                 });
             </script>

@@ -12,6 +12,10 @@
   <link rel="stylesheet" href="https://uicdn.toast.com/grid/latest/tui-grid.css" />
   <script src="https://uicdn.toast.com/grid/latest/tui-grid.js"></script>
 
+  <!-- TUI Pagination CSS -->
+  <link rel="stylesheet" href="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.css">
+  <script src="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.min.js"></script>
+
   <title>Admin</title>
 
   <style>
@@ -69,6 +73,20 @@
       background-color: #f8f9fa; /* Light background for main content */
       min-height: 100vh;
     }
+
+    /* Add padding and background styling for a better click area */
+    #pagination .tui-page-item a,
+    #pagination .tui-page-btn {
+      padding: 6px 8px !important;
+      border-radius: 4px;
+      background-color: #f8f9fa;
+    }
+
+    #pagination .tui-page-item a:hover,
+    #pagination .tui-page-btn:hover {
+      background-color: #e2e6ea;
+      cursor: pointer;
+    }
   </style>
 
   <script>
@@ -117,7 +135,6 @@
     <div th:case="'product'" th:include="admin/product/productsManage :: product"></div>
     <div th:case="'productRegist'" th:include="admin/product/productRegist :: productRegist"></div>
     <div th:case="'productDetail'" th:include="admin/product/productDetail :: productDetail"></div>
-    <!-- Additional content cases can be added here -->
   </div>
 </main>
 
