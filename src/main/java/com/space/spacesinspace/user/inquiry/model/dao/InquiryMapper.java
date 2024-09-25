@@ -2,6 +2,7 @@ package com.space.spacesinspace.user.inquiry.model.dao;
 
 import com.space.spacesinspace.common.dto.InquiryDTO;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 

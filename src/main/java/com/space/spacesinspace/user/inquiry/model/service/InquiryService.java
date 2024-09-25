@@ -31,6 +31,7 @@ public class InquiryService {
         inquiryMapper.deleteInquiry(code);
     }
 
+    @Transactional
     public void editInquiry(InquiryDTO inquiry) {
         inquiryMapper.editInquiry(inquiry);
     }

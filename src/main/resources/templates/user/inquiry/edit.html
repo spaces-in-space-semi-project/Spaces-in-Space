@@ -7,7 +7,7 @@
 <body>
     <h2>문의글 수정</h2>
 
-    <form th:action="@{/user/inquiry/edit}" th:object="${inquiry}" method="post">
+    <form th:action="@{/user/inquiry/edit}" method="post">
         <input type="hidden" value="${inquiryCode}"/>
         <input type="hidden" value="${memberCode}"/>
         <div>
@@ -28,15 +28,5 @@
         </div>
     </form>
 
-    <script type="text/javascript">
-        function inquiryCode(inquiryCode) {
-            return inquiryCode;
-        }
-        function memberCode(memberCode) {
-            return memberCode;
-        }
-        // document.getElementById('inquiryCode').value="inquiryCode";
-        // document.getElementById('memberCode').value="memberCode";
-    </script>
 </body>
 </html>

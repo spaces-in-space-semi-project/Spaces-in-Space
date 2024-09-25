@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -79,12 +80,15 @@ public class InquiryController {
     public void editPage() {}
 
     @PostMapping("/user/inquiry/edit")
-    public String editInquiry(InquiryDTO inquiry, RedirectAttributes rAttr) {
+    public ModelAndView editInquiry(ModelAndView mv, InquiryDTO inquiry, RedirectAttributes rAttr) {
 
         inquiryService.editInquiry(inquiry);
 
+        mv.addObject("inquiryCode", inquiry.getInquiryCode());
+        mv.addObject("memberCode", inquiry.getMemberCode());
+
         rAttr.addFlashAttribute("successMessage", "문의글 수정이 완료되었습니다.");
 
-        return "redirect:/user/inquiry/detail/" + inquiry.getInquiryCode();
+        return mv;
     }
 }
