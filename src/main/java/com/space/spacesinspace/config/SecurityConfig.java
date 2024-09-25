@@ -40,7 +40,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> {
-            auth.requestMatchers("/auth/login", "auth/admin/login","user/member/signup", "/auth/fail", "/fragments/*", "/user/product/productAll", "/user/product/productDetail", "user/faq/list","/main", "/").permitAll();
+            auth.requestMatchers("/auth/login", "/user/member/checkDuplicateId", "/user/member/findId", "/auth/admin/login","/user/member/signup", "/auth/fail", "/fragments/*", "/user/product/productAll", "/user/product/productDetail", "/img/*", "/user/faq/list","/main", "/").permitAll();
             auth.requestMatchers("/admin/*").hasAnyAuthority("ADMIN");
             auth.requestMatchers("/member/*").hasAnyAuthority("USER");
             auth.anyRequest().authenticated();
@@ -48,17 +48,17 @@ public class SecurityConfig {
             login.loginPage("/auth/login");
             login.usernameParameter("memberId");
             login.passwordParameter("memberPw");
-//            login.defaultSuccessUrl("/", true)
+//            login.defaultSuccessUrl("/", true);
             login.successHandler(authSuccessHandler);
             login.failureHandler(authFailHandler);
-        }).formLogin(login -> {
+        })/*.formLogin(login -> {
             login.loginPage("/auth/admin/login");  // Separate login page for admin
             login.usernameParameter("memberId");
             login.passwordParameter("memberPw");
 //            login.defaultSuccessUrl("/admin/member/selectAllMembers", true)  // Admin dashboard
             login.successHandler(authSuccessHandler);
             login.failureHandler(authFailHandler);
-        }).logout(logout -> {
+        })*/.logout(logout -> {
             logout.logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout"));
             logout.deleteCookies("JSESSIONID");
             logout.invalidateHttpSession(true);
