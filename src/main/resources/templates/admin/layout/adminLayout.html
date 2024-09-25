@@ -1,84 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <meta charset="UTF-8">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+  <!-- Icons from Bootstrap Icons CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- tui-grid -->
+  <link rel="stylesheet" href="https://uicdn.toast.com/grid/latest/tui-grid.css" />
+  <script src="https://uicdn.toast.com/grid/latest/tui-grid.js"></script>
 
   <title>Admin</title>
 
   <style>
-    /* Style the sidebar */
+    /* Sidebar styling similar to the provided design */
     .sidebar-content {
-      width: 250px; /* Adjust the width of the sidebar */
-      height: 100vh; /* Full height */
-      position: fixed; /* Fix the position */
+      width: 250px;
+      height: 100vh;
+      position: fixed;
       top: 0;
       left: 0;
-      background-color: #6e6e6e; /* Background color (dark for admin feel) */
+      background-color: #343a40; /* Dark background similar to the provided example */
       padding-top: 20px;
-      box-shadow: 2px 5px rgba(0,0,0,0.5); /* Adds a subtle shadow for depth */
-      z-index: 1000; /* Ensures the sidebar stays on top */
+      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
     }
 
-    /* Style the list items */
     .nav-secondary {
-      list-style-type: none; /* Remove bullets */
+      list-style-type: none;
       padding: 0;
       margin: 0;
     }
 
     .nav-item {
       padding: 15px 20px;
-      text-align: left;
-      color: white;
       font-size: 16px;
       font-weight: bold;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
+      display: flex;
+      align-items: center;
+      color: #cfd8dc; /* Light color for text */
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .nav-item a {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      width: 100%;
     }
 
     .nav-item:hover {
-      background-color: #2d3035; /* Highlight on hover */
+      background-color: #495057; /* Highlight color on hover */
+      color: #ffffff; /* Change text color on hover */
     }
 
-    .nav-item:active {
-      background-color: #1abc9c; /* Color when clicked */
+    .nav-item i {
+      margin-right: 10px; /* Spacing for icons */
+      font-size: 18px; /* Adjust icon size */
     }
 
-    /* Make sure the rest of the page content starts after the sidebar */
     .main-content {
-      margin-left: 250px; /* Same as the width of the sidebar */
+      margin-left: 250px;
       padding: 20px;
+      background-color: #f8f9fa; /* Light background for main content */
+      min-height: 100vh;
     }
   </style>
+
+  <script>
+    const message = `[[${message}]]`;
+    if (message) {
+      alert(message);
+    }
+  </script>
 </head>
 <body>
-  <div th:replace="fragments/header :: header"></div>
+<!--<div th:replace="fragments/header :: header"></div>-->
 
-  <nav class="sidebar-content">
-    <ul class="nav nav-secondary">
-      <li class="nav-item">
-        <a th:href="@{/admin/product/productsManage}">상품 관리</a>
-      </li>
-      <li class="nav-item">회원 관리</li>
-      <li class="nav-item">주문 관리</li>
-      <li class="nav-item">문의 관리</li>
-      <li class="nav-item">
-        <a th:href="@{/admin/faq/list}" style="color: white; text-decoration: none;">FAQ 관리</a>
-      </li>
-    </ul>
-  </nav>
+<!-- Sidebar with adjusted styles to match the example -->
+<nav class="sidebar-content">
+  <ul class="nav nav-secondary">
+    <li class="nav-item">
+      <a th:href="@{/admin/product/productsManage}">
+        <i class="bi bi-box"></i> 상품 관리
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="#">
+        <i class="bi bi-people"></i> 회원 관리
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="#">
+        <i class="bi bi-cart"></i> 주문 관리
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="#">
+        <i class="bi bi-question-circle"></i> 문의 관리
+      </a>
+    </li>
+    <li class="nav-item">
+      <a th:href="@{/admin/faq/list}">
+        <i class="bi bi-info-circle"></i> FAQ 관리
+      </a>
+    </li>
+  </ul>
+</nav>
 
-  <main>
-    <div th:switch="${activeSection}">
-<!--      <div th:case="'product'" th:include="user/member/update :: update"></div>-->
-<!--      <div th:case="'member'" th:include="user/inquiry/list :: inquiry"></div>-->
-<!--      <div th:case="'order'" th:include="user/pay/payList :: order"></div>-->
-<!--      <div th:case="'inquiry'" th:include="user/cart/cartList :: cart"></div>-->
-<!--      <div th:case="'faq'" th:include="user/pay/findPayDetail :: orderDetail"></div>-->
-    </div>
-  </main>
+<main class="main-content">
+  <div th:switch="${activeSection}">
+    <div th:case="'product'" th:include="admin/product/productsManage :: product"></div>
+    <div th:case="'productRegist'" th:include="admin/product/productRegist :: productRegist"></div>
+    <div th:case="'productDetail'" th:include="admin/product/productDetail :: productDetail"></div>
+    <!-- Additional content cases can be added here -->
+  </div>
+</main>
 
 </body>
 </html>

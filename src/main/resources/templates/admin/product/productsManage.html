@@ -4,156 +4,85 @@
     <meta charset="UTF-8">
     <title>Admin Page</title>
 
-    <style>
-        /* Style the sidebar */
-        .sidebar-content {
-            width: 250px;
-            height: 100vh;
-            position: fixed;
-            top: 0;
-            left: 0;
-            background-color: #6e6e6e;
-            padding-top: 20px;
-            box-shadow: 2px 0px 5px rgba(0,0,0,0.5);
-            z-index: 1000;
-        }
-
-        /* Style the buttons container */
-        .button-container {
-            position: absolute;
-            top: 20px;
-            left: 270px;
-            display: flex;
-            justify-content: space-around;
-        }
-
-        button {
-            padding: 5px 15px;
-            font-size: 14px;
-            color: white;
-            background-color: #35373c;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .button-container button:hover {
-            background-color: #0056b3; /* Hover effect for buttons */
-        }
-
-        /* Style the search container */
-        .search-container {
-            position: absolute;
-            top: 20px;
-            right: 150px; /* Adjust position according to layout */
-            display: flex;
-            align-items: center;
-        }
-
-        .search-container input {
-            padding: 5px 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 14px;
-        }
-
-        .search-container button {
-            padding: 5px 10px;
-            margin-left: 5px;
-            background-color: #35373c;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-        .search-container button:hover {
-            background-color: #0056b3; /* Hover effect for search button */
-        }
-
-        /* Style the list items */
-        .nav-secondary {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .nav-item {
-            padding: 15px 20px;
-            text-align: left;
-            color: white;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .nav-item:hover {
-            background-color: #2d3035; /* Highlight on hover */
-        }
-
-        /* Make sure the rest of the page content starts after the sidebar */
-        .main-content {
-            margin-left: 250px; /* Same as the width of the sidebar */
-            padding: 20px;
-        }
-
-        /* Style for the thumbnail image */
-        .thumbnail {
-            max-width: 100%; /* Responsive width */
-            height: auto; /* Maintain aspect ratio */
-            border-radius: 8px; /* Rounded corners */
-        }
-    </style>
 </head>
 <body>
-<!-- Sidebar Navigation -->
-<nav class="sidebar-content">
-    <!-- Sidebar Menu -->
-    <ul class="nav nav-secondary">
-        <li class="nav-item">상품 관리</li>
-        <li class="nav-item">회원 관리</li>
-        <li class="nav-item">주문 관리</li>
-        <li class="nav-item">문의 관리</li>
-        <li class="nav-item">FAQ 관리</li>
-    </ul>
-</nav>
+    <div th:fragment="product">
+        <main>
+            <!-- Button Container -->
+            <div class="button-container">
+                <a th:href="@{/admin/product/productRegist}">
+                    <button id="insert-button">상품등록</button>
+                </a>
+            </div>
 
-<!-- Button Container -->
-<div class="button-container">
-    <button id="all-button">상품관리</button>
-    <a th:href="@{/admin/product/productRegist}">
-    <button id="insert-button">상품등록</button>
-    </a>
-</div>
+            <!-- Search Container -->
+            <div class="search-container">
+                <input type="text" placeholder="검색..." />
+                <button>검색</button>
+            </div>
 
-<!-- Search Container -->
-<div class="search-container">
-    <input type="text" placeholder="검색..." />
-    <button>검색</button>
-</div>
+        <!--    <table>-->
+        <!--        <tr>-->
+        <!--            <th>상품코드</th>-->
+        <!--            <th>상품카테고리</th>-->
+        <!--            <th>상품명</th>-->
+        <!--            <th>상품가격</th>-->
+        <!--        </tr>-->
+        <!--        <tr th:each="product : ${ productList }">-->
+        <!--            <td th:text="${ product.productCode }"></td>-->
+        <!--            <td th:text="${ product.categoryCode }"></td>-->
+        <!--            <td th:text="${ product.productName }"></td>-->
+        <!--            <td th:text="${ product.productPrice }"></td>-->
+        <!--        </tr>-->
+        <!--    </table>-->
 
-<!-- Main Content -->
-<div class="main-content">
-    <h1>관리 페이지</h1>
-    <p>여기에 메인 콘텐츠를 추가하세요.</p>
+            <div id="grid" style="margin-top: 20px;"></div>
 
-    <!-- Thumbnail Image -->
-    <a th:href="@{/admin/product/productDetail/1}">
-    <img src="path/to/your/thumbnail.jpg" alt="Thumbnail" class="thumbnail" />
-    </a>
-    <table>
-        <tr>
-            <th>상품번호</th>
-            <th>상품가격</th>
-        </tr>
-        <tr th:each="product : ${ productList }">
-            <td th:text="${ product.productCode }"></td>
-            <td th:text="${ product.productPrice }"></td>
-        </tr>
-    </table>
-</div>
+            <script th:inline="javascript">
+                let menuList = /*[[${ productList }]]*/ [];
+
+                const grid = new tui.Grid({
+                    el: document.getElementById('grid'),
+                    data: menuList,
+                    scrollX: false,
+                    scrollY: false,
+                    columns: [
+                        {
+                            header: '상품코드',
+                            name: 'productCode'
+                        },
+                        {
+                            header: '상품카테고리',
+                            name: 'categoryCode'
+                        },
+                        {
+                            header: '상품명',
+                            name: 'productName',
+                            sortable: true,
+                            sortingType: 'desc'
+                        },
+                        {
+                            header: '상품가격',
+                            sortable: true,
+                            name: 'productPrice'
+                        }
+                    ]
+                });
+
+                // 행 클릭 이벤트 처리
+                grid.on('click', (ev) => {
+                    const rowKey = ev.rowKey; // 클릭된 행의 키
+                    const rowData = grid.getRow(rowKey); // 클릭된 행의 데이터 가져오기
+
+                    // 상품 상세 페이지로 이동 (예: 상품코드를 기준으로 이동)
+                    if (rowData && rowData.productCode) {
+                        const detailUrl = `/admin/product/productDetail/${rowData.productCode}`; // 상세 페이지 URL 생성
+                        window.location.href = detailUrl; // 해당 URL로 이동
+                    }
+                });
+            </script>
+        </main>
+
+    </div>
 </body>
 </html>
