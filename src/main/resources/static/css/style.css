@@ -15,9 +15,9 @@ header {
     align-items: center;
     width: 100%;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* 하단 그림자 */
-    margin-bottom: 20px; /* 본문과의 간격 */
+    margin-bottom: 1px; /* 본문과의 간격 */
     background-color: #fafafa; /* 배경색 */
-    border-bottom: 1px solid #bab2b2; /* 구분선 */
+    border-bottom: 2px solid #3a3a3a; /* 구분선 */
 }
 
 /* 헤더 내부의 제목 부분에 추가 스타일 (선택 사항) */
@@ -108,10 +108,13 @@ main {
 
 /* Footer */
 footer {
-    background-color: #333;
-    color: white;
+    background-color: #dcdcdc;
+    color: #020202;
     text-align: center;
+    border-top: 1px solid #000000; /* 위쪽에 검은색 굵은 선 추가 */
+    padding: 7px; /* 푸터 내 여백 추가 */
 }
+
 
 /* faq css */
 /* 전체 바디 스타일 */

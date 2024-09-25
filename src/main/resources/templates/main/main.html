@@ -3,15 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{/css/style.css}">
+
     <title th:text="${pageTitle}">Spaces in Space</title>
 </head>
+
+
+<style>
+    /* 전체 이미지 스타일 */
+    .full-size-image {
+        width: 100%; /* 너비를 100%로 설정하여 반응형으로 만듭니다 */
+        height: 100%; /* 높이를 자동으로 설정하여 비율 유지 */
+    }
+</style>
 
 <body>
 
     <div th:replace="fragments/header :: header"></div>
 
     <main>
-        <p>This is the main content of the page.</p>
+
+        <img th:src="@{/img/chair.jpg}" alt="Chair" class="full-size-image" />
+
     </main>
 
     <div th:replace="fragments/footer :: footer"></div>
