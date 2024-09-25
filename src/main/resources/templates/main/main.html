@@ -6,12 +6,18 @@
     <title th:text="${pageTitle}">Spaces in Space</title>
 </head>
 
+<style>
+
+</style>
+
 <body>
 
     <div th:replace="fragments/header :: header"></div>
 
     <main>
-        <p>This is the main content of the page.</p>
+
+        <img th:src="@{/img/chiar.png}" alt="Chair" />
+
     </main>
 
     <div th:replace="fragments/footer :: footer"></div>

@@ -4,7 +4,38 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <title>Signup</title>
+    <style>
+        .signup-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+        }
 
+        .signup-form input {
+            width: 300px;
+            padding: 10px;
+            margin: 5px 0; /* 간격 */
+            border-radius: 15px; /* 둥근 모서리 */
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .signup-form button {
+            width: 140px;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 15px; /* 둥근 모서리 */
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .signup-form button:hover {
+            background-color: #555;
+        }
+    </style>
     <script>
         const message = `[[${message}]]`;
         if (message) {
@@ -13,28 +44,28 @@
     </script>
 </head>
 <body>
-    <div th:replace="fragments/header :: header"></div>
+<div th:replace="fragments/header :: header"></div>
 
-    <main class="signup-form">
-        <form th:action="@{/user/member/signup}" method="post">
-            ID : <input type="text" name="memberId"/><br>
-            PASSWORD : <input type="password" name="memberPw"/><br>
-            NAME : <input type="text" name="memberName"/><br>
-            EMAIL : <input type="email" name="memberEmail"/><br>
-            PHONE : <input type="tel" name="memberPhone"/><br>
-            ADDRESS : <input type="text" name="memberAddress"/><br>
-            <br>
-            <button>SIGN UP</button>
-        </form>
-    </main>
+<main class="signup-form">
+    <form th:action="@{/user/member/signup}" method="post">
+        <br><br><br><br>
+        <input type="text" name="memberId" placeholder="아이디" required/>
+        <br>
+        <input type="password" name="memberPw" placeholder="비밀번호" required/>
+        <br>
+        <input type="text" name="memberName" placeholder="이름" required/>
+        <br>
+        <input type="email" name="memberEmail" placeholder="이메일" required/>
+        <br>
+        <input type="tel" name="memberPhone" placeholder="전화번호" required/>
+        <br>
+        <input type="text" name="memberAddress" placeholder="주소" required/>
+        <br>
+        <br>
+        <button type="submit">SIGN UP</button>
+    </form>
+</main>
 
-    <div th:replace="fragments/footer :: footer"></div>
-
-<!--    <script th:inline="javascript">-->
-<!--        const message = `[[${message}]]`;-->
-<!--        if (message) {-->
-<!--            alert(message);-->
-<!--        }-->
-<!--    </script>-->
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

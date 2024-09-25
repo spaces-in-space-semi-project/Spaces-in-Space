@@ -108,10 +108,13 @@ main {
 
 /* Footer */
 footer {
-    background-color: #333;
-    color: white;
+    background-color: #dcdcdc;
+    color: #020202;
     text-align: center;
+    border-top: 1px solid #000000; /* 위쪽에 검은색 굵은 선 추가 */
+    padding: 7px; /* 푸터 내 여백 추가 */
 }
+
 
 /* faq css */
 /* 전체 바디 스타일 */
