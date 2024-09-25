@@ -86,6 +86,7 @@
     <select id="findPayDetail" resultMap="payDetailMap">
         SELECT
             b.pay_date,
+            b.pay_code,
             c.product_name,
             a.pay_detail_cnt,
             a.pay_detail_price,
@@ -187,6 +188,11 @@
         FROM member_tbl
         WHERE member_code = #{memberCode}
     </select>
+
+    <delete id="deletePayDetailMenu" parameterType="int">
+        DELETE FROM pay_detail_tbl
+        WHERE pay_code = #{ payCode }
+    </delete>
 
     <delete id="deletePayMenu" parameterType="int">
         DELETE FROM pay_tbl

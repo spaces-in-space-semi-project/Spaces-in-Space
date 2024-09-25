@@ -29,6 +29,10 @@ public interface PayMapper {
     // 상품페이지에서 구매 버튼을 눌렀을때 넘어가는 회원 정보
     MemberDTO payProgressUser(int memberCode);
 
+    // 상품 상세페이지에서 [취소] 버튼을 눌렀을때 먼저 레퍼런스 code를 지우고 아래로
+    int deletePayDetailMenu(int payCode);
+
     // 상품 상세페이지에서 [취소] 버튼을 눌렀을때 삭제하고 리스트로 이동
-    void deletePayMenu(int payCode);
+    int deletePayMenu(int payCode);
+
 }

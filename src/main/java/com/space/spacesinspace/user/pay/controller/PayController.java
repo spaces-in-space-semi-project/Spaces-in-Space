@@ -66,12 +66,11 @@ public class PayController {
         return mv;
     }
 
-    @PostMapping("/delete/{payCode}")
+    @PostMapping("delete/{payCode}")
     public String deletePayMenu(@PathVariable("payCode") int payCode){
         payService.deletePayMenu(payCode);
         return "redirect:/user/pay/payList";
     }
-
 
 
 }

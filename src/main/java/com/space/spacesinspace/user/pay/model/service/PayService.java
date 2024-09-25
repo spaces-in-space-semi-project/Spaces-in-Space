@@ -10,6 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,6 +66,10 @@ public class PayService {
         return payMapper.payProgressUser(memberCode);
     }
 
+    @Transactional
     public void deletePayMenu(int payCode) {
+        payMapper.deletePayDetailMenu(payCode);
+        payMapper.deletePayMenu(payCode);
+
     }
 }
