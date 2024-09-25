@@ -14,7 +14,7 @@ public interface InquiryMapper {
 
     void deleteInquiry(int code);
 
-    void updateInquiry(InquiryDTO inquiry);
+    void editInquiry(InquiryDTO inquiry);
 
     void registNewInquiry(InquiryDTO newInquiry);
 }

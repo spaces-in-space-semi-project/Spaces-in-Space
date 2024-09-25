@@ -4,6 +4,7 @@ import com.space.spacesinspace.common.dto.InquiryDTO;
 import com.space.spacesinspace.user.inquiry.model.dao.InquiryMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -25,14 +26,16 @@ public class InquiryService {
         return inquiryMapper.findInquiryByCode(code);
     }
 
+    @Transactional
     public void deleteInquiry(int code) {
         inquiryMapper.deleteInquiry(code);
     }
 
-    public void updateInquiry(InquiryDTO inquiry) {
-        inquiryMapper.updateInquiry(inquiry);
+    public void editInquiry(InquiryDTO inquiry) {
+        inquiryMapper.editInquiry(inquiry);
     }
 
+    @Transactional
     public void registNewInquiry(InquiryDTO newInquiry) {
         inquiryMapper.registNewInquiry(newInquiry);
     }

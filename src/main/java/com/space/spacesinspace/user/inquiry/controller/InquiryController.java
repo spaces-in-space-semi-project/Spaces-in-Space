@@ -55,7 +55,7 @@ public class InquiryController {
     @GetMapping("regist")
     public void registPage() {}
 
-    @PostMapping("regist")
+    @PostMapping("/user/inquiry/regist")
     public String registInquiry(InquiryDTO newInquiry, RedirectAttributes rAttr) {
         inquiryService.registNewInquiry(newInquiry);
 
@@ -75,13 +75,16 @@ public class InquiryController {
         return "redirect:/user/inquiry/list";
     }
 
-    @PostMapping("/update")
-    public String updateInquiry(InquiryDTO inquiry, RedirectAttributes rAttr) {
+    @GetMapping("edit")
+    public void editPage() {}
 
-        inquiryService.updateInquiry(inquiry);
+    @PostMapping("/user/inquiry/edit")
+    public String editInquiry(InquiryDTO inquiry, RedirectAttributes rAttr) {
+
+        inquiryService.editInquiry(inquiry);
 
         rAttr.addFlashAttribute("successMessage", "문의글 수정이 완료되었습니다.");
 
-        return "redirect:/user/inquiry/detail" + inquiry.getInquiryCode();
+        return "redirect:/user/inquiry/detail/" + inquiry.getInquiryCode();
     }
 }
