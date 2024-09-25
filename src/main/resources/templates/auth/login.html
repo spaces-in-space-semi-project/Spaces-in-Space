@@ -15,6 +15,7 @@
     </script>
 
     <style>
+
         body {
             position: relative; /* body를 상대적 위치로 설정 */
         }
@@ -72,7 +73,7 @@
         }
 
         main {
-            padding-top: 100px; /* 상단 여백을 추가하여 이미지와 폼의 겹침 방지 */
+            padding-top: 30px; /* 상단 여백을 추가하여 이미지와 폼의 겹침 방지 */
             position: relative; /* 위치 설정 */
         }
     </style>
@@ -80,7 +81,6 @@
 
 <body>
 <div th:replace="fragments/header :: header"></div>
-<img th:src="@{/img/chair.jpg}" alt="Chair" class="full-size-image" />
 
 <!-- Main Login Form -->
 <main class="container my-5">
