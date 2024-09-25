@@ -66,6 +66,7 @@
         <result property="memberDeleteYn" column="member_delete_yn"/>
     </resultMap>
 
+    <!--사용자 전체조회-->
     <select id="findPayList" resultMap="payResultMap">
         SELECT
             a.pay_code,
@@ -83,6 +84,7 @@
             pay_code
     </select>
 
+    <!--사용자 상세조회-->
     <select id="findPayDetail" resultMap="payDetailMap">
         SELECT
             b.pay_date,
@@ -111,24 +113,25 @@
             a.pay_code = #{ payCode }
     </select>
 
+    <!--관리자 전체조회-->
     <select id="showPayList" resultMap="payResultMap">
         SELECT
             a.pay_code,
             a.pay_date,
+            a.pay_deliever_status,
             a.pay_total_cnt,
-            a.pay_total_price,
-            a.pay_refund_yn
+            a.pay_total_price
         FROM
             pay_tbl a
-        JOIN
-            member_tbl b ON (a.member_code = b.member_code)
         ORDER BY
             pay_code
     </select>
 
+    <!--관리자 상세조회-->
     <select id="findAdminPayDetail" resultMap="payDetailMap">
         SELECT
             b.pay_date,
+            b.pay_code,
             c.product_name,
             a.pay_detail_cnt,
             a.pay_detail_price,
@@ -153,6 +156,7 @@
             a.pay_code = #{ payCode }
     </select>
 
+    <!--사용자 결제 진행시 상품정보-->
     <select id="payProgress" parameterType="int" resultMap="payProgressMap">
         SELECT
             product_code,
@@ -174,6 +178,7 @@
             product_code = #{ productCode }
     </select>
 
+    <!--사용자 결제 진행시 회원정보-->
     <select id="payProgressUser" parameterType="int" resultMap="authenticatedMember">
         SELECT
         member_code,
@@ -189,11 +194,13 @@
         WHERE member_code = #{memberCode}
     </select>
 
+    <!--사용자 결제내역 삭제 할시 먼저 지우는 payCode-->
     <delete id="deletePayDetailMenu" parameterType="int">
         DELETE FROM pay_detail_tbl
         WHERE pay_code = #{ payCode }
     </delete>
 
+    <!--사용자 결제내역 삭제하는 payCode-->
     <delete id="deletePayMenu" parameterType="int">
         DELETE FROM pay_tbl
         WHERE pay_code = #{ payCode }

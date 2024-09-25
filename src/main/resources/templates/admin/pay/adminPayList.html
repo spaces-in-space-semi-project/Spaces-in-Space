@@ -45,7 +45,7 @@
             <tr th:each="pay : ${payList}">
                 <td><a th:href="@{/admin/pay/adminPayDetail/{payCode}(payCode=${ pay.payCode})}" th:text="${ pay.payCode }"></a></td>
                 <td th:text="${pay.payDate}"></td>
-                <td th:text="${pay.getPayDeliverStatus}"></td>
+                <td th:text="${pay.payDeliverStatus}"></td>
                 <td th:text="${pay.payTotalCnt}"></td>
                 <td th:text="${pay.payTotalPrice}"></td>
             </tr>

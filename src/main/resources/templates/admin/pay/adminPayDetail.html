@@ -9,6 +9,7 @@
 <!--<div th:fragment="adminOrderDetail">-->
     <main>
         <h2>결제 상세 정보</h2>
+        <form th:action="@{/admin/pay/delete/{payCode}(payCode=${findAdminPayDetail.payCode})}" method="post" onsubmit="return confirmCancel()">
         <div>
             <p>주문 날짜: <span th:text="${findAdminPayDetail.payDate}"></span></p>
             <p>상품 이름: <span th:text="${findAdminPayDetail.productName}"></span></p>
@@ -23,19 +24,12 @@
             <p>카드사명: <span th:text="${findAdminPayDetail.cardCompanyName}"></span></p>
             <p>카드번호: <span th:text="${findAdminPayDetail.payCardNumber}"></span></p>
         </div>
-        <button onclick="location.href='../adminpaylist'">주문취소</button>
-        <button th:if="${findAdminPayDetail.payDeliverStatus == '배송전'}" onclick="confirmCancel()">주문취소</button>
+        <button th:if="${findAdminPayDetail.payDeliverStatus == '배송전'}">주문취소</button>
+        </form>
     </main>
 <script>
     function confirmCancel() {
-        const confirmation = confirm("주문을 취소하시겠습니까?");
-        if (confirmation) {
-            // 주문 취소 처리 (예: 취소 페이지로 이동)
-            location.href = '/admin/pay/adminPayList';
-        } else {
-            // 취소할 경우 아무 작업도 하지 않음
-            return;
-        }
+        return confirm("주문을 취소하시겠습니까?");
     }
 </script>
 <!--</div>-->

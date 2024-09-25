@@ -72,4 +72,9 @@ public class PayService {
         payMapper.deletePayMenu(payCode);
 
     }
+
+    public void deleteAdminPayMenu(int payCode) {
+        payMapper.deletePayDetailMenu(payCode);
+        payMapper.deletePayMenu(payCode);
+    }
 }
