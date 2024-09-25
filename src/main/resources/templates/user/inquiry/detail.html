@@ -19,13 +19,19 @@
         <p>문의 수정일 : <span th:text="${ inquiry.inquiryEditDate }"></span></p>
     </div>
 
-    <button type="submit" onclick="location.href='/user/inquiry/edit'">수정</button>
-
-    <form th:action="@{/user/inquiry/delete/{code}(code=${ inquiry.getInquiryCode() })}" method="post">
-        <button type="submit">삭제</button>
-    </form>
+    <div class="inquiry-actions">
+        <button id="editButton">수정</button>
+        <form th:action="@{/user/inquiry/delete/{code}(code=${ inquiry.getInquiryCode() })}" method="post">
+            <button type="submit">삭제</button>
+        </form>
+    </div>
 
     <button onclick="location.href='/user/inquiry/list'">문의글 목록</button>
 
+    <script>
+        document.getElementById('editButton').addEventListener('click', function () {
+            window.location.href = '/user/inquiry/edit/' + [[${ inquiry.inquiryCode }]];
+        });
+    </script>
 </body>
 </html>

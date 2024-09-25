@@ -54,7 +54,7 @@
             inquiry_code = #{ inquiryCode }
     </delete>
 
-    <update id="editInquiry" parameterType="com.space.spacesinspace.common.dto.InquiryDTO">
+    <update id="updateInquiry" parameterType="com.space.spacesinspace.common.dto.InquiryDTO">
         UPDATE inquiry_tbl
         SET
             inquiry_title = #{ inquiryTitle },

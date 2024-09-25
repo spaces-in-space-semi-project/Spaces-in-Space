@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class InquiryService {
@@ -23,7 +24,7 @@ public class InquiryService {
     }
 
     public InquiryDTO findInquiryByCode(int code) {
-        return inquiryMapper.findInquiryByCode(code);
+        return inquiryMapper.findInquiryByCode();
     }
 
     @Transactional
@@ -32,12 +33,24 @@ public class InquiryService {
     }
 
     @Transactional
-    public void editInquiry(InquiryDTO inquiry) {
-        inquiryMapper.editInquiry(inquiry);
+    public void registNewInquiry(InquiryDTO newInquiry) {
+        inquiryMapper.registNewInquiry(newInquiry);
     }
 
     @Transactional
-    public void registNewInquiry(InquiryDTO newInquiry) {
-        inquiryMapper.registNewInquiry(newInquiry);
+    public InquiryDTO updateInquiry(InquiryDTO newInquiry) {
+        Optional<InquiryDTO> optionalInquiryDTO = Optional.ofNullable(inquiryMapper.findInquiryByCode());
+
+        if (optionalInquiryDTO.isPresent()) {
+            InquiryDTO originInquiry = optionalInquiryDTO.get();
+
+            originInquiry.setInquiryTitle(newInquiry.getInquiryTitle());
+
+            originInquiry.setInquiryDetail(newInquiry.getInquiryDetail());
+
+        } else {
+            return newInquiry;
+        }
+        return newInquiry;
     }
 }
