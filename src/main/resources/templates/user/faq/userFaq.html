@@ -15,11 +15,13 @@
 
         .faq-container {
             width: 60%;
+            max-height: 400px; /* 최대 높이를 설정하여 스크롤 가능 */
             margin: 50px auto;
             background-color: white;
             padding: 20px;
-            border-radius: 10px;
+            border-radius: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow-y: auto; /* 수직 스크롤바 추가 */
         }
 
         h2 {
@@ -36,18 +38,18 @@
             justify-content: space-between;
             background-color: #f1f1f1;
             padding: 10px;
-            border-radius: 5px;
+            border-radius: 15px;
             cursor: pointer;
         }
 
         .faq-question h2 {
             margin: 0;
-            font-size: 18px;
+            font-size: 16px;
             color: #555;
         }
 
         .toggle-btn {
-            font-size: 18px;
+            font-size: 20px;
             background: none;
             border: none;
             cursor: pointer;
@@ -58,20 +60,20 @@
             display: none;
             padding: 10px;
             background-color: #fff;
-            border-left: 4px solid #007bff;
+            border-left: 4px solid #333333;
         }
 
         .faq-answer p {
             margin: 0;
             font-size: 16px;
-            color: #666;
+            color: #333333;
         }
 
         footer {
             position: fixed; /* 페이지 하단에 고정 */
             bottom: 0;
             width: 100%;
-            background-color: #363333;
+            background-color: #cacaca;
             text-align: center;
             padding: 10px 0;
         }
