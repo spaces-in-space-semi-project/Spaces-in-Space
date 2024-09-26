@@ -23,7 +23,7 @@
                 <td th:text="${pay.payDeliverStatus}"></td>
                 <td th:text="${pay.payTotalCnt}"></td>
                 <td th:text="${pay.payTotalPrice}"></td>
-                <td><button type="submit" onclick="location.href='../review/regist'">REVIEW</button></td>
+                <td><button type="submit" th:onclick="|location.href='../review/regist'|">REVIEW</button></td>
             </tr>
             </table>
         </main>

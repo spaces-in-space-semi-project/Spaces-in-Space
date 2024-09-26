@@ -51,7 +51,7 @@
     </script>
 </head>
 <body th:attr="data-active-section=${activeSection}">
-    <div th:replace="fragments/header :: header"></div>
+    <div th:replace="~{fragments/header :: header}"></div>
 
     <h1>HELLO, <span th:text="${memberName}"></span>님!</h1>
 
@@ -77,6 +77,6 @@
         </div>
     </main>
 
-    <div th:replace="fragments/footer :: footer"></div>
+    <div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>

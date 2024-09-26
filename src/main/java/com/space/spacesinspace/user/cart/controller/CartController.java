@@ -42,10 +42,27 @@ public class CartController {
         cartService.updateCartItem(cartDTO.getProductCode(), cartDTO.getCartCnt());
     }
 
+    // 장바구니 가차없이 삭제.
     @PostMapping("/delete/{productCode}")
     public String deleteCartMenu(@PathVariable("productCode") int productCode){
         cartService.deleteCartMenu(productCode);
         return "redirect:/user/cart/cartList";
+    }
+
+    // 장바구니 목록 들고 결제 진행
+    @PostMapping("payProgress")
+    public ModelAndView cartProgress(ModelAndView mv, int memberCode){
+
+        List<CartDTO> checkMenu = cartService.cartProgress(memberCode);
+
+
+        for (CartDTO menu : checkMenu) {
+            System.out.println(menu);
+        }
+        
+        mv.addObject("checkMenu",checkMenu);
+        mv.setViewName("user/pay/payProgress");
+        return mv;
     }
 
 
