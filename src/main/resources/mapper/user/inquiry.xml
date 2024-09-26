@@ -13,7 +13,7 @@
         <result property="inquiryEditDate" column="inquiry_edit_date"/>
     </resultMap>
 
-    <select id="findAllInquiryBy" parameterType="java.lang.Integer" resultMap="InquiryResultMap">
+    <select id="findAllInquiryBy" parameterType="int" resultMap="InquiryResultMap">
         SELECT
             inquiry_code,
             member_code,

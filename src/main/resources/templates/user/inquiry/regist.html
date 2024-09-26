@@ -17,7 +17,6 @@
     <h3>신규 문의글 등록</h3>
 
     <form th:action="@{/user/inquiry/regist}" method="post">
-        <label>회원 코드 : </label><input type="number" placeholder="회원 코드를 입력해주세요" name="memberCode"><br>
         <label>문의 제목 : </label><input type="text" placeholder="제목을 입력해주세요" name="inquiryTitle"><br>
         <label>문의 내용 : </label><textarea placeholder="내용을 입력해주세요" name="inquiryDetail" style="text-align:left; letter-spacing: 2px;"></textarea><br>
         <label>문의 생성일 : </label><input type="date" name="inquiryDate"><br>

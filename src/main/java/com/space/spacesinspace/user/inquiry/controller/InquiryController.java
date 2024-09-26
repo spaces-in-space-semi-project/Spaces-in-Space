@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Controller
@@ -17,7 +19,6 @@ import java.util.List;
 public class InquiryController {
 
     private final InquiryService inquiryService;
-    private Object memberCode;
 
     @Autowired
     public InquiryController(InquiryService inquiryService) {
@@ -53,7 +54,14 @@ public class InquiryController {
     public void registPage() {}
 
     @PostMapping("/user/inquiry/regist")
-    public String registInquiry(InquiryDTO newInquiry, RedirectAttributes rAttr) {
+    public String registInquiry(InquiryDTO newInquiry, RedirectAttributes rAttr, @AuthenticationPrincipal MemberDTO member) {
+        int memberCode = member.getMemberCode();
+        newInquiry.setMemberCode(memberCode);
+
+        LocalDate currentDate = LocalDate.now();
+        String formattedDate = currentDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        newInquiry.setInquiryDate(formattedDate);
+
         inquiryService.registNewInquiry(newInquiry);
 
         rAttr.addFlashAttribute("successMessage", "신규 문의글이 등록되었습니다.");
