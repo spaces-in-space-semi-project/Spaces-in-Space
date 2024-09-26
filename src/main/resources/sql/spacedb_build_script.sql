@@ -144,7 +144,8 @@ VALUES ('admin', '$2a$10$SOW/Hm3eQC1BL/iB3YV5DOc2r6ii4EkO/ioyfi9rrpe0Bk/4oP.ym',
         'admin@admin.com', '010-0000-0000', 'Some Address', 'ADMIN', 'N');
 
 INSERT INTO category_tbl (category_code, category_name)
-VALUES (2, 'Sofa'),
+VALUES (1, 'Chair'),
+       (2, 'Sofa'),
        (3, 'Bed'),
        (4, 'Table'),
        (5, 'Accessories');

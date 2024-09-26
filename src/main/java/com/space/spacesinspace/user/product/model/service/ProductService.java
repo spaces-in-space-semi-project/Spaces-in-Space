@@ -21,7 +21,11 @@ public class ProductService {
         return productMapper.findAllProduct();
     }
 
-    public ProductDTO findProductByCode(int code) {
-        return productMapper.findProductByCode(code);
+    public ProductDTO findProductByCode(int productCode) {
+        return productMapper.findProductByCode(productCode);
+    }
+
+    public List<ProductDTO> findProductsByCategory(int categoryCode) {
+        return productMapper.findProductsByCategory(categoryCode);
     }
 }
