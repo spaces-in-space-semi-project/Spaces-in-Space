@@ -71,9 +71,30 @@
     function confirmLogin(action) {
         if (isLoggedIn) {
             if (action === 'buy') {
-                window.location.href = '/user/pay/payProgress';   // url 수정하시면 됩미다 호도옹님
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = /*[[@{/user/pay/payProgress}]]*/ '';
+                // 필요한 데이터를 추가
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'productCode'; // 필요한 파라미터 이름
+                input.value = /*[[${productCode}]]*/ ''; // 실제 값을 설정
+                form.appendChild(input);
+                document.body.appendChild(form);
+                form.submit(); // 폼 전송
             } else {
-                // 여기에 장바구니에 추가하는 로직 들어가야 함
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = /*[[@{/user/cart/addCartMenu}]]*/ '';
+
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'productCode'; // 필요한 파라미터 이름
+                input.value = /*[[${productCode}]]*/ ''; // 실제 값을 설정
+
+                form.appendChild(input);
+                document.body.appendChild(form);
+                form.submit(); // 폼 전송
                 alert('상품 장바구니에 추가 완료');
             }
         } else {

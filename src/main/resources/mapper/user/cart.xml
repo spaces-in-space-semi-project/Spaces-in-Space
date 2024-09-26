@@ -6,6 +6,7 @@
 <mapper namespace="com.space.spacesinspace.user.cart.model.dao.CartMapper">
     <resultMap id="cartResultMap" type="com.space.spacesinspace.user.cart.model.dto.CartDTO">
         <id property="productCode" column="product_code"/>
+        <result property="productPrice" column="product_price"/>
         <result property="memberCode" column="member_code"/>
         <result property="productName" column="product_name"/>
         <result property="memberName" column="member_name"/>
@@ -60,5 +61,10 @@
         GROUP BY
             b.member_code
     </select>
+
+    <insert id="addCartMenu" parameterType="int">
+        INSERT INTO cart_tbl (product_code,member_code,cart_cnt,cart_price)
+        VALUES (#{getProductCode}, #{memberCode}, 1, #{productPrice})
+    </insert>
 
 </mapper>

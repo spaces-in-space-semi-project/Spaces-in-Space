@@ -55,4 +55,9 @@ public class CartService {
     public CartDTO cartProgress(int memberCode) {
         return cartMapper.cartProgress(memberCode);
     }
+
+    @Transactional
+    public CartDTO addCartMenu(int productCode) {
+        return cartMapper.addCartMenu(productCode);
+    }
 }

@@ -1,11 +1,14 @@
 package com.space.spacesinspace.user.cart.controller;
 
 import com.space.spacesinspace.common.dto.MemberDTO;
+import com.space.spacesinspace.common.dto.ProductDTO;
 import com.space.spacesinspace.user.cart.model.dto.CartDTO;
 import com.space.spacesinspace.user.cart.model.service.CartService;
+import com.space.spacesinspace.user.product.model.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -16,11 +19,14 @@ import java.util.List;
 public class CartController {
 
     private CartService cartService;
+    private ProductService productService;
 
     @Autowired
-    public CartController(CartService cartService) {
+    public CartController(CartService cartService, ProductService productService) {
         this.cartService = cartService;
+        this.productService = productService;
     }
+
 
     // 장바구니 목록 전체 조회
     @GetMapping("cartList")
@@ -64,5 +70,27 @@ public class CartController {
         return mv;
     }
 
+    @PostMapping("addCartMenu")
+    public ModelAndView addCartMenu(ModelAndView mv, @AuthenticationPrincipal MemberDTO member,
+                                    @RequestParam(value="productCode") int productCode){
+
+        ProductDTO product = productService.findProductByCode(productCode);
+        int getProductCode = product.getProductCode();
+        int productPrice = product.getProductPrice();
+        int memberCode = member.getMemberCode();
+
+        System.out.println("productPrice = " + productPrice);
+        System.out.println("memberCode = " + memberCode);
+        System.out.println("getProductCode = " + getProductCode);
+
+//        CartDTO addCartMenu = cartService.addCartMenu(productCode);
+
+//        mv.addObject("addCartMenu",addCartMenu);
+        mv.addObject("productPrice",productPrice);
+        mv.addObject("productCode",getProductCode);
+        mv.addObject("memberCode",memberCode);
+        mv.setViewName("redirect:/user/cart/cartList");
+        return mv;
+    }
 
 }

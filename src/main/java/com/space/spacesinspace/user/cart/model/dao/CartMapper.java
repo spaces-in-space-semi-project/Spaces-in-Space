@@ -15,4 +15,6 @@ public interface CartMapper {
     void deleteCartMenu(int productCode);
 
     CartDTO cartProgress(int memberCode);
+
+    CartDTO addCartMenu(int productCode);
 }

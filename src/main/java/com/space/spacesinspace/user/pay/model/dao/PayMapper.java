@@ -4,6 +4,7 @@ import com.space.spacesinspace.common.dto.MemberDTO;
 import com.space.spacesinspace.common.dto.PayDTO;
 import com.space.spacesinspace.common.dto.PayDetailDTO;
 import com.space.spacesinspace.common.dto.ProductDTO;
+import com.space.spacesinspace.user.cart.model.dto.CartDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -34,5 +35,6 @@ public interface PayMapper {
 
     // 상품 상세페이지에서 [취소] 버튼을 눌렀을때 삭제하고 리스트로 이동
     int deletePayMenu(int payCode);
+
 
 }

@@ -3,6 +3,7 @@ package com.space.spacesinspace.user.cart.model.dto;
 public class CartDTO {
 
     private int productCode;    // 상품코드
+    private int productPrice;   // 상품가격
     private int memberCode;     // 회원코드
     private String productName; // 상품이름
     private String memberName;  // 회원이름
@@ -14,8 +15,9 @@ public class CartDTO {
     public CartDTO() {
     }
 
-    public CartDTO(int productCode, int memberCode, String productName, String memberName, int cartCnt, int cartPrice, int totalCartCnt, int totalCartPrice) {
+    public CartDTO(int productCode, int productPrice, int memberCode, String productName, String memberName, int cartCnt, int cartPrice, int totalCartCnt, int totalCartPrice) {
         this.productCode = productCode;
+        this.productPrice = productPrice;
         this.memberCode = memberCode;
         this.productName = productName;
         this.memberName = memberName;
@@ -89,10 +91,19 @@ public class CartDTO {
         this.totalCartPrice = totalCartPrice;
     }
 
+    public int getProductPrice() {
+        return productPrice;
+    }
+
+    public void setProductPrice(int productPrice) {
+        this.productPrice = productPrice;
+    }
+
     @Override
     public String toString() {
         return "CartDTO{" +
                 "productCode=" + productCode +
+                ", productPrice=" + productPrice +
                 ", memberCode=" + memberCode +
                 ", productName='" + productName + '\'' +
                 ", memberName='" + memberName + '\'' +
