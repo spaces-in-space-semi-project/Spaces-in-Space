@@ -16,7 +16,7 @@
     <h2>문의글 수정</h2>
 
     <form id="updateForm" th:action="@{/user/inquiry/update}" th:object="${inquiry}" method="post">
-<!--        <input type="hidden" th:field="*{inquiryCode}">-->
+        <input type="hidden" th:field="*{inquiryCode}">
 <!--        <input type="hidden" th:field="*{memberCode}">-->
         <div>
             <label>문의 제목 :
