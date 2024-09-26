@@ -38,11 +38,11 @@ public class InquiryController {
         return "user/member/myPage";
     }
 
-    @GetMapping("/detail/{code}")
-    public String findInquiryByCode(@PathVariable("code") int code,
+    @GetMapping("/detail/{inquiryCode}")
+    public String findInquiryByCode(@PathVariable("inquiryCode") int inquiryCode,
                                     Model model) {
 
-        InquiryDTO inquiry = inquiryService.findInquiryByCode(code);
+        InquiryDTO inquiry = inquiryService.findInquiryByCode(inquiryCode);
 
         model.addAttribute("inquiry", inquiry);
 
@@ -82,11 +82,18 @@ public class InquiryController {
         return "user/inquiry/edit";
     }
 
-    @PostMapping("update")
-    public String updateInquiry(InquiryDTO inquiry) {
+    @PostMapping("/update")
+    public String updateInquiry(InquiryDTO inquiry, RedirectAttributes rAttr) {
 
-        inquiryService.updateInquiry(inquiry);
+        int rowsAffected = inquiryService.updateInquiry(inquiry);
 
-        return "redirect:/user/inquiry/list";
+        if (rowsAffected > 0) {
+            rAttr.addFlashAttribute("successMessage", "문의글이 수정되었습니다.");
+            return "redirect:/user/inquiry/list";
+        } else {
+            System.out.println("Update failed for inquiry ID: " + inquiry.getInquiryCode());
+            rAttr.addFlashAttribute("errorMessage", "문의글 수정에 실패했습니다. 다시 시도해주세요.");
+            return "redirect:/user/inquiry/edit/" + inquiry.getInquiryCode();
+        }
     }
 }

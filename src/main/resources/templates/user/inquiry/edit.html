@@ -15,14 +15,18 @@
 <body>
     <h2>문의글 수정</h2>
 
-    <form id="updateForm" th:action="@{/user/inquiry/edit}" th:object="${inquiry}" method="post">
+    <form id="updateForm" th:action="@{/user/inquiry/update}" th:object="${inquiry}" method="post">
+<!--        <input type="hidden" th:field="*{inquiryCode}">-->
+<!--        <input type="hidden" th:field="*{memberCode}">-->
         <div>
-            <label>문의 제목 : </label>
-            <input type="text" name="inquiryTitle" placeholder="제목을 입력해주세요" th:value="${inquiryTitle}" required/>
+            <label>문의 제목 :
+                <input type="text" name="inquiryTitle" placeholder="제목을 입력해주세요" th:value="${inquiryTitle}" required/>
+            </label>
         </div>
         <div>
-            <label>문의 내용 : </label>
+            <label>문의 내용 :
             <textarea name="inquiryDetail" placeholder="내용을 입력해주세요" th:value="${inquiryDetail}" required></textarea>
+            </label>
         </div>
         <div>
             <div>
