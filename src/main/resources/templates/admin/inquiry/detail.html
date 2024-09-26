@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>detail</title>
+</head>
+<body>
+
+    <h1>INQUIRY</h1>
+
+    <h2>문의글 내용</h2>
+
+    <div th:fragment="inquiry">
+        <p>문의 코드 : <span th:text="${ inquiry.inquiryCode }"></span></p>
+        <p>회원 코드 : <span th:text="${ inquiry.memberCode }"></span></p>
+        <p>문의 제목 : <span th:text="${ inquiry.inquiryTitle }"></span></p>
+        <p>문의 내용 : <span th:text="${ inquiry.inquiryDetail }"></span></p>
+        <p>문의 생성일 : <span th:text="${ inquiry.inquiryDate }"></span></p>
+        <p>문의 수정일 : <span th:text="${ inquiry.inquiryEditDate }"></span></p>
+    </div>
+
+    <form th:action="@{/admin/inquiry/delete/{code}(code=${ inquiry.getInquiryCode() })}" method="post">
+        <button type="submit">삭제</button>
+    </form>
+
+    <button onclick="location.href='/user/inquiry/list'">문의글 목록</button>
+
+</body>
+</html>
