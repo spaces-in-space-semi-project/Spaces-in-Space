@@ -17,7 +17,6 @@
 
     <form id="updateForm" th:action="@{/user/inquiry/update}" th:object="${inquiry}" method="post">
         <input type="hidden" th:field="*{inquiryCode}">
-<!--        <input type="hidden" th:field="*{memberCode}">-->
         <div>
             <label>문의 제목 :
                 <input type="text" name="inquiryTitle" placeholder="제목을 입력해주세요" th:value="${inquiryTitle}" required/>
