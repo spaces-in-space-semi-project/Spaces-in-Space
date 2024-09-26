@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.space.spacesinspace.user.inquiry.model.dao.InquiryMapper">
-
+    
     <resultMap id="InquiryResultMap" type="com.space.spacesinspace.common.dto.InquiryDTO">
         <id property="inquiryCode" column="inquiry_code"/>
         <result property="memberCode" column="member_code"/>
@@ -13,32 +13,32 @@
         <result property="inquiryEditDate" column="inquiry_edit_date"/>
     </resultMap>
 
-    <select id="findAllInquiryBy" resultMap="InquiryResultMap">
+    <select id="findAllInquiryBy" parameterType="java.lang.Integer" resultMap="InquiryResultMap">
         SELECT
-        inquiry_code,
-        member_code,
-        inquiry_title,
-        inquiry_detail,
-        inquiry_date,
-        inquiry_edit_date
+            inquiry_code,
+            member_code,
+            inquiry_title,
+            inquiry_detail,
+            inquiry_date,
+            inquiry_edit_date
         FROM
-        inquiry_tbl
+            inquiry_tbl
         WHERE
-        member_code = #{ memberCode }
+            member_code = #{ memberCode }
     </select>
 
     <select id="findInquiryByCode" parameterType="int" resultMap="InquiryResultMap">
         SELECT
-        inquiry_code,
-        member_code,
-        inquiry_title,
-        inquiry_detail,
-        inquiry_date,
-        inquiry_edit_date
+            inquiry_code,
+            member_code,
+            inquiry_title,
+            inquiry_detail,
+            inquiry_date,
+            inquiry_edit_date
         FROM
-        inquiry_tbl
+            inquiry_tbl
         WHERE
-        inquiry_code = #{ inquiryCode }
+            inquiry_code = #{ inquiryCode }
     </select>
 
     <insert id="registNewInquiry" parameterType="com.space.spacesinspace.common.dto.InquiryDTO">
@@ -50,17 +50,17 @@
     <delete id="deleteInquiry" parameterType="int">
         DELETE
         FROM
-        inquiry_tbl
+            inquiry_tbl
         WHERE
-        inquiry_code = #{ inquiryCode }
+            inquiry_code = #{ inquiryCode }
     </delete>
 
     <update id="updateInquiry" parameterType="com.space.spacesinspace.common.dto.InquiryDTO">
         UPDATE inquiry_tbl
         SET
-        inquiry_title = #{ inquiryTitle },
-        inquiry_detail = #{ inquiryDetail }
+            inquiry_title = #{inquiryTitle},
+            inquiry_detail = #{inquiryDetail}
         WHERE
-        inquiry_code = #{ inquiryCode }
+            inquiry_code = #{inquiryCode}
     </update>
 </mapper>
