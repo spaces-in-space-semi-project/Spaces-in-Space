@@ -50,18 +50,14 @@ public class CartController {
     }
 
     // 장바구니 목록 들고 결제 진행
-    @PostMapping("payProgress")
-    public ModelAndView cartProgress(ModelAndView mv, int memberCode){
+    @GetMapping("cartPayProgress")
+    public ModelAndView cartProgress(ModelAndView mv, @RequestParam(value = "memberCode", defaultValue = "0") int memberCode){
 
-        List<CartDTO> checkMenu = cartService.cartProgress(memberCode);
+        CartDTO checkMenu = cartService.cartProgress(memberCode);
 
-
-        for (CartDTO menu : checkMenu) {
-            System.out.println(menu);
-        }
-        
         mv.addObject("checkMenu",checkMenu);
-        mv.setViewName("user/pay/payProgress");
+        mv.setViewName("user/cart/cartPayProgress");
+        System.out.println("memberCode = " + memberCode);
         return mv;
     }
 

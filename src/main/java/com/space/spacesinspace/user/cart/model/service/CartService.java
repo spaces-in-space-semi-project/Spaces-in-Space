@@ -52,7 +52,7 @@ public class CartService {
         cartMapper.deleteCartMenu(productCode);
     }
 
-    public List<CartDTO> cartProgress(int memberCode) {
+    public CartDTO cartProgress(int memberCode) {
         return cartMapper.cartProgress(memberCode);
     }
 }

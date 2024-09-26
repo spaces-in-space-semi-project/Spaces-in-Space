@@ -11,6 +11,8 @@
         <result property="memberName" column="member_name"/>
         <result property="cartCnt" column="cart_cnt"/>
         <result property="cartPrice" column="cart_price"/>
+        <result property="totalCartCnt" column="total_cart_cnt"/>
+        <result property="totalCartPrice" column="total_cart_price"/>
     </resultMap>
     
     <select id="showCartView" resultMap="cartResultMap">
@@ -18,6 +20,7 @@
             a.product_code,
             c.product_name,
             b.member_id,
+            b.member_code,
             a.cart_cnt,
             a.cart_price
         FROM
@@ -43,21 +46,19 @@
 
     <select id="cartProgress" parameterType="int">
         SELECT
-            a.product_code,
-            a.product_price,
-            c.product_name,
-            b.member_id,
-            a.cart_cnt,
-            a.cart_price
+            b.member_code,
+            SUM(a.cart_cnt) AS total_cart_cnt,
+            SUM(a.cart_price) AS total_cart_price
         FROM
             cart_tbl a
         JOIN
             member_tbl b ON (a.member_code = b.member_code)
         JOIN
-        product_tbl c ON (a.product_code = c.product_code)
+            product_tbl c ON (a.product_code = c.product_code)
         WHERE
-            b.member_code = #{ memberCode }
-
+            b.member_code = #{memberCode}
+        GROUP BY
+            b.member_code
     </select>
 
 </mapper>

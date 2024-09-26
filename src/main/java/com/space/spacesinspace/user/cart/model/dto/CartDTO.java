@@ -8,17 +8,21 @@ public class CartDTO {
     private String memberName;  // 회원이름
     private int cartCnt;        // 장바구니 개수
     private int cartPrice;      // 장바구니 가격
+    private int totalCartCnt;   // 장바구니 총 수량
+    private double totalCartPrice;  // 장바구니 총 금액
 
     public CartDTO() {
     }
 
-    public CartDTO(int productCode, int memberCode, String productName, String memberName, int cartCnt, int cartPrice) {
+    public CartDTO(int productCode, int memberCode, String productName, String memberName, int cartCnt, int cartPrice, int totalCartCnt, double totalCartPrice) {
         this.productCode = productCode;
         this.memberCode = memberCode;
         this.productName = productName;
         this.memberName = memberName;
         this.cartCnt = cartCnt;
         this.cartPrice = cartPrice;
+        this.totalCartCnt = totalCartCnt;
+        this.totalCartPrice = totalCartPrice;
     }
 
     public int getProductCode() {
@@ -69,6 +73,22 @@ public class CartDTO {
         this.cartPrice = cartPrice;
     }
 
+    public int getTotalCartCnt() {
+        return totalCartCnt;
+    }
+
+    public void setTotalCartCnt(int totalCartCnt) {
+        this.totalCartCnt = totalCartCnt;
+    }
+
+    public double getTotalCartPrice() {
+        return totalCartPrice;
+    }
+
+    public void setTotalCartPrice(double totalCartPrice) {
+        this.totalCartPrice = totalCartPrice;
+    }
+
     @Override
     public String toString() {
         return "CartDTO{" +
@@ -78,6 +98,8 @@ public class CartDTO {
                 ", memberName='" + memberName + '\'' +
                 ", cartCnt=" + cartCnt +
                 ", cartPrice=" + cartPrice +
+                ", totalCartCnt=" + totalCartCnt +
+                ", totalCartPrice=" + totalCartPrice +
                 '}';
     }
 }

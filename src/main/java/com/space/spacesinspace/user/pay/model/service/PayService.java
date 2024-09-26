@@ -66,6 +66,7 @@ public class PayService {
         return payMapper.payProgressUser(memberCode);
     }
 
+
     @Transactional
     public void deletePayMenu(int payCode) {
         payMapper.deletePayDetailMenu(payCode);
@@ -73,6 +74,7 @@ public class PayService {
 
     }
 
+    @Transactional
     public void deleteAdminPayMenu(int payCode) {
         payMapper.deletePayDetailMenu(payCode);
         payMapper.deletePayMenu(payCode);
