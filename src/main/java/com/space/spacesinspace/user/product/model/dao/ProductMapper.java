@@ -9,5 +9,7 @@ import java.util.List;
 public interface ProductMapper {
     List<ProductDTO> findAllProduct();
 
-    ProductDTO findProductByCode(int code);
+    ProductDTO findProductByCode(int productCode);
+
+    List<ProductDTO> findProductsByCategory(int categoryCode);
 }

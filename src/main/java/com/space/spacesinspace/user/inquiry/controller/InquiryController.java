@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -41,11 +38,11 @@ public class InquiryController {
         return "user/member/myPage";
     }
 
-    @GetMapping("/detail/{code}")
-    public String findInquiryByCode(@PathVariable("code") int code,
+    @GetMapping("/detail/{inquiryCode}")
+    public String findInquiryByCode(@PathVariable("inquiryCode") int inquiryCode,
                                     Model model) {
 
-        InquiryDTO inquiry = inquiryService.findInquiryByCode(code);
+        InquiryDTO inquiry = inquiryService.findInquiryByCode(inquiryCode);
 
         model.addAttribute("inquiry", inquiry);
 
@@ -55,7 +52,7 @@ public class InquiryController {
     @GetMapping("regist")
     public void registPage() {}
 
-    @PostMapping("regist")
+    @PostMapping("/user/inquiry/regist")
     public String registInquiry(InquiryDTO newInquiry, RedirectAttributes rAttr) {
         inquiryService.registNewInquiry(newInquiry);
 
@@ -75,13 +72,23 @@ public class InquiryController {
         return "redirect:/user/inquiry/list";
     }
 
-    @PostMapping("/update")
-    public String updateInquiry(InquiryDTO inquiry, RedirectAttributes rAttr) {
+    @GetMapping("edit/{inquiryCode}")
+    public String updateForm(@PathVariable("inquiryCode") int inquiryCode, Model model) {
+
+        InquiryDTO inquiry = inquiryService.findInquiryByCode(inquiryCode);
+
+        model.addAttribute("inquiry", inquiry);
+
+        return "user/inquiry/edit";
+    }
+
+    @PostMapping("update")
+    public String updateInquiry(@ModelAttribute InquiryDTO inquiry, RedirectAttributes rAttr) throws Exception {
 
         inquiryService.updateInquiry(inquiry);
 
-        rAttr.addFlashAttribute("successMessage", "문의글 수정이 완료되었습니다.");
+        rAttr.addFlashAttribute("successMessage", "문의글이 수정되었습니다.");
 
-        return "redirect:/user/inquiry/detail" + inquiry.getInquiryCode();
+        return "redirect:/user/inquiry/list";
     }
 }

@@ -140,4 +140,19 @@ CREATE TABLE IF NOT EXISTS faq_tbl (
 ) ENGINE=INNODB COMMENT '공지';
 
 INSERT INTO member_tbl (member_id, member_pw, member_name, member_email, member_phone, member_address, member_role, member_delete_yn)
-VALUES ('admin', '$2a$10$SOW/Hm3eQC1BL/iB3YV5DOc2r6ii4EkO/ioyfi9rrpe0Bk/4oP.ym', 'admin', 'admin@admin.com', '010-0000-0000', 'Some Address', 'ADMIN', 'N');
+VALUES ('admin', '$2a$10$SOW/Hm3eQC1BL/iB3YV5DOc2r6ii4EkO/ioyfi9rrpe0Bk/4oP.ym', 'admin',
+        'admin@admin.com', '010-0000-0000', 'Some Address', 'ADMIN', 'N');
+
+INSERT INTO category_tbl (category_code, category_name)
+VALUES (1, 'Chair'),
+       (2, 'Sofa'),
+       (3, 'Bed'),
+       (4, 'Table'),
+       (5, 'Accessories');
+
+INSERT INTO product_tbl(category_code, product_name, product_image_original, product_image_thumbnail, product_price, product_deliver_time, product_deliever_cost, product_size, product_material, product_description, product_delete_yn)
+VALUES (1, 'CLIP Chair', '/uploadedFiles/img/eb7afb1c658a4b0d833b75279b5c9158.jpg', '/uploadedFiles/img/eb7afb1c658a4b0d833b75279b5c9158_thumbnail.jpg', 28100, '주문 후 2-4주 소요, 택배출고', 0, '425W x 552D x 752H', '좌판소재 : 아쿠아클린 패브릭, 세미아날린 가죽', '투명한 광택을 자랑하는 스테인리스 스틸, \n그리고 깊이가 느껴지는 블랙 분체도장 마감의 프레임은 클래식한 향수와 현대적 감성을 동시에 불러일으킵니다.', 'N'),
+       (2, 'JELLO Sofa Module', '/uploadedFiles/img/347b1be6379849e296ece96452fc51d3.jpg', '/uploadedFiles/img/347b1be6379849e296ece96452fc51d3_thumbnail.jpg', 80000, '주문 후 3-6주 소요', 0, '1000W x 900D x 700H', '패브릭 : ALTA 패브릭, 세미 아닐린 가죽', '균일하고 일정하게 흐르는 곡선, 그리고 장식적 요소가 억제된 선명한 형태. \nJELLO를 통해 표현하는 디자인 언어는 ‘부드러움’입니다. \n부드러운 젤리가 좌석을 감싸는 듯한 형상은 안락한 착좌감을 강조하며 컬러보다는 질감이 강조된 원단과 가죽으로 마감되는 표면은 일상의 공간에 반영될 모두의 취향을 아름답게 표현합니다.', 'N'),
+       (3, '겟우드 수납침대 싱글', '/uploadedFiles/img/a1819c0981854e858152214371379925.jpg', '/uploadedFiles/img/a1819c0981854e858152214371379925_thumbnail.jpg', 170000, '주문 후 3-6주 소요', 0, 'W 1020 * H 950 * D 2085 (mm)', '철제, 나무', '튼튼한 철제프레임에 진한 나뭇결의 느낌을 더한 베드보드로 \n고급스러움을 배가시킨 수납침대입니다.', 'N'),
+       (4, 'Stick Round Table', '/uploadedFiles/img/a2eb26193b4d402697d385e8e45e33fc.jpg', '/uploadedFiles/img/a2eb26193b4d402697d385e8e45e33fc_thumbnail.jpg', 66200, '주문 후 3-6주 소요', 0, '1200Φ x 740H', '상판소재 : 천연 건식 무늬목, 클린터치, 자작나무 합판', '테이블 탑을 지지하는 네 개의 막대기. \n오크 특유의 강성을 간결하고 우아한 구조로 표현한 스틱 테이블은 \n궁극의 미니멀리즘을 상징합니다.', 'N'),
+       (5, 'Finn Side Console', '/uploadedFiles/img/5c5e0faa35c54a628b3d9eb071f7d841.jpg', '/uploadedFiles/img/5c5e0faa35c54a628b3d9eb071f7d841_thumbnail.jpg', 40000, '주문 후 3-6주 소요', 0, '430W x 420D x 520H', '소재 : 클린터치, HPL, 천연 건식 무늬목, 자작나무 합판', '북유럽 감성의 클래식한 디자인이 \n컬러풀한 언어로 재해석되어 \n모던한 매력을 선보입니다.', 'N');

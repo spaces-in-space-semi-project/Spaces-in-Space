@@ -3,6 +3,7 @@ package com.space.spacesinspace.admin.product.model.dao;
 import com.space.spacesinspace.common.dto.ProductDTO;
 import com.space.spacesinspace.common.dto.CategoryDTO;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -12,11 +13,14 @@ public interface ProductAdminMapper {
 
     List<CategoryDTO> findAllCategory();
 
-    void registNewProduct(ProductDTO newProduct);
+    @Transactional
+    int registNewProduct(ProductDTO newProduct);
 
     ProductDTO findProductByCode(int code);
 
-    void updateProduct(ProductDTO menu);
+    @Transactional
+    int updateProduct(ProductDTO menu);
 
-    void deleteProduct(int code);
+    @Transactional
+    int deleteProduct(int code);
 }
