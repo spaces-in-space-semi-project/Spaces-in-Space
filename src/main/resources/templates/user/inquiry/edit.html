@@ -13,69 +13,71 @@
     </style>
 </head>
 <body>
-    <h2>문의글 수정</h2>
+    <div th:fragment="inquiryEdit">
+        <h2>문의글 수정</h2>
 
-    <form id="updateForm" th:action="@{/user/inquiry/update}" th:object="${inquiry}" method="post">
-        <input type="hidden" th:field="*{inquiryCode}">
-        <div>
-            <label>문의 제목 :
-                <input type="text" name="inquiryTitle" placeholder="제목을 입력해주세요" th:value="${inquiryTitle}" required/>
-            </label>
-        </div>
-        <div>
-            <label>문의 내용 :
-            <textarea name="inquiryDetail" placeholder="내용을 입력해주세요" th:value="${inquiryDetail}" required></textarea>
-            </label>
-        </div>
-        <div>
+        <form id="updateForm" th:action="@{/user/inquiry/update}" th:object="${inquiry}" method="post">
+            <input type="hidden" th:field="*{inquiryCode}">
             <div>
-                <button type="submit" class="btn btn-primary btn-block" id="updateSubmitButton">수정하기</button>
+                <label>문의 제목 :
+                    <input type="text" name="inquiryTitle" placeholder="제목을 입력해주세요" th:value="${inquiryTitle}" required/>
+                </label>
             </div>
             <div>
-                <button onclick="history.back()">취소</button>
+                <label>문의 내용 :
+                <textarea name="inquiryDetail" placeholder="내용을 입력해주세요" th:value="${inquiryDetail}" required></textarea>
+                </label>
             </div>
-        </div>
-    </form>
+            <div>
+                <div>
+                    <button type="submit" class="btn btn-primary btn-block" id="updateSubmitButton">수정하기</button>
+                </div>
+                <div>
+                    <button onclick="history.back()">취소</button>
+                </div>
+            </div>
+        </form>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script th:inline="javascript">
-        document.addEventListener('DOMContentLoaded', function() {
-            const form = document.getElementById('updateForm');
-            const submitButton = document.getElementById('updateSubmitButton');
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script th:inline="javascript">
+            document.addEventListener('DOMContentLoaded', function() {
+                const form = document.getElementById('updateForm');
+                const submitButton = document.getElementById('updateSubmitButton');
 
-            // Add event listener for form submission
-            form.addEventListener('submit', function(event) {
-                // Trigger validation for each field
-                Array.from(form.elements).forEach(input => {
-                    if (!input.checkValidity()) {
-                        input.classList.add('is-invalid');
+                // Add event listener for form submission
+                form.addEventListener('submit', function(event) {
+                    // Trigger validation for each field
+                    Array.from(form.elements).forEach(input => {
+                        if (!input.checkValidity()) {
+                            input.classList.add('is-invalid');
+                        } else {
+                            input.classList.remove('is-invalid');
+                            input.classList.add('is-valid');
+                        }
+                    });
+
+                    // Prevent submission if form is invalid
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
                     } else {
-                        input.classList.remove('is-invalid');
-                        input.classList.add('is-valid');
+                        form.classList.add('was-validated');
                     }
                 });
 
-                // Prevent submission if form is invalid
-                if (!form.checkValidity()) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                } else {
-                    form.classList.add('was-validated');
-                }
+                // Reset validation states on input change
+                form.addEventListener('input', function(event) {
+                    const input = event.target;
+                    if (input.checkValidity()) {
+                        input.classList.remove('is-invalid');
+                        input.classList.add('is-valid');
+                    } else {
+                        input.classList.remove('is-valid');
+                        input.classList.add('is-invalid');
+                    }
+                });
             });
-
-            // Reset validation states on input change
-            form.addEventListener('input', function(event) {
-                const input = event.target;
-                if (input.checkValidity()) {
-                    input.classList.remove('is-invalid');
-                    input.classList.add('is-valid');
-                } else {
-                    input.classList.remove('is-valid');
-                    input.classList.add('is-invalid');
-                }
-            });
-        });
-    </script>
+        </script>
+    </div>
 </body>
 </html>

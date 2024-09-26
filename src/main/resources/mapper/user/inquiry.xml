@@ -13,7 +13,16 @@
         <result property="inquiryEditDate" column="inquiry_edit_date"/>
     </resultMap>
 
-    <select id="findAllInquiryBy" parameterType="java.lang.Integer" resultMap="InquiryResultMap">
+    <resultMap id="ReplyResultMap" type="com.space.spacesinspace.common.dto.ReplyDTO">
+        <id property="replyCode" column="reply_code"/>
+        <result property="memberCode" column="member_code"/>
+        <result property="inquiryCode" column="inquiry_code"/>
+        <result property="replyDetail" column="reply_detail"/>
+        <result property="replyDate" column="reply_date"/>
+        <result property="replyEditDate" column="reply_edit_date"/>
+    </resultMap>
+
+    <select id="findAllInquiryBy" parameterType="int" resultMap="InquiryResultMap">
         SELECT
             inquiry_code,
             member_code,
@@ -41,6 +50,20 @@
             inquiry_code = #{ inquiryCode }
     </select>
 
+    <select id="findReplyByCode" resultMap="ReplyResultMap">
+        SELECT
+            reply_code,
+            member_code,
+            inquiry_code,
+            reply_detail,
+            reply_date,
+            reply_edit_date
+        FROM
+            reply_tbl
+        WHERE
+            inquiry_code = #{inquiryCode}
+    </select>
+
     <insert id="registNewInquiry" parameterType="com.space.spacesinspace.common.dto.InquiryDTO">
         INSERT INTO inquiry_tbl (member_code, inquiry_title, inquiry_detail, inquiry_date)
         VALUES
@@ -56,10 +79,12 @@
     </delete>
 
     <update id="updateInquiry" parameterType="com.space.spacesinspace.common.dto.InquiryDTO">
-        UPDATE inquiry_tbl
+        UPDATE
+            inquiry_tbl
         SET
             inquiry_title = #{inquiryTitle},
-            inquiry_detail = #{inquiryDetail}
+            inquiry_detail = #{inquiryDetail},
+            inquiry_edit_date = #{inquiryEditDate}
         WHERE
             inquiry_code = #{inquiryCode}
     </update>

@@ -7,36 +7,30 @@
 </head>
 <body>
 
-    <div th:fragment="inquiry">
-        <main>
-            <h1>INQUIRY LIST</h1>
-            <table>
-                <tr>
-                    <th>문의 코드</th>
-                    <th>회원 코드</th>
-                    <th>문의 제목</th>
-                    <th>문의 내용</th>
-                    <th>문의 생성일</th>
-                    <th>문의 수정일</th>
-                </tr>
-                <tr th:each="inquiry : ${ inquiryList }"
-                    th:attr="onclick='location.href=\'http://localhost:8080/user/inquiry/detail/' + ${ inquiry.inquiryCode } + '\';'"
-                    style="width:100%; cursor:pointer;">
-                    <td th:text="${ inquiry.inquiryCode }"></td>
-                    <td th:text="${ inquiry.memberCode }"></td>
-                    <td th:text="${ inquiry.inquiryTitle }"></td>
-                    <td th:text="${ inquiry.inquiryDetail }"></td>
-                    <td th:text="${ inquiry.inquiryDate }"></td>
-                    <td>
-                        <script>
-                            document.write(document.lastModified+"")
-                        </script>
-                    </td>
-                </tr>
-            </table>
-        </main>
-        <button type="submit" onclick="location.href='/user/inquiry/regist'">문의글 등록</button>
-    </div>
-    <button onclick="location.href='/user/inquiry/list'">메인으로</button>
+<div th:fragment="inquiry">
+    <main class="container" style="padding: 10px 10px 30px 10px">
+        <h4 class="text-center my-4">1:1 문의글 목록</h4>
+        <button class="btn btn-success mt-3" style="width: auto; padding: 5px 100px;" onclick="location.href='/user/inquiry/regist'">문의글 등록</button>
+        <table class="table inquiry-table">
+            <thead class="table-light">
+            <tr>
+                <th>문의 제목</th>
+                <th>문의 내용</th>
+                <th>문의 생성일</th>
+                <th>문의 수정일</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="inquiry : ${inquiryList}" th:onclick="|window.location.href='/user/inquiry/detail/' + ${inquiry.inquiryCode}|">
+                <td th:text="${inquiry.inquiryTitle}"></td>
+                <td th:text="${inquiry.inquiryDetail}"></td>
+                <td th:text="${inquiry.inquiryDate}"></td>
+                <td th:text="${inquiry.inquiryEditDate}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </main>
+</div>
+
 </body>
 </html>

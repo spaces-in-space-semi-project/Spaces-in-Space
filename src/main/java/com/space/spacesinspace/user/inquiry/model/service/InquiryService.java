@@ -1,6 +1,7 @@
 package com.space.spacesinspace.user.inquiry.model.service;
 
 import com.space.spacesinspace.common.dto.InquiryDTO;
+import com.space.spacesinspace.common.dto.ReplyDTO;
 import com.space.spacesinspace.user.inquiry.model.dao.InquiryMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,7 +38,11 @@ public class InquiryService {
     }
 
     @Transactional
-    public void updateInquiry(InquiryDTO inquiry) throws Exception{
-        inquiryMapper.updateInquiry(inquiry);
+    public Integer updateInquiry(InquiryDTO inquiry) {
+        return inquiryMapper.updateInquiry(inquiry);
+    }
+
+    public ReplyDTO findReplyByCode(int inquiryCode) {
+        return inquiryMapper.findReplyByCode(inquiryCode);
     }
 }
