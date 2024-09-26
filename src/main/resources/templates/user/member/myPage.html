@@ -155,6 +155,7 @@
     <div th:switch="${activeSection}">
         <div th:case="'update'" th:include="user/member/update :: update"></div>
         <div th:case="'inquiry'" th:include="user/inquiry/list :: inquiry"></div>
+        <div th:case="'inquiryRegist'" th:include="user/inquiry/regist :: inquiryRegist"></div>
         <div th:case="'inquiryDetail'" th:include="user/inquiry/detail :: inquiryDetail"></div>
         <div th:case="'inquiryEdit'" th:include="user/inquiry/edit :: inquiryEdit"></div>
         <div th:case="'order'" th:include="user/pay/payList :: order"></div>

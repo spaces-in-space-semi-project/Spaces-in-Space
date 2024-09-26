@@ -53,7 +53,12 @@ public class InquiryController {
     }
 
     @GetMapping("regist")
-    public void registPage() {}
+    public String registPage(Model model) {
+        model.addAttribute("memberName", "회원");
+        model.addAttribute("activeSection", "inquiryRegist");
+
+        return "user/member/myPage";
+    }
 
     @PostMapping("/user/inquiry/regist")
     public String registInquiry(InquiryDTO newInquiry, RedirectAttributes rAttr, @AuthenticationPrincipal MemberDTO member) {

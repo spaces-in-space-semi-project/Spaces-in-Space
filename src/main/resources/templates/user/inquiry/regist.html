@@ -3,27 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>regist</title>
-
-    <style>
-        textarea{
-            width: 500px;
-            height: 300px;
-            resize: none;
-        }
-    </style>
 </head>
 <body>
+    <div th:fragment="inquiryRegist">
+        <h3>신규 문의글 등록</h3>
 
-    <h3>신규 문의글 등록</h3>
+        <form th:action="@{/user/inquiry/regist}" method="post">
+            <label>문의 제목 : </label><input type="text" placeholder="제목을 입력해주세요" name="inquiryTitle"><br>
+            <label>문의 내용 : </label><textarea placeholder="내용을 입력해주세요" name="inquiryDetail" style="text-align:left; letter-spacing: 2px;"></textarea><br>
+            <label>문의 생성일 : </label><input type="date" name="inquiryDate"><br>
+            <button type="submit" class="submit-btn">등록</button>
+        </form>
 
-    <form th:action="@{/user/inquiry/regist}" method="post">
-        <label>문의 제목 : </label><input type="text" placeholder="제목을 입력해주세요" name="inquiryTitle"><br>
-        <label>문의 내용 : </label><textarea placeholder="내용을 입력해주세요" name="inquiryDetail" style="text-align:left; letter-spacing: 2px;"></textarea><br>
-        <label>문의 생성일 : </label><input type="date" name="inquiryDate"><br>
-        <button type="submit" class="submit-btn">등록</button>
-    </form>
+        <button onclick="location.href='/user/inquiry/list'">문의글 목록</button>
 
-    <button onclick="location.href='/user/inquiry/list'">문의글 목록</button>
-
+    </div>
 </body>
 </html>
