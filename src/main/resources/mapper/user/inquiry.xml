@@ -13,7 +13,7 @@
         <result property="inquiryEditDate" column="inquiry_edit_date"/>
     </resultMap>
 
-    <select id="findAllInquiryBy" resultMap="InquiryResultMap">
+    <select id="findAllInquiryBy" parameterType="java.lang.Integer" resultMap="InquiryResultMap">
         SELECT
             inquiry_code,
             member_code,
@@ -43,7 +43,8 @@
 
     <insert id="registNewInquiry" parameterType="com.space.spacesinspace.common.dto.InquiryDTO">
         INSERT INTO inquiry_tbl (member_code, inquiry_title, inquiry_detail, inquiry_date)
-        VALUES (#{memberCode}, #{inquiryTitle}, #{inquiryDetail}, #{inquiryDate})
+        VALUES
+        (#{memberCode}, #{inquiryTitle}, #{inquiryDetail}, #{inquiryDate})
     </insert>
 
     <delete id="deleteInquiry" parameterType="int">
