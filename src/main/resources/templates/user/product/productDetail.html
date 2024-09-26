@@ -47,7 +47,7 @@
 <main class="content container">
     <div th:if="${product != null}" class="product-detail">
         <div class="col-md-6">
-            <img th:src="${product.productImageOriginal}" alt="Product Image">
+            <img th:src="@{${product.productImageOriginal}}" alt="Product Image">
         </div>
         <div class="col-md-6 product-info">
             <h5 th:text="${product.productName}">Product Name</h5>

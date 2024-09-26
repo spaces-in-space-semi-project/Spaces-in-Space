@@ -42,8 +42,9 @@ public class SecurityConfig {
         http.authorizeHttpRequests(auth -> {
             auth.requestMatchers("/auth/login", "/user/member/checkDuplicateId", "/user/member/findId",
                     "/auth/admin/login","/user/member/signup", "/auth/fail", "/fragments/*",
-                    "/user/product/productList", "/user/product/productAll", "/user/product/productByCategory",
-                    "/user/product/productDetail/*", "/img/*", "/user/faq/list","/main", "/").permitAll();
+                    "/user/product/productList", "/user/product/productAll", "/user/product/productByCategory/*",
+                    "/user/product/productDetail/*", "/img/**", "/static/**", "/uploadedFiles/**",
+                    "/user/faq/list","/main", "/").permitAll();
             auth.requestMatchers("/admin/*").hasAnyAuthority("ADMIN");
             auth.requestMatchers("/member/*").hasAnyAuthority("USER");
             auth.anyRequest().authenticated();

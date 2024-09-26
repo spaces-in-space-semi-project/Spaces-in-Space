@@ -75,7 +75,7 @@
             <div th:if="${productList != null}" th:each="product : ${productList}" class="col-12 col-sm-6 col-md-4">
                 <div class="product-card">
                     <a th:href="@{/user/product/productDetail/{productCode}(productCode=${product.productCode})}">
-                        <img th:src="${product.productImageOriginal}" alt="Product Image">
+                        <img th:src="@{${product.productImageOriginal}}" alt="Product Image">
                     </a>
                     <div class="product-info">
                         <h5 th:text="${product.productName}">Product Name</h5>
