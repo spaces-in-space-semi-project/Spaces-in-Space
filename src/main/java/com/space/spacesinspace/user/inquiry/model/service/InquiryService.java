@@ -37,7 +37,7 @@ public class InquiryService {
     }
 
     @Transactional
-    public int updateInquiry(InquiryDTO inquiry) {
-        return inquiryMapper.updateInquiry(inquiry);
+    public void updateInquiry(InquiryDTO inquiry) throws Exception{
+        inquiryMapper.updateInquiry(inquiry);
     }
 }

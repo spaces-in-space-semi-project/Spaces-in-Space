@@ -58,9 +58,9 @@
     <update id="updateInquiry" parameterType="com.space.spacesinspace.common.dto.InquiryDTO">
         UPDATE inquiry_tbl
         SET
-            inquiry_title = #{ inquiryTitle },
-            inquiry_detail = #{ inquiryDetail }
+            inquiry_title = #{inquiryTitle},
+            inquiry_detail = #{inquiryDetail}
         WHERE
-            inquiry_code = #{ inquiryCode }
+            inquiry_code = #{inquiryCode}
     </update>
 </mapper>

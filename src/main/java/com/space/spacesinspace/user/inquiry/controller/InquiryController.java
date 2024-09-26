@@ -82,18 +82,13 @@ public class InquiryController {
         return "user/inquiry/edit";
     }
 
-    @PostMapping("/update")
-    public String updateInquiry(InquiryDTO inquiry, RedirectAttributes rAttr) {
+    @PostMapping("update")
+    public String updateInquiry(@ModelAttribute InquiryDTO inquiry, RedirectAttributes rAttr) throws Exception {
 
-        int rowsAffected = inquiryService.updateInquiry(inquiry);
+        inquiryService.updateInquiry(inquiry);
 
-        if (rowsAffected > 0) {
-            rAttr.addFlashAttribute("successMessage", "문의글이 수정되었습니다.");
-            return "redirect:/user/inquiry/list";
-        } else {
-            System.out.println("Update failed for inquiry ID: " + inquiry.getInquiryCode());
-            rAttr.addFlashAttribute("errorMessage", "문의글 수정에 실패했습니다. 다시 시도해주세요.");
-            return "redirect:/user/inquiry/edit/" + inquiry.getInquiryCode();
-        }
+        rAttr.addFlashAttribute("successMessage", "문의글이 수정되었습니다.");
+
+        return "redirect:/user/inquiry/list";
     }
 }
