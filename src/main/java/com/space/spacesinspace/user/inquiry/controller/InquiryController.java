@@ -46,8 +46,10 @@ public class InquiryController {
         InquiryDTO inquiry = inquiryService.findInquiryByCode(inquiryCode);
 
         model.addAttribute("inquiry", inquiry);
+        model.addAttribute("memberName", "회원");
+        model.addAttribute("activeSection", "inquiryDetail");
 
-        return "user/inquiry/detail";
+        return "user/member/myPage";
     }
 
     @GetMapping("regist")
@@ -86,8 +88,10 @@ public class InquiryController {
         InquiryDTO inquiry = inquiryService.findInquiryByCode(inquiryCode);
 
         model.addAttribute("inquiry", inquiry);
+        model.addAttribute("memberName", "회원");
+        model.addAttribute("activeSection", "inquiryEdit");
 
-        return "user/inquiry/edit";
+        return "user/member/myPage";
     }
 
     @PostMapping("update")
