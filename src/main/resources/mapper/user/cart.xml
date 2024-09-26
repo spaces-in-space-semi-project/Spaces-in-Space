@@ -44,7 +44,7 @@
         WHERE product_code = #{ productCode }
     </delete>
 
-    <select id="cartProgress" parameterType="int">
+    <select id="cartProgress" resultMap="cartResultMap">
         SELECT
             b.member_code,
             SUM(a.cart_cnt) AS total_cart_cnt,

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{/css/style.css}">
-    <title th:text="${pageTitle}">장바구니</title>
+    <title>장바구니</title>
 </head>
 <body>
 <div th:fragment="cart">
@@ -37,7 +37,7 @@
             </tbody>
         </table>
 
-        <form th:action="@{/user/cart/cartPayProgress}" th:object="${cart}">
+        <form th:action="@{/user/cart/cartPayProgress}">
             <input type="hidden" th:value="${memberCode}" name="memberCode">
             <button type="submit">결제하기</button>
         </form>

@@ -9,12 +9,12 @@ public class CartDTO {
     private int cartCnt;        // 장바구니 개수
     private int cartPrice;      // 장바구니 가격
     private int totalCartCnt;   // 장바구니 총 수량
-    private double totalCartPrice;  // 장바구니 총 금액
+    private int totalCartPrice;  // 장바구니 총 금액
 
     public CartDTO() {
     }
 
-    public CartDTO(int productCode, int memberCode, String productName, String memberName, int cartCnt, int cartPrice, int totalCartCnt, double totalCartPrice) {
+    public CartDTO(int productCode, int memberCode, String productName, String memberName, int cartCnt, int cartPrice, int totalCartCnt, int totalCartPrice) {
         this.productCode = productCode;
         this.memberCode = memberCode;
         this.productName = productName;
@@ -81,11 +81,11 @@ public class CartDTO {
         this.totalCartCnt = totalCartCnt;
     }
 
-    public double getTotalCartPrice() {
+    public int getTotalCartPrice() {
         return totalCartPrice;
     }
 
-    public void setTotalCartPrice(double totalCartPrice) {
+    public void setTotalCartPrice(int totalCartPrice) {
         this.totalCartPrice = totalCartPrice;
     }
 

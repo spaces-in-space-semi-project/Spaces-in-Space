@@ -1,8 +1,10 @@
 package com.space.spacesinspace.user.cart.controller;
 
+import com.space.spacesinspace.common.dto.MemberDTO;
 import com.space.spacesinspace.user.cart.model.dto.CartDTO;
 import com.space.spacesinspace.user.cart.model.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -22,12 +24,14 @@ public class CartController {
 
     // 장바구니 목록 전체 조회
     @GetMapping("cartList")
-    public ModelAndView showCartView(ModelAndView mv){
+    public ModelAndView showCartView(ModelAndView mv, @AuthenticationPrincipal MemberDTO member){
+        int memberCode = member.getMemberCode();
 
         List<CartDTO> cart = cartService.showCartView();
 
-        mv.addObject("cart",cart);
+        mv.addObject("cart", cart);
         mv.addObject("memberName", "회원");
+        mv.addObject("memberCode", memberCode);
         mv.addObject("activeSection", "cart");
         mv.setViewName("user/member/myPage");
 
@@ -49,15 +53,14 @@ public class CartController {
         return "redirect:/user/cart/cartList";
     }
 
-    // 장바구니 목록 들고 결제 진행
+//     장바구니 목록 들고 결제 진행
     @GetMapping("cartPayProgress")
-    public ModelAndView cartProgress(ModelAndView mv, @RequestParam(value = "memberCode", defaultValue = "0") int memberCode){
+    public ModelAndView cartProgress(ModelAndView mv, @RequestParam(value = "memberCode") int memberCode){
 
         CartDTO checkMenu = cartService.cartProgress(memberCode);
-
-        mv.addObject("checkMenu",checkMenu);
+        mv.addObject("checkMenu", checkMenu);
         mv.setViewName("user/cart/cartPayProgress");
-
+        System.out.println("checkMenu = " + checkMenu);
         return mv;
     }
 
