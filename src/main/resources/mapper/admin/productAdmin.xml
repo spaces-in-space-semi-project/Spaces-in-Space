@@ -3,6 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.space.spacesinspace.admin.product.model.dao.ProductAdminMapper">
+
     <resultMap id="productAdminResultMap" type="com.space.spacesinspace.common.dto.ProductDTO">
         <id property="productCode" column="product_code"/>
         <result property="categoryCode" column="category_code"/>
@@ -40,7 +41,7 @@
         FROM
             product_tbl
         WHERE
-            product_delete_yn = 'Y'
+            product_delete_yn = 'N'
         ORDER BY
             product_code
     </select>
@@ -48,11 +49,10 @@
     <select id="findAllCategory" resultMap="categoryResultMap">
         SELECT
             category_code,
-            category_name,
+            category_name
         FROM
-            product_tbl
+            category_tbl
     </select>
-
 
     <select id="findProductByCode" parameterType="int" resultMap="productAdminResultMap">
         SELECT
@@ -71,16 +71,15 @@
         FROM
             product_tbl
         WHERE
-            product_code = #{code}
+            product_code = #{productCode}
     </select>
 
-    <insert id="registNewProduct" parameterType="com.space.spacesinspace.common.dto.ProductDTO"
-            useGeneratedKeys="true" keyProperty="productCode">
+    <insert id="registNewProduct" parameterType="com.space.spacesinspace.common.dto.ProductDTO" useGeneratedKeys="true" keyProperty="productCode">
         INSERT INTO
             product_tbl
         (
-            category_code,
             product_name,
+            category_code,
             product_image_original,
             product_image_thumbnail,
             product_price,
@@ -93,8 +92,8 @@
         )
         VALUES
         (
-            #{categoryCode},
             #{productName},
+            #{categoryCode},
             #{productImageOriginal},
             #{productImageThumbnail},
             #{productPrice},
@@ -103,7 +102,7 @@
             #{productSize},
             #{productMaterial},
             #{productDescription},
-            #{productDeleteYn}
+            'N'
         )
     </insert>
 
@@ -111,24 +110,22 @@
         UPDATE
             product_tbl
         SET
-<!--            category_code = #{categoryCode},-->
+            category_code = #{categoryCode},
             product_name = #{productName},
             product_image_original = #{productImageOriginal},
             product_image_thumbnail = #{productImageThumbnail},
-            product_price = #{productPrice}
-<!--            product_deliver_time = #{productDeliverTime},-->
-<!--            product_deliever_cost = #{productDelieverCost},-->
-<!--            product_size = #{productSize},-->
-<!--            product_material = #{productMaterial},-->
-<!--            product_description = #{productDescription},-->
-<!--            product_delete_yn = #{productDeleteYn}-->
+            product_price = #{productPrice},
+            product_deliver_time = #{productDeliverTime},
+            product_deliever_cost = #{productDelieverCost},
+            product_size = #{productSize},
+            product_material = #{productMaterial},
+            product_description = #{productDescription}
         WHERE
             product_code = #{productCode}
     </update>
 
     <delete id="deleteProduct" parameterType="int">
-        DELETE
-        FROM
+        DELETE FROM
             product_tbl
         WHERE
             product_code = #{productCode}

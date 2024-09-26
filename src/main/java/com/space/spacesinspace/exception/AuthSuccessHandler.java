@@ -23,7 +23,7 @@ public class AuthSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
         for (GrantedAuthority authority : authorities) {
             if (authority.getAuthority().equals("ADMIN")) {
                 // Redirect to admin dashboard
-                response.sendRedirect("/admin/member/selectAllMembers");
+                response.sendRedirect("/admin/product/productsManage");
                 return;
             } else if (authority.getAuthority().equals("USER")) {
                 // Redirect to user homepage
