@@ -37,7 +37,7 @@
             </tbody>
         </table>
 
-        <form th:action="@{/user/cart/cartPayProgress}">
+        <form th:action="@{/user/cart/cartPayProgress}" th:object="${cart}">
             <input type="hidden" th:value="${memberCode}" name="memberCode">
             <button type="submit">결제하기</button>
         </form>

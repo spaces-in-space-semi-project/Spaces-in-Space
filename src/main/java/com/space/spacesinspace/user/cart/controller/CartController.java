@@ -57,7 +57,7 @@ public class CartController {
 
         mv.addObject("checkMenu",checkMenu);
         mv.setViewName("user/cart/cartPayProgress");
-        System.out.println("memberCode = " + memberCode);
+
         return mv;
     }
 

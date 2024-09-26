@@ -3,94 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table {
+            width: 50%; /* 테이블 너비를 50%로 설정 */
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+            font-size: 14px; /* 글씨 크기를 작게 설정 */
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        input[type="text"], select {
+            width: 100%; /* 입력 필드의 너비를 100%로 설정 */
+            padding: 8px;
+            margin: 4px 0;
+            box-sizing: border-box;
+        }
+        hr {
+            border: none;
+            border-top: 1px solid #ccc;
+            margin: 10px 0; /* hr 여백 조정 */
+        }
+        button {
+            padding: 10px 15px;
+            font-size: 16px; /* 버튼 크기를 조정 */
+            cursor: pointer; /* 마우스 커서 변경 */
+        }
+        .section-title {
+            font-weight: bold;
+            font-size: 16px; /* 제목 크기 조정 */
+            margin: 10px 0;
+        }
+    </style>
 </head>
 <body>
+
+<div class="section-title">주문자 정보</div>
 <table>
-    <thead>
-    <tr>
-    <th>주문자</th>
-    <td colspan="4"></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    </tr>
-    </thead>
     <tbody>
     <tr>
-        <th colspan="4"><hr></th>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <th>이 름</th>
+        <td><input type="text" placeholder="이름 입력"/></td>
     </tr>
     <tr>
-    <th>이 름  </th>
-        <td><input type="text"/></td>
-<!--        <td><input type="text" th:text="${payProgressUser.memberName}"/></td>-->
+        <th>이메일</th>
+        <td><input type="text" placeholder="이메일 입력"/></td>
     </tr>
     <tr>
-        <th>이메일  </th>
-        <td><input type="text"/></td>
-<!--        <td><input type="text" th:text="${payProgressUser.memberEmail}"/></td>-->
+        <th>전화번호</th>
+        <td><input type="text" value="010" placeholder="전화번호 입력"/></td>
     </tr>
-    <tr>
-        <th>전화번호  </th>
-        <td><input type="text" value="010"/></td>
-<!--        <td><input type="text" th:text="${payProgressUser.memberPhone}"/></td>-->
-    </tr>
-    <tr></tr>
-    <tr></tr>
-    <tr></tr>
-    <tr></tr>
-    <tr></tr>
-    <tr></tr>
-    <tr></tr>
-    <tr></tr>
-    <tr></tr>
-    <tr></tr>
-    <tr></tr>
-    <tr></tr>
-    <tr></tr>
-    <tr></tr>
-    <tr></tr>
     </tbody>
-    <thead>
-    <tr>
-        <th>배송지 정보</th>
-        <td colspan="4"></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    </thead>
+</table>
+
+<div class="section-title">배송지 정보</div>
+<table>
     <tbody>
     <tr>
-        <th colspan="4"><hr></th>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <th>배송자명 :</th>
+        <td><input type="text" placeholder="배송자명 입력"/></td>
     </tr>
     <tr>
-        <th>배송자명 : </th>
-        <td><input type="text"/></td>
-        <td></td>
-        <td></td>
+        <th>전화번호 :</th>
+        <td><input type="text" value="010" placeholder="전화번호 입력"/></td>
     </tr>
     <tr>
-        <th>전화번호 : </th>
-        <td><input type="text" value="010"/></td>
-        <td></td>
+        <th>주소 :</th>
+        <td><input type="text" placeholder="주소 입력"/></td>
     </tr>
     <tr>
-        <th rowspan="2">주소 : </th>
-        <td><input type="text"/></td>
+        <td colspan="2"><input type="text" value="상세주소 입력" placeholder="상세주소 입력"/></td>
     </tr>
     <tr>
-        <td><input type="text" value="상세주소 입력"/></td>
-    </tr>
-    <tr>
-        <th></th>
+        <th>배송요청사항 :</th>
         <td>
             <select name="deliveryRQ">
                 <option value="dRQ0">배송요청사항을 선택하세요</option>
@@ -101,115 +95,52 @@
             </select>
         </td>
     </tr>
-    <tr></tr>
-    <tr></tr>
-    <tr></tr>
-    <tr></tr>
-    <tr></tr>
-    <tr></tr>
-    <tr></tr>
-    <tr></tr>
-    <tr></tr>
-    <tr></tr>
-    <tr></tr>
-    <tr></tr>
-    <tr></tr>
-    <tr></tr>
-    <tr></tr>
     </tbody>
-    <thead>
-    <tr>
-        <th>결제수단</th>
-        <td colspan="4"></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    </thead>
+</table>
+
+<div class="section-title">결제수단</div>
+<table>
     <tbody>
-    <tr>
-        <th colspan="4"><hr></th>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
     <tr>
         <th>결제선택</th>
         <td><input type="radio" name="payPG" class="bank">은행</td>
         <td><input type="radio" name="payPG" class="card">카드</td>
     </tr>
     <tr name="bankpg">
-        <th>은행 : </th>
-        <td><input type="text"/></td>
-        <td></td>
-        <td></td>
+        <th>은행 :</th>
+        <td><input type="text" placeholder="은행 입력"/></td>
     </tr>
     <tr name="bankpg">
-        <th>계좌번호 : </th>
-        <td><input type="text"/></td>
-        <td></td>
-        <td></td>
+        <th>계좌번호 :</th>
+        <td><input type="text" placeholder="계좌번호 입력"/></td>
     </tr>
     <tr name="cardpg">
-        <th>카드사 : </th>
-        <td><input type="text"/></td>
-        <td></td>
-        <td></td>
+        <th>카드사 :</th>
+        <td><input type="text" placeholder="카드사 입력"/></td>
     </tr>
     <tr name="cardpg">
-        <th>카드번호 : </th>
-        <td><input type="text"/></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr></tr>
-    <tr></tr>
-    <tr></tr>
-    <tr></tr>
-    <tr></tr>
-    <tr></tr>
-    <tr></tr>
-    <tr></tr>
-    <tr></tr>
-    <tr></tr>
-    <tr></tr>
-    <tr></tr>
-    <tr></tr>
-    <tr></tr>
-    <tr></tr>
-    </tbody>
-    <thead>
-    <tr>
-        <th>결제 정보</th>
-        <td colspan="3"></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <th colspan="4"><hr></th>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <th>결제하실 금액 : </th>
-        <td><input type="text"/></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <th>총 금액 : </th>
-        <td></td>
-        <td th:text="${checkMenu.totalCartPrice}"></td>
+        <th>카드번호 :</th>
+        <td><input type="text" placeholder="카드번호 입력"/></td>
     </tr>
     </tbody>
 </table>
+
+<div class="section-title">결제 정보</div>
+<table>
+    <tbody>
+    <tr>
+        <th>결제하실 금액 :</th>
+        <td><input type="text" placeholder="결제 금액 입력"/></td>
+    </tr>
+    <tr>
+        <th>총 금액 :</th>
+        <td><input type="text"  disabled/></td>
+<!--        <td><input type="text" th:text="${checkMenu.totalCartPrice}" disabled/></td>-->
+    </tr>
+    </tbody>
+</table>
+
 <button type="submit">결제하기</button>
-<!--</form>-->
+
 </body>
 </html>
