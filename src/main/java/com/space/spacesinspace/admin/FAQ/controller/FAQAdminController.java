@@ -5,6 +5,7 @@
     import org.springframework.stereotype.Controller;
     import org.springframework.ui.Model;
     import org.springframework.web.bind.annotation.*;
+    import org.springframework.web.servlet.ModelAndView;
 
     import java.util.List;
 
@@ -20,17 +21,20 @@
 
         // 1. Read: FAQ 목록 조회
         @GetMapping("/list")
-        public String listFAQs(Model model) {
+        public ModelAndView listFAQs(ModelAndView mv) {
             List<FAQDTO> faqList = faqAdminService.getAllFAQs(); // 모든 FAQ 목록을 가져옴
-            model.addAttribute("faqList", faqList); // FAQ 목록을 뷰에 전달
-            return "admin/faq/faqList"; // FAQ 목록 뷰로 이동
+            mv.addObject("faqList", faqList); // FAQ 목록을 뷰에 전달
+            mv.addObject("activeSection", "faqList");
+            mv.setViewName("admin/layout/adminLayout");
+            return mv;
         }
 
         // 2. Create: FAQ 생성 폼 보여주기
         @GetMapping("/create")
         public String createFaqForm(Model model) {
             model.addAttribute("faqDTO", new FAQDTO()); // 빈 FAQDTO 객체를 뷰에 전달
-            return "admin/faq/createFaq"; // FAQ 생성 폼 뷰로 이동
+            model.addAttribute("activeSection", "createFaq");
+            return "admin/layout/adminLayout";
         }
 
         // 2. Create: 새로운 FAQ 생성
@@ -45,7 +49,8 @@
         public String updateFaqForm(@PathVariable("faqCode") String faqCode, Model model) {
             FAQDTO faqDTO = faqAdminService.getFAQByCode(faqCode); // 수정할 FAQ를 조회
             model.addAttribute("faqDTO", faqDTO); // 조회된 FAQ 데이터를 뷰에 전달
-            return "admin/faq/updateFaq"; // FAQ 수정 폼 뷰로 이동
+            model.addAttribute("activeSection", "updateFaq");
+            return "admin/layout/adminLayout";
         }
 
         // 3. Update: 수정된 FAQ 데이터를 저장
