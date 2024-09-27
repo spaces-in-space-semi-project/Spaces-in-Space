@@ -136,17 +136,19 @@ public class MemberController {
 
         Integer result = memberService.deleteMember(memberCode);
 
-        String message;
+        String message = "";
         if (result == null || result == 0) {
             message = "회원 탈퇴에 실패했습니다. 다시 시도해주세요.";
+            mv.addObject("message", message);
+            mv.setViewName("/main/main");
         } else if (result >= 1) {
-            message = "회원 탈퇴가 성공적으로 완료되었습니다.";
+            mv.setViewName("redirect:/auth/logout");
         } else {
             message = "알 수 없는 오류가 발생했습니다. 다시 시도해보시거나 관리자에게 문의해주세요.";
+            mv.addObject("message", message);
+            mv.setViewName("/main/main");
         }
 
-        mv.addObject("message", message);
-        mv.setViewName("/main/main");
         return mv;
     }
 
