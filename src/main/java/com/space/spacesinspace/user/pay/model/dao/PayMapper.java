@@ -36,5 +36,6 @@ public interface PayMapper {
     // 상품 상세페이지에서 [취소] 버튼을 눌렀을때 삭제하고 리스트로 이동
     int deletePayMenu(int payCode);
 
-
+    // 결제하고 나서 영수증 출력하며 정보를 출력할 dto 정보 바인딩
+    void addPayList(PayDTO payDTO);
 }

@@ -81,5 +81,8 @@ public class PayService {
         payMapper.deletePayMenu(payCode);
     }
 
-
+    @Transactional
+    public void addPayList(PayDTO payDTO) {
+        payMapper.addPayList(payDTO);
+    }
 }

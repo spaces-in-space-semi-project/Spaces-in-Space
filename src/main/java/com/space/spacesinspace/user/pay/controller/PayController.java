@@ -77,13 +77,19 @@ public class PayController {
         return mv;
     }
 
-    /*주문 상세내역조회 시, 배송전 이면 삭제*/
+    /*주문 상세내역조회 시, 배송전이면 삭제*/
     @PostMapping("delete/{payCode}")
     public String deletePayMenu(@PathVariable("payCode") int payCode){
         payService.deletePayMenu(payCode);
         return "redirect:/user/pay/payList";
     }
-
+    
+    @PostMapping("receipt")
+    public String addPayList(@ModelAttribute PayDTO payDTO){
+        System.out.println("payDTO = " + payDTO);
+        payService.addPayList(payDTO);
+        return "redirect:/user/pay/receipt";
+    }
 
 
 
