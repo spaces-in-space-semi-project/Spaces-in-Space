@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Objects;
 
@@ -25,6 +26,7 @@ public class MemberService {
         this.memberMapper = memberMapper;
     }
 
+    @Transactional
     public Integer regist(SignupDTO newMember) {
         newMember.setMemberPw(encoder.encode(newMember.getMemberPw()));
 
@@ -53,6 +55,7 @@ public class MemberService {
         }
     }
 
+    @Transactional
     public Integer updateInfo(UpdateMemberDTO memberInfo) {
         Integer result = null;
 

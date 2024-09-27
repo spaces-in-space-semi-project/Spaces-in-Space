@@ -9,12 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Mapper
 public interface MemberMapper {
 
-    @Transactional
     int regist(SignupDTO newMember);
 
     MemberDTO findByMemberId(String memberId);
 
-    @Transactional
     Integer updateInfo(UpdateMemberDTO memberInfo);
 
     int checkDuplicateId(String memberId);
