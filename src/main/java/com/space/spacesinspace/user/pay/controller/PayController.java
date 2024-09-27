@@ -85,8 +85,7 @@ public class PayController {
     public String addPayList(@ModelAttribute PayDTO payDTO,
                               @ModelAttribute PayDetailDTO payDetailDTO){
 
-        payService.addPayList(payDTO);
-        payService.addPayDetailList(payDetailDTO);
+        payService.addPayList(payDTO,payDetailDTO);
 
         return "redirect:/user/pay/payList";
     }

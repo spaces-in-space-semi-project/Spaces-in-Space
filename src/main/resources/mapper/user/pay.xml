@@ -216,7 +216,7 @@
     </delete>
 
     <!--사용자 결제 완료후 주문내역 추가-->
-    <insert id="addPayList" parameterType="com.space.spacesinspace.common.dto.PayDTO">
+    <insert id="addPayList" useGeneratedKeys="true" keyProperty="payCode" >
         INSERT INTO pay_tbl (member_code, pay_date, pay_total_cnt, pay_total_price, pay_address, pay_receiver, pay_deliver_phone, pay_deliever_status, pay_refund_yn, pay_account_number, pay_card_number, bank_code, card_company_code)
         VALUES ( #{memberCode}, #{payDate}, #{payTotalCnt}, #{payTotalPrice}, #{payAddress}, #{payReceiver}, #{payDeliverPhone}, #{payDeliverStatus}, #{payRefundYn}, #{payAccountNumber}, #{payCardNumber}, #{bankCode}, #{cardCompanyCode})
     </insert>

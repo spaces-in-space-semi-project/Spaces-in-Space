@@ -82,12 +82,13 @@ public class PayService {
     }
 
     @Transactional
-    public void addPayList(PayDTO payDTO) {
+    public void addPayList(PayDTO payDTO, PayDetailDTO payDetailDTO) {
+
         payMapper.addPayList(payDTO);
+        int payCode = payDTO.getPayCode();
+        payDetailDTO.setPayCode(payCode);
+        payMapper.addPayDetailList(payDetailDTO);
     }
 
-    @Transactional
-    public void addPayDetailList(PayDetailDTO payDetailDTO){
-    payMapper.addPayDetailList(payDetailDTO);
-    }
+
 }
