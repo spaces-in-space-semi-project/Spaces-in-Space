@@ -77,4 +77,9 @@
         WHERE
             member_id = #{memberId}
     </update>
+
+    <delete id="deleteMember" parameterType="int">
+        DELETE FROM member_tbl
+        WHERE member_code = #{memberCode}
+    </delete>
 </mapper>
