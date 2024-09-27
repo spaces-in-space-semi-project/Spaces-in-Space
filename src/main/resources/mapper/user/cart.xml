@@ -43,6 +43,11 @@
         WHERE product_code = #{ productCode }
     </update>
 
+    <update id="updateCartItem2" parameterType="map">
+        UPDATE cart_tbl
+        SET cart_cnt = #{ cartCnt }
+        WHERE product_code = #{ productCode }
+    </update>
     <delete id="deleteCartMenu" parameterType="int">
         DELETE FROM cart_tbl
         WHERE product_code = #{ productCode }
