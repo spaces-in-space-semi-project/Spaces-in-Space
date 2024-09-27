@@ -43,6 +43,11 @@
             font-size: 16px; /* 제목 크기 조정 */
             margin: 10px 0;
         }
+
+        /* 은행과 카드 선택 테이블 숨김 처리 */
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -52,15 +57,15 @@
     <tbody>
     <tr>
         <th>이 름</th>
-        <td><input type="text" placeholder="이름 입력"/></td>
+        <td><input type="text" placeholder="이름 입력" th:value="${checkMenu.memberName}"/></td>
     </tr>
     <tr>
         <th>이메일</th>
-        <td><input type="text" placeholder="이메일 입력"/></td>
+        <td><input type="text" placeholder="이메일 입력" th:value="${checkMenu.memberEmail}"/></td>
     </tr>
     <tr>
         <th>전화번호</th>
-        <td><input type="text" value="010" placeholder="전화번호 입력"/></td>
+        <td><input type="text" value="010" placeholder="전화번호 입력" th:value="${checkMenu.memberPhone}"/></td>
     </tr>
     </tbody>
 </table>
@@ -69,22 +74,22 @@
 <table>
     <tbody>
     <tr>
-        <th>배송자명 :</th>
+        <th>배송자명 </th>
         <td><input type="text" placeholder="배송자명 입력"/></td>
     </tr>
     <tr>
-        <th>전화번호 :</th>
+        <th>전화번호 </th>
         <td><input type="text" value="010" placeholder="전화번호 입력"/></td>
     </tr>
     <tr>
-        <th>주소 :</th>
-        <td><input type="text" placeholder="주소 입력"/></td>
+        <th>주소 </th>
+        <td><input type="text" placeholder="주소 입력" th:value="${checkMenu.memberAddress}"/></td>
     </tr>
     <tr>
         <td colspan="2"><input type="text" value="상세주소 입력" placeholder="상세주소 입력"/></td>
     </tr>
     <tr>
-        <th>배송요청사항 :</th>
+        <th>배송요청사항 </th>
         <td>
             <select name="deliveryRQ">
                 <option value="dRQ0">배송요청사항을 선택하세요</option>
@@ -103,23 +108,49 @@
     <tbody>
     <tr>
         <th>결제선택</th>
-        <td><input type="radio" name="payPG" class="bank">은행</td>
-        <td><input type="radio" name="payPG" class="card">카드</td>
+        <td><input type="radio" name="payPG" class="bank" id="bankRadio">은행</td>
+        <td><input type="radio" name="payPG" class="card" id="cardRadio">카드</td>
     </tr>
-    <tr name="bankpg">
-        <th>은행 :</th>
-        <td><input type="text" placeholder="은행 입력"/></td>
+    </tbody>
+</table>
+<table id="bankTable" class="hidden">
+    <tbody>
+    <tr>
+        <th>은행 </th>
+        <td>
+            <select name="bankcheck">
+                <option value="bc0">은행을 선택하세요</option>
+                <option value="bc1">우리</option>
+                <option value="bc2">신한</option>
+                <option value="bc3">국민</option>
+                <option value="bc4">기업</option>
+            </select>
+        </td>
     </tr>
-    <tr name="bankpg">
-        <th>계좌번호 :</th>
+    <tr>
+        <th>계좌번호 </th>
         <td><input type="text" placeholder="계좌번호 입력"/></td>
     </tr>
-    <tr name="cardpg">
-        <th>카드사 :</th>
-        <td><input type="text" placeholder="카드사 입력"/></td>
+    </tbody>
+</table>
+
+<!-- 카드 관련 테이블 -->
+<table id="cardTable" class="hidden">
+    <tbody>
+    <tr>
+        <th>카드사 </th>
+        <td>
+            <select name="cardcheck">
+                <option value="cc0">카드사를 선택하세요</option>
+                <option value="cc1">BC</option>
+                <option value="cc2">현대</option>
+                <option value="cc3">삼성</option>
+                <option value="cc4">롯데</option>
+            </select>
+        </td>
     </tr>
-    <tr name="cardpg">
-        <th>카드번호 :</th>
+    <tr>
+        <th>카드번호 </th>
         <td><input type="text" placeholder="카드번호 입력"/></td>
     </tr>
     </tbody>
@@ -129,17 +160,30 @@
 <table>
     <tbody>
     <tr>
-        <th>결제하실 금액 :</th>
-        <td><input type="text" placeholder="결제 금액 입력"/></td>
+        <th>결제하실 금액 </th>
+        <td><input type="text" placeholder="결제 금액 입력" th:value="${checkMenu.totalCartPrice}"/></td>
     </tr>
     <tr>
-        <th>총 금액 :</th>
-        <td><span th:text="${checkMenu.totalCartPrice}"/></td>
+        <th>총 금액 </th>
+        <td><input type="text" th:value="${checkMenu.totalCartPrice}" disabled/></td>
     </tr>
     </tbody>
 </table>
 
 <button type="submit">결제하기</button>
+
+<script>
+    // 은행과 카드 테이블을 숨기거나 표시하는 함수
+    document.getElementById('bankRadio').addEventListener('click', function() {
+        document.getElementById('bankTable').classList.remove('hidden');
+        document.getElementById('cardTable').classList.add('hidden');
+    });
+
+    document.getElementById('cardRadio').addEventListener('click', function() {
+        document.getElementById('cardTable').classList.remove('hidden');
+        document.getElementById('bankTable').classList.add('hidden');
+    });
+</script>
 
 </body>
 </html>

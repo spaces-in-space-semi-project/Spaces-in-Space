@@ -8,6 +8,9 @@
         <id property="productCode" column="product_code"/>
         <result property="productPrice" column="product_price"/>
         <result property="memberCode" column="member_code"/>
+        <result property="memberPhone" column="member_phone"/>
+        <result property="memberEmail" column="member_email"/>
+        <result property="memberAddress" column="member_address"/>
         <result property="productName" column="product_name"/>
         <result property="memberName" column="member_name"/>
         <result property="cartCnt" column="cart_cnt"/>
@@ -48,6 +51,10 @@
     <select id="cartProgress" resultMap="cartResultMap">
         SELECT
             b.member_code,
+            b.member_name,
+            b.member_email,
+            b.member_phone,
+            b.member_address,
             SUM(a.cart_cnt) AS total_cart_cnt,
             SUM(a.cart_price) AS total_cart_price
         FROM

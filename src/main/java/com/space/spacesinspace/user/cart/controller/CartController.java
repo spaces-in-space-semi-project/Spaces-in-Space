@@ -63,7 +63,7 @@ public class CartController {
     }
 
 //     장바구니 목록 들고 결제 진행
-    @GetMapping("cartPayProgress")
+    @PostMapping("cartPayProgress")
     public ModelAndView cartProgress(ModelAndView mv, @RequestParam(value = "memberCode") int memberCode){
 
         CartDTO checkMenu = cartService.cartProgress(memberCode);

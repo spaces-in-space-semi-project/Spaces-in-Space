@@ -54,21 +54,30 @@ public class PayController {
     }
 
 
-    @GetMapping("payProgress")
+    @PostMapping("payProgress")
     public ModelAndView payProgress(ModelAndView mv,
                                     @RequestParam(value = "productCode", required = false, defaultValue = "0")int productCode,
-                                    @RequestParam(value = "memberCode", required = false, defaultValue = "0")int memberCode){
+                                    @AuthenticationPrincipal MemberDTO member){
 
+        int memberCode = member.getMemberCode();
+
+        System.out.println("productCode = " + productCode);
+        System.out.println("memberCode = " + memberCode);
         ProductDTO payProgress = payService.payProgress(productCode);
         MemberDTO payProgressUser = payService.payProgressUser(memberCode);
 
+
         mv.addObject("payProgress", payProgress);
         mv.addObject("payProgressUser", payProgressUser);
+
+        System.out.println("payProgressUser = " + payProgressUser);
+        System.out.println("payProgress = " + payProgress);
 
         mv.setViewName("user/pay/payProgress");
         return mv;
     }
 
+    /*주문 상세내역조회 시, 배송전 이면 삭제*/
     @PostMapping("delete/{payCode}")
     public String deletePayMenu(@PathVariable("payCode") int payCode){
         payService.deletePayMenu(payCode);
