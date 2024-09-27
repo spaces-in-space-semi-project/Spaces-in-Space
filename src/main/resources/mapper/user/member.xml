@@ -79,7 +79,7 @@
     </update>
 
     <delete id="deleteMember" parameterType="int">
-        DELETE FROM member_tbl
-        WHERE member_code = #{memberCode}
+        UPDATE member_tbl
+        SET member_delete_yn = 'Y'
     </delete>
 </mapper>
