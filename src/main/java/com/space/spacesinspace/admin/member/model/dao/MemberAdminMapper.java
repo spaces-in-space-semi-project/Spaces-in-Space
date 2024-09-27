@@ -9,4 +9,10 @@ import java.util.List;
 public interface MemberAdminMapper {
 
     List<MemberDTO> selectAllMembers();
+
+    MemberDTO findMemberDetail(int memberCode);
+
+    Integer updateMember(MemberDTO member);
+
+    Integer deleteMember(int memberCode);
 }
