@@ -48,7 +48,7 @@
             text-align: left;
         }
 
-        input, button {
+        input, button[type="submit"] {
             width: 100%;
             padding: 10px;
             margin-top: 4px;
@@ -57,7 +57,7 @@
             border: 1px solid #ddd;
         }
 
-        button {
+        button[type="submit"] {
             background-color: #5e8a45;
             color: #fff;
             border: none;
@@ -85,6 +85,51 @@
 
         h3 {
             text-align: center;
+        }
+
+        /* inquiry list css */
+        .inquiry-table {
+            width: 100%;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .inquiry-table th, .inquiry-table td {
+            padding: 15px;
+            text-align: center;
+            vertical-align: middle;
+        }
+        .inquiry-table th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+        .inquiry-table td:nth-child(2) {
+            width: 50%;
+            text-align: left;
+        }
+        .inquiry-table td:nth-child(3) {
+            width: 15%;
+        }
+        .inquiry-table tr:hover {
+            background-color: #f1f1f1;
+            cursor: pointer;
+        }
+
+        /* inquiry regist, detail css*/
+        .form-container-inquiry {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* replay container css */
+        .reply-container {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #28a745;
+            border-radius: 5px;
+            background-color: #e9f7ef;
         }
     </style>
 
@@ -127,6 +172,8 @@
     <div th:switch="${activeSection}">
         <div th:case="'update'" th:include="user/member/update :: update"></div>
         <div th:case="'inquiry'" th:include="user/inquiry/list :: inquiry"></div>
+        <div th:case="'inquiryRegist'" th:include="user/inquiry/regist :: inquiryRegist"></div>
+        <div th:case="'inquiryDetail'" th:include="user/inquiry/detail :: inquiryDetail"></div>
         <div th:case="'order'" th:include="user/pay/payList :: order"></div>
         <div th:case="'cart'" th:include="user/cart/cartList :: cart"></div>
         <div th:case="'orderDetail'" th:include="user/pay/findPayDetail :: orderDetail"></div>
@@ -137,7 +184,6 @@
 
 <div th:replace="fragments/footer :: footer"></div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script th:inline="javascript">
     document.addEventListener('DOMContentLoaded', function() {
         const form = document.getElementById('updateForm');
