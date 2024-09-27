@@ -10,6 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -128,4 +129,27 @@ public class MemberController {
 
         return mv;
     }
+
+    @PostMapping("delete")
+    public ModelAndView delete(ModelAndView mv, @AuthenticationPrincipal MemberDTO member) {
+        int memberCode = member.getMemberCode();
+
+        Integer result = memberService.deleteMember(memberCode);
+
+        String message = "";
+        if (result == null || result == 0) {
+            message = "회원 탈퇴에 실패했습니다. 다시 시도해주세요.";
+            mv.addObject("message", message);
+            mv.setViewName("/main/main");
+        } else if (result >= 1) {
+            mv.setViewName("redirect:/auth/logout");
+        } else {
+            message = "알 수 없는 오류가 발생했습니다. 다시 시도해보시거나 관리자에게 문의해주세요.";
+            mv.addObject("message", message);
+            mv.setViewName("/main/main");
+        }
+
+        return mv;
+    }
+
 }

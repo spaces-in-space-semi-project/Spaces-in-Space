@@ -9,7 +9,7 @@ DROP TABLE IF EXISTS category_tbl;
 DROP TABLE IF EXISTS member_tbl;
 DROP TABLE IF EXISTS bank_tbl;
 DROP TABLE IF EXISTS card_company_tbl;
-
+DROP TABLE IF EXISTS faq_tbl;
 
 CREATE TABLE IF NOT EXISTS member_tbl (
     member_code INT AUTO_INCREMENT PRIMARY KEY COMMENT '회원코드',
@@ -141,7 +141,7 @@ CREATE TABLE IF NOT EXISTS faq_tbl (
 
 INSERT INTO member_tbl (member_id, member_pw, member_name, member_email, member_phone, member_address, member_role, member_delete_yn)
 VALUES ('admin', '$2a$10$SOW/Hm3eQC1BL/iB3YV5DOc2r6ii4EkO/ioyfi9rrpe0Bk/4oP.ym', 'admin',
-        'admin@admin.com', '010-0000-0000', 'Some Address', 'ADMIN', 'N');
+        'admin@admin.com', '01000000000', 'Some Address', 'ADMIN', 'N');
 
 INSERT INTO category_tbl (category_code, category_name)
 VALUES (1, 'Chair'),
@@ -151,8 +151,8 @@ VALUES (1, 'Chair'),
        (5, 'Accessories');
 
 INSERT INTO product_tbl(category_code, product_name, product_image_original, product_image_thumbnail, product_price, product_deliver_time, product_deliever_cost, product_size, product_material, product_description, product_delete_yn)
-VALUES (1, 'CLIP Chair', '/uploadedFiles/img/eb7afb1c658a4b0d833b75279b5c9158.jpg', '/uploadedFiles/img/eb7afb1c658a4b0d833b75279b5c9158_thumbnail.jpg', 28100, '주문 후 2-4주 소요, 택배출고', 0, '425W x 552D x 752H', '좌판소재 : 아쿠아클린 패브릭, 세미아날린 가죽', '투명한 광택을 자랑하는 스테인리스 스틸, \n그리고 깊이가 느껴지는 블랙 분체도장 마감의 프레임은 클래식한 향수와 현대적 감성을 동시에 불러일으킵니다.', 'N'),(1, 'CLIP Chair', '/uploadedFiles/img/eb7afb1c658a4b0d833b75279b5c9158.jpg', '/uploadedFiles/img/eb7afb1c658a4b0d833b75279b5c9158_thumbnail.jpg', 28100, '주문 후 2-4주 소요, 택배출고', 0, '425W x 552D x 752H', '좌판소재 : 아쿠아클린 패브릭, 세미아날린 가죽', '투명한 광택을 자랑하는 스테인리스 스틸, \n그리고 깊이가 느껴지는 블랙 분체도장 마감의 프레임은 클래식한 향수와 현대적 감성을 동시에 불러일으킵니다.', 'N'),
-       (1, 'Burt Chair', '/uploadedFiles/img/aaf5e64924a24c8d92443166cb9a3521.jpeg', '/uploadedFiles/img/aaf5e64924a24c8d92443166cb9a3521_thumbnail.jpeg', 30200, '주문 후 2-4주 소요, 택배출고', 0, '452W x 552D x 725H', '좌판소재 : 클린터치, HPL, 천연 건식 무늬목, 자작나무 합판', '특유의 조형미를 가진 버트 체어는 \n다양한 컬러와 질감의 좌판과 자작나무, 그리고 \n스테인리스 프레임 (SUS304)의 조화가 어우러져 \n클래식하면서도 모던한 분위기로 모든 공간에서 \n빛을 발합니다.', 'N'),(1, 'CLIP Chair', '/uploadedFiles/img/eb7afb1c658a4b0d833b75279b5c9158.jpg', '/uploadedFiles/img/eb7afb1c658a4b0d833b75279b5c9158_thumbnail.jpg', 28100, '주문 후 2-4주 소요, 택배출고', 0, '425W x 552D x 752H', '좌판소재 : 아쿠아클린 패브릭, 세미아날린 가죽', '투명한 광택을 자랑하는 스테인리스 스틸, \n그리고 깊이가 느껴지는 블랙 분체도장 마감의 프레임은 클래식한 향수와 현대적 감성을 동시에 불러일으킵니다.', 'N'),
+VALUES (1, 'CLIP Chair', '/uploadedFiles/img/eb7afb1c658a4b0d833b75279b5c9158.jpg', '/uploadedFiles/img/eb7afb1c658a4b0d833b75279b5c9158_thumbnail.jpg', 28100, '주문 후 2-4주 소요, 택배출고', 0, '425W x 552D x 752H', '좌판소재 : 아쿠아클린 패브릭, 세미아날린 가죽', '투명한 광택을 자랑하는 스테인리스 스틸, \n그리고 깊이가 느껴지는 블랙 분체도장 마감의 프레임은 클래식한 향수와 현대적 감성을 동시에 불러일으킵니다.', 'N'),
+       (1, 'Burt Chair', '/uploadedFiles/img/aaf5e64924a24c8d92443166cb9a3521.jpeg', '/uploadedFiles/img/aaf5e64924a24c8d92443166cb9a3521_thumbnail.jpeg', 30200, '주문 후 2-4주 소요, 택배출고', 0, '452W x 552D x 725H', '좌판소재 : 클린터치, HPL, 천연 건식 무늬목, 자작나무 합판', '특유의 조형미를 가진 버트 체어는 \n다양한 컬러와 질감의 좌판과 자작나무, 그리고 \n스테인리스 프레임 (SUS304)의 조화가 어우러져 \n클래식하면서도 모던한 분위기로 모든 공간에서 \n빛을 발합니다.', 'N'),
        (1, 'Oliver Stool', '/uploadedFiles/img/f6c4999de4674c719b1529f0248ab45f.jpg', '/uploadedFiles/img/f6c4999de4674c719b1529f0248ab45f_thumbnail.jpg', 30700, '주문 후 2-4주 소요, 택배출고', 0, '430W x 430D x 457H ', '좌판소재 : 클린터치, HPL, 천연 건식 무늬목, 자작나무 합판', '다양한 컬러와 질감의 E0 자작나무 합판과 \n스테인리스 스틸 (SUS304)  다리로 제작된 \n올리버 스툴은 가벼운 경쾌함과 묵직한 \n안정감을 동시에 연출합니다.', 'N'),
        (2, 'JELLO Sofa Module', '/uploadedFiles/img/347b1be6379849e296ece96452fc51d3.jpg', '/uploadedFiles/img/347b1be6379849e296ece96452fc51d3_thumbnail.jpg', 80000, '주문 후 3-6주 소요', 0, '1000W x 900D x 700H', '패브릭 : ALTA 패브릭, 세미 아닐린 가죽', '균일하고 일정하게 흐르는 곡선, 그리고 장식적 요소가 억제된 선명한 형태. \nJELLO를 통해 표현하는 디자인 언어는 ‘부드러움’입니다. \n부드러운 젤리가 좌석을 감싸는 듯한 형상은 안락한 착좌감을 강조하며 컬러보다는 질감이 강조된 원단과 가죽으로 마감되는 표면은 일상의 공간에 반영될 모두의 취향을 아름답게 표현합니다.', 'N'),
        (2, 'Bolster Sofa Module', '/uploadedFiles/img/7ab9ff08e5fc488e951129ca5acdf775.jpg', '/uploadedFiles/img/7ab9ff08e5fc488e951129ca5acdf775_thumbnail.jpg', 84000, '주문 후 3-6주 소요', 0, '1000W x 1000D x 650H', '패브릭 : Como Pro  가죽 : Semi Aniline  프레임 : 스테인리스 스틸 (SUS304)', '네모반듯한 육각형에 동그랗고 푹신한 사이드 쿠션이 주변을 감싸고 도는 볼스터 소파.\n직선이 강조된 모듈러형 볼스터 소파에 가미된 디테일과 \n부드러운 볼륨감은 다채로운 매력을 일상에 불어넣습니다.', 'N'),
