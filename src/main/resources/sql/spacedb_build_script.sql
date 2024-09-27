@@ -9,7 +9,7 @@ DROP TABLE IF EXISTS category_tbl;
 DROP TABLE IF EXISTS member_tbl;
 DROP TABLE IF EXISTS bank_tbl;
 DROP TABLE IF EXISTS card_company_tbl;
-
+DROP TABLE IF EXISTS faq_tbl;
 
 CREATE TABLE IF NOT EXISTS member_tbl (
     member_code INT AUTO_INCREMENT PRIMARY KEY COMMENT '회원코드',
