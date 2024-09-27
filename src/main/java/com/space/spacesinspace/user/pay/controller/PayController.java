@@ -1,9 +1,13 @@
 package com.space.spacesinspace.user.pay.controller;
 
+import com.space.spacesinspace.common.dto.MemberDTO;
 import com.space.spacesinspace.common.dto.PayDTO;
 import com.space.spacesinspace.common.dto.PayDetailDTO;
+import com.space.spacesinspace.common.dto.ProductDTO;
+import com.space.spacesinspace.user.cart.model.dto.CartDTO;
 import com.space.spacesinspace.user.pay.model.service.PayService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -23,17 +27,15 @@ public class PayController {
         this.payService = payservice;
     }
 
-//    @GetMapping("payList")
-//    public String payList() {return "user/pay/payList";}
-
     @GetMapping("payList")
     public ModelAndView findPayList(ModelAndView mv){
 
         List<PayDTO> payList = payService.findPayList();
 
         mv.addObject("payList", payList);
+        mv.addObject("memberName", "회원");
         mv.addObject("activeSection", "order");
-        mv.setViewName("user/pay/payList");
+        mv.setViewName("user/member/myPage");
 
         return mv;
     }
@@ -41,12 +43,48 @@ public class PayController {
     @GetMapping("/findPayDetail/{payCode}")
     public ModelAndView findPayDetail(@PathVariable("payCode") int payCode, ModelAndView mv){
 
-        PayDTO findPayDetail = payService.findPayDetail(payCode);
+        PayDetailDTO findPayDetail = payService.findPayDetail(payCode);
 
         mv.addObject("findPayDetail",findPayDetail);
-        mv.setViewName("user/pay/findPayDetail");
+        mv.addObject("memberName", "회원");
+        mv.addObject("activeSection", "orderDetail");
+        mv.setViewName("user/member/myPage");
 
         return mv;
     }
+
+
+    @PostMapping("payProgress")
+    public ModelAndView payProgress(ModelAndView mv,
+                                    @RequestParam(value = "productCode", required = false, defaultValue = "0")int productCode,
+                                    @AuthenticationPrincipal MemberDTO member){
+
+        int memberCode = member.getMemberCode();
+
+        System.out.println("productCode = " + productCode);
+        System.out.println("memberCode = " + memberCode);
+        ProductDTO payProgress = payService.payProgress(productCode);
+        MemberDTO payProgressUser = payService.payProgressUser(memberCode);
+
+
+        mv.addObject("payProgress", payProgress);
+        mv.addObject("payProgressUser", payProgressUser);
+
+        System.out.println("payProgressUser = " + payProgressUser);
+        System.out.println("payProgress = " + payProgress);
+
+        mv.setViewName("user/pay/payProgress");
+        return mv;
+    }
+
+    /*주문 상세내역조회 시, 배송전 이면 삭제*/
+    @PostMapping("delete/{payCode}")
+    public String deletePayMenu(@PathVariable("payCode") int payCode){
+        payService.deletePayMenu(payCode);
+        return "redirect:/user/pay/payList";
+    }
+
+
+
 
 }

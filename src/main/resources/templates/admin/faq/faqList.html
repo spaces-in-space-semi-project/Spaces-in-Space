@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>FAQ List</title>
+    <link rel="stylesheet" href="styles.css"> <!-- 외부 CSS 파일 링크 -->
+</head>
+
+<body class="faq-page">
+
+<div th:fragment="faqList" class="faq-container">
+    <h2>FAQs</h2>
+
+    <div th:each="faq : ${faqList}" class="faq-item">
+        <div class="faq-question">
+            <h2 th:text="${faq.faqTitle}"></h2>
+            <button class="toggle-btn">+</button>
+        </div>
+        <div class="faq-answer">
+            <p th:text="${faq.faqDetail}"></p>
+        </div>
+        <div class="faq-actions">
+            <form th:action="@{'/admin/faq/update/' + ${faq.faqCode}}" method="get">
+                <button type="submit" class="action-btn update-btn">수정</button>
+            </form>
+            <form th:action="@{'/admin/faq/delete/' + ${faq.faqCode}}" method="post">
+                <button type="submit" class="action-btn delete-btn">삭제</button>
+            </form>
+        </div>
+    </div>
+    <div class="faq-add-container">
+        <form th:action="@{/admin/faq/create}" method="get">
+            <button type="submit" class="add-btn">FAQ 추가</button>
+        </form>
+    </div>
+
+    <script>
+        document.querySelectorAll('.faq-question').forEach(item => {
+            item.addEventListener('click', () => {
+                const answer = item.nextElementSibling;
+                const btn = item.querySelector('.toggle-btn');
+
+                if (answer.style.display === 'block') {
+                    answer.style.display = 'none';
+                    btn.textContent = '+';
+                } else {
+                    answer.style.display = 'block';
+                    btn.textContent = '-';
+                }
+            });
+        });
+    </script>
+</div>
+
+</body>
+</html>

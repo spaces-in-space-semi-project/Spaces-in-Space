@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>FAQ 추가</title>
+</head>
+<body>
+<div th:fragment="createFaq" class="container">
+    <h2>FAQ 질문 추가</h2>
+    <form th:action="@{/admin/faq/create}" method="post">
+      <label>FAQ 질문:</label>
+      <input type="text" th:field="*{faqDTO.faqTitle}" placeholder="FAQ 질문 입력" required maxlength="200">
+      <div class="char-count" id="question-char-count">0/200</div> <!-- 글자수 제한 -->
+
+      <label>FAQ 내용:</label>
+      <textarea th:field="*{faqDTO.faqDetail}" placeholder="FAQ 내용 입력" required maxlength="200"></textarea>
+      <div class="char-count" id="content-char-count">0/200</div> <!-- 글자수 제한 -->
+
+      <button type="submit" class="submit-btn">추가</button>
+    </form>
+    <a class="back-link" href="/admin/faq/list">목록으로 돌아가기</a>
+  <script>
+    // 질문 글자 수 제한 카운트
+    const questionInput = document.querySelector('input[th\\:field="*{faqDTO.faqTitle}"]');
+    const questionCount = document.getElementById('question-char-count');
+
+    questionInput.addEventListener('input', () => {
+      const length = questionInput.value.length;
+      questionCount.textContent = `${length}/200`;
+    });
+
+    // 내용 글자 수 제한 카운트
+    const contentInput = document.querySelector('textarea[th\\:field="*{faqDTO.faqDetail}"]');
+    const contentCount = document.getElementById('content-char-count');
+
+    contentInput.addEventListener('input', () => {
+      const length = contentInput.value.length;
+      contentCount.textContent = `${length}/200`;
+    });
+  </script>
+</div>
+
+</body>
+</html>

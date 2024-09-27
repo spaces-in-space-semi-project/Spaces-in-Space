@@ -4,39 +4,33 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <title>Inquiry</title>
-
 </head>
-<body data-active-section="${inquiryList}">
+<body>
 
-    <div th:replace="fragments/header :: header"></div>
-
-    <h1>INQUIRY LIST</h1>
-
-    <main>
-        <div th:fragment="inquiry">
-            <table>
-                <tr>
-                    <th>문의코드</th>
-                    <th>회원코드</th>
-                    <th>문의제목</th>
-                    <th>문의내용</th>
-                    <th>문의생성일</th>
-                    <th>문의수정일</th>
-                </tr>
-                <tr th:each="inquiry : ${ inquiryList }">
-                    <td th:text="${ inquiry.code }"></td>
-                    <td><a th:href="@{/user/inquiry/detail/{code}(code=${ inquiry.code })}" th:text="${ inquiry.code }"></a></td>
-                    <td th:text="${ member.code }"></td>
-                    <td th:text="${ inquiry.title }"></td>
-                    <td th:text="${ inquiry.detail }"></td>
-                    <td th:text="${ inquiry.date }"></td>
-                    <td th:text="${ inquiry.edit.date }"></td>
-                </tr>
-            </table>
-        </div>
+<div th:fragment="inquiry">
+    <main class="container" style="padding: 10px 10px 30px 10px">
+        <h4 class="text-center my-4">1:1 문의글 목록</h4>
+        <button class="btn btn-success mt-3" style="width: auto; padding: 5px 100px;" onclick="location.href='/user/inquiry/regist'">문의글 등록</button>
+        <table class="table inquiry-table">
+            <thead class="table-light">
+            <tr>
+                <th>문의 제목</th>
+                <th>문의 내용</th>
+                <th>문의 생성일</th>
+                <th>문의 수정일</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="inquiry : ${inquiryList}" th:onclick="|window.location.href='/user/inquiry/detail/' + ${inquiry.inquiryCode}|">
+                <td th:text="${inquiry.inquiryTitle}"></td>
+                <td th:text="${inquiry.inquiryDetail}"></td>
+                <td th:text="${inquiry.inquiryDate}"></td>
+                <td th:text="${inquiry.inquiryEditDate}"></td>
+            </tr>
+            </tbody>
+        </table>
     </main>
-
-    <div th:replace="fragments/footer :: footer"></div>
+</div>
 
 </body>
 </html>

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+  <!-- Icons from Bootstrap Icons CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- tui-grid -->
+  <link rel="stylesheet" href="https://uicdn.toast.com/grid/latest/tui-grid.css" />
+  <script src="https://uicdn.toast.com/grid/latest/tui-grid.js"></script>
+
+  <!-- TUI Pagination CSS -->
+  <link rel="stylesheet" href="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.css">
+  <script src="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.min.js"></script>
+
+  <title>Admin</title>
+
+  <style>
+    /* Sidebar styling similar to the provided design */
+    .sidebar-content {
+      width: 250px;
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-color: #343a40; /* Dark background similar to the provided example */
+      padding-top: 20px;
+      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .nav-secondary {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .nav-item {
+      padding: 15px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      color: #cfd8dc; /* Light color for text */
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .nav-item a {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      width: 100%;
+    }
+
+    .nav-item:hover {
+      background-color: #495057; /* Highlight color on hover */
+      color: #ffffff; /* Change text color on hover */
+    }
+
+    .nav-item i {
+      margin-right: 10px; /* Spacing for icons */
+      font-size: 18px; /* Adjust icon size */
+    }
+
+    .main-content {
+      margin-left: 250px;
+      padding: 20px;
+      background-color: #f8f9fa; /* Light background for main content */
+      min-height: 100vh;
+    }
+
+    /* Add padding and background styling for a better click area */
+    #pagination .tui-page-item a,
+    #pagination .tui-page-btn {
+      padding: 6px 8px !important;
+      border-radius: 4px;
+      background-color: #f8f9fa;
+    }
+
+    #pagination .tui-page-item a:hover,
+    #pagination .tui-page-btn:hover {
+      background-color: #e2e6ea;
+      cursor: pointer;
+    }
+
+    /* faqList 페이지 CSS */
+    .faq-page {
+      background-color: #f8f9fa; /* 배경색 */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh; /* 최소 높이 설정 */
+      margin: 0;
+    }
+
+    .faq-container {
+      width: 60%;
+      max-height: 400px;
+      margin: 50px auto;
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      overflow-y: auto; /* 수직 스크롤바 추가 */
+    }
+
+    .faq-container h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    .faq-item {
+      margin-bottom: 20px;
+    }
+
+    .faq-question {
+      display: flex;
+      justify-content: space-between;
+      background-color: #f1f1f1;
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .faq-question h2 {
+      margin: 0;
+      font-size: 18px;
+      color: #555;
+    }
+
+    .toggle-btn {
+      font-size: 18px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #555454;
+    }
+
+    .faq-answer {
+      display: none;
+      padding: 10px;
+      background-color: #fff;
+      border-left: 4px solid #007bff;
+    }
+
+    .faq-answer p {
+      margin: 0;
+      font-size: 16px;
+      color: #666;
+    }
+
+    /* 액션 버튼 관련 CSS */
+    .faq-actions {
+      margin-top: 10px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .action-btn {
+      border: none;
+      border-radius: 5px;
+      padding: 8px 12px;
+      margin-left: 10px;
+      cursor: pointer;
+    }
+
+    .update-btn {
+      background-color: black;
+      color: white;
+    }
+
+    .delete-btn {
+      background-color: red;
+      color: white;
+    }
+
+    /* FAQ 추가 버튼 CSS */
+    .faq-add-container {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .add-btn {
+      background-color: red;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+    }
+
+  </style>
+
+  <script>
+    const message = `[[${message}]]`;
+    if (message) {
+      alert(message);
+    }
+  </script>
+</head>
+<body>
+<!--<div th:replace="fragments/header :: header"></div>-->
+
+<!-- Sidebar with adjusted styles to match the example -->
+<nav class="sidebar-content">
+  <ul class="nav nav-secondary">
+    <li class="nav-item">
+      <a th:href="@{/admin/product/productsManage}">
+        <i class="bi bi-box"></i> 상품 관리
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="#">
+        <i class="bi bi-people"></i> 회원 관리
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="#">
+        <i class="bi bi-cart"></i> 주문 관리
+      </a>
+    </li>
+    <li class="nav-item">
+      <a th:href="@{/admin/inquiry/list}">
+        <i class="bi bi-question-circle"></i> 문의 관리
+      </a>
+    </li>
+    <li class="nav-item">
+      <a th:href="@{/admin/faq/list}">
+        <i class="bi bi-info-circle"></i> FAQ 관리
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<main class="main-content">
+  <div th:switch="${activeSection}">
+    <div th:case="'product'" th:include="admin/product/productsManage :: product"></div>
+    <div th:case="'productRegist'" th:include="admin/product/productRegist :: productRegist"></div>
+    <div th:case="'productDetail'" th:include="admin/product/productDetail :: productDetail"></div>
+    <div th:case="'inquiry'" th:include="admin/inquiry/list :: inquiry"></div>
+<!--    <div th:case="'inquiryDetail'" th:include="admin/inquiry/detail :: inquiryDetail"></div>-->
+<!--    <div th:case="'replyRegist'" th:include="admin/inquiry/replyRegist :: replyRegist"></div>-->
+    <div th:case="'faqList'" th:include="admin/faq/faqList :: faqList"></div>
+    <div th:case="'createFaq'" th:include="admin/faq/createFaq :: createFaq"></div>
+    <div th:case="'updateFaq'" th:include="admin/faq/updateFaq :: updateFaq"></div>
+  </div>
+</main>
+
+</body>
+</html>

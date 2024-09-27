@@ -2,32 +2,190 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <title>Signup</title>
-</head>
-<body>
-    <div th:replace="fragments/header :: header"></div>
 
-    <main class="signup-form">
-        <form th:action="@{/user/member/signup}" method="post">
-            ID : <input type="text" name="memberId"/><br>
-            PASSWORD : <input type="password" name="memberPw"/><br>
-            NAME : <input type="text" name="memberName"/><br>
-            EMAIL : <input type="email" name="memberEmail"/><br>
-            PHONE : <input type="tel" name="memberPhone"/><br>
-            ADDRESS : <input type="text" name="memberAddress"/><br>
-            <br>
-            <button>SIGN UP</button>
-        </form>
-    </main>
-
-    <div th:replace="fragments/footer :: footer"></div>
-
-    <script th:inline="javascript">
-        const message = [[${ message }]];
+    <script>
+        const message = `[[${message}]]`;
         if (message) {
             alert(message);
         }
     </script>
+
+    <style>
+        .form-container {
+            max-width: 350px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        label {
+            margin-bottom: 4px;
+            font-size: 14px;
+            text-align: left;
+            display: block;
+        }
+
+        .btn-primary {
+            background-color: #5e8a45;
+            border: none;
+            border-radius: 4px;
+        }
+
+        .btn-primary:hover {
+            background-color: #4d7336;
+        }
+
+        .btn-link {
+            color: #5e8a45;
+            font-size: 14px;
+        }
+
+        .btn-link:hover {
+            text-decoration: none;
+            color: #4d7336;
+        }
+
+        .invalid-feedback {
+            display: none;
+            color: red;
+        }
+
+        .is-invalid + .invalid-feedback {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+
+<main class="container my-5">
+    <div class="form-container">
+        <form id="signupForm" th:action="@{/user/member/signup}" method="post" novalidate>
+            <div class="mb-3">
+                <label for="memberId">ID:</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="memberId" name="memberId" placeholder="ID" required>
+                    <button class="btn btn-outline-secondary" type="button" id="checkIdButton">아이디 중복 체크</button>
+                </div>
+                <div class="invalid-feedback">
+                    아이디를 입력해주세요.
+                </div>
+                <label id="label1"></label>
+                <div class="error-messages" id="errorMemberId"></div>
+            </div>
+            <div class="mb-3">
+                <label for="memberPw">PASSWORD:</label>
+                <input type="password" class="form-control" id="memberPw" name="memberPw" placeholder="비밀번호" required>
+                <div class="invalid-feedback">
+                    비밀번호를 입력해주세요.
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="memberName">NAME:</label>
+                <input type="text" class="form-control" id="memberName" name="memberName" placeholder="이름" required>
+                <div class="invalid-feedback">
+                    이름을 입력해주세요.
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="memberEmail">EMAIL:</label>
+                <input type="email" class="form-control" id="memberEmail" name="memberEmail" placeholder="email" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" required>
+                <div class="invalid-feedback">
+                    유효한 이메일을 입력해주세요. (예: example@domain.com)
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="memberPhone">PHONE:</label>
+                <input type="tel" class="form-control" id="memberPhone" name="memberPhone" placeholder="전화번호" pattern="^[0-9]+$" required>
+                <div class="invalid-feedback">
+                    숫자만 입력해주세요.
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="memberAddress">ADDRESS:</label>
+                <input type="text" class="form-control" id="memberAddress" name="memberAddress" placeholder="배송지" required>
+                <div class="invalid-feedback">
+                    배송지를 입력해주세요.
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block" id="signupSubmitButton" disabled>SIGN UP</button>
+        </form>
+    </div>
+</main>
+
+<div th:replace="fragments/footer :: footer"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script th:inline="javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('signupForm');
+        const memberIdInput = document.getElementById('memberId');
+        const checkIdButton = document.getElementById('checkIdButton');
+        const errorElement = document.getElementById('errorMemberId');
+        const submitButton = document.getElementById('signupSubmitButton');
+        let idChecked = false;
+
+        // Validate the form on submission
+        form.addEventListener('submit', function(event) {
+            if (!form.checkValidity() || !idChecked) {
+                event.preventDefault();
+                event.stopPropagation();
+                if (!idChecked) {
+                    alert('아이디 중복 확인을 해주세요.');
+                }
+            }
+            form.classList.add('was-validated');
+        });
+
+        // Reset validation when ID input changes
+        memberIdInput.addEventListener('input', function() {
+            idChecked = false;
+            submitButton.disabled = true;
+            errorElement.classList.remove('visible');
+            errorElement.innerText = '';
+            memberIdInput.classList.remove('is-valid', 'is-invalid');
+        });
+
+        // Handle ID duplication check
+        checkIdButton.addEventListener('click', async function() {
+            const memberId = memberIdInput.value.trim();
+            if (!memberId || /[\u3131-\uD79D]/.test(memberId)) {
+                errorElement.innerText = memberId ? 'ID는 한글을 포함할 수 없습니다.' : 'ID is required.';
+                errorElement.classList.add('visible');
+                memberIdInput.classList.add('is-invalid');
+                idChecked = false;
+                submitButton.disabled = true;
+                return;
+            }
+
+            try {
+                const response = await fetch(`/user/member/checkDuplicateId?memberId=${memberId}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+
+                if (!response.ok) throw new Error('Network response was not ok');
+                const isDuplicate = await response.json();
+
+                errorElement.innerText = isDuplicate ? 'ID already exists.' : 'ID is available.';
+                errorElement.style.color = isDuplicate ? 'red' : 'green';
+                memberIdInput.classList.toggle('is-invalid', isDuplicate);
+                memberIdInput.classList.toggle('is-valid', !isDuplicate);
+                idChecked = !isDuplicate;
+                submitButton.disabled = isDuplicate;
+
+            } catch (error) {
+                errorElement.innerText = `Error checking ID duplication: ${error.message}`;
+                errorElement.classList.add('visible');
+                memberIdInput.classList.add('is-invalid');
+                console.error('Error during ID check:', error);
+            }
+        });
+    });
+</script>
+
 </body>
 </html>

@@ -3,11 +3,14 @@ package com.space.spacesinspace.user.member.model.service;
 import com.space.spacesinspace.user.member.model.dao.MemberMapper;
 import com.space.spacesinspace.common.dto.MemberDTO;
 import com.space.spacesinspace.user.member.model.dto.SignupDTO;
+import com.space.spacesinspace.user.member.model.dto.UpdateMemberDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Objects;
 
@@ -23,6 +26,7 @@ public class MemberService {
         this.memberMapper = memberMapper;
     }
 
+    @Transactional
     public Integer regist(SignupDTO newMember) {
         newMember.setMemberPw(encoder.encode(newMember.getMemberPw()));
 
@@ -49,5 +53,32 @@ public class MemberService {
         } else {
             return null;
         }
+    }
+
+    @Transactional
+    public Integer updateInfo(UpdateMemberDTO memberInfo) {
+        Integer result = null;
+
+        try {
+            result = memberMapper.updateInfo(memberInfo);
+        } catch (BadSqlGrammarException e) {
+            result = 0;
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    public boolean checkDuplicateId(String memberId) {
+        return memberMapper.checkDuplicateId(memberId) > 0;
+    }
+
+    public String findIdByEmail(String email) {
+       return memberMapper.findIdByEmail(email);
+    }
+
+    @Transactional
+    public Integer deleteMember(int memberCode) {
+        return memberMapper.deleteMember(memberCode);
     }
 }

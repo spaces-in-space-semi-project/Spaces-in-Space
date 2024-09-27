@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>regist</title>
+</head>
+<body>
+<div th:fragment="inquiryRegist">
+    <main class="container my-5">
+        <h5>신규 문의글 등록</h5>
+        <div class="form-container-inquiry">
+            <form th:action="@{/user/inquiry/regist}" method="post">
+                <div class="mb-3">
+                    <label for="inquiryTitle" class="form-label">문의 제목:</label>
+                    <input type="text" id="inquiryTitle" name="inquiryTitle" class="form-control" placeholder="제목을 입력해주세요" required>
+                    <div class="invalid-feedback">제목을 입력해주세요.</div>
+                </div>
+                <div class="mb-3">
+                    <label for="inquiryDetail" class="form-label">문의 내용:</label>
+                    <textarea id="inquiryDetail" name="inquiryDetail" class="form-control" rows="10" placeholder="내용을 입력해주세요" required style="text-align:left; letter-spacing: 2px;"></textarea>
+                    <div class="invalid-feedback">내용을 입력해주세요.</div>
+                </div>
+
+                <button type="submit" class="submit-btn">등록</button>
+            </form>
+        </div>
+    </main>
+</div>
+</body>
+</html>

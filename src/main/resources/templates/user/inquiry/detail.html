@@ -2,28 +2,49 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" th:href="@{/css/style.css}">
     <title>Detail</title>
 </head>
 <body>
+<div th:fragment="inquiryDetail">
+    <main class="container my-5">
+        <h5 class="text-center mb-4">문의글 수정</h5>
+        <div class="form-container-inquiry">
+            <form th:action="@{/user/inquiry/update}" method="post">
+                <input type="hidden" name="inquiryCode" th:value="${inquiry.inquiryCode}" />
 
-    <div th:replace="fragments/header :: header"></div>
+                <div class="mb-3">
+                    <label for="inquiryTitle" class="form-label">문의 제목:</label>
+                    <input type="text" id="inquiryTitle" name="inquiryTitle" class="form-control"
+                           th:value="${inquiry.inquiryTitle}" required
+                           th:attr="readonly=${reply != null ? 'readonly' : null}">
+                    <div class="invalid-feedback">제목을 입력해주세요.</div>
+                </div>
 
-    <h1>INQUIRY</h1>
+                <div class="mb-3">
+                    <label for="inquiryDetail" class="form-label">문의 내용:</label>
+                    <textarea id="inquiryDetail" name="inquiryDetail" class="form-control" rows="10"
+                              th:text="${inquiry.inquiryDetail}" required style="text-align:left; letter-spacing: 2px;"
+                              th:attr="readonly=${reply != null ? 'readonly' : null}"></textarea>
+                    <div class="invalid-feedback">내용을 입력해주세요.</div>
+                </div>
 
-    <h2>문의글 내용</h2>
+                <div class="d-flex justify-content-between mt-4">
+                    <button type="submit" class="btn btn-primary btn-custom" th:attr="disabled=${reply != null ? 'disabled' : null}">수정하기</button>
+                </div>
+            </form>
 
-    <main>
-        <div th:fragment="inquiry">
-            <p>문의코드: <span th:text="${ inquiry.code }"></span></p>
-            <p>회원코드: <span th:text="${ member.code }"></span></p>
-            <p>문의제목: <span th:text="${ inquiry.title }"></span></p>
-            <p>문의내용: <span th:text="${ inquiry.detail }"></span></p>
-            <p>문의생성일: <span th:text="${ inquiry.date }"></span></p>
-            <p>문의수정일: <span th:text="${ inquiry.edit.date }"></span></p>
+            <form th:action="@{/user/inquiry/delete/{code}(code=${inquiry.inquiryCode})}" method="post">
+                <button type="submit" class="btn btn-danger btn-block mt-3" th:attr="disabled=${reply != null ? 'disabled' : null}">삭제하기</button>
+            </form>
+
+            <!-- 답변 내용 -->
+            <div th:if="${reply != null}" class="reply-container mt-4">
+                <h6 class="text-success">답변</h6>
+                <p><strong>답변 내용:</strong> <span th:text="${reply.replyDetail}"></span></p>
+                <p><strong>답변 날짜:</strong> <span th:text="${reply.replyDate}"></span></p>
+            </div>
         </div>
     </main>
-
-    <div th:replace="fragments/footer :: footer"></div>
+</div>
 </body>
 </html>
