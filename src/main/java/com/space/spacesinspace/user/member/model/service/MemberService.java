@@ -76,4 +76,9 @@ public class MemberService {
     public String findIdByEmail(String email) {
        return memberMapper.findIdByEmail(email);
     }
+
+    @Transactional
+    public Integer deleteMember(int memberCode) {
+        return memberMapper.deleteMember(memberCode);
+    }
 }
