@@ -62,9 +62,22 @@
             b.member_code
     </select>
 
-    <insert id="addCartMenu" parameterType="int">
-        INSERT INTO cart_tbl (product_code,member_code,cart_cnt,cart_price)
-        VALUES (#{getProductCode}, #{memberCode}, 1, #{productPrice})
+    <insert id="addCartMenu" parameterType="map">
+        INSERT INTO cart_tbl (product_code, member_code, cart_cnt, cart_price)
+        VALUES (#{productCode}, #{memberCode}, 1, #{productPrice})
     </insert>
+
+    <select id="checkCartItem" parameterType="map" resultMap="cartResultMap">
+        SELECT
+            product_code,
+            member_code,
+            cart_cnt,
+            cart_price
+        FROM
+            cart_tbl
+        WHERE
+            product_code = #{productCode} AND
+            member_code = #{memberCode}
+    </select>
 
 </mapper>

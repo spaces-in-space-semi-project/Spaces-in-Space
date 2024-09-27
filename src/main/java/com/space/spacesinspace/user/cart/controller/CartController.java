@@ -6,13 +6,16 @@ import com.space.spacesinspace.user.cart.model.dto.CartDTO;
 import com.space.spacesinspace.user.cart.model.service.CartService;
 import com.space.spacesinspace.user.product.model.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("user/cart/*")
@@ -70,27 +73,37 @@ public class CartController {
         return mv;
     }
 
-    @PostMapping("addCartMenu")
-    public ModelAndView addCartMenu(ModelAndView mv, @AuthenticationPrincipal MemberDTO member,
-                                    @RequestParam(value="productCode") int productCode){
-
+    @PostMapping(value= "addCartMenu", consumes = "application/json", produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public ResponseEntity<Map<String, String>> addCartMenu(@AuthenticationPrincipal MemberDTO member,
+                                                           @RequestBody Map<String, Integer> params) {
+        int productCode = params.get("productCode");
         ProductDTO product = productService.findProductByCode(productCode);
-        int getProductCode = product.getProductCode();
         int productPrice = product.getProductPrice();
         int memberCode = member.getMemberCode();
 
-        System.out.println("productPrice = " + productPrice);
-        System.out.println("memberCode = " + memberCode);
-        System.out.println("getProductCode = " + getProductCode);
+        params.put("productCode", productCode);
+        params.put("memberCode", memberCode);
+        params.put("productPrice", productPrice);
 
-//        CartDTO addCartMenu = cartService.addCartMenu(productCode);
+        CartDTO cartItem = cartService.checkCartItem(params);
 
-//        mv.addObject("addCartMenu",addCartMenu);
-        mv.addObject("productPrice",productPrice);
-        mv.addObject("productCode",getProductCode);
-        mv.addObject("memberCode",memberCode);
-        mv.setViewName("redirect:/user/cart/cartList");
-        return mv;
+        Map<String, String> response = new HashMap<>();
+        if (cartItem == null) {
+            Integer result = cartService.addCartMenu(params);
+
+            if (result == null || result == 0) {
+                response.put("message", "장바구니 추가에 실패했습니다. 다시 시도해주세요.");
+            } else if (result >= 1) {
+                response.put("message", "장바구니 추가가 성공적으로 완료되었습니다.");
+            } else {
+                response.put("message", "알 수 없는 오류가 발생했습니다. 다시 시도해보시거나 관리자에게 문의해주세요.");
+            }
+        } else {
+            response.put("message", "이미 장바구니에 추가된 상품입니다.");
+        }
+
+        return ResponseEntity.ok(response);
     }
 
 }

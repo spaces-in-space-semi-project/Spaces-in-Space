@@ -3,8 +3,10 @@ package com.space.spacesinspace.user.cart.model.dao;
 import com.space.spacesinspace.common.dto.ProductDTO;
 import com.space.spacesinspace.user.cart.model.dto.CartDTO;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface CartMapper {
@@ -16,5 +18,7 @@ public interface CartMapper {
 
     CartDTO cartProgress(int memberCode);
 
-    CartDTO addCartMenu(int productCode);
+    int addCartMenu(Map<String, Integer> params);
+
+    CartDTO checkCartItem(Map<String, Integer> params);
 }

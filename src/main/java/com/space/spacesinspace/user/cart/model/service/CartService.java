@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class CartService {
@@ -57,7 +58,12 @@ public class CartService {
     }
 
     @Transactional
-    public CartDTO addCartMenu(int productCode) {
-        return cartMapper.addCartMenu(productCode);
+    public Integer addCartMenu(Map<String, Integer> params) {
+        return cartMapper.addCartMenu(params);
+    }
+
+
+    public CartDTO checkCartItem(Map<String, Integer> params) {
+        return cartMapper.checkCartItem(params);
     }
 }
