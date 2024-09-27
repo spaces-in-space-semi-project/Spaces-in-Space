@@ -4,6 +4,7 @@ import com.space.spacesinspace.admin.member.model.dao.MemberAdminMapper;
 import com.space.spacesinspace.common.dto.MemberDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -19,5 +20,19 @@ public class MemberAdminService {
 
     public List<MemberDTO> selectAllMembers() {
         return memberAdminMapper.selectAllMembers();
+    }
+
+    public MemberDTO findMemberDetail(int memberCode) {
+        return memberAdminMapper.findMemberDetail(memberCode);
+    }
+
+    @Transactional
+    public Integer updateMember(MemberDTO member) {
+        return memberAdminMapper.updateMember(member);
+    }
+
+    @Transactional
+    public Integer deleteMember(int memberCode) {
+        return memberAdminMapper.deleteMember(memberCode);
     }
 }

@@ -30,7 +30,42 @@
         FROM
             member_tbl
         WHERE
-            member_delete_yn = 'N'
+            member_delete_yn = 'N' AND member_role = 'USER'
     </select>
+
+    <select id="findMemberDetail" parameterType="int" resultMap="memberAdminResultMap">
+        SELECT
+            member_code,
+            member_id,
+            member_pw,
+            member_name,
+            member_email,
+            member_phone,
+            member_address,
+            member_role,
+            member_delete_yn
+        FROM
+            member_tbl
+        WHERE
+            member_code = #{memberCode}
+    </select>
+
+    <update id="updateMember" parameterType="com.space.spacesinspace.common.dto.MemberDTO">
+        UPDATE
+            member_tbl
+        SET
+            member_name = #{memberName},
+            member_email = #{memberEmail},
+            member_phone = #{memberPhone},
+            member_address = #{memberAddress}
+        WHERE
+            member_code = #{memberCode}
+    </update>
+
+    <delete id="deleteMember" parameterType="int">
+        UPDATE member_tbl
+        SET member_delete_yn = 'Y'
+        WHERE member_code = #{memberCode}
+    </delete>
 
 </mapper>

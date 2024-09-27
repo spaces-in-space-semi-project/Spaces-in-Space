@@ -81,5 +81,6 @@
     <delete id="deleteMember" parameterType="int">
         UPDATE member_tbl
         SET member_delete_yn = 'Y'
+        WHERE member_code = #{memberCode}
     </delete>
 </mapper>

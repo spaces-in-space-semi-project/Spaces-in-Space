@@ -151,7 +151,7 @@ public class ProductAdminController {
         return mv;
     }
 
-    // 상품 상제 조회
+    // 상품 상세 조회
     @GetMapping("productDetail/{code}")
     public ModelAndView findProductDetail(@PathVariable("code") int code, ModelAndView mv) {
         ProductDTO product = productAdminService.findProductByCode(code);
@@ -253,7 +253,7 @@ public class ProductAdminController {
         String message;
         if (result == null || result == 0) {
             message = "상품수정에 실패했습니다. 다시 시도해주세요.";
-            mv.setViewName("redirect:/admin/product/productRegist");
+            mv.setViewName("redirect:/admin/product/productDetail/"+ productCode);
         } else {
             message = "상품을 성공적으로 수정했습니다.";
             mv.setViewName("redirect:/admin/product/productsManage");
