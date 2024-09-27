@@ -28,6 +28,12 @@ public class MemberDTO implements UserDetails {
     }
 
     @Override
+    public boolean isEnabled() {
+        // 탈퇴한 회원은 로그인할 수 없도록 false 반환
+        return !"Y".equalsIgnoreCase(this.memberDeleteYn);
+    }
+
+    @Override
     public String getPassword() {
         return this.memberPw;
     }
