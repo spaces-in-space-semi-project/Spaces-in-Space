@@ -1,13 +1,17 @@
 package com.space.spacesinspace.user.pay.model.service;
 
+import com.space.spacesinspace.common.dto.MemberDTO;
 import com.space.spacesinspace.common.dto.PayDTO;
 import com.space.spacesinspace.common.dto.PayDetailDTO;
+import com.space.spacesinspace.common.dto.ProductDTO;
+import com.space.spacesinspace.user.cart.model.dto.CartDTO;
 import com.space.spacesinspace.user.pay.model.dao.PayMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +20,7 @@ import java.util.List;
 public class PayService {
 
 
-    public final PayMapper payMapper;
+    private PayMapper payMapper;
 
     @Autowired
     public PayService(PayMapper payMapper) {
@@ -35,7 +39,7 @@ public class PayService {
 
     public PayDetailDTO findPayDetail(int payCode) { return payMapper.findPayDetail(payCode); }
 
-/*=============================================================================================*/
+/*================================================================================================*/
 
     public String getLoggedInUsername() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -50,4 +54,32 @@ public class PayService {
     public List<PayDTO> showPayList() {
         return payMapper.showPayList();
     }
+
+    public PayDetailDTO findAdminPayDetail(int payCode) {
+        return payMapper.findAdminPayDetail(payCode);
+    }
+
+    public ProductDTO payProgress(int productCode) {
+        return payMapper.payProgress(productCode);
+    }
+
+    public MemberDTO payProgressUser(int memberCode) {
+        return payMapper.payProgressUser(memberCode);
+    }
+
+
+    @Transactional
+    public void deletePayMenu(int payCode) {
+        payMapper.deletePayDetailMenu(payCode);
+        payMapper.deletePayMenu(payCode);
+
+    }
+
+    @Transactional
+    public void deleteAdminPayMenu(int payCode) {
+        payMapper.deletePayDetailMenu(payCode);
+        payMapper.deletePayMenu(payCode);
+    }
+
+
 }

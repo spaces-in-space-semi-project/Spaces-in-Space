@@ -18,4 +18,6 @@ public interface MemberMapper {
     int checkDuplicateId(String memberId);
 
     String findIdByEmail(String email);
+
+    int deleteMember(int memberCode);
 }

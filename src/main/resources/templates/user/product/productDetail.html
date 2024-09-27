@@ -54,7 +54,7 @@
             <p th:text="'₩' + ${product.productPrice}">₩0</p>
             <div class="">
                 <button class="btn btn-primary" onclick="confirmLogin('buy')">구매하기</button>
-                <button class="btn btn-outline-secondary" onclick="confirmLogin('cart')">장바구니</button>
+                <button class="btn btn-outline-secondary" onclick="addToCart()">장바구니</button>
             </div>
         </div>
     </div>
@@ -71,14 +71,47 @@
     function confirmLogin(action) {
         if (isLoggedIn) {
             if (action === 'buy') {
-                window.location.href = '/user/pay/findPayDetail';   // url 수정하시면 됩미다 호도옹님
-            } else {
-                // 여기에 장바구니에 추가하는 로직 들어가야 함
-                alert('상품 장바구니에 추가 완료');
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = /*[[@{/user/pay/payProgress}]]*/ '';
+                // 필요한 데이터를 추가
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'productCode'; // 필요한 파라미터 이름
+                input.value = /*[[${productCode}]]*/ ''; // 실제 값을 설정
+                form.appendChild(input);
+                document.body.appendChild(form);
+                form.submit(); // 폼 전송
             }
         } else {
             window.location.href = '/auth/login';
         }
+    }
+
+    function addToCart() {
+        if (!isLoggedIn) {
+            alert('로그인이 필요합니다.');
+            window.location.href = '/auth/login';
+            return;
+        }
+
+        const productCode = /*[[${productCode}]]*/ ''; // 서버에서 가져온 실제 값을 사용
+
+        fetch('/user/cart/addCartMenu', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ productCode: productCode })
+        })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message); // 서버에서 반환한 메시지를 출력
+            })
+            .catch(error => {
+                console.error('Error adding to cart:', error);
+                alert('장바구니 추가 중 오류가 발생했습니다. 다시 시도해주세요.');
+            });
     }
 </script>
 

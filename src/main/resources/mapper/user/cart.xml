@@ -6,17 +6,25 @@
 <mapper namespace="com.space.spacesinspace.user.cart.model.dao.CartMapper">
     <resultMap id="cartResultMap" type="com.space.spacesinspace.user.cart.model.dto.CartDTO">
         <id property="productCode" column="product_code"/>
+        <result property="productPrice" column="product_price"/>
         <result property="memberCode" column="member_code"/>
+        <result property="memberPhone" column="member_phone"/>
+        <result property="memberEmail" column="member_email"/>
+        <result property="memberAddress" column="member_address"/>
         <result property="productName" column="product_name"/>
         <result property="memberName" column="member_name"/>
         <result property="cartCnt" column="cart_cnt"/>
         <result property="cartPrice" column="cart_price"/>
+        <result property="totalCartCnt" column="total_cart_cnt"/>
+        <result property="totalCartPrice" column="total_cart_price"/>
     </resultMap>
     
     <select id="showCartView" resultMap="cartResultMap">
         SELECT
+            a.product_code,
             c.product_name,
             b.member_id,
+            b.member_code,
             a.cart_cnt,
             a.cart_price
         FROM
@@ -28,5 +36,55 @@
         WHERE
             b.member_id = #{loggedInUsername}
     </select>
-    
+
+    <update id="updateCartItem" parameterType="map">
+        UPDATE cart_tbl
+        SET cart_cnt = #{ cartCnt }
+        WHERE product_code = #{ productCode }
+    </update>
+
+    <delete id="deleteCartMenu" parameterType="int">
+        DELETE FROM cart_tbl
+        WHERE product_code = #{ productCode }
+    </delete>
+
+    <select id="cartProgress" resultMap="cartResultMap">
+        SELECT
+            b.member_code,
+            b.member_name,
+            b.member_email,
+            b.member_phone,
+            b.member_address,
+            SUM(a.cart_cnt) AS total_cart_cnt,
+            SUM(a.cart_price) AS total_cart_price
+        FROM
+            cart_tbl a
+        JOIN
+            member_tbl b ON (a.member_code = b.member_code)
+        JOIN
+            product_tbl c ON (a.product_code = c.product_code)
+        WHERE
+            b.member_code = #{memberCode}
+        GROUP BY
+            b.member_code
+    </select>
+
+    <insert id="addCartMenu" parameterType="map">
+        INSERT INTO cart_tbl (product_code, member_code, cart_cnt, cart_price)
+        VALUES (#{productCode}, #{memberCode}, 1, #{productPrice})
+    </insert>
+
+    <select id="checkCartItem" parameterType="map" resultMap="cartResultMap">
+        SELECT
+            product_code,
+            member_code,
+            cart_cnt,
+            cart_price
+        FROM
+            cart_tbl
+        WHERE
+            product_code = #{productCode} AND
+            member_code = #{memberCode}
+    </select>
+
 </mapper>
