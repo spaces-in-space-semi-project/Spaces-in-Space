@@ -1,7 +1,9 @@
 package com.space.spacesinspace.admin.inquiry.controller;
 
 import com.space.spacesinspace.admin.inquiry.model.service.AdminInquiryService;
+import com.space.spacesinspace.admin.reply.model.service.ReplyService;
 import com.space.spacesinspace.common.dto.InquiryDTO;
+import com.space.spacesinspace.common.dto.ReplyDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,10 +19,12 @@ import java.util.List;
 public class AdminInquiryController {
 
     private final AdminInquiryService adminInquiryService;
+    private final ReplyService replyService;
 
     @Autowired
-    public AdminInquiryController(AdminInquiryService adminInquiryService) {
+    public AdminInquiryController(AdminInquiryService adminInquiryService, ReplyService replyService) {
         this.adminInquiryService = adminInquiryService;
+        this.replyService = replyService;
     }
 
     @GetMapping("/list")
@@ -34,10 +38,12 @@ public class AdminInquiryController {
     }
 
     @GetMapping("/detail/{inquiryCode}")
-    public String findInquiryByCode(@PathVariable("inquiryCode") int inquiryCode,
+    public String findInquiryByCode(@PathVariable("inquiryCode") int inquiryCode, ReplyDTO reply,
                                     Model model) {
 
         InquiryDTO inquiry = adminInquiryService.findInquiryByCode(inquiryCode);
+
+        ReplyDTO replyDTO = replyService.findReplyByCode(inquiryCode);
 
         model.addAttribute("inquiry", inquiry);
 
@@ -48,7 +54,6 @@ public class AdminInquiryController {
     public String deleteInquiry(@PathVariable("inquiryCode") int inquiryCode) {
 
         adminInquiryService.deleteInquiry(inquiryCode);
-
 
         return "redirect:/admin/inquiry/list";
     }

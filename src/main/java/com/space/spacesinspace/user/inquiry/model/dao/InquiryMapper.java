@@ -13,9 +13,12 @@ public interface InquiryMapper {
 
     InquiryDTO findInquiryByCode(int inquiryCode);
 
+    @Transactional
     void deleteInquiry(int code);
 
+    @Transactional
     void registNewInquiry(InquiryDTO newInquiry);
 
+    @Transactional
     int updateInquiry(InquiryDTO inquiry);
 }

@@ -7,31 +7,98 @@
 <body>
     <div th:fragment="inquiry">
         <main>
-            <h1>INQUIRY LIST</h1>
-            <table>
-                <tr>
-                    <th>문의 코드</th>
-                    <th>회원 코드</th>
-                    <th>문의 제목</th>
-                    <th>문의 내용</th>
-                    <th>문의 생성일</th>
-                    <th>문의 수정일</th>
-                </tr>
-                <tr th:each="inquiry : ${ inquiryList }"
-                    th:attr="onclick='location.href=\'http://localhost:8080/admin/inquiry/detail/' + ${ inquiry.inquiryCode } + '\';'"
-                    style="width:100%; cursor:pointer;">
-                    <td th:text="${ inquiry.inquiryCode }"></td>
-                    <td th:text="${ inquiry.memberCode }"></td>
-                    <td th:text="${ inquiry.inquiryTitle }"></td>
-                    <td th:text="${ inquiry.inquiryDetail }"></td>
-                    <td th:text="${ inquiry.inquiryDate }"></td>
-                    <td>
-                        <script>
-                            document.write(document.lastModified+"")
-                        </script>
-                    </td>
-                </tr>
-            </table>
+            <div class="input-group" style="width: 250px;">
+                <input type="text" class="form-control" placeholder="검색..." aria-label="Search">
+                <button class="btn btn-outline-secondary" type="button">검색</button>
+            </div>
+
+            <script th:inline="javascript">
+                let inquiryList = /*[[${ inquiryList }]]*/ [];
+                const totalItems = inquiryList.length; // Total number of items
+                const itemsPerPage = 10; // Number of items per page
+
+                // Initialize TUI Pagination
+                const pagination = new tui.Pagination(document.getElementById('pagination'), {
+                    totalItems: totalItems,
+                    itemsPerPage: itemsPerPage,
+                    visiblePages: 6,
+                    centerAlign: true,
+                    firstItem: '<span class="tui-page-btn tui-first">«</span>',
+                    prevItem: '<span class="tui-page-btn tui-prev">‹</span>',
+                    nextItem: '<span class="tui-page-btn tui-next">›</span>',
+                    lastItem: '<span class="tui-page-btn tui-last">»</span>'
+                });
+
+                // Initialize TUI Grid without pageOptions
+                const grid = new tui.Grid({
+                    el: document.getElementById('grid'),
+                    data: productList.slice(0, itemsPerPage),
+                    scrollX: false,
+                    scrollY: true,
+                    columns: [
+                        {
+                            header: '문의코드',
+                            name: 'inquiryCode',
+                            sortable: true,
+                            align: 'left'
+                        },
+                        {
+                            header: '회원코드',
+                            name: 'memberCode',
+                            sortable: true,
+                            align: 'center',
+                            width: 100
+                        },
+                        {
+                            header: '문의제목',
+                            name: 'inquiryTitle',
+                            sortable: true,
+                            sortingType: 'desc',
+                            width: 150
+                        },
+                        {
+                            header: '문의내용',
+                            sortable: true,
+                            name: 'inquiryDetail',
+                            align: 'center',
+                            width: 500
+                        },
+                        {
+                            header: '문의생성일',
+                            name: 'inquiryDate',
+                            sortable: true,
+                            align: 'right'
+                        },
+                        {
+                            header: '문의수정일',
+                            name: 'inquiryEditDate',
+                            sortable: true,
+                            align: 'right'
+                        }
+                    ]
+                });
+
+                // Handle pagination page change and update grid data manually
+                pagination.on('beforeMove', (event) => {
+                    const currentPage = event.page;
+                    const startIdx = (currentPage - 1) * itemsPerPage;
+                    const endIdx = startIdx + itemsPerPage;
+                    grid.resetData(productList.slice(startIdx, endIdx));
+                    return true;
+                });
+
+                // Attach the row click event listener
+                grid.on('click', (ev) => {
+                    const rowKey = ev.rowKey;
+                    const rowData = grid.getRow(rowKey);
+
+                    // Check if row data exists and navigate to the detail page
+                    if (rowData && rowData.inquiryCode) {
+                        const detailUrl = `/admin/inquiry/detail/${rowData.inquiryCode}`;
+                        window.location.href = detailUrl;
+                    }
+                });
+            </script>
         </main>
     </div>
 </body>

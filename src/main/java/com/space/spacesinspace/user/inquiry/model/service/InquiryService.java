@@ -26,17 +26,14 @@ public class InquiryService {
         return inquiryMapper.findInquiryByCode(inquiryCode);
     }
 
-    @Transactional
     public void deleteInquiry(int code) {
         inquiryMapper.deleteInquiry(code);
     }
 
-    @Transactional
     public void registNewInquiry(InquiryDTO newInquiry) {
         inquiryMapper.registNewInquiry(newInquiry);
     }
 
-    @Transactional
     public void updateInquiry(InquiryDTO inquiry) throws Exception{
         inquiryMapper.updateInquiry(inquiry);
     }

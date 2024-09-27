@@ -19,11 +19,15 @@
         <p>문의 수정일 : <span th:text="${ inquiry.inquiryEditDate }"></span></p>
     </div>
 
+
     <form th:action="@{/admin/inquiry/delete/{code}(code=${ inquiry.getInquiryCode() })}" method="post">
         <button type="submit">삭제</button>
     </form>
 
     <button onclick="location.href='/user/inquiry/list'">문의글 목록</button>
 
+    <div>
+        <p>답변 내용 : <span th:text="${reply.replyDetail}"></span></p>
+    </div>
 </body>
 </html>
