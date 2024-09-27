@@ -27,6 +27,7 @@ public class PayController {
         this.payService = payservice;
     }
 
+    // 사용자의 결제한 주문내역을 전체 조회
     @GetMapping("payList")
     public ModelAndView findPayList(ModelAndView mv){
 
@@ -40,6 +41,7 @@ public class PayController {
         return mv;
     }
 
+    // 사용자의 주문전체내역 중, 하나를 선택하여 상세 조회
     @GetMapping("/findPayDetail/{payCode}")
     public ModelAndView findPayDetail(@PathVariable("payCode") int payCode, ModelAndView mv){
 
@@ -53,7 +55,7 @@ public class PayController {
         return mv;
     }
 
-
+    // 사용자가 상품페이지에서 [구매하기] 누르면 들고 넘어간다.
     @PostMapping("payProgress")
     public ModelAndView payProgress(ModelAndView mv,
                                     @RequestParam(value = "productCode", required = false, defaultValue = "0")int productCode,
@@ -61,17 +63,11 @@ public class PayController {
 
         int memberCode = member.getMemberCode();
 
-        System.out.println("productCode = " + productCode);
-        System.out.println("memberCode = " + memberCode);
         ProductDTO payProgress = payService.payProgress(productCode);
         MemberDTO payProgressUser = payService.payProgressUser(memberCode);
 
-
         mv.addObject("payProgress", payProgress);
         mv.addObject("payProgressUser", payProgressUser);
-
-        System.out.println("payProgressUser = " + payProgressUser);
-        System.out.println("payProgress = " + payProgress);
 
         mv.setViewName("user/pay/payProgress");
         return mv;
@@ -83,12 +79,16 @@ public class PayController {
         payService.deletePayMenu(payCode);
         return "redirect:/user/pay/payList";
     }
-    
+
+    //영수증 출력을 향한 여행. 피 카 츄.
     @PostMapping("receipt")
-    public String addPayList(@ModelAttribute PayDTO payDTO){
-        System.out.println("payDTO = " + payDTO);
+    public String addPayList(@ModelAttribute PayDTO payDTO,
+                              @ModelAttribute PayDetailDTO payDetailDTO){
+
         payService.addPayList(payDTO);
-        return "redirect:/user/pay/receipt";
+        payService.addPayDetailList(payDetailDTO);
+
+        return "redirect:/user/pay/payList";
     }
 
 

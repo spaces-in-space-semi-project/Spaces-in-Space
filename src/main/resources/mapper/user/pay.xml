@@ -70,10 +70,19 @@
     <select id="findPayList" resultMap="payResultMap">
         SELECT
             a.pay_code,
+            a.member_code,
             a.pay_date,
-            a.pay_deliever_status,
             a.pay_total_cnt,
-            a.pay_total_price
+            a.pay_total_price,
+            a.pay_address,
+            a.pay_receiver,
+            a.pay_deliver_phone,
+            a.pay_deliever_status,
+            a.pay_refund_yn,
+            a.pay_account_number,
+            a.pay_card_number,
+            a.bank_code,
+            a.card_company_code
         FROM
             pay_tbl a
         JOIN
@@ -90,6 +99,7 @@
             b.pay_date,
             b.pay_code,
             c.product_name,
+            c.product_code,
             a.pay_detail_cnt,
             a.pay_detail_price,
             b.pay_receiver,
@@ -211,4 +221,8 @@
         VALUES ( #{memberCode}, #{payDate}, #{payTotalCnt}, #{payTotalPrice}, #{payAddress}, #{payReceiver}, #{payDeliverPhone}, #{payDeliverStatus}, #{payRefundYn}, #{payAccountNumber}, #{payCardNumber}, #{bankCode}, #{cardCompanyCode})
     </insert>
 
+    <insert id="addPayDetailList" parameterType="int">
+        INSERT INTO pay_detail_tbl (pay_code, product_code, pay_detail_cnt, pay_detail_price)
+        VALUES (#{payCode}, #{productCode}, #{payDetailCnt}, #{payDetailPrice})
+    </insert>
 </mapper>

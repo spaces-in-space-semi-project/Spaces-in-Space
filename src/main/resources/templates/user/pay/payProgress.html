@@ -57,8 +57,9 @@
     <input type="hidden" name="memberCode" th:value="${payProgressUser.memberCode}"/>
     <input type="hidden" id="toDay" name="payDate" value=""/>
     <input type="hidden" name="payTotalCnt" value="1"/>
-    <input type="hidden" name="payDeliverStatus" value="배송전">
-    <input type="hidden" name="payRefundYn" value="N">
+    <input type="hidden" name="payDeliverStatus" value="배송전"/>
+    <input type="hidden" name="payRefundYn" value="N"/>
+    <input type="hidden" name="productCode" th:value="${payProgress.productCode}"/>
 <table>
     <tbody>
     <tr>
@@ -81,23 +82,23 @@
     <tbody>
     <tr>
         <th>배송자명 </th>
-        <td><input type="text" name="payReceiver" placeholder="배송자명 입력"/></td>
+        <td><input type="text" name="payReceiver" placeholder="배송자명 입력" required/></td>
     </tr>
     <tr>
         <th>전화번호 </th>
-        <td><input type="text" name="payDeliverPhone" placeholder="전화번호 입력"/></td>
+        <td><input type="text" name="payDeliverPhone" placeholder="전화번호 입력" required/></td>
     </tr>
     <tr>
         <th>주소 </th>
         <td><input type="text" name="payAddress" placeholder="주소 입력" th:value="${payProgressUser.memberAddress}"/></td>
     </tr>
     <tr>
-        <td colspan="2"><input type="text" value="상세주소 입력" placeholder="상세주소 입력"/></td>
+        <td colspan="2"><input type="text"  placeholder="상세주소 입력" required/></td>
     </tr>
     <tr>
         <th>배송요청사항 </th>
         <td>
-            <select name="deliveryRQ">
+            <select name="deliveryRQ" required>
                 <option value="dRQ0">배송요청사항을 선택하세요</option>
                 <option value="dRQ1">집앞에 던져놔주세요</option>
                 <option value="dRQ2">문앞에 막아놔주세요</option>
@@ -124,18 +125,18 @@
     <tr>
         <th>은행 </th>
         <td>
-            <select name="bankCode">
-                <option value="0">은행을 선택하세요</option>
-                <option value="1">우리</option>
-                <option value="2">신한</option>
-                <option value="3">국민</option>
-                <option value="4">기업</option>
+            <select name="bankCode" >
+                <option value="1" selected>은행을 선택하세요</option>
+                <option value="2">우리</option>
+                <option value="3">신한</option>
+                <option value="4">국민</option>
+                <option value="5">기업</option>
             </select>
         </td>
     </tr>
     <tr>
         <th>계좌번호 </th>
-        <td><input name="payAccountNumber" type="text" placeholder="계좌번호 입력"/></td>
+        <td><input name="payAccountNumber" type="text" placeholder="계좌번호 입력" value=""/></td>
     </tr>
     </tbody>
 </table>
@@ -146,18 +147,18 @@
     <tr>
         <th>카드사 </th>
         <td>
-            <select name="cardCompanyCode">
-            <option value="0">카드사를 선택하세요</option>
-            <option value="1">BC</option>
-            <option value="2">현대</option>
-            <option value="3">삼성</option>
-            <option value="4">롯데</option>
+            <select name="cardCompanyCode" >
+            <option value="1" selected>카드사를 선택하세요</option>
+            <option value="2">BC</option>
+            <option value="3">현대</option>
+            <option value="4">삼성</option>
+            <option value="5">롯데</option>
         </select>
         </td>
     </tr>
     <tr>
         <th>카드번호 </th>
-        <td><input type="text" name="payCardNumber" placeholder="카드번호 입력"/></td>
+        <td><input type="text" name="payCardNumber" placeholder="카드번호 입력" value=""/></td>
     </tr>
     </tbody>
 </table>
@@ -167,11 +168,11 @@
     <tbody>
     <tr>
         <th>결제하실 금액 </th>
-        <td><input type="text" placeholder="결제 금액 입력" th:value="${payProgress.productPrice}"/></td>
+        <td><input type="text" name="payTotalPrice" placeholder="결제 금액 입력" th:value="${payProgress.productPrice}" required/></td>
     </tr>
     <tr>
         <th>총 금액 </th>
-        <td><input type="text" name="payTotalPrice" placeholder="결제 금액 입력" th:value="${payProgress.productPrice}" disabled/></td>
+        <td><input type="text"  placeholder="결제 금액 입력" th:value="${payProgress.productPrice}" disabled/></td>
     </tr>
     </tbody>
 </table>

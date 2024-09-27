@@ -85,4 +85,9 @@ public class PayService {
     public void addPayList(PayDTO payDTO) {
         payMapper.addPayList(payDTO);
     }
+
+    @Transactional
+    public void addPayDetailList(PayDetailDTO payDetailDTO){
+    payMapper.addPayDetailList(payDetailDTO);
+    }
 }

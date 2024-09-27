@@ -4,7 +4,6 @@ import com.space.spacesinspace.common.dto.MemberDTO;
 import com.space.spacesinspace.common.dto.PayDTO;
 import com.space.spacesinspace.common.dto.PayDetailDTO;
 import com.space.spacesinspace.common.dto.ProductDTO;
-import com.space.spacesinspace.user.cart.model.dto.CartDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -36,6 +35,9 @@ public interface PayMapper {
     // 상품 상세페이지에서 [취소] 버튼을 눌렀을때 삭제하고 리스트로 이동
     int deletePayMenu(int payCode);
 
-    // 결제하고 나서 영수증 출력하며 정보를 출력할 dto 정보 바인딩
+    // 결제하고 나서 영수증 출력하며 주문내역으로 db 추가
     void addPayList(PayDTO payDTO);
+
+    // 위에서 추가하면서 상세내역도 같이 db 추가
+    void addPayDetailList(PayDetailDTO payDTO);
 }
