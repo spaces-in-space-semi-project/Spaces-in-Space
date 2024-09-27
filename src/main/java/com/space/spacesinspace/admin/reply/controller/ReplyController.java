@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("/admin/reply/*")
+@RequestMapping("/admin/inquiry/detail")
 public class ReplyController {
 
     private final ReplyService replyService;
@@ -22,7 +22,7 @@ public class ReplyController {
     @GetMapping("regist")
     public void registPage() {}
 
-    @PostMapping("/admin/reply/")
+    @PostMapping("/admin/inquiry/detail")
     public String registReply(ReplyDTO newReply, RedirectAttributes rAttr) {
         replyService.registReply(newReply);
 
@@ -49,7 +49,7 @@ public class ReplyController {
 
         model.addAttribute("reply", reply);
 
-        return "admin/reply/edit";
+        return "admin/inquiry/replyEdit";
     }
 
     @PostMapping("update")

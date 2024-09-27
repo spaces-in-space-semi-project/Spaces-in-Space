@@ -6,11 +6,12 @@ import com.space.spacesinspace.common.dto.InquiryDTO;
 import com.space.spacesinspace.common.dto.ReplyDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -28,32 +29,39 @@ public class AdminInquiryController {
     }
 
     @GetMapping("/list")
-    public String findAllInquiry(Model model) {
+    public ModelAndView findAllInquiry(ModelAndView mv) {
 
         List<InquiryDTO> inquiryList = adminInquiryService.findAllInquiry();
 
-        model.addAttribute("inquiryList", inquiryList);
+        mv.addObject("inquiryList", inquiryList);
+        mv.addObject("activeSection", "inquiry");
+        mv.setViewName("admin/layout/adminLayout");
 
-        return "admin/inquiry/list";
+        return mv;
     }
 
     @GetMapping("/detail/{inquiryCode}")
-    public String findInquiryByCode(@PathVariable("inquiryCode") int inquiryCode, ReplyDTO reply,
-                                    Model model) {
+    public ModelAndView findInquiryByCode(@PathVariable("inquiryCode") int inquiryCode,
+                                          ModelAndView mv) {
 
         InquiryDTO inquiry = adminInquiryService.findInquiryByCode(inquiryCode);
+        ReplyDTO reply = adminInquiryService.findReplyByCode(inquiryCode);
 
-        ReplyDTO replyDTO = replyService.findReplyByCode(inquiryCode);
+        mv.addObject("inquiry", inquiry);
+        mv.addObject("reply", reply);
+        mv.addObject("activeSection", "inquiryDetail");
+        mv.setViewName("admin/layout/adminLayout");
 
-        model.addAttribute("inquiry", inquiry);
-
-        return "admin/inquiry/detail";
+        return mv;
     }
 
     @PostMapping("/delete/{inquiryCode}")
-    public String deleteInquiry(@PathVariable("inquiryCode") int inquiryCode) {
+    public String deleteInquiry(@PathVariable("inquiryCode") int inquiryCode,
+                                RedirectAttributes rAttr) {
 
         adminInquiryService.deleteInquiry(inquiryCode);
+
+        rAttr.addFlashAttribute("message", "문의글이 삭제되었습니다.");
 
         return "redirect:/admin/inquiry/list";
     }

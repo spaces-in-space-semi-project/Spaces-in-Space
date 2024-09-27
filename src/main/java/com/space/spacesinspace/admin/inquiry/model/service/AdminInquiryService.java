@@ -1,7 +1,9 @@
 package com.space.spacesinspace.admin.inquiry.model.service;
 
 import com.space.spacesinspace.admin.inquiry.model.dao.AdminInquiryMapper;
+import com.space.spacesinspace.admin.reply.model.dao.ReplyMapper;
 import com.space.spacesinspace.common.dto.InquiryDTO;
+import com.space.spacesinspace.common.dto.ReplyDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,5 +31,9 @@ public class AdminInquiryService {
     @Transactional
     public void deleteInquiry(int inquiryCode) {
         adminInquiryMapper.deleteInquiry(inquiryCode);
+    }
+
+    public ReplyDTO findReplyByCode(int inquiryCode) {
+        return adminInquiryMapper.findReplyByCode(inquiryCode);
     }
 }

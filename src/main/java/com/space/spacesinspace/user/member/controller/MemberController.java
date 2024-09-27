@@ -107,7 +107,6 @@ public class MemberController {
         String memberId = member.getUsername();
         MemberDTO memberInfo = memberService.findByMemberId(memberId);
 
-        // Default message based on the result
         String message;
         if (result == null || result == 0) {
             message = "정보 수정에 실패했습니다. 다시 시도해주세요.";
