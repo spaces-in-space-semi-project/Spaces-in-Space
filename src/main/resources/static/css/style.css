@@ -33,6 +33,20 @@ h2 {
 }
 
 
+/* Styles for login button inside the form */
+.main-nav-right form button {
+    background-color: #000000;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    margin-right: 15px;
+}
+
+.main-nav-right form button:hover {
+    background-color: #333232;
+}
+
 /* Flex container for logout-container */
 .logout-container {
     display: flex;          /* Aligns children horizontally */
@@ -124,7 +138,6 @@ body {
     margin: 0;
     padding: 0;
 }
-
 
 /* FAQ 컨테이너 */
 .userFaq-container {
