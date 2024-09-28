@@ -3,6 +3,7 @@ package com.space.spacesinspace.common.dto;
 public class ProductDTO {
     private int productCode;
     private int categoryCode;
+    private String categoryName;
     private String productName;
     private String productImageOriginal;
     private String productImageThumbnail;
@@ -17,9 +18,10 @@ public class ProductDTO {
     public ProductDTO() {
     }
 
-    public ProductDTO(int productCode, int categoryCode, String productName, String productImageOriginal, String productImageThumbnail, int productPrice, String productDeliverTime, int productDelieverCost, String productSize, String productMaterial, String productDescription, String productDeleteYn) {
+    public ProductDTO(int productCode, int categoryCode, String categoryName, String productName, String productImageOriginal, String productImageThumbnail, int productPrice, String productDeliverTime, int productDelieverCost, String productSize, String productMaterial, String productDescription, String productDeleteYn) {
         this.productCode = productCode;
         this.categoryCode = categoryCode;
+        this.categoryName = categoryName;
         this.productName = productName;
         this.productImageOriginal = productImageOriginal;
         this.productImageThumbnail = productImageThumbnail;
@@ -46,6 +48,14 @@ public class ProductDTO {
 
     public void setCategoryCode(int categoryCode) {
         this.categoryCode = categoryCode;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     public String getProductName() {
@@ -133,12 +143,13 @@ public class ProductDTO {
         return "ProductDTO{" +
                 "productCode=" + productCode +
                 ", categoryCode=" + categoryCode +
+                ", categoryName='" + categoryName + '\'' +
                 ", productName='" + productName + '\'' +
                 ", productImageOriginal='" + productImageOriginal + '\'' +
                 ", productImageThumbnail='" + productImageThumbnail + '\'' +
                 ", productPrice=" + productPrice +
                 ", productDeliverTime='" + productDeliverTime + '\'' +
-                ", productDeliverCost=" + productDelieverCost +
+                ", productDelieverCost=" + productDelieverCost +
                 ", productSize='" + productSize + '\'' +
                 ", productMaterial='" + productMaterial + '\'' +
                 ", productDescription='" + productDescription + '\'' +
