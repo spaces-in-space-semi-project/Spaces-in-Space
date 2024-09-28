@@ -49,6 +49,33 @@
             product_code
     </select>
 
+    <select id="findProductBySearch" parameterType="String" resultMap="productAdminResultMap">
+        SELECT
+            p.product_code,
+            p.category_code,
+            c.category_name,
+            p.product_name,
+            p.product_image_original,
+            p.product_image_thumbnail,
+            p.product_price,
+            p.product_deliver_time,
+            p.product_deliever_cost,
+            p.product_size,
+            p.product_material,
+            p.product_description,
+            p.product_delete_yn
+        FROM
+            product_tbl p
+        LEFT JOIN category_tbl c on p.category_code = c.category_code
+        WHERE
+            (p.product_name LIKE CONCAT('%',  #{searchValue}, '%') OR
+            c.category_name LIKE CONCAT('%', #{searchValue}, '%'))
+            AND
+            product_delete_yn = 'N'
+        ORDER BY
+         product_code
+    </select>
+
     <select id="findAllCategory" resultMap="categoryResultMap">
         SELECT
             category_code,

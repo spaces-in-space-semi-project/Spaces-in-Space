@@ -35,4 +35,8 @@ public class MemberAdminService {
     public Integer deleteMember(int memberCode) {
         return memberAdminMapper.deleteMember(memberCode);
     }
+
+    public List<MemberDTO> searchMember(String searchValue) {
+        return memberAdminMapper.searchMember(searchValue);
+    }
 }

@@ -23,4 +23,6 @@ public interface ProductAdminMapper {
 
     @Transactional
     int deleteProduct(int code);
+
+    List<ProductDTO> findProductBySearch(String searchValue);
 }

@@ -31,6 +31,26 @@
             member_tbl
         WHERE
             member_delete_yn = 'N' AND member_role = 'USER'
+        ORDER BY
+            member_code
+    </select>
+
+    <select id="searchMember" parameterType="String" resultMap="memberAdminResultMap">
+        SELECT
+            member_code,
+            member_id,
+            member_pw,
+            member_name,
+            member_email,
+            member_phone,
+            member_address,
+            member_role,
+            member_delete_yn
+        FROM
+            member_tbl
+        WHERE
+            (member_id LIKE CONCAT('%', #{searchValue}, '%') OR member_name LIKE CONCAT('%', #{searchValue}, '%'))
+            AND member_delete_yn = 'N' AND member_role = 'USER'
     </select>
 
     <select id="findMemberDetail" parameterType="int" resultMap="memberAdminResultMap">

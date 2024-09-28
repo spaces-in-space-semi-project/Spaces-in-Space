@@ -28,7 +28,7 @@
         }
         .product-detail img {
             width: 100%; /* Sets the width to fill the container */
-            height: 680px; /* Set a consistent height for all images */
+            height: 770px; /* Set a consistent height for all images */
             object-fit: cover; /* Ensures the image fills the box while maintaining aspect ratio */
             border: 1px solid #eaeaea;
             border-radius: 8px;
@@ -69,7 +69,7 @@
             <p th:text="${product.productMaterial}"></p>
             <p th:text="${product.productSize}"></p>
             <p th:text="${product.productDeliverTime}"></p>
-            <small th:text="${product.productDelieverCost == 0 ? '무료배송' : product.productDelieverCost + '원'}"></small>
+            <small th:text="${product.productDelieverCost == 0 ? '무료배송' : '배송비: ' + product.productDelieverCost + '원'}"></small>
             <br>
             <div class="d-grid gap-2 d-md-block">
                 <button class="btn btn-dark" onclick="confirmLogin('buy')">구매하기</button>
