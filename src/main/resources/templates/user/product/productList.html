@@ -79,7 +79,7 @@
                     </a>
                     <div class="product-info">
                         <h5 th:text="${product.productName}">Product Name</h5>
-                        <p th:text="'₩' + ${product.productPrice}">₩20,000</p>
+                        <p class="price" th:attr="data-price=${product.productPrice}"></p>
                     </div>
                 </div>
             </div>
@@ -90,6 +90,18 @@
 <footer th:replace="fragments/footer :: footer"></footer>
 
 <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const priceElements = document.querySelectorAll('.price');
+
+        priceElements.forEach(priceElement => {
+            const rawPrice = priceElement.getAttribute('data-price');
+
+            const formattedPrice = Number(rawPrice).toLocaleString();
+
+            priceElement.textContent = formattedPrice + '원';
+        });
+    });
+
     document.querySelectorAll('.category-nav a').forEach(link => {
         link.addEventListener('click', function () {
             document.querySelectorAll('.category-nav a').forEach(item => item.classList.remove('active'));

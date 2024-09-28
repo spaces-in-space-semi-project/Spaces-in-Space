@@ -66,6 +66,7 @@
             member_delete_yn
         FROM member_tbl
         WHERE member_id = #{memberId}
+        AND member_delete_yn = 'N'
     </select>
 
     <update id="updateInfo" parameterType="com.space.spacesinspace.user.member.model.dto.UpdateMemberDTO">
