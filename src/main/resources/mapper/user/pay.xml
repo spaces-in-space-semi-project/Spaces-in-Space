@@ -5,6 +5,7 @@
 
 <mapper namespace="com.space.spacesinspace.user.pay.model.dao.PayMapper">
 
+    <!--PayDTO-->
     <resultMap id="payResultMap" type="com.space.spacesinspace.common.dto.PayDTO">
         <id property="payCode" column="pay_code"/>
         <result property="memberCode" column="member_code"/>
@@ -21,6 +22,7 @@
         <result property="cardCompanyCode" column="card_company_code"/>
     </resultMap>
 
+    <!--PayDetailDTO-->
     <resultMap id="payDetailMap" type="com.space.spacesinspace.common.dto.PayDetailDTO">
         <id property="payDetailCode" column="pay_detail_code"/>
         <result property="payCode" column="pay_code"/>
@@ -39,6 +41,7 @@
         <result property="cardCompanyName" column="card_company_name"/>
     </resultMap>
 
+    <!--ProductDTO-->
     <resultMap id="payProgressMap" type="com.space.spacesinspace.common.dto.ProductDTO">
         <id property="productCode" column="product_code"/>
         <result property="categoryCode" column="category_code"/>
@@ -54,6 +57,7 @@
         <result property="productDeleteYn" column="product_delete_yn"/>
     </resultMap>
 
+    <!--MemberDTO-->
     <resultMap id="authenticatedMember" type="com.space.spacesinspace.common.dto.MemberDTO">
         <id property="memberCode" column="member_code"/>
         <result property="memberId" column="member_id"/>
@@ -65,6 +69,8 @@
         <result property="memberRole" column="member_role"/>
         <result property="memberDeleteYn" column="member_delete_yn"/>
     </resultMap>
+
+    <!--=========================================구분선=============================================-->
 
     <!--사용자 전체조회-->
     <select id="findPayList" resultMap="payResultMap">
@@ -121,6 +127,36 @@
             card_company_tbl e ON (b.card_company_code = e.card_company_code)
         WHERE
             a.pay_code = #{ payCode }
+    </select>
+
+    <!--사용자 상세정보를 list 로 받아갈 쿼리문-->
+    <select id="findPayDetailList" resultMap="payDetailMap">
+        SELECT
+        b.pay_date,
+        b.pay_code,
+        c.product_name,
+        c.product_code,
+        a.pay_detail_cnt,
+        a.pay_detail_price,
+        b.pay_receiver,
+        b.pay_deliver_phone,
+        b.pay_refund_yn,
+        b.pay_deliever_status,
+        d.bank_name,
+        b.pay_account_number,
+        e.card_company_name
+        FROM
+        pay_detail_tbl a
+        JOIN
+        pay_tbl b ON (a.pay_code = b.pay_code)
+        JOIN
+        product_tbl c ON (a.product_code = c.product_code)
+        JOIN
+        bank_tbl d ON (b.bank_code = d.bank_code)
+        JOIN
+        card_company_tbl e ON (b.card_company_code = e.card_company_code)
+        WHERE
+        a.pay_code = #{ payCode }
     </select>
 
     <!--관리자 전체조회-->

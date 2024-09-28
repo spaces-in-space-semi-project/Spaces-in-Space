@@ -55,6 +55,9 @@ public class PayService {
         return payMapper.showPayList();
     }
 
+    public List<PayDetailDTO> findPayDetailList(int payCode) { return payMapper.findPayDetailList(payCode);
+    }
+
     public PayDetailDTO findAdminPayDetail(int payCode) {
         return payMapper.findAdminPayDetail(payCode);
     }
@@ -89,6 +92,7 @@ public class PayService {
         payDetailDTO.setPayCode(payCode);
         payMapper.addPayDetailList(payDetailDTO);
     }
+
 
 
 }

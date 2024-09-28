@@ -29,7 +29,9 @@ public class PayController {
 
     // 사용자의 결제한 주문내역을 전체 조회
     @GetMapping("payList")
-    public ModelAndView findPayList(ModelAndView mv){
+    public ModelAndView findPayList(ModelAndView mv,
+                                    @ModelAttribute PayDTO payDTO,
+                                    @ModelAttribute PayDetailDTO payDetailDTO){
 
         List<PayDTO> payList = payService.findPayList();
 
@@ -41,8 +43,25 @@ public class PayController {
         return mv;
     }
 
+    @GetMapping("findPayDetail")
+    public String payDetailList(@ModelAttribute PayDTO payDTO,
+                                @ModelAttribute PayDetailDTO payDetailDTO,
+                                @RequestParam(value = "payCode") int payCode,
+                                Model model){
+        List<PayDTO> payList = payService.findPayList();
+        List<PayDetailDTO> payDetailList = payService.findPayDetailList(payCode);
+        System.out.println("payCode = " + payCode);
+        model.addAttribute("payList",payList);
+        model.addAttribute("payDetailList", payDetailList);
+        for (PayDetailDTO pdl : payDetailList) {
+            System.out.println("pdl = " + pdl);
+        }
+        return "findPayDetail/{payCode}";
+    }
+
+
     // 사용자의 주문전체내역 중, 하나를 선택하여 상세 조회
-    @GetMapping("/findPayDetail/{payCode}")
+    @GetMapping("findPayDetail/{payCode}")
     public ModelAndView findPayDetail(@PathVariable("payCode") int payCode, ModelAndView mv){
 
         PayDetailDTO findPayDetail = payService.findPayDetail(payCode);

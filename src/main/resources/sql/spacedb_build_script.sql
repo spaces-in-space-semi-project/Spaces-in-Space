@@ -171,14 +171,14 @@ VALUES ('배송일 지정 가능한가요?', '제품별 표기된 평균 배송�
        ('먼저 주문하고, 입주 후 받을 수 있나요', '평균 배송기간 이후부터의 평일 중 희망 배송주간 신청이 가능하며 시간 지정은 불가합니다. 제품 파손의 우려가 있는 이사 당일에는 배송이 어렵습니다');
 
 INSERT INTO bank_tbl (bank_code, bank_name)
-VALUES (1, ''),
+VALUES (1, '선택하지않음'),
 		(2, '우리'),
 		(3, '신한'),
 		(4, '국민'),
 		(5, '기업');
 
 INSERT INTO card_company_tbl (card_company_code, card_company_name)
-VALUES (1, ''),
+VALUES (1, '선택하지않음'),
         (2,'BC'),
         (3,'현대'),
         (4,'삼성'),

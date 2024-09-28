@@ -11,8 +11,11 @@ import java.util.List;
 @Mapper
 public interface PayMapper {
 
-    // 사용자 아이디의 주문내역 조회
+    // 사용자 아이디의 전체 주문내역 조회
     List<PayDTO> findPayList(String loggedInUsername);
+
+    // 사용자 아이디의 주문내역 중 상세내역 조회
+    List<PayDetailDTO> findPayDetailList(int payCode);
 
     // 사용자 아이디의 주문내역 중 코드로 상세 조회
     PayDetailDTO findPayDetail(int payCode);
