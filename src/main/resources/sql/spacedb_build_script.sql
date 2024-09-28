@@ -13,7 +13,7 @@ DROP TABLE IF EXISTS faq_tbl;
 
 CREATE TABLE IF NOT EXISTS member_tbl (
     member_code INT AUTO_INCREMENT PRIMARY KEY COMMENT '회원코드',
-    member_id VARCHAR(50) UNIQUE NOT NULL COMMENT '회원아이디',
+    member_id VARCHAR(50) NOT NULL COMMENT '회원아이디',
     member_pw VARCHAR(150) NOT NULL COMMENT '회원비밀번호',
     member_name VARCHAR(100) NOT NULL COMMENT '회원이름',
     member_email VARCHAR(100) NOT NULL COMMENT '회원이메일',

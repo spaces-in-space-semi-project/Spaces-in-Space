@@ -20,6 +20,7 @@
         SELECT count(*)
         FROM member_tbl
         WHERE member_id = #{memberId}
+            AND member_delete_yn = 'N'
     </select>
 
     <select id="findIdByEmail" resultType="String">
