@@ -41,6 +41,15 @@ public class ProductAdminController {
         return mv;
     }
 
+    @GetMapping("searchProduct")
+    public ModelAndView searchProduct(ModelAndView mv, @RequestParam String searchValue) {
+        List<ProductDTO> searchedProductList = productAdminService.findProductBySearch(searchValue);
+        mv.addObject("productList", searchedProductList);
+        mv.addObject("activeSection", "product");
+        mv.setViewName("admin/layout/adminLayout");
+        return mv;
+    }
+
     // 카테고리 조회
     @GetMapping(value = "findCategory", produces = "application/json; charset=UTF-8")
     @ResponseBody

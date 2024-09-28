@@ -24,8 +24,16 @@ public class MemberAdminController {
     @GetMapping("memberList")
     public ModelAndView selectAllMembers(ModelAndView mv) {
         List<MemberDTO> memberList = memberAdminService.selectAllMembers();
-        System.out.println(memberList);
         mv.addObject("memberList", memberList);
+        mv.addObject("activeSection", "member");
+        mv.setViewName("admin/layout/adminLayout");
+        return mv;
+    }
+
+    @GetMapping("searchMember")
+    public ModelAndView searchMember(ModelAndView mv, @RequestParam String searchValue) {
+        List<MemberDTO> searchMemberList = memberAdminService.searchMember(searchValue);
+        mv.addObject("memberList", searchMemberList);
         mv.addObject("activeSection", "member");
         mv.setViewName("admin/layout/adminLayout");
         return mv;

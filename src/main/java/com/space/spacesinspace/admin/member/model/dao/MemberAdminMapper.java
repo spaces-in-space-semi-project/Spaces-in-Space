@@ -15,4 +15,6 @@ public interface MemberAdminMapper {
     Integer updateMember(MemberDTO member);
 
     Integer deleteMember(int memberCode);
+
+    List<MemberDTO> searchMember(String searchValue);
 }
