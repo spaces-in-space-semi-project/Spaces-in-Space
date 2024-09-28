@@ -55,7 +55,7 @@ public class PayController {
         return mv;
     }
 
-    // 사용자가 상품페이지에서 [구매하기] 누르면 들고 넘어간다.
+    // 사용자가 상품페이지에서 [구매하기] 누르면 들고 결제진행.
     @PostMapping("payProgress")
     public ModelAndView payProgress(ModelAndView mv,
                                     @RequestParam(value = "productCode", required = false, defaultValue = "0")int productCode,
@@ -73,14 +73,14 @@ public class PayController {
         return mv;
     }
 
-    /*주문 상세내역조회 시, 배송전이면 삭제*/
+    /*주문 상세내역조회 시, 배송전이면 삭제하는 기능*/
     @PostMapping("delete/{payCode}")
     public String deletePayMenu(@PathVariable("payCode") int payCode){
         payService.deletePayMenu(payCode);
         return "redirect:/user/pay/payList";
     }
 
-    //영수증 출력을 향한 여행. 피 카 츄.
+    //결제시 DB에 정보 기입 [주문내역 + 상세주문내역]
     @PostMapping("receipt")
     public String addPayList(@ModelAttribute PayDTO payDTO,
                               @ModelAttribute PayDetailDTO payDetailDTO){

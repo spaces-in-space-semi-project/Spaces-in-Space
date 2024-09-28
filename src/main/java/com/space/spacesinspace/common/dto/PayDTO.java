@@ -170,4 +170,8 @@ public class PayDTO {
                 ", cardCompanyCode=" + cardCompanyCode +
                 '}';
     }
+
+    public void setTotalCount(int payTotalCnt) {
+
+    }
 }

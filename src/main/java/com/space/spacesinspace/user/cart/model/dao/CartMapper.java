@@ -16,9 +16,14 @@ public interface CartMapper {
 
     void deleteCartMenu(int productCode);
 
-    CartDTO cartProgress(int memberCode);
+    List<CartDTO> cartProgress(int memberCode);
 
     int addCartMenu(Map<String, Integer> params);
 
     CartDTO checkCartItem(Map<String, Integer> params);
+
+    CartDTO getTotalPriceForMember(int memberCode);
+
+    CartDTO getTotalCntForMember(int memberCode);
+
 }

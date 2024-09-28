@@ -215,12 +215,13 @@
         WHERE pay_code = #{ payCode }
     </delete>
 
-    <!--사용자 결제 완료후 주문내역 추가-->
+    <!--사용자 결제 완료후 주문내역 추가 여기서 payCode 증가하는놈 표기하여 뒤에 이어서 접근하면 증가한걸로 줌.-->
     <insert id="addPayList" useGeneratedKeys="true" keyProperty="payCode" >
         INSERT INTO pay_tbl (member_code, pay_date, pay_total_cnt, pay_total_price, pay_address, pay_receiver, pay_deliver_phone, pay_deliever_status, pay_refund_yn, pay_account_number, pay_card_number, bank_code, card_company_code)
         VALUES ( #{memberCode}, #{payDate}, #{payTotalCnt}, #{payTotalPrice}, #{payAddress}, #{payReceiver}, #{payDeliverPhone}, #{payDeliverStatus}, #{payRefundYn}, #{payAccountNumber}, #{payCardNumber}, #{bankCode}, #{cardCompanyCode})
     </insert>
 
+    <!--그럼 이녀석이 잘 확인해서 payCode 꺼내서, 연속으로 db 정보 기입 가능.-->
     <insert id="addPayDetailList" parameterType="int">
         INSERT INTO pay_detail_tbl (pay_code, product_code, pay_detail_cnt, pay_detail_price)
         VALUES (#{payCode}, #{productCode}, #{payDetailCnt}, #{payDetailPrice})

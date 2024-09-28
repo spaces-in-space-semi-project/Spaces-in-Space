@@ -1,9 +1,12 @@
 package com.space.spacesinspace.user.cart.controller;
 
 import com.space.spacesinspace.common.dto.MemberDTO;
+import com.space.spacesinspace.common.dto.PayDTO;
+import com.space.spacesinspace.common.dto.PayDetailDTO;
 import com.space.spacesinspace.common.dto.ProductDTO;
 import com.space.spacesinspace.user.cart.model.dto.CartDTO;
 import com.space.spacesinspace.user.cart.model.service.CartService;
+import com.space.spacesinspace.user.pay.model.service.PayService;
 import com.space.spacesinspace.user.product.model.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,13 +27,14 @@ public class CartController {
 
     private CartService cartService;
     private ProductService productService;
+    private PayService payService;
 
     @Autowired
-    public CartController(CartService cartService, ProductService productService) {
+    public CartController(CartService cartService, ProductService productService, PayService payService) {
         this.cartService = cartService;
         this.productService = productService;
+        this.payService = payService;
     }
-
 
     // 장바구니 목록 전체 조회
     @GetMapping("cartList")
@@ -62,17 +67,23 @@ public class CartController {
         return "redirect:/user/cart/cartList";
     }
 
-//     장바구니 목록 들고 결제 진행
+//     사용자가 장바구니에서 [구매하기] 누르면 들고 결제 진행
     @PostMapping("cartPayProgress")
     public ModelAndView cartProgress(ModelAndView mv, @RequestParam(value = "memberCode") int memberCode){
 
-        CartDTO checkMenu = cartService.cartProgress(memberCode);
+        List<CartDTO> checkMenu = cartService.cartProgress(memberCode);
+        CartDTO cnt = cartService.getTotalCntForMember(memberCode);
+        CartDTO price = cartService.getTotalPriceForMember(memberCode);
+        int totalCartCnt = cnt.getTotalCartCnt();
+        int totalCartPrice = price.getTotalCartPrice();
         mv.addObject("checkMenu", checkMenu);
+        mv.addObject("totalCartCnt",totalCartCnt);
+        mv.addObject("totalCartPrice",totalCartPrice);
         mv.setViewName("user/cart/cartPayProgress");
-        System.out.println("checkMenu = " + checkMenu);
         return mv;
     }
 
+//    장바구니로 상품 정보 등록
     @PostMapping(value= "addCartMenu", consumes = "application/json", produces = "application/json; charset=UTF-8")
     @ResponseBody
     public ResponseEntity<Map<String, String>> addCartMenu(@AuthenticationPrincipal MemberDTO member,
@@ -105,5 +116,62 @@ public class CartController {
 
         return ResponseEntity.ok(response);
     }
+    //결제시 DB에 정보 기입 [주문내역 + 상세주문내역]
+    @PostMapping("receipt")
+    public String addPayList(@ModelAttribute PayDTO payDTO,
+                             @ModelAttribute PayDetailDTO payDetailDTO,
+                             @ModelAttribute ArrayList<CartDTO> cartDTOList,
+                             @RequestParam("payDate") String payDate,
+                             @RequestParam("payTotalCnt") int payTotalCnt,
+                             @RequestParam("payTotalPrice") int payTotalPrice,
+                             @RequestParam("payDeliverStatus") String payDeliverStatus,
+                             @RequestParam("payRefundYn") String payRefundYn,
+                             @RequestParam("payReceiver") String payReceiver,
+                             @RequestParam("payDeliverPhone") String payDeliverPhone,
+                             @RequestParam("payAddress") String payAddress,
+                             @RequestParam("deliveryRQ") String deliveryRQ,
+                             @RequestParam(value = "bankCode", required = false, defaultValue = "") int bankCode,
+                             @RequestParam(value = "payAccountNumber", required = false, defaultValue = "") Long payAccountNumber,
+                             @RequestParam(value = "cardCompanyCode", required = false, defaultValue = "") int cardCompanyCode,
+                             @RequestParam(value = "payCardNumber", required = false, defaultValue = "") Long payCardNumber,
+                             Model model){
 
+        // List<CartDTO> 안의 장바구니 항목들을 순회하며 처리
+        for(CartDTO cart : cartDTOList) {
+            payDTO.setMemberCode(cart.getMemberCode());
+            payDetailDTO.setProductCode(cart.getProductCode());
+            payDetailDTO.setProductName(cart.getProductName());
+            payDetailDTO.setPayDetailCnt(cart.getCartCnt());
+            payDetailDTO.setPayDetailPrice(cart.getCartPrice());
+        }
+        payDTO.setPayDate(payDate);
+        payDTO.setPayTotalCnt(payTotalCnt);
+        payDTO.setPayTotalPrice(payTotalPrice);
+        payDTO.setPayDeliverStatus(payDeliverStatus);
+        payDTO.setPayRefundYn(payRefundYn);
+        payDTO.setPayReceiver(payReceiver);
+        payDTO.setPayDeliverPhone(payDeliverPhone);
+        payDTO.setPayAddress(payAddress);
+        payDTO.setBankCode(bankCode);
+        payDTO.setPayAccountNumber(payAccountNumber);
+        payDTO.setCardCompanyCode(cardCompanyCode);
+        payDTO.setPayCardNumber(payCardNumber);
+        model.addAttribute("payDate",payDate);
+        model.addAttribute("payTotalCnt",payTotalCnt);
+        model.addAttribute("payTotalPrice",payTotalPrice);
+        model.addAttribute("payDeliverStatus",payDeliverStatus);
+        model.addAttribute("payRefundYn",payRefundYn);
+        model.addAttribute("payReceiver",payReceiver);
+        model.addAttribute("payDeliverPhone",payDeliverPhone);
+        model.addAttribute("payAddress",payAddress);
+        model.addAttribute("deliveryRQ",deliveryRQ);
+        model.addAttribute("bankCode",bankCode);
+        model.addAttribute("payAccountNumber",payAccountNumber);
+        model.addAttribute("cardCompanyCode",cardCompanyCode);
+        model.addAttribute("payCardNumber",payCardNumber);
+
+        payService.addPayList(payDTO,payDetailDTO);
+
+        return "redirect:/user/pay/payList";
+    }
 }
