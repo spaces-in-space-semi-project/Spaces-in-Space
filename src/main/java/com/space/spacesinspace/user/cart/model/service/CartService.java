@@ -74,4 +74,8 @@ public class CartService {
     public CartDTO getTotalCntForMember(int memberCode) {
         return cartMapper.getTotalCntForMember(memberCode);
     }
+
+    public void deleteCartAllMenu(int memberCode) {
+        cartMapper.deleteCartAllMenu(memberCode);
+    }
 }

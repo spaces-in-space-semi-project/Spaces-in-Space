@@ -93,6 +93,7 @@ public class PayService {
         payMapper.addPayDetailList(payDetailDTO);
     }
 
-
-
+    public List<PayDTO> findPayListByCode(int payCode) {
+        return payMapper.findPayListByCode(payCode);
+    }
 }

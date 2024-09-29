@@ -48,9 +48,15 @@
         SET cart_cnt = #{ cartCnt }
         WHERE product_code = #{ productCode }
     </update>
+
     <delete id="deleteCartMenu" parameterType="int">
         DELETE FROM cart_tbl
         WHERE product_code = #{ productCode }
+    </delete>
+
+    <delete id="deleteCartAllMenu" parameterType="int">
+        DELETE FROM cart_tbl
+        WHERE member_code = #{ memberCode }
     </delete>
 
     <select id="cartProgress" resultMap="cartResultMap">

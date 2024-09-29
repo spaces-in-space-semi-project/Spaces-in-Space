@@ -72,7 +72,7 @@
 
     <!--=========================================구분선=============================================-->
 
-    <!--사용자 전체조회-->
+    <!--사용자 결제한 내역 전체조회-->
     <select id="findPayList" resultMap="payResultMap">
         SELECT
             a.pay_code,
@@ -97,6 +97,33 @@
             b.member_id = #{loggedInUsername}
         ORDER BY
             pay_code
+    </select>
+
+    <!--사용자 결제한 내역 전체 중 payCode로 조회-->
+    <select id="findPayListByCode" resultMap="payResultMap">
+    SELECT
+    a.pay_code,
+    a.member_code,
+    a.pay_date,
+    a.pay_total_cnt,
+    a.pay_total_price,
+    a.pay_address,
+    a.pay_receiver,
+    a.pay_deliver_phone,
+    a.pay_deliever_status,
+    a.pay_refund_yn,
+    a.pay_account_number,
+    a.pay_card_number,
+    a.bank_code,
+    a.card_company_code
+    FROM
+    pay_tbl a
+    JOIN
+    member_tbl b ON (a.member_code = b.member_code)
+    WHERE
+    a.pay_code = #{payCode}
+    ORDER BY
+    pay_code
     </select>
 
     <!--사용자 상세조회-->

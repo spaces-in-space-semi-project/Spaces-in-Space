@@ -57,6 +57,8 @@
     <input type="hidden" name="memberCode" th:value="${payProgressUser.memberCode}"/>
     <input type="hidden" id="toDay" name="payDate" value=""/>
     <input type="hidden" name="payTotalCnt" value="1"/>
+    <input type="hidden" name="payDetailCnt" value="1"/>
+    <input type="hidden" name="payDetailPrice" th:value="${payProgress.productPrice}"/>
     <input type="hidden" name="payDeliverStatus" value="배송전"/>
     <input type="hidden" name="payRefundYn" value="N"/>
     <input type="hidden" name="productCode" th:value="${payProgress.productCode}"/>

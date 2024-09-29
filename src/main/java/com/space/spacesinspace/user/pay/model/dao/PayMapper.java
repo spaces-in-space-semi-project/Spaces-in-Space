@@ -43,4 +43,6 @@ public interface PayMapper {
 
     // 위에서 추가하면서 상세내역도 같이 db 추가
     void addPayDetailList(PayDetailDTO payDTO);
+
+    List<PayDTO> findPayListByCode(int payCode);
 }

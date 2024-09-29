@@ -1,9 +1,7 @@
 package com.space.spacesinspace.user.cart.model.dao;
 
-import com.space.spacesinspace.common.dto.ProductDTO;
 import com.space.spacesinspace.user.cart.model.dto.CartDTO;
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -26,4 +24,5 @@ public interface CartMapper {
 
     CartDTO getTotalCntForMember(int memberCode);
 
+    void deleteCartAllMenu(int memberCode);
 }

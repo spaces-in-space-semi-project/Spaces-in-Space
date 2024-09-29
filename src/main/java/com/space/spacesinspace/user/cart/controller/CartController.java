@@ -129,21 +129,12 @@ public class CartController {
                              @RequestParam("payReceiver") String payReceiver,
                              @RequestParam("payDeliverPhone") String payDeliverPhone,
                              @RequestParam("payAddress") String payAddress,
-                             @RequestParam("deliveryRQ") String deliveryRQ,
                              @RequestParam(value = "bankCode", required = false, defaultValue = "") int bankCode,
                              @RequestParam(value = "payAccountNumber", required = false, defaultValue = "") Long payAccountNumber,
                              @RequestParam(value = "cardCompanyCode", required = false, defaultValue = "") int cardCompanyCode,
                              @RequestParam(value = "payCardNumber", required = false, defaultValue = "") Long payCardNumber,
                              Model model){
 
-        // List<CartDTO> 안의 장바구니 항목들을 순회하며 처리
-        for(CartDTO cart : cartDTOList) {
-            payDTO.setMemberCode(cart.getMemberCode());
-            payDetailDTO.setProductCode(cart.getProductCode());
-            payDetailDTO.setProductName(cart.getProductName());
-            payDetailDTO.setPayDetailCnt(cart.getCartCnt());
-            payDetailDTO.setPayDetailPrice(cart.getCartPrice());
-        }
         payDTO.setPayDate(payDate);
         payDTO.setPayTotalCnt(payTotalCnt);
         payDTO.setPayTotalPrice(payTotalPrice);
@@ -156,6 +147,7 @@ public class CartController {
         payDTO.setPayAccountNumber(payAccountNumber);
         payDTO.setCardCompanyCode(cardCompanyCode);
         payDTO.setPayCardNumber(payCardNumber);
+
         model.addAttribute("payDate",payDate);
         model.addAttribute("payTotalCnt",payTotalCnt);
         model.addAttribute("payTotalPrice",payTotalPrice);
@@ -164,13 +156,23 @@ public class CartController {
         model.addAttribute("payReceiver",payReceiver);
         model.addAttribute("payDeliverPhone",payDeliverPhone);
         model.addAttribute("payAddress",payAddress);
-        model.addAttribute("deliveryRQ",deliveryRQ);
         model.addAttribute("bankCode",bankCode);
         model.addAttribute("payAccountNumber",payAccountNumber);
         model.addAttribute("cardCompanyCode",cardCompanyCode);
         model.addAttribute("payCardNumber",payCardNumber);
 
         payService.addPayList(payDTO,payDetailDTO);
+
+        // List<CartDTO> 안의 장바구니 항목들을 순회하며 처리
+        for(CartDTO cart : cartDTOList) {
+            payDetailDTO.setPayCode(payDTO.getPayCode());
+            payDetailDTO.setProductCode(cart.getProductCode());
+            payDetailDTO.setPayDetailCnt(cart.getCartCnt());
+            payDetailDTO.setPayDetailPrice(cart.getCartPrice());
+        }
+
+        int memberCode = payDTO.getMemberCode();
+        cartService.deleteCartAllMenu(memberCode);
 
         return "redirect:/user/pay/payList";
     }
