@@ -12,7 +12,7 @@ public interface ReviewMapper {
 
     ReviewDTO findReviewByCode(int code);
 
-    void registNewReview(ReviewDTO newReview);
+    int registNewReview(ReviewDTO newReview);
 
     void deleteReview(int code);
 
