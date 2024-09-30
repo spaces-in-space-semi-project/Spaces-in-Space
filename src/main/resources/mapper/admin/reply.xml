@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.space.spacesinspace.admin.reply.model.dao.ReplyMapper">
+
+    <resultMap id="ReplyResultMap" type="com.space.spacesinspace.common.dto.ReplyDTO">
+        <id property="replyCode" column="reply_code"/>
+        <result property="memberCode" column="member_code"/>
+        <result property="inquiryCode" column="inquiry_code"/>
+        <result property="replyDetail" column="reply_detail"/>
+        <result property="replyDate" column="reply_date"/>
+        <result property="replyEditDate" column="reply_edit_date"/>
+    </resultMap>
+
+    <select id="findReplyByCode" resultMap="ReplyResultMap">
+        SELECT
+            reply_code,
+            member_code,
+            inquiry_code,
+            reply_detail,
+            reply_date,
+            reply_edit_date
+        FROM
+            reply_tbl
+        WHERE
+            inquiry_code = #{inquiryCode}
+    </select>
+
+    <insert id="registNewReply" parameterType="com.space.spacesinspace.common.dto.ReplyDTO">
+        INSERT INTO reply_tbl
+            (inquiry_code, member_code, reply_detail, reply_date)
+        VALUES
+            (#{inquiryCode}, #{memberCode}, #{replyDetail}, #{replyDate})
+    </insert>
+
+    <delete id="deleteReply" parameterType="int">
+        DELETE
+        FROM
+            reply_tbl
+        WHERE
+            reply_code = #{replyCode}
+    </delete>
+
+    <update id="updateReply" parameterType="com.space.spacesinspace.common.dto.ReplyDTO">
+        UPDATE
+            reply_tbl
+        SET
+            reply_detail = #{replyDetail},
+            reply_edit_date = #{replyEditDate}
+        WHERE
+            reply_code = #{replyCode}
+    </update>
+</mapper>
