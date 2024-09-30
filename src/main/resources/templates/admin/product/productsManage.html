@@ -13,10 +13,12 @@
                 <a th:href="@{/admin/product/productRegist}" class="btn btn-primary me-2">
                     상품등록
                 </a>
-                <div class="input-group" style="width: 250px;">
-                    <input type="text" class="form-control" placeholder="검색..." aria-label="Search">
-                    <button class="btn btn-outline-secondary" type="button">검색</button>
-                </div>
+                <form th:action="@{/admin/product/searchProduct}">
+                    <div class="input-group" style="width: 250px;">
+                        <input type="text" name="searchValue" class="form-control" placeholder="검색..." aria-label="Search">
+                        <button class="btn btn-outline-secondary">검색</button>
+                    </div>
+                </form>
             </div>
 
             <div id="grid" class="mt-4"></div>
@@ -70,7 +72,7 @@
                         },
                         {
                             header: '상품카테고리',
-                            name: 'categoryCode',
+                            name: 'categoryName',
                             sortable: true,
                             align: 'center',
                             width: 150

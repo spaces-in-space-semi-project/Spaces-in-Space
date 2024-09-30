@@ -9,11 +9,11 @@ DROP TABLE IF EXISTS category_tbl;
 DROP TABLE IF EXISTS member_tbl;
 DROP TABLE IF EXISTS bank_tbl;
 DROP TABLE IF EXISTS card_company_tbl;
-
+DROP TABLE IF EXISTS faq_tbl;
 
 CREATE TABLE IF NOT EXISTS member_tbl (
     member_code INT AUTO_INCREMENT PRIMARY KEY COMMENT '회원코드',
-    member_id VARCHAR(50) UNIQUE NOT NULL COMMENT '회원아이디',
+    member_id VARCHAR(50) NOT NULL COMMENT '회원아이디',
     member_pw VARCHAR(150) NOT NULL COMMENT '회원비밀번호',
     member_name VARCHAR(100) NOT NULL COMMENT '회원이름',
     member_email VARCHAR(100) NOT NULL COMMENT '회원이메일',
@@ -169,3 +169,29 @@ INSERT INTO faq_tbl(faq_title, faq_detail)
 VALUES ('배송일 지정 가능한가요?', '제품별 표기된 평균 배송기간 이후부터 희망 배송주간 신청이 가능하며, 시간 지정은 불가합니다. 제품 파손의 우려가 있는 이사 당일은 피해주세요. 제작상품 특성상 구매 시점에는 배송 날짜 확정이 어렵고 일정에 변동 있을 수 있는 점 양해 부탁드립니다'),
        ('배송 기간이 어떻게 되나요?', '결제 후 영업일 기준 약 1-8주로 제품별 상이하며 제주 도서 산간지역은 추가 배송기간이 소요됩니다. 상품 페이지에서 평균 배송기간 및 운송수단 확인이 가능합니다. 주문 제품이나 제작상의 이유 및 배송과 기상 상황 등으로 배송 기간은 유동적일 수 있습니다'),
        ('먼저 주문하고, 입주 후 받을 수 있나요', '평균 배송기간 이후부터의 평일 중 희망 배송주간 신청이 가능하며 시간 지정은 불가합니다. 제품 파손의 우려가 있는 이사 당일에는 배송이 어렵습니다');
+
+INSERT INTO bank_tbl (bank_code, bank_name)
+VALUES (1, '선택하지않음'),
+       (2, '우리'),
+       (3, '신한'),
+       (4, '국민'),
+       (5, '기업'),
+       (6,'농협'),
+       (7,'하나'),
+       (8,'SC제일'),
+       (9,'우체국'),
+       (10,'케이뱅크');
+
+
+INSERT INTO card_company_tbl (card_company_code, card_company_name)
+VALUES (1, '선택하지않음'),
+       (2,'BC'),
+       (3,'우리'),
+       (4,'삼성'),
+       (5,'롯데'),
+       (6,'신한'),
+       (7,'KB국민'),
+       (8,'NH농협'),
+       (9,'카카오뱅크'),
+       (10,'씨티'),
+       (11,'하나');

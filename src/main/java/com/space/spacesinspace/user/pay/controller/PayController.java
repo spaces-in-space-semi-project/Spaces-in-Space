@@ -27,63 +27,73 @@ public class PayController {
         this.payService = payservice;
     }
 
+    // 사용자의 결제한 주문내역을 전체 조회
     @GetMapping("payList")
-    public ModelAndView findPayList(ModelAndView mv){
+    public String findPayList(Model mv,
+                              @ModelAttribute PayDTO payDTO,
+                              @ModelAttribute PayDetailDTO payDetailDTO) {
 
         List<PayDTO> payList = payService.findPayList();
 
-        mv.addObject("payList", payList);
-        mv.addObject("memberName", "회원");
-        mv.addObject("activeSection", "order");
-        mv.setViewName("user/member/myPage");
+        mv.addAttribute("payList", payList);
+        mv.addAttribute("memberName", "회원");
+        mv.addAttribute("activeSection", "order");
 
-        return mv;
+        return "/user/member/myPage";
     }
 
-    @GetMapping("/findPayDetail/{payCode}")
-    public ModelAndView findPayDetail(@PathVariable("payCode") int payCode, ModelAndView mv){
 
+    // 사용자의 주문전체내역 중, 하나를 선택하여 상세 조회
+    @GetMapping("findPayDetail/{payCode}")
+    public String findPayDetail(@PathVariable("payCode") int payCode, Model mv){
+
+        System.out.println("payCode = " + payCode);
+        List<PayDTO> findPayListByCode = payService.findPayListByCode(payCode);
+        List<PayDetailDTO> payDetailList = payService.findPayDetailList(payCode);
         PayDetailDTO findPayDetail = payService.findPayDetail(payCode);
 
-        mv.addObject("findPayDetail",findPayDetail);
-        mv.addObject("memberName", "회원");
-        mv.addObject("activeSection", "orderDetail");
-        mv.setViewName("user/member/myPage");
+        mv.addAttribute("findPayDetail",findPayDetail);
+        mv.addAttribute("findPayListByCode",findPayListByCode);
+        mv.addAttribute("payDetailList", payDetailList);
+        mv.addAttribute("memberName", "회원");
+        mv.addAttribute("activeSection", "orderDetail");
 
-        return mv;
+        return "/user/member/myPage";
     }
 
-
+    // 사용자가 상품페이지에서 [구매하기] 누르면 들고 결제진행.
     @PostMapping("payProgress")
-    public ModelAndView payProgress(ModelAndView mv,
+    public String payProgress(Model mv,
                                     @RequestParam(value = "productCode", required = false, defaultValue = "0")int productCode,
                                     @AuthenticationPrincipal MemberDTO member){
 
         int memberCode = member.getMemberCode();
 
-        System.out.println("productCode = " + productCode);
-        System.out.println("memberCode = " + memberCode);
         ProductDTO payProgress = payService.payProgress(productCode);
         MemberDTO payProgressUser = payService.payProgressUser(memberCode);
 
+        mv.addAttribute("payProgress", payProgress);
+        mv.addAttribute("payProgressUser", payProgressUser);
 
-        mv.addObject("payProgress", payProgress);
-        mv.addObject("payProgressUser", payProgressUser);
-
-        System.out.println("payProgressUser = " + payProgressUser);
-        System.out.println("payProgress = " + payProgress);
-
-        mv.setViewName("user/pay/payProgress");
-        return mv;
+        return "user/pay/payProgress";
     }
 
-    /*주문 상세내역조회 시, 배송전 이면 삭제*/
+    /*주문 상세내역조회 시, 배송전이면 삭제하는 기능*/
     @PostMapping("delete/{payCode}")
     public String deletePayMenu(@PathVariable("payCode") int payCode){
         payService.deletePayMenu(payCode);
         return "redirect:/user/pay/payList";
     }
 
+    //결제시 DB에 정보 기입 [주문내역 + 상세주문내역]
+    @PostMapping("receipt")
+    public String addPayList(@ModelAttribute PayDTO payDTO,
+                              @ModelAttribute PayDetailDTO payDetailDTO){
+
+        payService.addPayList(payDTO,payDetailDTO);
+
+        return "redirect:/user/pay/payList";
+    }
 
 
 

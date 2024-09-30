@@ -7,6 +7,7 @@
     <resultMap id="productAdminResultMap" type="com.space.spacesinspace.common.dto.ProductDTO">
         <id property="productCode" column="product_code"/>
         <result property="categoryCode" column="category_code"/>
+        <result property="categoryName" column="category_name"/>
         <result property="productName" column="product_name"/>
         <result property="productImageOriginal" column="product_image_original"/>
         <result property="productImageThumbnail" column="product_image_thumbnail"/>
@@ -26,24 +27,53 @@
 
     <select id="findAllProduct" resultMap="productAdminResultMap">
         SELECT
-            product_code,
-            category_code,
-            product_name,
-            product_image_original,
-            product_image_thumbnail,
-            product_price,
-            product_deliver_time,
-            product_deliever_cost,
-            product_size,
-            product_material,
-            product_description,
-            product_delete_yn
+            p.product_code,
+            p.category_code,
+            c.category_name,
+            p.product_name,
+            p.product_image_original,
+            p.product_image_thumbnail,
+            p.product_price,
+            p.product_deliver_time,
+            p.product_deliever_cost,
+            p.product_size,
+            p.product_material,
+            p.product_description,
+            p.product_delete_yn
         FROM
-            product_tbl
+            product_tbl p
+        LEFT JOIN category_tbl c on p.category_code = c.category_code
         WHERE
             product_delete_yn = 'N'
         ORDER BY
             product_code
+    </select>
+
+    <select id="findProductBySearch" parameterType="String" resultMap="productAdminResultMap">
+        SELECT
+            p.product_code,
+            p.category_code,
+            c.category_name,
+            p.product_name,
+            p.product_image_original,
+            p.product_image_thumbnail,
+            p.product_price,
+            p.product_deliver_time,
+            p.product_deliever_cost,
+            p.product_size,
+            p.product_material,
+            p.product_description,
+            p.product_delete_yn
+        FROM
+            product_tbl p
+        LEFT JOIN category_tbl c on p.category_code = c.category_code
+        WHERE
+            (p.product_name LIKE CONCAT('%',  #{searchValue}, '%') OR
+            c.category_name LIKE CONCAT('%', #{searchValue}, '%'))
+            AND
+            product_delete_yn = 'N'
+        ORDER BY
+         product_code
     </select>
 
     <select id="findAllCategory" resultMap="categoryResultMap">
@@ -125,8 +155,10 @@
     </update>
 
     <delete id="deleteProduct" parameterType="int">
-        DELETE FROM
+        UPDATE
             product_tbl
+        SET
+            product_delete_yn = 'Y'
         WHERE
             product_code = #{productCode}
     </delete>

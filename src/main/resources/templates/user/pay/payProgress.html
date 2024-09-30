@@ -49,21 +49,19 @@
             display: none;
         }
     </style>
-    <script type="text/javascript" charset="EUC-KR">
-        function pay() {
-            var pf = document.payForm;
-            var fileName = "https://apitest.kiwoompay.co.kr/pay/link";
-            var KIWOOMPAY = window.open("", "KIWOOMPAY", "width=468,height=750");
-            pf.target = "KIWOOMPAY";
-            pf.action = fileName;
-            pf.method = "post";
-            pf.submit();
-        }
-    </script>
+
 </head>
 <body>
-
+<form th:action="@{/user/pay/receipt}" method="post">
 <div class="section-title">주문자 정보</div>
+    <input type="hidden" name="memberCode" th:value="${payProgressUser.memberCode}"/>
+    <input type="hidden" id="toDay" name="payDate" value=""/>
+    <input type="hidden" name="payTotalCnt" value="1"/>
+    <input type="hidden" name="payDetailCnt" value="1"/>
+    <input type="hidden" name="payDetailPrice" th:value="${payProgress.productPrice}"/>
+    <input type="hidden" name="payDeliverStatus" value="배송전"/>
+    <input type="hidden" name="payRefundYn" value="N"/>
+    <input type="hidden" name="productCode" th:value="${payProgress.productCode}"/>
 <table>
     <tbody>
     <tr>
@@ -76,7 +74,7 @@
     </tr>
     <tr>
         <th>전화번호</th>
-        <td><input type="text" value="010" placeholder="전화번호 입력" th:value="${payProgressUser.memberPhone}"/></td>
+        <td><input type="text" placeholder="전화번호 입력" th:value="${payProgressUser.memberPhone}"/></td>
     </tr>
     </tbody>
 </table>
@@ -86,23 +84,23 @@
     <tbody>
     <tr>
         <th>배송자명 </th>
-        <td><input type="text" placeholder="배송자명 입력"/></td>
+        <td><input type="text" name="payReceiver" placeholder="배송자명 입력" required/></td>
     </tr>
     <tr>
         <th>전화번호 </th>
-        <td><input type="text" value="010" placeholder="전화번호 입력"/></td>
+        <td><input type="text" name="payDeliverPhone" placeholder="전화번호 입력" required/></td>
     </tr>
     <tr>
         <th>주소 </th>
-        <td><input type="text" placeholder="주소 입력" th:value="${payProgressUser.memberAddress}"/></td>
+        <td><input type="text" name="payAddress" placeholder="주소 입력" th:value="${payProgressUser.memberAddress}"/></td>
     </tr>
     <tr>
-        <td colspan="2"><input type="text" value="상세주소 입력" placeholder="상세주소 입력"/></td>
+        <td colspan="2"><input type="text"  placeholder="상세주소 입력" required/></td>
     </tr>
     <tr>
         <th>배송요청사항 </th>
         <td>
-            <select name="deliveryRQ">
+            <select name="deliveryRQ" required>
                 <option value="dRQ0">배송요청사항을 선택하세요</option>
                 <option value="dRQ1">집앞에 던져놔주세요</option>
                 <option value="dRQ2">문앞에 막아놔주세요</option>
@@ -129,18 +127,18 @@
     <tr>
         <th>은행 </th>
         <td>
-            <select name="bankcheck">
-                <option value="bc0">은행을 선택하세요</option>
-                <option value="bc1">우리</option>
-                <option value="bc2">신한</option>
-                <option value="bc3">국민</option>
-                <option value="bc4">기업</option>
+            <select name="bankCode" >
+                <option value="1" selected>은행을 선택하세요</option>
+                <option value="2">우리</option>
+                <option value="3">신한</option>
+                <option value="4">국민</option>
+                <option value="5">기업</option>
             </select>
         </td>
     </tr>
     <tr>
         <th>계좌번호 </th>
-        <td><input type="text" placeholder="계좌번호 입력"/></td>
+        <td><input name="payAccountNumber" type="text" placeholder="계좌번호 입력" value=""/></td>
     </tr>
     </tbody>
 </table>
@@ -151,18 +149,18 @@
     <tr>
         <th>카드사 </th>
         <td>
-            <select name="cardcheck">
-            <option value="cc0">카드사를 선택하세요</option>
-            <option value="cc1">BC</option>
-            <option value="cc2">현대</option>
-            <option value="cc3">삼성</option>
-            <option value="cc4">롯데</option>
+            <select name="cardCompanyCode" >
+            <option value="1" selected>카드사를 선택하세요</option>
+            <option value="2">BC</option>
+            <option value="3">현대</option>
+            <option value="4">삼성</option>
+            <option value="5">롯데</option>
         </select>
         </td>
     </tr>
     <tr>
         <th>카드번호 </th>
-        <td><input type="text" placeholder="카드번호 입력"/></td>
+        <td><input type="text" name="payCardNumber" placeholder="카드번호 입력" value=""/></td>
     </tr>
     </tbody>
 </table>
@@ -172,41 +170,38 @@
     <tbody>
     <tr>
         <th>결제하실 금액 </th>
-        <td><input type="text" placeholder="결제 금액 입력" th:value="${payProgress.productPrice}"/></td>
+        <td><input type="text" name="payTotalPrice" placeholder="결제 금액 입력" th:value="${payProgress.productPrice}" required/></td>
     </tr>
     <tr>
         <th>총 금액 </th>
-        <td><input type="text" placeholder="결제 금액 입력" th:value="${payProgress.productPrice}" disabled/></td>
+        <td><input type="text" th:value="${payProgress.productPrice}" disabled/></td>
     </tr>
     </tbody>
 </table>
-<form name="payForm" accept-charset="EUC-KR" method="post">
-<input type="hidden" name="TYPE" value="P"/>
-<input type="hidden" name="PAYMETHOD" value="CARD"/>
-<input type="hidden" name="CERTTYPE" value="01"/>
-<input type="hidden" name="CPID" value="CTS15178"/>
-<input type="hidden" name="ORDERNO" value="20240927112519"/>
-<input type="hidden" name="PRODUCTTYPE" value="1"/>
-<input type="hidden" name="AMOUNT" th:value="${payProgress.productPrice}"/>
-<input type="hidden" name="PRODUCTNAME" value="테스트상품"/>
-<input type="hidden" name="PRODUCTCODE" value="A001"/>
-<input type="hidden" name="USERID" value="tester"/>
 <button type="submit">결제하기</button>
 </form>
 
 <script>
     // 은행과 카드 테이블을 숨기거나 표시하는 함수
-    document.getElementById('bankRadio').addEventListener('click', function() {
+    document.getElementById('bankRadio').addEventListener('click', function () {
         document.getElementById('bankTable').classList.remove('hidden');
         document.getElementById('cardTable').classList.add('hidden');
     });
 
-    document.getElementById('cardRadio').addEventListener('click', function() {
+    document.getElementById('cardRadio').addEventListener('click', function () {
         document.getElementById('cardTable').classList.remove('hidden');
         document.getElementById('bankTable').classList.add('hidden');
     });
-</script>
 
+
+        // 현재 날짜를 yyyy-MM-dd 형식으로 가져오는 함수
+        const toDay = new Date().toISOString().split('T')[0];
+
+        // hidden input 필드에 현재 날짜 설정
+        document.getElementById('toDay').value = toDay;
+        console.log(toDay);
+
+</script>
 
 </body>
 </html>

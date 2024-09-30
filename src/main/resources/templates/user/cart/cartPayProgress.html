@@ -52,20 +52,38 @@
 </head>
 <body>
 
+<!--
+<div th:if="${not #lists.isEmpty(checkMenu)}">
+    <div th:each="Menu, iterStat : ${checkMenu}">
+        <div th:if="${iterStat.index == 0}">
+-->
+
+<form  th:action="@{/user/cart/receipt}" method="post">
+    <div th:if="${not #lists.isEmpty(checkMenu)}">
+        <div th:each="Menu, iterStat : ${checkMenu}">
+            <div th:if="${iterStat.index == 0}">
 <div class="section-title">주문자 정보</div>
+    <input type="hidden" name="memberCode" th:value="${Menu.memberCode}"/>
+    <input type="hidden" id="toDay" name="payDate" value=""/>
+    <input type="hidden" name="payTotalCnt" th:value="${totalCartCnt}"/>
+    <input type="hidden" name="payDetailCnt" value="1"/>
+    <input type="hidden" name="payDetailPrice" th:value="${Menu.productPrice}"/>
+    <input type="hidden" name="payDeliverStatus" value="배송전"/>
+    <input type="hidden" name="payRefundYn" value="N"/>
+    <input type="hidden" name="productCode" th:value="${Menu.productCode}"/>
 <table>
     <tbody>
     <tr>
         <th>이 름</th>
-        <td><input type="text" placeholder="이름 입력" th:value="${checkMenu.memberName}"/></td>
+        <td><input type="text" placeholder="이름 입력" th:value="${Menu.memberName}"/></td>
     </tr>
     <tr>
         <th>이메일</th>
-        <td><input type="text" placeholder="이메일 입력" th:value="${checkMenu.memberEmail}"/></td>
+        <td><input type="text" placeholder="이메일 입력" th:value="${Menu.memberEmail}"/></td>
     </tr>
     <tr>
         <th>전화번호</th>
-        <td><input type="text" value="010" placeholder="전화번호 입력" th:value="${checkMenu.memberPhone}"/></td>
+        <td><input type="text" placeholder="전화번호 입력" th:value="${Menu.memberPhone}"/></td>
     </tr>
     </tbody>
 </table>
@@ -75,18 +93,18 @@
     <tbody>
     <tr>
         <th>배송자명 </th>
-        <td><input type="text" placeholder="배송자명 입력"/></td>
+        <td><input type="text" name="payReceiver" placeholder="배송자명 입력" required/></td>
     </tr>
     <tr>
         <th>전화번호 </th>
-        <td><input type="text" value="010" placeholder="전화번호 입력"/></td>
+        <td><input type="text" name="payDeliverPhone" placeholder="전화번호 입력" required/></td>
     </tr>
     <tr>
         <th>주소 </th>
-        <td><input type="text" placeholder="주소 입력" th:value="${checkMenu.memberAddress}"/></td>
+        <td><input type="text" name="payAddress" placeholder="주소 입력" th:value="${Menu.memberAddress}"/></td>
     </tr>
     <tr>
-        <td colspan="2"><input type="text" value="상세주소 입력" placeholder="상세주소 입력"/></td>
+        <td colspan="2"><input type="text" placeholder="상세주소 입력"/></td>
     </tr>
     <tr>
         <th>배송요청사항 </th>
@@ -118,18 +136,18 @@
     <tr>
         <th>은행 </th>
         <td>
-            <select name="bankcheck">
-                <option value="bc0">은행을 선택하세요</option>
-                <option value="bc1">우리</option>
-                <option value="bc2">신한</option>
-                <option value="bc3">국민</option>
-                <option value="bc4">기업</option>
+            <select name="bankCode">
+                <option value="1">은행을 선택하세요</option>
+                <option value="2">우리</option>
+                <option value="3">신한</option>
+                <option value="4">국민</option>
+                <option value="5">기업</option>
             </select>
         </td>
     </tr>
     <tr>
         <th>계좌번호 </th>
-        <td><input type="text" placeholder="계좌번호 입력"/></td>
+        <td><input name="payAccountNumber" type="text" placeholder="계좌번호 입력" value=""/></td>
     </tr>
     </tbody>
 </table>
@@ -140,18 +158,18 @@
     <tr>
         <th>카드사 </th>
         <td>
-            <select name="cardcheck">
-                <option value="cc0">카드사를 선택하세요</option>
-                <option value="cc1">BC</option>
-                <option value="cc2">현대</option>
-                <option value="cc3">삼성</option>
-                <option value="cc4">롯데</option>
+            <select name="cardCompanyCode" >
+                <option value="1" selected>카드사를 선택하세요</option>
+                <option value="2">BC</option>
+                <option value="3">현대</option>
+                <option value="4">삼성</option>
+                <option value="5">롯데</option>
             </select>
         </td>
     </tr>
     <tr>
         <th>카드번호 </th>
-        <td><input type="text" placeholder="카드번호 입력"/></td>
+        <td><input type="text" name="payCardNumber" placeholder="카드번호 입력" value=""/></td>
     </tr>
     </tbody>
 </table>
@@ -161,17 +179,18 @@
     <tbody>
     <tr>
         <th>결제하실 금액 </th>
-        <td><input type="text" placeholder="결제 금액 입력" th:value="${checkMenu.totalCartPrice}"/></td>
+        <td><input type="text" name="payTotalPrice" placeholder="결제 금액 입력" th:value="${totalCartPrice}" required/></td>
     </tr>
     <tr>
         <th>총 금액 </th>
-        <td><input type="text" th:value="${checkMenu.totalCartPrice}" disabled/></td>
+        <td><input type="text" th:value="${totalCartPrice}" disabled/></td>
     </tr>
     </tbody>
 </table>
 
 <button type="submit">결제하기</button>
-
+            </div></div></div>
+</form>
 <script>
     // 은행과 카드 테이블을 숨기거나 표시하는 함수
     document.getElementById('bankRadio').addEventListener('click', function() {
@@ -183,6 +202,14 @@
         document.getElementById('cardTable').classList.remove('hidden');
         document.getElementById('bankTable').classList.add('hidden');
     });
+
+    // 현재 날짜를 yyyy-MM-dd 형식으로 가져오는 함수
+    const toDay = new Date().toISOString().split('T')[0];
+
+    // hidden input 필드에 현재 날짜 설정
+    document.getElementById('toDay').value = toDay;
+    console.log(toDay);
+
 </script>
 
 </body>

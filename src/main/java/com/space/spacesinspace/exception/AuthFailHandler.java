@@ -41,7 +41,7 @@ public class AuthFailHandler extends SimpleUrlAuthenticationFailureHandler {
         } else {
 
             /* 설명. 그 외의 알 수 없는 오류에 대한 에러 메시지 설정 */
-            errorMsg = "알 수 없는 오류로 로그인 요청을 처리할 수 없습니다.";
+            errorMsg = "로그인 요청을 처리할 수 없습니다.";
         }
 
         /* 설명. URL을 안전하게 인코딩 하는데 사용되는 util로, 문자열을 URL에 사용 가능한 형식으로 인코딩해준다. */
