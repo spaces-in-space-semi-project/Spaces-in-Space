@@ -26,10 +26,9 @@
 
 
         <div th:if="${reply != null}" class="mt-4 form-container-inquiry">
-            <input type="hidden" id="replyCode" name="replyCode" th:value="${reply.replyCode}">
             <p><strong>답변 날짜 : </strong><span th:text="${reply.replyDate}"></span></p>
-
             <form th:action="@{/admin/reply/updateReply}" method="post">
+                <input type="hidden" id="replyCode" name="replyCode" th:value="${reply.replyCode}">
                 <div class="mb-3">
                     <label for="replyDetail" class="form-label">답변</label>
                     <textarea id="replyDetail" name="replyDetail" class="form-control" rows="5" th:text="${reply.replyDetail}" required></textarea>
@@ -37,8 +36,11 @@
                 </div>
                 <div class="col-12 text-end">
                     <button type="submit" class="btn btn-primary">수정하기</button>
-                    <button type="submit" class="btn btn-danger" onclick="confirmDelete()">삭제하기</button>
+                    <button type="button" class="btn btn-danger" onclick="confirmDelete()">삭제하기</button>
                 </div>
+                <form th:action="@{/admin/reply/deleteReply}" method="post" id="deleteForm">
+                    <input type="hidden" name="replyCode" th:value="${reply != null ? reply.replyCode : ''}">
+                </form>
             </form>
         </div>
 
@@ -54,12 +56,16 @@
             </form>
         </div>
 
-        <form th:action="@{/admin/reply/deleteReply/{code}(code=${reply != null ? reply.getReplyCode() : ''})}" method="post" id="deleteForm">
-            <input type="hidden" name="replyCode" th:value="${reply != null ? reply.replyCode : ''}">
-        </form>
+
     </div>
     </div>
-        <script>
+        <script th:inline="javascript">
+            // 삭제 confirm
+            function confirmDelete() {
+                if (confirm("정말로 이 답변을 삭제하시겠습니까?")) {
+                    document.getElementById('deleteForm').submit();
+                }
+            }
             // Form validation using Bootstrap
             (() => {
                 'use strict';
@@ -118,12 +124,6 @@
                         console.error('문의글을 불러오는 중 오류 발생:', error);
                     });
             });
-            // 삭제 confirm
-            function confirmDelete() {
-                if (confirm("정말로 이 답변을 삭제하시겠습니까?")) {
-                    document.getElementById('deleteForm').submit();
-                }
-            }
         </script>
 
 </body>

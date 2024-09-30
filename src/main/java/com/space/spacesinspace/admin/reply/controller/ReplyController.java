@@ -64,8 +64,8 @@ public class ReplyController {
         return "redirect:/admin/inquiry/detail/" + inquiryCode;
     }
 
-    @PostMapping("/deleteReply/{replyCode}")
-    public String deleteReply(@PathVariable("replyCode") int replyCode,
+    @PostMapping("/deleteReply")
+    public String deleteReply(@RequestParam int replyCode,
                               RedirectAttributes rAttr) {
 
         replyService.deleteReply(replyCode);
