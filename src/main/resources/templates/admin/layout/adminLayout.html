@@ -80,6 +80,12 @@
       /*padding: 20px;*/
     }
 
+    .form-container-inquiry {
+      max-width: 495px;
+      /*margin: 0 auto;*/
+      /*padding: 20px;*/
+    }
+
     /* Add padding and background styling for a better click area */
     #pagination .tui-page-item a,
     #pagination .tui-page-btn {
@@ -480,8 +486,7 @@
     <div th:case="'adminOrderDetail'" th:include="/admin/pay/adminPayDetail :: adminOrderDetail"></div>
 
     <div th:case="'inquiry'" th:include="admin/inquiry/list :: inquiry"></div>
-<!--    <div th:case="'inquiryDetail'" th:include="admin/inquiry/detail :: inquiryDetail"></div>-->
-<!--    <div th:case="'replyRegist'" th:include="admin/inquiry/replyRegist :: replyRegist"></div>-->
+    <div th:case="'inquiryDetail'" th:include="admin/inquiry/detail :: inquiryDetail"></div>
     <div th:case="'faqList'" th:include="admin/faq/faqList :: faqList"></div>
     <div th:case="'createFaq'" th:include="admin/faq/createFaq :: createFaq"></div>
     <div th:case="'updateFaq'" th:include="admin/faq/updateFaq :: updateFaq"></div>
