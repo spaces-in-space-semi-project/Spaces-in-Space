@@ -9,6 +9,8 @@
     <resultMap id="payResultMap" type="com.space.spacesinspace.common.dto.PayDTO">
         <id property="payCode" column="pay_code"/>
         <result property="memberCode" column="member_code"/>
+        <result property="memberId" column="member_id"/>
+        <result property="memberName" column="member_Name"/>
         <result property="payDate" column="pay_date"/>
         <result property="payTotalCnt" column="pay_total_cnt"/>
         <result property="payTotalPrice" column="pay_total_price"/>
@@ -17,6 +19,7 @@
         <result property="payDeliverPhone" column="pay_deliver_phone"/>
         <result property="payDeliverStatus" column="pay_deliever_status"/>
         <result property="payRefundYn" column="pay_refund_yn"/>
+        <result property="payDeleteYn" column="pay_delete_yn"/>
         <result property="payAccountNumber" column="pay_account_number"/>
         <result property="bankCode" column="bank_code"/>
         <result property="cardCompanyCode" column="card_company_code"/>
@@ -86,13 +89,15 @@
         <result property="totalCartPrice" column="total_cart_price"/>
     </resultMap>
 
-    <!--=========================================구분선=============================================-->
+    <!--==================================구분선======================================-->
 
     <!--사용자 결제한 내역 전체조회-->
     <select id="findPayList" resultMap="payResultMap">
         SELECT
             a.pay_code,
             a.member_code,
+            a.member_id,
+            a.member_name,
             a.pay_date,
             a.pay_total_cnt,
             a.pay_total_price,
@@ -101,6 +106,7 @@
             a.pay_deliver_phone,
             a.pay_deliever_status,
             a.pay_refund_yn,
+            a.pay_delete_yn,
             a.pay_account_number,
             a.pay_card_number,
             a.bank_code,
@@ -110,34 +116,35 @@
         JOIN
             member_tbl b ON (a.member_code = b.member_code)
         WHERE
-            b.member_id = #{loggedInUsername}
-        ORDER BY
-            pay_code
+            b.member_id = #{loggedInUsername} AND
+            a.pay_delete_yn = 'N'
     </select>
 
     <!--사용자 결제한 내역 전체 중 payCode로 조회-->
     <select id="findPayByCode" resultMap="payResultMap">
     SELECT
-    a.pay_code,
-    a.member_code,
-    a.pay_date,
-    a.pay_total_cnt,
-    a.pay_total_price,
-    a.pay_address,
-    a.pay_receiver,
-    a.pay_deliver_phone,
-    a.pay_deliever_status,
-    a.pay_refund_yn,
-    a.pay_account_number,
-    a.pay_card_number,
-    a.bank_code,
-    a.card_company_code
+        a.pay_code,
+        a.member_code,
+        a.pay_date,
+        a.pay_total_cnt,
+        a.pay_total_price,
+        a.pay_address,
+        a.pay_receiver,
+        a.pay_deliver_phone,
+        a.pay_deliever_status,
+        a.pay_refund_yn,
+        a.pay_delete_yn,
+        a.pay_account_number,
+        a.pay_card_number,
+        a.bank_code,
+        a.card_company_code
     FROM
-    pay_tbl a
+        pay_tbl a
     JOIN
-    member_tbl b ON (a.member_code = b.member_code)
+        member_tbl b ON (a.member_code = b.member_code)
     WHERE
-    a.pay_code = #{payCode}
+        a.pay_code = #{payCode} AND
+        a.pay_delete_yn = 'N'
     </select>
 
     <!--사용자 상세조회-->
@@ -152,6 +159,7 @@
             b.pay_receiver,
             b.pay_deliver_phone,
             b.pay_refund_yn,
+            b.pay_delete_yn,
             b.pay_deliever_status,
             d.bank_name,
             b.pay_account_number,
@@ -182,6 +190,7 @@
         b.pay_receiver,
         b.pay_deliver_phone,
         b.pay_refund_yn,
+        b.pay_delete_yn,
         b.pay_deliever_status,
         d.bank_name,
         b.pay_account_number,
@@ -205,7 +214,10 @@
         SELECT
             a.pay_code,
             b.member_code,
+            b.member_id,
+            b.member_name,
             a.pay_date,
+            a.pay_delete_yn,
             a.pay_deliever_status,
             a.pay_total_cnt,
             a.pay_total_price
@@ -213,6 +225,33 @@
             pay_tbl a
         JOIN
             member_tbl b ON (a.member_code = b.member_code)
+        ORDER BY
+            pay_code
+    </select>
+
+    <!--관리자 전체조회의 검색 기능-->
+    <select id="searchPayList" resultMap="payResultMap">
+        SELECT
+            a.pay_code,
+            b.member_code,
+            b.member_id,
+            b.member_name,
+            a.pay_date,
+            a.pay_deliever_status,
+            a.pay_refund_yn,
+            a.pay_delete_yn,
+            a.pay_total_cnt,
+            a.pay_total_price
+        FROM
+            pay_tbl a
+        JOIN
+            member_tbl b ON (a.member_code = b.member_code)
+        WHERE
+            (a.pay_code  LIKE CONCAT('%', #{searchValue}, '%') OR
+            b.member_id LIKE CONCAT('%', #{searchValue}, '%') OR
+            b.member_name LIKE CONCAT('%', #{searchValue}, '%'))
+            AND
+            a.pay_delete_yn = 'N'
         ORDER BY
             pay_code
     </select>
@@ -228,6 +267,7 @@
             b.pay_receiver,
             b.pay_deliver_phone,
             b.pay_refund_yn,
+            b.pay_delete_yn,
             b.pay_deliever_status,
             d.bank_name,
             b.pay_account_number,
@@ -295,10 +335,18 @@
         WHERE pay_code = #{ payCode }
     </delete>
 
+    <update id="updatePayMenu" parameterType="com.space.spacesinspace.common.dto.PayDTO">
+        UPDATE pay_tbl
+        SET
+            pay_delete_yn = 'Y'
+        WHERE
+            pay_code = #{ payCode }
+    </update>
+
     <!--사용자 결제 완료후 주문내역 추가 여기서 payCode 증가하는놈 표기하여 뒤에 이어서 접근하면 증가한걸로 줌.-->
     <insert id="addPayList" useGeneratedKeys="true" keyProperty="payCode" >
-        INSERT INTO pay_tbl (member_code, pay_date, pay_total_cnt, pay_total_price, pay_address, pay_receiver, pay_deliver_phone, pay_deliever_status, pay_refund_yn, pay_account_number, pay_card_number, bank_code, card_company_code)
-        VALUES ( #{memberCode}, #{payDate}, #{payTotalCnt}, #{payTotalPrice}, #{payAddress}, #{payReceiver}, #{payDeliverPhone}, #{payDeliverStatus}, #{payRefundYn}, #{payAccountNumber}, #{payCardNumber}, #{bankCode}, #{cardCompanyCode})
+        INSERT INTO pay_tbl (member_code, pay_date, pay_total_cnt, pay_total_price, pay_address, pay_receiver, pay_deliver_phone, pay_deliever_status, pay_refund_yn, pay_account_number, pay_card_number, bank_code, card_company_code, pay_delete_yn)
+        VALUES ( #{memberCode}, #{payDate}, #{payTotalCnt}, #{payTotalPrice}, #{payAddress}, #{payReceiver}, #{payDeliverPhone}, #{payDeliverStatus}, #{payRefundYn}, #{payAccountNumber}, #{payCardNumber}, #{bankCode}, #{cardCompanyCode}, #{payDeleteYn})
     </insert>
 
     <!--그럼 이녀석이 잘 확인해서 payCode 꺼내서, 연속으로 db 정보 기입 가능.-->

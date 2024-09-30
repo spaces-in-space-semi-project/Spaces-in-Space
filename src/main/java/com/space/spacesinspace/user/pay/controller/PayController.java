@@ -81,6 +81,13 @@ public class PayController {
         return "redirect:/user/pay/payList";
     }
 
+    /*주문 상세내역조회 시, 배송전이면 삭제하는 기능*/
+    @PostMapping("update/{payCode}")
+    public String updatePayMenu(@PathVariable("payCode") int payCode){
+        payService.updatePayMenu(payCode);
+        return "redirect:/user/pay/payList";
+    }
+
     //결제시 DB에 정보 기입 [주문내역 + 상세주문내역]
     @PostMapping("receipt")
     public String addPayList(@ModelAttribute PayDTO payDTO,

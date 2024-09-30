@@ -101,4 +101,12 @@ public class PayService {
     public List<CartDTO> findCartList(int memberCode) {
         return payMapper.findCartList(memberCode);
     }
+
+    public List<PayDTO> searchPayList(String searchValue) {
+        return payMapper.searchPayList(searchValue);
+    }
+
+    public void updatePayMenu(int payCode) {
+        payMapper.updatePayMenu(payCode);
+    }
 }

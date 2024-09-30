@@ -48,4 +48,8 @@ public interface PayMapper {
     PayDTO findPayByCode(int payCode);
 
     List<CartDTO> findCartList(int memberCode);
+
+    List<PayDTO> searchPayList(String searchValue);
+
+    void updatePayMenu(int payCode);
 }

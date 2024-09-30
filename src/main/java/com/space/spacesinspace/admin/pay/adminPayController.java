@@ -34,6 +34,17 @@ public class adminPayController {
         return "admin/layout/adminLayout";
     }
 
+    @GetMapping("searchPayList")
+    public ModelAndView searchPayList(ModelAndView mv, @RequestParam String searchValue) {
+
+        List<PayDTO> searchPayList = payService.searchPayList(searchValue);
+
+        mv.addObject("payList", searchPayList);
+        mv.addObject("activeSection","adminOrder");
+        mv.setViewName("admin/layout/adminLayout");
+        return mv;
+    }
+
     @GetMapping("adminPayDetail/{payCode}")
     public String findAdminPayDetail(@PathVariable("payCode") int payCode, Model mv) {
 

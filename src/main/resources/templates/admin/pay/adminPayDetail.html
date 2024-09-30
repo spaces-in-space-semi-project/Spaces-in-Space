@@ -42,13 +42,13 @@
             <p><strong>카드번호:</strong> <span th:text="${findPayByCode.payCardNumber}"></span></p>
                 <button type="submit" class="btn btn-danger mt-3" th:if="${findPayByCode.payDeliverStatus == '배송전'}">주문취소</button>
             </form>
+        <script>
+            function confirmCancel() {
+                return confirm("주문을 취소하시겠습니까?");
+            }
+        </script>
         </div>
     </div>
 </div>
-<script>
-    function confirmCancel() {
-        return confirm("주문을 취소하시겠습니까?");
-    }
-</script>
 </body>
 </html>
