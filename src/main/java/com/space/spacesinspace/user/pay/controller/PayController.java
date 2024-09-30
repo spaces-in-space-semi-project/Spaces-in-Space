@@ -11,7 +11,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -47,13 +46,10 @@ public class PayController {
     @GetMapping("findPayDetail/{payCode}")
     public String findPayDetail(@PathVariable("payCode") int payCode, Model mv){
 
-        System.out.println("payCode = " + payCode);
-        List<PayDTO> findPayListByCode = payService.findPayListByCode(payCode);
+        PayDTO findPayByCode = payService.findPayByCode(payCode);
         List<PayDetailDTO> payDetailList = payService.findPayDetailList(payCode);
-        PayDetailDTO findPayDetail = payService.findPayDetail(payCode);
 
-        mv.addAttribute("findPayDetail",findPayDetail);
-        mv.addAttribute("findPayListByCode",findPayListByCode);
+        mv.addAttribute("findPayByCode", findPayByCode);
         mv.addAttribute("payDetailList", payDetailList);
         mv.addAttribute("memberName", "회원");
         mv.addAttribute("activeSection", "orderDetail");
@@ -88,13 +84,13 @@ public class PayController {
     //결제시 DB에 정보 기입 [주문내역 + 상세주문내역]
     @PostMapping("receipt")
     public String addPayList(@ModelAttribute PayDTO payDTO,
-                              @ModelAttribute PayDetailDTO payDetailDTO){
+                             @ModelAttribute PayDetailDTO payDetailDTO) {
 
-        payService.addPayList(payDTO,payDetailDTO);
+        payService.addPayList(payDTO);
+        payDetailDTO.setPayCode(payDTO.getPayCode());
+        payService.addPayDetailList(payDetailDTO);
+
 
         return "redirect:/user/pay/payList";
     }
-
-
-
 }

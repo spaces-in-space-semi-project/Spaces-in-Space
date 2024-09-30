@@ -5,10 +5,8 @@ import com.space.spacesinspace.common.dto.PayDetailDTO;
 import com.space.spacesinspace.user.pay.model.service.PayService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -24,26 +22,29 @@ public class adminPayController {
         this.payService = payService;
     }
 
-    @GetMapping("adminpaylist")
-    public ModelAndView showPayList(ModelAndView mv){
+    @GetMapping("adminPayList")
+    public String showPayList(Model mv,
+                                    @ModelAttribute PayDTO payDTO,
+                                    @ModelAttribute PayDetailDTO payDetailDTO){
 
         List<PayDTO> payList = payService.showPayList();
 
-        mv.addObject("payList",payList);
-        mv.setViewName("admin/pay/adminPayList");
-        return mv;
+        mv.addAttribute("payList",payList);
+        mv.addAttribute("activeSection", "adminOrder");
+        return "admin/layout/adminLayout";
     }
 
-    @GetMapping("/adminPayDetail/{payCode}")
-    public ModelAndView findAdminPayDetail(@PathVariable("payCode") int payCode, ModelAndView mv) {
+    @GetMapping("adminPayDetail/{payCode}")
+    public String findAdminPayDetail(@PathVariable("payCode") int payCode, Model mv) {
 
-        PayDetailDTO findAdminPayDetail = payService.findAdminPayDetail(payCode);
+        PayDTO findPayByCode = payService.findPayByCode(payCode);
+        List<PayDetailDTO> payDetailList = payService.findPayDetailList(payCode);
 
-        mv.addObject("findAdminPayDetail", findAdminPayDetail);
-        mv.addObject("memberName", "회원");
-        mv.setViewName("admin/pay/adminPayDetail");
+        mv.addAttribute("findPayByCode", findPayByCode);
+        mv.addAttribute("payDetailList", payDetailList);
+        mv.addAttribute("activeSection", "adminOrderDetail");
 
-        return mv;
+        return "admin/layout/adminLayout";
     }
 
     @PostMapping("delete/{payCode}")

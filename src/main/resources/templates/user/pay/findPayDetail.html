@@ -3,36 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="${pageTitle}">Spaces in Space</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
-
 <body>
 <div th:fragment="orderDetail">
-    <main>
-        <h2>결제 상세 정보</h2>
+    <main class="container" style="padding: 10px 10px 30px 10px">
+        <h4 class="text-center my-4">ORDER DETAIL</h4>
 
-        <!--pay_detail_tbl 에 장바구니에 담긴 품목들이 개수만큼 추가되어야하는데 추가가 안되고 있음. 표기 오류로 잠시 주석.-->
-<!--        <div th:each="payDetail : ${payDetailList}">-->
-<!--            <p>상품 이름: <span th:text="${payDetail.productName}"></span></p>-->
-<!--            <p>상품 수량: <span th:text="${payDetail.payDetailCnt}"></span></p>-->
-<!--            <p>상품 가격: <span th:text="${payDetail.payDetailPrice}"></span></p>-->
-<!--            <hr>-->
-<!--        </div>-->
-        <form th:action="@{/user/pay/delete/{payCode}(payCode=${findPayDetail.payCode})}" method="post" onsubmit="return confirmCancel()">
-        <div>
-            <p>주문 날짜: <span th:text="${findPayListByCode[0].payDate}"></span></p>
-            <p>배송자명: <span th:text="${findPayListByCode[0].payReceiver}"></span></p>
-            <p>배송받을 연락처: <span th:text="${findPayListByCode[0].payDeliverPhone}"></span></p>
-            <p>주문 결제 상태: <span th:text="${findPayListByCode[0].payRefundYn}"></span></p>
-            <p>주문 결제 수량: <span th:text="${findPayListByCode[0].payTotalCnt}"></span></p>
-            <p>주문 결제 금액: <span th:text="${findPayListByCode[0].payTotalPrice}"></span></p>
-            <p>배송 상태: <span th:text="${findPayListByCode[0].payDeliverStatus}"></span></p>
-            <p>은행명: <span th:text="${findPayDetail.bankName}"></span></p>
-            <p>계좌번호: <span th:text="${findPayDetail.payAccountNumber}"></span></p>
-            <p>카드사명: <span th:text="${findPayDetail.cardCompanyName}"></span></p>
-            <p>카드번호: <span th:text="${findPayDetail.payCardNumber}"></span></p>
-        </div>
-        <!-- 배송 상태가 '배송전'일 경우에만 주문 취소 버튼을 보이도록 설정 -->
-        <button type="submit" th:if="${findPayDetail.payDeliverStatus == '배송전'}">주문취소</button>
+        <!-- 상품 상세 정보 테이블 -->
+        <h5>상품 정보</h5>
+        <table class="table table-bordered inquiry-table">
+            <thead>
+            <tr>
+                <th>상품 이름</th>
+                <th>상품 수량</th>
+                <th>상품 가격</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="payDetail : ${payDetailList}">
+                <td th:text="${payDetail.productName}"></td>
+                <td th:text="${payDetail.payDetailCnt}"></td>
+                <td th:text="${payDetail.payDetailPrice}"></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <hr>
+
+        <!-- 주문 정보 -->
+        <h5>주문 정보</h5>
+        <form th:action="@{/user/pay/delete/{payCode}(payCode=${findPayByCode.payCode})}" method="post" onsubmit="return confirmCancel()">
+            <table class="table table-bordered">
+                <tbody>
+                <tr>
+                    <td>주문 날짜:</td>
+                    <td th:text="${findPayByCode.payDate}"></td>
+                </tr>
+                <tr>
+                    <td>배송자명:</td>
+                    <td th:text="${findPayByCode.payReceiver}"></td>
+                </tr>
+                <tr>
+                    <td>배송받을 연락처:</td>
+                    <td th:text="${findPayByCode.payDeliverPhone}"></td>
+                </tr>
+                <tr>
+                    <td>주문 결제 상태:</td>
+                    <td th:text="${findPayByCode.payRefundYn}"></td>
+                </tr>
+                <tr>
+                    <td>주문 결제 수량:</td>
+                    <td th:text="${findPayByCode.payTotalCnt}"></td>
+                </tr>
+                <tr>
+                    <td>주문 결제 금액:</td>
+                    <td th:text="${findPayByCode.payTotalPrice}"></td>
+                </tr>
+                <tr>
+                    <td>배송 상태:</td>
+                    <td th:text="${findPayByCode.payDeliverStatus}"></td>
+                </tr>
+                <tr>
+                    <td>계좌번호:</td>
+                    <td th:text="${findPayByCode.payAccountNumber}"></td>
+                </tr>
+                <tr>
+                    <td>카드번호:</td>
+                    <td th:text="${findPayByCode.payCardNumber}"></td>
+                </tr>
+                </tbody>
+            </table>
+            <!-- 배송 상태가 '배송전'일 경우에만 주문 취소 버튼을 보이도록 설정 -->
+            <button type="submit" class="btn btn-danger" th:if="${findPayByCode.payDeliverStatus == '배송전'}">주문취소</button>
         </form>
     </main>
     <script>

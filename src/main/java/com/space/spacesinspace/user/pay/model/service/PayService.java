@@ -85,15 +85,20 @@ public class PayService {
     }
 
     @Transactional
-    public void addPayList(PayDTO payDTO, PayDetailDTO payDetailDTO) {
-
+    public void addPayList(PayDTO payDTO) {
         payMapper.addPayList(payDTO);
-        int payCode = payDTO.getPayCode();
-        payDetailDTO.setPayCode(payCode);
+    }
+
+    @Transactional
+    public void addPayDetailList(PayDetailDTO payDetailDTO){
         payMapper.addPayDetailList(payDetailDTO);
     }
 
-    public List<PayDTO> findPayListByCode(int payCode) {
-        return payMapper.findPayListByCode(payCode);
+    public PayDTO findPayByCode(int payCode) {
+        return payMapper.findPayByCode(payCode);
+    }
+
+    public List<CartDTO> findCartList(int memberCode) {
+        return payMapper.findCartList(memberCode);
     }
 }

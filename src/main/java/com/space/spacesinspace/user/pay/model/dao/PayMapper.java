@@ -4,6 +4,7 @@ import com.space.spacesinspace.common.dto.MemberDTO;
 import com.space.spacesinspace.common.dto.PayDTO;
 import com.space.spacesinspace.common.dto.PayDetailDTO;
 import com.space.spacesinspace.common.dto.ProductDTO;
+import com.space.spacesinspace.user.cart.model.dto.CartDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -44,5 +45,7 @@ public interface PayMapper {
     // 위에서 추가하면서 상세내역도 같이 db 추가
     void addPayDetailList(PayDetailDTO payDTO);
 
-    List<PayDTO> findPayListByCode(int payCode);
+    PayDTO findPayByCode(int payCode);
+
+    List<CartDTO> findCartList(int memberCode);
 }
