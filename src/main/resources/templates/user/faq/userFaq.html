@@ -9,12 +9,12 @@
 
     <title>User FAQ</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
-            margin: 0;
-            padding: 0;
-        }
+        /*body {*/
+        /*    font-family: Arial, sans-serif;*/
+        /*    background-color: #f9f9f9;*/
+        /*    margin: 0;*/
+        /*    padding: 0;*/
+        /*}*/
 
         .faq-container {
             width: 60%;
@@ -85,7 +85,7 @@
 <body>
 
 <div th:replace="fragments/header :: header"></div>
-<h2 class="faqPage-title">FAQs</h2>
+<h2 class="faqPage-title"></h2>
 
 <div class="faq-container">
     <div th:each="faq : ${faqList}" class="faq-item">

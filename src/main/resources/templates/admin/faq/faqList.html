@@ -8,8 +8,9 @@
 <body class="faq-page">
 
 <div th:fragment="faqList" class="faq-container">
-    <h2>FAQs</h2>
+<!--    <h2>FAQs</h2>-->
 
+    <br>
     <div th:each="faq : ${faqList}" class="faq-item">
         <div class="faq-question">
             <h2 th:text="${faq.faqTitle}"></h2>
