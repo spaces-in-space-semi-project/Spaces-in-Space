@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="memberList">
+    <main>
+        <!-- Search and Button Container -->
+        <div class="d-flex justify-content-end mb-3">
+            <form th:action="@{/admin/member/searchMember}">
+                <div class="input-group" style="width: 250px;">
+                    <input type="text" name="searchValue" class="form-control" placeholder="검색..." aria-label="Search">
+                    <button class="btn btn-outline-secondary" type="button">검색</button>
+                </div>
+            </form>
+        </div>
+
+        <div id="grid" class="mt-4"></div>
+        <div id="pagination" class="d-flex justify-content-center mt-3"></div>
+
+        <script th:inline="javascript">
+            let memberList = /*[[${ memberList }]]*/ [];
+            const totalItems = memberList.length; // Total number of items
+            const itemsPerPage = 10; // Number of items per page
+
+            // Initialize TUI Pagination
+            const pagination = new tui.Pagination(document.getElementById('pagination'), {
+                totalItems: totalItems,
+                itemsPerPage: itemsPerPage,
+                visiblePages: 5,
+                centerAlign: true,
+                firstItem: '<span class="tui-page-btn tui-first">«</span>',
+                prevItem: '<span class="tui-page-btn tui-prev">‹</span>',
+                nextItem: '<span class="tui-page-btn tui-next">›</span>',
+                lastItem: '<span class="tui-page-btn tui-last">»</span>'
+            });
+
+            // Initialize TUI Grid without pageOptions
+            const grid = new tui.Grid({
+                el: document.getElementById('grid'),
+                data: memberList.slice(0, itemsPerPage),
+                scrollX: false,
+                scrollY: true,
+                columns: [
+                    {
+                        header: '회원코드',
+                        name: 'memberCode',
+                        sortable: true,
+                        align: 'center',
+                        width: 100
+                    },
+                    {
+                        header: '회원아이디',
+                        name: 'memberId',
+                        sortable: true,
+                        align: 'center',
+                        width: 150
+                    },
+                    {
+                        header: '회원이름',
+                        name: 'memberName',
+                        sortable: true,
+                        align: 'center',
+                        sortingType: 'desc',
+                        width: 150
+                    },
+                    {
+                        header: '회원이메일',
+                        sortable: true,
+                        align: 'center',
+                        name: 'memberEmail',
+                        width: 250
+                    },
+                    {
+                        header: '회원전화번호',
+                        name: 'memberPhone',
+                        sortable: true,
+                        align: 'center',
+                        width: 200
+                    },
+                    {
+                        header: '회원배송주소',
+                        name: 'memberAddress',
+                        sortable: true,
+                        align: 'center'
+                    }
+                ]
+            });
+
+            // Handle pagination page change and update grid data manually
+            pagination.on('beforeMove', (event) => {
+                const currentPage = event.page;
+                const startIdx = (currentPage - 1) * itemsPerPage;
+                const endIdx = startIdx + itemsPerPage;
+                grid.resetData(memberList.slice(startIdx, endIdx));
+                return true;
+            });
+
+            // Attach the row click event listener
+            grid.on('click', (ev) => {
+                const rowKey = ev.rowKey;
+                const rowData = grid.getRow(rowKey);
+
+                // Check if row data exists and navigate to the detail page
+                if (rowData && rowData.memberCode) {
+                    const detailUrl = `/admin/member/memberDetail/${rowData.memberCode}`;
+                    window.location.href = detailUrl;
+                }
+            });
+        </script>
+    </main>
+</div>
+</body>
+</html>

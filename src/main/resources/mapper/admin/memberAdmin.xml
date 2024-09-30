@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.space.spacesinspace.user.member.model.dao.MemberMapper">
+<mapper namespace="com.space.spacesinspace.admin.member.model.dao.MemberAdminMapper">
 
-    <resultMap id="authenticatedMember" type="com.space.spacesinspace.common.dto.MemberDTO">
+    <resultMap id="memberAdminResultMap" type="com.space.spacesinspace.common.dto.MemberDTO">
         <id property="memberCode" column="member_code"/>
         <result property="memberId" column="member_id"/>
         <result property="memberPw" column="member_pw"/>
@@ -16,44 +16,7 @@
         <result property="memberDeleteYn" column="member_delete_yn"/>
     </resultMap>
 
-    <select id="checkDuplicateId" resultType="Integer">
-        SELECT count(*)
-        FROM member_tbl
-        WHERE member_id = #{memberId}
-            AND member_delete_yn = 'N'
-    </select>
-
-    <select id="findIdByEmail" resultType="String">
-        SELECT member_id
-        FROM member_tbl
-        WHERE member_email = #{memberEmail}
-    </select>
-
-    <insert id="regist" parameterType="com.space.spacesinspace.user.member.model.dto.SignupDTO">
-        INSERT INTO member_tbl
-        (
-            member_id,
-            member_pw,
-            member_name,
-            member_email,
-            member_phone,
-            member_address,
-            member_role,
-            member_delete_yn
-        )
-        VALUES
-        (   #{memberId},
-            #{memberPw},
-            #{memberName},
-            #{memberEmail},
-            #{memberPhone},
-            #{memberAddress},
-            'USER',
-            'N'
-        )
-    </insert>
-
-    <select id="findByMemberId" parameterType="String" resultMap="authenticatedMember">
+    <select id="selectAllMembers" resultMap="memberAdminResultMap">
         SELECT
             member_code,
             member_id,
@@ -64,20 +27,59 @@
             member_address,
             member_role,
             member_delete_yn
-        FROM member_tbl
-        WHERE member_id = #{memberId}
-        AND member_delete_yn = 'N'
+        FROM
+            member_tbl
+        WHERE
+            member_delete_yn = 'N' AND member_role = 'USER'
+        ORDER BY
+            member_code
     </select>
 
-    <update id="updateInfo" parameterType="com.space.spacesinspace.user.member.model.dto.UpdateMemberDTO">
-        UPDATE member_tbl
+    <select id="searchMember" parameterType="String" resultMap="memberAdminResultMap">
+        SELECT
+            member_code,
+            member_id,
+            member_pw,
+            member_name,
+            member_email,
+            member_phone,
+            member_address,
+            member_role,
+            member_delete_yn
+        FROM
+            member_tbl
+        WHERE
+            (member_id LIKE CONCAT('%', #{searchValue}, '%') OR member_name LIKE CONCAT('%', #{searchValue}, '%'))
+            AND member_delete_yn = 'N' AND member_role = 'USER'
+    </select>
+
+    <select id="findMemberDetail" parameterType="int" resultMap="memberAdminResultMap">
+        SELECT
+            member_code,
+            member_id,
+            member_pw,
+            member_name,
+            member_email,
+            member_phone,
+            member_address,
+            member_role,
+            member_delete_yn
+        FROM
+            member_tbl
+        WHERE
+            member_code = #{memberCode}
+    </select>
+
+    <update id="updateMember" parameterType="com.space.spacesinspace.common.dto.MemberDTO">
+        UPDATE
+            member_tbl
         SET
             member_name = #{memberName},
             member_email = #{memberEmail},
             member_phone = #{memberPhone},
             member_address = #{memberAddress}
         WHERE
-            member_id = #{memberId}
+            member_code = #{memberCode}
     </update>
 
     <delete id="deleteMember" parameterType="int">
@@ -85,4 +87,5 @@
         SET member_delete_yn = 'Y'
         WHERE member_code = #{memberCode}
     </delete>
+
 </mapper>

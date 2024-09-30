@@ -68,4 +68,8 @@ public class ProductAdminService {
     public Integer deleteProduct(int code) {
         return productAdminMapper.deleteProduct(code);
     }
+
+    public List<ProductDTO> findProductBySearch(String searchValue) {
+        return productAdminMapper.findProductBySearch(searchValue);
+    }
 }

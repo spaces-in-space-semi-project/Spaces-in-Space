@@ -74,6 +74,12 @@
       min-height: 100vh;
     }
 
+    .form-container-member {
+      max-width: 700px;
+      /*margin: 0 auto;*/
+      /*padding: 20px;*/
+    }
+
     /* Add padding and background styling for a better click area */
     #pagination .tui-page-item a,
     #pagination .tui-page-btn {
@@ -215,7 +221,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a href="#">
+      <a th:href="@{/admin/member/memberList}">
         <i class="bi bi-people"></i> 회원 관리
       </a>
     </li>
@@ -242,6 +248,8 @@
     <div th:case="'product'" th:include="admin/product/productsManage :: product"></div>
     <div th:case="'productRegist'" th:include="admin/product/productRegist :: productRegist"></div>
     <div th:case="'productDetail'" th:include="admin/product/productDetail :: productDetail"></div>
+    <div th:case="'member'" th:include="admin/member/memberList :: memberList"></div>
+    <div th:case="'memberDetail'" th:include="admin/member/memberDetail :: memberDetail"></div>
     <div th:case="'inquiry'" th:include="admin/inquiry/list :: inquiry"></div>
 <!--    <div th:case="'inquiryDetail'" th:include="admin/inquiry/detail :: inquiryDetail"></div>-->
 <!--    <div th:case="'replyRegist'" th:include="admin/inquiry/replyRegist :: replyRegist"></div>-->
