@@ -8,9 +8,14 @@
 <body class="faq-page">
 
 <div th:fragment="faqList" class="faq-container">
-<!--    <h2>FAQs</h2>-->
 
-    <br>
+    <!-- FAQ 추가 버튼을 상단 중앙에 배치 -->
+    <div class="faq-add-container">
+        <form th:action="@{/admin/faq/create}" method="get">
+            <button type="submit" class="add-btn">FAQ 추가</button>
+        </form>
+    </div>
+
     <div th:each="faq : ${faqList}" class="faq-item">
         <div class="faq-question">
             <h2 th:text="${faq.faqTitle}"></h2>
@@ -27,11 +32,6 @@
                 <button type="submit" class="action-btn delete-btn">삭제</button>
             </form>
         </div>
-    </div>
-    <div class="faq-add-container">
-        <form th:action="@{/admin/faq/create}" method="get">
-            <button type="submit" class="add-btn">FAQ 추가</button>
-        </form>
     </div>
 
     <script>

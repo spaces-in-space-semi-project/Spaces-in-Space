@@ -7,80 +7,73 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
-    <title>User FAQ</title>
-    <style>
-        /*body {*/
-        /*    font-family: Arial, sans-serif;*/
-        /*    background-color: #f9f9f9;*/
-        /*    margin: 0;*/
-        /*    padding: 0;*/
-        /*}*/
+    <title>User FAQ</title><style>
+    .faq-container {
+        width: 60%;
+        margin: 50px auto;
+        background-color: white;
+        padding: 20px;
+        border-radius: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
 
-        .faq-container {
-            width: 60%;
-            max-height: 400px; /* 최대 높이를 설정하여 스크롤 가능 */
-            margin: 50px auto;
-            background-color: white;
-            padding: 20px;
-            border-radius: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            overflow-y: auto; /* 수직 스크롤바 추가 */
-        }
 
-        .faqPage-title {
-            text-align: center;
-            color: #333;
-        }
+    .faqPage-title {
+        text-align: center;
+        color: #333;
+    }
 
-        .faq-item {
-            margin-bottom: 20px;
-        }
+    .faq-item {
+        margin-bottom: 20px;
+    }
 
-        .faq-question {
-            display: flex;
-            justify-content: space-between;
-            background-color: #f1f1f1;
-            padding: 10px;
-            border-radius: 15px;
-            cursor: pointer;
-        }
+    .faq-question {
+        display: flex;
+        justify-content: space-between;
+        background-color: #f1f1f1;
+        padding: 10px;
+        border-radius: 15px;
+        cursor: pointer;
+    }
 
-        .faq-question h2 {
-            margin: 0;
-            font-size: 16px;
-            color: #555;
-        }
+    .faq-question h2 {
+        margin: 0;
+        font-size: 16px;
+        color: #555;
+    }
 
-        .toggle-btn {
-            font-size: 20px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: #555454;
-        }
+    .toggle-btn {
+        font-size: 20px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: #555454;
+    }
 
-        .faq-answer {
-            display: none;
-            padding: 10px;
-            background-color: #fff;
-            border-left: 4px solid #333333;
-        }
+    .faq-answer {
+        display: none;
+        padding: 10px;
+        background-color: #fff;
+        border-left: 4px solid #333333;
+    }
 
-        .faq-answer p {
-            margin: 0;
-            font-size: 16px;
-            color: #333333;
-        }
+    .faq-answer p {
+        margin: 0;
+        font-size: 16px;
+        color: #333333;
+    }
 
-        footer {
-            position: fixed; /* 페이지 하단에 고정 */
-            bottom: 0;
-            width: 100%;
-            background-color: #cacaca;
-            text-align: center;
-            padding: 10px 0;
-        }
-    </style>
+    footer {
+        position: relative; /* fixed 대신 relative로 변경 */
+        bottom: 0;
+        width: 100%;
+        background-color: #cacaca;
+        text-align: center;
+        padding: 5px 0;
+    }
+
+</style>
+
 </head>
 <body>
 
