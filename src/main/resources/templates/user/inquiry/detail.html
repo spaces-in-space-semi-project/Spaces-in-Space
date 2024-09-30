@@ -29,19 +29,18 @@
                 </div>
 
                 <div class="d-flex justify-content-between mt-4">
-                    <button type="submit" class="btn btn-primary btn-custom" th:attr="disabled=${reply != null ? 'disabled' : null}">수정하기</button>
+                    <button type="submit" class="btn btn-primary btn-custom" th:style="${reply != null ? 'display:none;' : null}">수정하기</button>
                 </div>
             </form>
 
             <form th:action="@{/user/inquiry/delete/{code}(code=${inquiry.inquiryCode})}" method="post">
-                <button type="submit" class="btn btn-danger btn-block mt-3" th:attr="disabled=${reply != null ? 'disabled' : null}">삭제하기</button>
+                <button type="submit" class="btn btn-danger btn-block mt-3" th:style="${reply != null ? 'display:none;' : null}">삭제하기</button>
             </form>
 
             <!-- 답변 내용 -->
             <div th:if="${reply != null}" class="reply-container mt-4">
-                <h6 class="text-success">답변</h6>
-                <p><strong>답변 내용:</strong> <span th:text="${reply.replyDetail}"></span></p>
-                <p><strong>답변 날짜:</strong> <span th:text="${reply.replyDate}"></span></p>
+                <strong>답변</strong><p><small class="text-success">답변일: <span th:text="${reply.replyDate}"></span></small></p>
+                <p><span th:text="${reply.replyDetail}"></span></p>
             </div>
         </div>
     </main>
