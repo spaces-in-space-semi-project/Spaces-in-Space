@@ -25,14 +25,6 @@ public class ReplyController {
         this.replyService = replyService;
     }
 
-    @GetMapping("regist")
-    public String registPage(Model model) {
-        model.addAttribute("replyCode", "답변코드");
-        model.addAttribute("activeSection", "registReply");
-
-        return "admin/inquiry/detail";
-    }
-
     @PostMapping("/registReply/{inquiryCode}")
     public String registReply(RedirectAttributes rAttr, @PathVariable int inquiryCode, @RequestParam String replyDetail2, @AuthenticationPrincipal MemberDTO member) {
 

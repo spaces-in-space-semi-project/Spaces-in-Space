@@ -38,12 +38,12 @@
                     <button type="submit" class="btn btn-primary">수정하기</button>
                     <button type="button" class="btn btn-danger" onclick="confirmDelete()">삭제하기</button>
                 </div>
-                <form th:action="@{/admin/reply/deleteReply}" method="post" id="deleteForm">
-                    <input type="hidden" name="replyCode" th:value="${reply != null ? reply.replyCode : ''}">
-                </form>
             </form>
         </div>
 
+        <form th:action="@{/admin/reply/deleteReply}" method="post" id="deleteForm">
+            <input type="hidden" name="replyCode" th:value="${reply != null ? reply.replyCode : ''}">
+        </form>
 
         <div th:if="${reply == null}" class="form-container-inquiry mt-4 ">
             <form th:action="@{/admin/reply/registReply/{inquiryCode}(inquiryCode=${ inquiry.inquiryCode })}" method="post">
@@ -58,73 +58,34 @@
 
 
     </div>
-    </div>
-        <script th:inline="javascript">
-            // 삭제 confirm
-            function confirmDelete() {
-                if (confirm("정말로 이 답변을 삭제하시겠습니까?")) {
-                    document.getElementById('deleteForm').submit();
-                }
+    <script th:inline="javascript">
+        // 삭제 confirm
+        function confirmDelete() {
+            if (confirm("정말로 이 답변을 삭제하시겠습니까?")) {
+                document.getElementById('deleteForm').submit();
             }
-            // Form validation using Bootstrap
-            (() => {
-                'use strict';
+        }
+        // Form validation using Bootstrap
+        (() => {
+            'use strict';
 
-                // Fetch all the forms we want to apply custom Bootstrap validation styles to
-                const forms = document.querySelectorAll('.needs-validation');
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            const forms = document.querySelectorAll('.needs-validation');
 
-                // Loop over them and prevent submission
-                Array.from(forms).forEach(form => {
-                    form.addEventListener('submit', event => {
-                        if (!form.checkValidity()) {
-                            event.preventDefault();
-                            event.stopPropagation();
-                        }
+            // Loop over them and prevent submission
+            Array.from(forms).forEach(form => {
+                form.addEventListener('submit', event => {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
 
-                        form.classList.add('was-validated');
-                    }, false);
-                });
-            })();
-
-            document.addEventListener('DOMContentLoaded', function () {
-                const currentInquiryCode = `[[${inquiry.inquiryCode}]]`;
-                // 문의글 데이터를 비동기로 가져오기
-                fetch("/admin/inquiry/list")
-                    .then(res => {
-                        if (!res.ok) {
-                            throw new Error('서버 응답 에러: ' + res.status);
-                        }
-                        return res.json();
-                    })
-                    .then(data => {
-                        const inquiryCodeSelect = document.getElementById('inquiryCode');
-
-                        // 문의글 데이터가 있는지 확인
-                        if (data.length === 0) {
-                            console.error("문의글 데이터가 없습니다.");
-                            return;
-                        }
-
-                        // 데이터를 기반으로 옵션 생성
-                        data.forEach(inquiry => {
-                            const option = document.createElement('option');
-                            option.value = inquiry.inquiryCode;
-                            option.textContent = inquiry.inquiryCode;
-
-                            if (inquiry.inquiryCode.toString() === currentInquiryCode.toString()) {
-                                option.selected = true;
-                            }
-
-                            inquiryCodeSelect.appendChild(option);
-                        });
-
-                        inquiryCodeSelect.value = currentInquiryCode;
-                    })
-                    .catch(error => {
-                        console.error('문의글을 불러오는 중 오류 발생:', error);
-                    });
+                    form.classList.add('was-validated');
+                }, false);
             });
-        </script>
+        })();
+    </script>
+    </div>
 
 </body>
 </html>

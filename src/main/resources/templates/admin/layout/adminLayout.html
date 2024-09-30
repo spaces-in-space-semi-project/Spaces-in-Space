@@ -101,24 +101,22 @@
     }
 
     /* faqList 페이지 CSS */
+    /* Updated FAQ list page styling */
     .faq-page {
-      background-color: #f8f9fa; /* 배경색 */
+      background-color: #f8f9fa;
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh; /* 최소 높이 설정 */
-      margin: 0;
+      min-height: 100vh;
     }
 
     .faq-container {
-      width: 60%;
-      max-height: 400px;
+      width: 70%;
       margin: 50px auto;
-      background-color: white;
+      background-color: #fff;
       padding: 20px;
       border-radius: 10px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      overflow-y: auto; /* 수직 스크롤바 추가 */
     }
 
     .faq-container h2 {
@@ -133,16 +131,22 @@
     .faq-question {
       display: flex;
       justify-content: space-between;
-      background-color: #f1f1f1;
-      padding: 10px;
-      border-radius: 5px;
+      background-color: #e9ecef;
+      padding: 7px;
+      padding-left: 5px;
+      border-radius: 0px;
       cursor: pointer;
+      transition: background-color 0.3s;
     }
 
     .faq-question h2 {
-      margin: 0;
+      margin: 5px;
       font-size: 18px;
-      color: #555;
+      color: #333;
+    }
+
+    .faq-question:hover {
+      background-color: #ced4da;
     }
 
     .toggle-btn {
@@ -155,9 +159,10 @@
 
     .faq-answer {
       display: none;
-      padding: 10px;
-      background-color: #fff;
-      border-left: 4px solid #007bff;
+      padding: 15px;
+      background-color: #f8f9fa;
+      border-left: 4px solid #2b2b2b;
+      margin-top: 10px;
     }
 
     .faq-answer p {
@@ -166,45 +171,266 @@
       color: #666;
     }
 
-    /* 액션 버튼 관련 CSS */
-    .faq-actions {
-      margin-top: 10px;
-      display: flex;
-      justify-content: flex-end;
-    }
-
-    .action-btn {
-      border: none;
-      border-radius: 5px;
-      padding: 8px 12px;
-      margin-left: 10px;
-      cursor: pointer;
-    }
-
-    .update-btn {
-      background-color: black;
-      color: white;
-    }
-
-    .delete-btn {
-      background-color: red;
-      color: white;
-    }
-
-    /* FAQ 추가 버튼 CSS */
+    /* 상단 중앙 FAQ 추가 버튼 스타일링 */
     .faq-add-container {
-      text-align: center;
-      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+      text-align:center;
     }
 
     .add-btn {
-      background-color: red;
+      background-color: #385ed5;
+      color: white;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .add-btn:hover {
+      background-color: #515151;
+    }
+
+    /* 수정 및 삭제 버튼을 오른쪽에 배치 */
+    .faq-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px; /* 수정과 삭제 버튼 간의 간격 */
+      margin-top: 10px; /* 상단과의 간격 조정 */
+    }
+
+    /* 수정 및 삭제 버튼 스타일 */
+    .action-btn {
+      background-color: #373737; /* 기본 배경색 */
+      border: 1px solid #3e3e3e; /* 테두리 */
+      border-radius: 5px; /* 약간 둥근 모서리 */
+      padding: 8px 16px; /* 버튼 안의 공간 */
+      cursor: pointer;
+      font-size: 14px;
+      color: #ffffff; /* 기본 글자색 */
+      transition: background-color 0.3s, border-color 0.3s; /* hover 효과를 위한 transition */
+    }
+
+    .action-btn:hover {
+      background-color: #555555; /* hover 시 배경색 */
+      border-color: #373737; /* hover 시 테두리 색상 */
+      color: white; /* hover 시 글자색 */
+    }
+
+    /* 추가 버튼과 통일성을 위한 삭제 및 수정 버튼 크기 */
+    .add-btn {
+      object-position: right;
+      background-color: #3f4ddd;
+      color: white;
+      padding: 7px 14px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+
+    }
+
+    .add-btn:hover {
+      background-color: #ff3c37;
+    }
+
+    /* FAQ 추가 버튼을 오른쪽으로 배치 */
+    .faq-add-container {
+      display: flex;
+      justify-content: flex-end; /* 오른쪽 정렬 */
+      margin-bottom: 20px;
+    }
+
+
+    /* Container 스타일링 */
+    .faq-form-container {
+      width: 50%;
+      max-width: 600px; /* 최대 너비를 설정하여 큰 화면에서 너무 넓어지지 않도록 */
+      margin: 50px auto; /* 위쪽 마진 50px, 좌우 자동으로 중앙 정렬 */
+      background-color: #f9f9f9;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+
+
+    /* 제목 스타일링 */
+    .container-faq-form-container h2 {
+      text-align: right; /* 글자를 오른쪽 끝으로 정렬 */
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+
+    /* 폼 스타일링 */
+    .faq-form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    /* 입력 필드 스타일링 */
+    .faq-form input[type="text"],
+    .faq-form textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+      transition: border-color 0.3s;
+    }
+
+    .faq-form input[type="text"]:focus,
+    .faq-form textarea:focus {
+      border-color: #3f4ddd;
+      outline: none;
+    }
+
+    /* 글자 수 카운트 스타일 */
+    .char-count {
+      font-size: 14px;
+      color: #888;
+      text-align: right;
+    }
+
+    /* 폼 컨테이너 중앙 정렬 */
+    .form-container {
+      display: flex;
+      flex-direction: column; /* 세로 방향으로 정렬 */
+      align-items: center; /* 가로 방향 중앙 정렬 */
+    }
+
+    /* 추가 버튼 스타일링 */
+    .submit-btn {
+      background-color: #3f4ddd;
       color: white;
       padding: 10px 20px;
-      border-radius: 5px;
       border: none;
+      border-radius: 8px;
+      font-size: 16px;
       cursor: pointer;
+      width: 150px; /* 버튼 길이 조정 */
+      transition: background-color 0.3s, box-shadow 0.3s;
     }
+
+    .submit-btn:hover {
+      background-color: #ff3c37;
+      box-shadow: 0 4px 12px rgba(255, 60, 55, 0.3);
+    }
+
+
+
+    /* 목록으로 돌아가기 링크 스타일 */
+  .back-link {
+  display: inline-block;
+  margin-top: 20px;
+  color: #3f4ddd;
+  text-decoration: none;
+  font-size: 16px;
+    text-align: center;
+  }
+
+  .back-link:hover {
+  text-decoration: underline;
+  color: #ff3c37;
+  }
+
+
+    .faq-form-container {
+      width: 50%;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f9f9f9;
+      border-radius: 10px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .faq-title {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .faq-form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .faq-label {
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #333;
+    }
+
+    .faq-input,
+    .faq-textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    .char-count {
+      text-align: right;
+      font-size: 12px;
+      color: #666;
+    }
+
+    /* 추가 버튼 스타일링 */
+    .submit-btn {
+      background-color: #3f4ddd;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      width: 150px; /* 버튼 길이 조정 */
+      transition: background-color 0.3s, box-shadow 0.3s;
+      margin: 0 auto; /* 버튼을 중앙에 배치 */
+    }
+
+    /* 폼 스타일링 */
+    .faq-form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      align-items: center; /* 모든 항목을 중앙 정렬 */
+    }
+
+    /* 폼 컨테이너 중앙 정렬 */
+    .faq-form-container {
+      display: flex;
+      flex-direction: column; /* 세로 방향으로 정렬 */
+      align-items: center; /* 가로 방향 중앙 정렬 */
+    }
+
+
+    .submit-btn:hover {
+      background-color: #f13838;
+    }
+
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+
 
   </style>
 
