@@ -39,7 +39,7 @@
 
             <!-- 답변 내용 -->
             <div th:if="${reply != null}" class="reply-container mt-4">
-                <strong>답변</strong><p><small class="text-success">답변일: <span th:text="${reply.replyDate}"></span></small></p>
+                <strong>답변</strong><p><small class="text-success">답변일: <span th:text="${reply.replyEditDate != null ? reply.replyEditDate : reply.replyDate}"></span></small></p>
                 <p><span th:text="${reply.replyDetail}"></span></p>
             </div>
         </div>

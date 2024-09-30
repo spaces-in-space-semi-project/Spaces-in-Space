@@ -1,15 +1,21 @@
 package com.space.spacesinspace.admin.reply.controller;
 
 import com.space.spacesinspace.admin.reply.model.service.ReplyService;
+import com.space.spacesinspace.common.dto.InquiryDTO;
+import com.space.spacesinspace.common.dto.MemberDTO;
 import com.space.spacesinspace.common.dto.ReplyDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 @Controller
-@RequestMapping("/admin/inquiry/detail")
+@RequestMapping("/admin/reply/*")
 public class ReplyController {
 
     private final ReplyService replyService;
@@ -19,20 +25,39 @@ public class ReplyController {
         this.replyService = replyService;
     }
 
-    @GetMapping("regist")
-    public void registPage() {}
+    @PostMapping("/registReply/{inquiryCode}")
+    public String registReply(RedirectAttributes rAttr, @PathVariable int inquiryCode, @RequestParam String replyDetail2, @AuthenticationPrincipal MemberDTO member) {
 
-    @PostMapping("/admin/inquiry/detail")
-    public String registReply(ReplyDTO newReply, RedirectAttributes rAttr) {
-        replyService.registReply(newReply);
+        ReplyDTO newReply = new ReplyDTO();
+        newReply.setInquiryCode(inquiryCode);
 
-        rAttr.addFlashAttribute("successMessage", "답변이 등록되었습니다.");
+        newReply.setReplyDetail(replyDetail2);
 
-        return "redirect:/admin/inquiry/list";
+        int memberCode = member.getMemberCode();
+        newReply.setMemberCode(memberCode);
+
+        LocalDate currentDate = LocalDate.now();
+        String formattedDate = currentDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        newReply.setReplyDate(formattedDate);
+
+        Integer result = replyService.registNewReply(newReply);
+
+        String message;
+        if (result == null || result == 0) {
+            message = "답변 등록에 실패했습니다. 다시 시도해주세요.";
+        } else if (result >= 1) {
+            message = "답변 등록이 성공적으로 완료되었습니다.";
+        } else {
+            message = "알 수 없는 오류가 발생했습니다. 다시 시도해주세요.";
+        }
+
+        rAttr.addFlashAttribute("message", message);
+
+        return "redirect:/admin/inquiry/detail/" + inquiryCode;
     }
 
-    @PostMapping("/delete/{replyCode}")
-    public String deleteReply(@PathVariable("replyCode") int replyCode,
+    @PostMapping("/deleteReply")
+    public String deleteReply(@RequestParam int replyCode,
                               RedirectAttributes rAttr) {
 
         replyService.deleteReply(replyCode);
@@ -42,22 +67,24 @@ public class ReplyController {
         return "redirect:/admin/inquiry/list";
     }
 
-    @GetMapping("edit/{replyCode}")
-    public String updateForm(@PathVariable("replyCode") int replyCode, Model model) {
+    @PostMapping("/updateReply")
+    public String updateReply(@ModelAttribute ReplyDTO reply, RedirectAttributes rAttr) {
+        LocalDate currentDate = LocalDate.now();
+        String formattedDate = currentDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        reply.setReplyEditDate(formattedDate);
 
-        ReplyDTO reply = replyService.findReplyByCode(replyCode);
+        Integer result = replyService.updateReply(reply);
 
-        model.addAttribute("reply", reply);
+        String message;
+        if (result == null || result == 0) {
+            message = "답변 수정에 실패했습니다. 다시 시도해주세요.";
+        } else if (result >= 1) {
+            message = "답변 수정이 성공적으로 완료되었습니다.";
+        } else {
+            message = "알 수 없는 오류가 발생했습니다. 다시 시도해주세요.";
+        }
 
-        return "admin/inquiry/replyEdit";
-    }
-
-    @PostMapping("update")
-    public String updateReply(@ModelAttribute ReplyDTO reply, RedirectAttributes rAttr) throws Exception {
-
-        replyService.updateReply(reply);
-
-        rAttr.addFlashAttribute("successMessage", "문의글이 수정되었습니다.");
+        rAttr.addFlashAttribute("message", message);
 
         return "redirect:/admin/inquiry/list";
     }
