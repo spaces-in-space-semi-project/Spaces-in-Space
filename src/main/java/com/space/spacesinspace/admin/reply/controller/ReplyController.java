@@ -2,6 +2,7 @@ package com.space.spacesinspace.admin.reply.controller;
 
 import com.space.spacesinspace.admin.reply.model.service.ReplyService;
 import com.space.spacesinspace.common.dto.InquiryDTO;
+import com.space.spacesinspace.common.dto.MemberDTO;
 import com.space.spacesinspace.common.dto.ReplyDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -32,21 +33,35 @@ public class ReplyController {
         return "admin/inquiry/detail";
     }
 
-    @PostMapping("/registReply")
-    public String registReply(ReplyDTO newReply, RedirectAttributes rAttr, @AuthenticationPrincipal InquiryDTO inquiry) {
+    @PostMapping("/registReply/{inquiryCode}")
+    public String registReply(RedirectAttributes rAttr, @PathVariable int inquiryCode, @RequestParam String replyDetail2, @AuthenticationPrincipal MemberDTO member) {
 
-        int inquiryCode = inquiry.getInquiryCode();
+        ReplyDTO newReply = new ReplyDTO();
         newReply.setInquiryCode(inquiryCode);
+
+        newReply.setReplyDetail(replyDetail2);
+
+        int memberCode = member.getMemberCode();
+        newReply.setMemberCode(memberCode);
 
         LocalDate currentDate = LocalDate.now();
         String formattedDate = currentDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         newReply.setReplyDate(formattedDate);
 
-        replyService.registNewReply(newReply);
+        Integer result = replyService.registNewReply(newReply);
 
-        rAttr.addFlashAttribute("successMessage", "신규 답변이 등록되었습니다.");
+        String message;
+        if (result == null || result == 0) {
+            message = "답변 등록에 실패했습니다. 다시 시도해주세요.";
+        } else if (result >= 1) {
+            message = "답변 등록이 성공적으로 완료되었습니다.";
+        } else {
+            message = "알 수 없는 오류가 발생했습니다. 다시 시도해주세요.";
+        }
 
-        return "redirect:/admin/inquiry/list";
+        rAttr.addFlashAttribute("message", message);
+
+        return "redirect:/admin/inquiry/detail/" + inquiryCode;
     }
 
     @PostMapping("/deleteReply/{replyCode}")
@@ -60,7 +75,7 @@ public class ReplyController {
         return "redirect:/admin/inquiry/list";
     }
 
-    @PostMapping("update")
+    @PostMapping("/updateReply")
     public String updateReply(@ModelAttribute ReplyDTO reply, RedirectAttributes rAttr) {
         LocalDate currentDate = LocalDate.now();
         String formattedDate = currentDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));

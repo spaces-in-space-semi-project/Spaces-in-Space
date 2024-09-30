@@ -30,9 +30,9 @@
 
     <insert id="registReply" parameterType="com.space.spacesinspace.common.dto.ReplyDTO">
         INSERT INTO reply_tbl
-            (reply_detail, reply_date)
+            (inquiry_code, member_code, reply_detail, reply_date)
         VALUES
-            (#{replyDetail}, #{inquiryDate})
+            (#{inquiryCode}, #{memberCode}, #{replyDetail}, #{inquiryDate})
     </insert>
 
     <delete id="deleteReply" parameterType="int">

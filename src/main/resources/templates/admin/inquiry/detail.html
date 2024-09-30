@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{/css/style.css}">
-    <title>답변 수정</title>
+    <title>admin inquiry detail</title>
 
 </head>
 <body>
@@ -29,7 +29,7 @@
             <input type="hidden" id="replyCode" name="replyCode" th:value="${reply.replyCode}">
             <p><strong>답변 날짜 : </strong><span th:text="${reply.replyDate}"></span></p>
 
-            <form th:action="@{/admin/reply/update}" method="post">
+            <form th:action="@{/admin/reply/updateReply}" method="post">
                 <div class="mb-3">
                     <label for="replyDetail" class="form-label">답변</label>
                     <textarea id="replyDetail" name="replyDetail" class="form-control" rows="5" th:text="${reply.replyDetail}" required></textarea>
@@ -44,7 +44,7 @@
 
 
         <div th:if="${reply == null}" class="form-container-inquiry mt-4 ">
-            <form th:action="@{/admin/reply/registReply}" method="post">
+            <form th:action="@{/admin/reply/registReply/{inquiryCode}(inquiryCode=${ inquiry.inquiryCode })}" method="post">
                 <label for="replyDetail2" class="form-label">답변</label>
                 <textarea name="replyDetail2" id="replyDetail2" rows="5" class="form-control" th:text="${reply != null ? reply.replyDetail : ''}"></textarea>
                 <br>
