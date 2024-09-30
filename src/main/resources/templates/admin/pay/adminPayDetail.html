@@ -30,7 +30,7 @@
         </div>
         <div class="card-body">
             <!-- 주문 취소 버튼 -->
-            <form th:action="@{/admin/pay/delete/{payCode}(payCode=${findPayByCode.payCode})}" method="post" onsubmit="return confirmCancel()">
+            <form th:action="@{/admin/pay/update/{payCode}(payCode=${findPayByCode.payCode})}" method="post" onsubmit="return confirmCancel()">
             <p><strong>주문 날짜:</strong> <span th:text="${findPayByCode.payDate}"></span></p>
             <p><strong>배송자명:</strong> <span th:text="${findPayByCode.payReceiver}"></span></p>
             <p><strong>배송받을 연락처:</strong> <span th:text="${findPayByCode.payDeliverPhone}"></span></p>

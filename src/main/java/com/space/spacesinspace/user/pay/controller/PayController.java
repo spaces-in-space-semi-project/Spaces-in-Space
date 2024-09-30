@@ -74,14 +74,14 @@ public class PayController {
         return "user/pay/payProgress";
     }
 
-    /*주문 상세내역조회 시, 배송전이면 삭제하는 기능*/
+    /*주문 상세내역조회 시, 배송전이면 삭제하는 기능 보류*/
     @PostMapping("delete/{payCode}")
     public String deletePayMenu(@PathVariable("payCode") int payCode){
         payService.deletePayMenu(payCode);
         return "redirect:/user/pay/payList";
     }
 
-    /*주문 상세내역조회 시, 배송전이면 삭제하는 기능*/
+    /*주문 상세내역조회 시, 배송전이면 결제취소여부 N -> Y 로 기록 수정하며 남기는 기능 */
     @PostMapping("update/{payCode}")
     public String updatePayMenu(@PathVariable("payCode") int payCode){
         payService.updatePayMenu(payCode);

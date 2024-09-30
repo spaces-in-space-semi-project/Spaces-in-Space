@@ -72,6 +72,10 @@
                     <td>카드번호:</td>
                     <td th:text="${findPayByCode.payCardNumber}"></td>
                 </tr>
+                <tr>
+                    <td>결제취소여부:</td>
+                    <td th:text="${findPayByCode.payDeleteYn}"></td>
+                </tr>
                 </tbody>
             </table>
             <!-- 배송 상태가 '배송전'일 경우에만 주문 취소 버튼을 보이도록 설정 -->

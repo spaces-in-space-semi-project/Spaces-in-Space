@@ -120,7 +120,36 @@
             a.pay_delete_yn = 'N'
     </select>
 
-    <!--사용자 결제한 내역 전체 중 payCode로 조회-->
+    <!--사용자 결제한 내역 전체조회 (취소여부가 'Y' 일때 데이터 조회)-->
+    <select id="findPayListY" resultMap="payResultMap">
+        SELECT
+        a.pay_code,
+        a.member_code,
+        b.member_id,
+        b.member_name,
+        a.pay_date,
+        a.pay_total_cnt,
+        a.pay_total_price,
+        a.pay_address,
+        a.pay_receiver,
+        a.pay_deliver_phone,
+        a.pay_deliever_status,
+        a.pay_refund_yn,
+        a.pay_delete_yn,
+        a.pay_account_number,
+        a.pay_card_number,
+        a.bank_code,
+        a.card_company_code
+        FROM
+        pay_tbl a
+        JOIN
+        member_tbl b ON (a.member_code = b.member_code)
+        WHERE
+        b.member_id = #{loggedInUsername} AND
+        a.pay_delete_yn = 'Y'
+    </select>
+
+    <!--사용자 결제한 내역 전체 중 payCode로 조회 (취소여부가 'N' 일때 데이터 조회)-->
     <select id="findPayByCode" resultMap="payResultMap">
     SELECT
         a.pay_code,
@@ -145,6 +174,33 @@
     WHERE
         a.pay_code = #{payCode} AND
         a.pay_delete_yn = 'N'
+    </select>
+
+    <!--사용자 결제한 내역 전체 중 payCode로 조회 (취소여부가 'Y' 일때 데이터 조회)-->
+    <select id="findPayByCodeY" resultMap="payResultMap">
+        SELECT
+        a.pay_code,
+        a.member_code,
+        a.pay_date,
+        a.pay_total_cnt,
+        a.pay_total_price,
+        a.pay_address,
+        a.pay_receiver,
+        a.pay_deliver_phone,
+        a.pay_deliever_status,
+        a.pay_refund_yn,
+        a.pay_delete_yn,
+        a.pay_account_number,
+        a.pay_card_number,
+        a.bank_code,
+        a.card_company_code
+        FROM
+        pay_tbl a
+        JOIN
+        member_tbl b ON (a.member_code = b.member_code)
+        WHERE
+        a.pay_code = #{payCode} AND
+        a.pay_delete_yn = 'Y'
     </select>
 
     <!--사용자 상세조회-->
@@ -322,18 +378,19 @@
         WHERE member_code = #{memberCode}
     </select>
 
-    <!--사용자 결제내역 삭제 할시 먼저 지우는 payCode-->
+    <!--사용자 결제내역 삭제 할시 먼저 상세조회 payeCode 부터 지워야 한다.-->
     <delete id="deletePayDetailMenu" parameterType="int">
         DELETE FROM pay_detail_tbl
         WHERE pay_code = #{ payCode }
     </delete>
 
-    <!--사용자 결제내역 삭제하는 payCode-->
+    <!--사용자 결제내역 payCode로 삭제한다 -->
     <delete id="deletePayMenu" parameterType="int">
         DELETE FROM pay_tbl
         WHERE pay_code = #{ payCode }
     </delete>
 
+    <!--사용자 결제내역 삭제 대신 취소여부를 update 하는 쿼리문-->
     <update id="updatePayMenu" parameterType="com.space.spacesinspace.common.dto.PayDTO">
         UPDATE pay_tbl
         SET
@@ -354,6 +411,7 @@
         VALUES (#{payCode}, #{productCode}, #{payDetailCnt}, #{payDetailPrice})
     </insert>
 
+    <!--장바구니를 조회한다. 음.-->
     <select id="findCartList" parameterType="int" resultMap="cartResultMap">
         SELECT
             product_code,

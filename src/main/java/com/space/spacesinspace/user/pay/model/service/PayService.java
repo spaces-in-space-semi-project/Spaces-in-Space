@@ -30,10 +30,11 @@ public class PayService {
     public List<PayDTO> findPayList() {
 
         String loggedInUsername = getLoggedInUsername();  // 로그인된 사용자 ID 가져오기
-        if (loggedInUsername != null) {
-            return payMapper.findPayList(loggedInUsername);  // 로그인된 사용자 ID로 쿼리 실행
+        List<PayDTO> list = payMapper.findPayList(loggedInUsername);
+        if (loggedInUsername != null && list != null && !list.isEmpty()) {
+            return list;
         } else {
-            return new ArrayList<>();  // 로그인이 안 된 경우 빈 리스트 반환
+            return payMapper.findPayListY(loggedInUsername);
         }
     }
 
@@ -94,8 +95,16 @@ public class PayService {
         payMapper.addPayDetailList(payDetailDTO);
     }
 
+
     public PayDTO findPayByCode(int payCode) {
-        return payMapper.findPayByCode(payCode);
+
+        PayDTO payList = payMapper.findPayByCode(payCode);
+
+        if (payList != null) {
+            return payList;
+        } else {
+            return payMapper.findPayByCodeY(payCode);
+        }
     }
 
     public List<CartDTO> findCartList(int memberCode) {
@@ -106,7 +115,12 @@ public class PayService {
         return payMapper.searchPayList(searchValue);
     }
 
+
     public void updatePayMenu(int payCode) {
+        payMapper.updatePayMenu(payCode);
+    }
+
+    public void updateAdminPayMenu(int payCode) {
         payMapper.updatePayMenu(payCode);
     }
 }
