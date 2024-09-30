@@ -53,7 +53,7 @@ public class CartService {
         cartMapper.deleteCartMenu(productCode);
     }
 
-    public CartDTO cartProgress(int memberCode) {
+    public List<CartDTO> cartProgress(int memberCode) {
         return cartMapper.cartProgress(memberCode);
     }
 
@@ -65,5 +65,17 @@ public class CartService {
 
     public CartDTO checkCartItem(Map<String, Integer> params) {
         return cartMapper.checkCartItem(params);
+    }
+
+    public CartDTO getTotalPriceForMember(int memberCode) {
+        return cartMapper.getTotalPriceForMember(memberCode);
+    }
+
+    public CartDTO getTotalCntForMember(int memberCode) {
+        return cartMapper.getTotalCntForMember(memberCode);
+    }
+
+    public void deleteCartAllMenu(int memberCode) {
+        cartMapper.deleteCartAllMenu(memberCode);
     }
 }

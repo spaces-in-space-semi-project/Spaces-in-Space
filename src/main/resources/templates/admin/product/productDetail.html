@@ -6,7 +6,7 @@
 </head>
 <body>
 <div th:fragment="productDetail" class="container my-5">
-    <h2 class="mb-4">상품 수정</h2>
+    <h2 class="mb-4">상품 상세</h2>
     <form th:action="@{/admin/product/productUpdate}" method="post" enctype="multipart/form-data" class="row g-3 needs-validation" novalidate>
         <input type="hidden" class="form-control" id="productCode" name="productCode" th:value="${product.productCode}">
         <input type="hidden" name="existingImageOriginal" th:value="${product.productImageOriginal}">

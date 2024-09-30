@@ -20,6 +20,7 @@
         SELECT count(*)
         FROM member_tbl
         WHERE member_id = #{memberId}
+            AND member_delete_yn = 'N'
     </select>
 
     <select id="findIdByEmail" resultType="String">
@@ -65,6 +66,7 @@
             member_delete_yn
         FROM member_tbl
         WHERE member_id = #{memberId}
+        AND member_delete_yn = 'N'
     </select>
 
     <update id="updateInfo" parameterType="com.space.spacesinspace.user.member.model.dto.UpdateMemberDTO">
@@ -79,7 +81,8 @@
     </update>
 
     <delete id="deleteMember" parameterType="int">
-        DELETE FROM member_tbl
+        UPDATE member_tbl
+        SET member_delete_yn = 'Y'
         WHERE member_code = #{memberCode}
     </delete>
 </mapper>

@@ -17,23 +17,36 @@
             flex: 1;
             padding: 20px;
         }
+
         .product-detail {
             display: flex;
+            justify-content: center; /* Centers product-info horizontally */
+            align-items: center; /* Centers product-info vertically */
             gap: 30px;
-            align-items: flex-start;
+            margin-top: 15px;
+            text-align: left;
         }
         .product-detail img {
-            max-width: 100%;
-            height: auto;
+            width: 100%; /* Sets the width to fill the container */
+            height: 770px; /* Set a consistent height for all images */
+            object-fit: cover; /* Ensures the image fills the box while maintaining aspect ratio */
             border: 1px solid #eaeaea;
             border-radius: 8px;
         }
+
         .product-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* Ensures pay-btn stays at the bottom */
             max-width: 500px;
+            padding: 20px;
+            height: 70%; /* Adjust height to ensure it stays centered */
         }
+
         .btn-group {
-            margin-top: 20px;
+            margin-top: auto; /* Pushes the button group to the bottom */
         }
+
         .reviews-section {
             margin-top: 40px;
             border-top: 1px solid #eaeaea;
@@ -50,10 +63,16 @@
             <img th:src="@{${product.productImageOriginal}}" alt="Product Image">
         </div>
         <div class="col-md-6 product-info">
-            <h5 th:text="${product.productName}">Product Name</h5>
-            <p th:text="'₩' + ${product.productPrice}">₩0</p>
-            <div class="">
-                <button class="btn btn-primary" onclick="confirmLogin('buy')">구매하기</button>
+            <h4 th:text="${product.productName}">Product Name</h4>
+            <p id="price" th:attr="data-price=${product.productPrice}">0</p>
+            <p th:text="${product.productDescription}"></p>
+            <p th:text="${product.productMaterial}"></p>
+            <p th:text="${product.productSize}"></p>
+            <p th:text="${product.productDeliverTime}"></p>
+            <small th:text="${product.productDelieverCost == 0 ? '무료배송' : '배송비: ' + product.productDelieverCost + '원'}"></small>
+            <br>
+            <div class="d-grid gap-2 d-md-block">
+                <button class="btn btn-dark" onclick="confirmLogin('buy')">구매하기</button>
                 <button class="btn btn-outline-secondary" onclick="addToCart()">장바구니</button>
             </div>
         </div>
@@ -66,6 +85,16 @@
 </main>
 
 <script th:inline="javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        const priceElement = document.getElementById('price');
+        const rawPrice = priceElement.getAttribute('data-price');
+
+        // 숫자 콤마 붙이기
+        const formattedPrice = Number(rawPrice).toLocaleString();
+
+        priceElement.textContent = formattedPrice + '원';
+    });
+
     let isLoggedIn = /*[[${isLoggedIn}]]*/ false;
 
     function confirmLogin(action) {

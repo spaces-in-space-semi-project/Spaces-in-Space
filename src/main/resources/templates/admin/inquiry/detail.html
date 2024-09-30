@@ -9,51 +9,57 @@
 <body>
 
     <div th:fragment="inquiryDetail" class="container my-5">
-        <h2 class="mb-3">문의글 내용</h2>
-        <form th:action="@{/admin/inquiry/detail}" method="post" enctype="multipart/form-data" class="row g-3 needs-validation" novalidate>
-            <label class="form-label">문의 제목</label><input type="text" style="width: 500px" name="inquiryTitle" class="form-control" th:value="${ inquiry.inquiryTitle }" readonly><br>
-            <label class="form-label">문의 내용</label><input type="text" style="text-align: center; width: 500px; height: 500px;" name="inquiryDetail" class="form-control" th:value="${ inquiry.inquiryDetail }" readonly><br>
-        </form>
+        <h2 class="mb-4">문의글 내용</h2>
+        <div class="form-container-inquiry">
+            <form th:action="@{/admin/inquiry/delete/{code}(code=${ inquiry.inquiryCode })}" method="post" novalidate>
+                <div class="mb-3">
+                    <label for="inquiryTitle" class="form-label">문의 제목</label><input type="text" name="inquiryTitle" id="inquiryTitle" class="form-control" th:value="${ inquiry.inquiryTitle }" readonly><br>
+                </div>
+                <div class="mb-3">
+                    <label for="inquiryDetail" class="form-label">문의 내용</label><textarea name="inquiryDetail" id="inquiryDetail" class="form-control" rows="7" th:text="${ inquiry.inquiryDetail }" readonly></textarea>
+                </div>
 
-        <form th:action="@{/admin/inquiry/delete/{code}(code=${ inquiry.inquiryCode })}" method="post">
-            <button type="submit" class="btn btn-danger btn-block mt-3">삭제</button>
-        </form>
+<!--                <div class="col-12 text-end">-->
+<!--                    <button type="submit" class="btn btn-danger">삭제</button>-->
+<!--                </div>-->
+            </form>
 
-        <div th:if="${reply != null}" class="reply-container mt-4">
-            <h6 class="text-success">답변</h6>
+
+        <div th:if="${reply != null}" class="mt-4 form-container-inquiry">
+<!--            <h6 class="text-success">답변</h6>-->
             <p><strong>답변 코드 : </strong><span th:text="${reply.replyCode}"></span></p>
-            <p><strong>답변 내용 : </strong><span th:text="${reply.replyDetail}"></span></p>
             <p><strong>답변 날짜 : </strong><span th:text="${reply.replyDate}"></span></p>
+
+            <form th:action="@{/admin/reply/update}" method="post">
+                <div class="mb-3">
+                    <label for="replyDetail" class="form-label">답변</label>
+                    <textarea id="replyDetail" name="replyDetail" class="form-control" rows="5" th:text="${reply.replyDetail}" required></textarea>
+                    <div class="invalid-feedback">내용을 입력해주세요.</div>
+                </div>
+                <div class="col-12 text-end">
+                    <button type="submit" class="btn btn-primary">수정하기</button>
+                    <button type="submit" class="btn btn-danger" onclick="confirmDelete()">삭제하기</button>
+                </div>
+            </form>
         </div>
 
-        <form th:action="@{updateReply}" method="post">
-            <div class="mb-3">
-                <label for="replyDetail" class="form-label">수정할 답변 내용 : </label>
-                <textarea id="replyDetail" name="replyDetail" class="form-control" rows="10"
-                          th:value="${reply.replyDetail}" required style="text-align:left; letter-spacing: 2px;"></textarea>
-                <div class="invalid-feedback">내용을 입력해주세요.</div>
-            </div>
-        </form>
 
-        <div class="col-12 text-end">
-            <button type="submit" class="btn btn-primary" onclick="confirmUpdate()">수정하기</button>
-            <button type="submit" class="btn btn-danger" onclick="confirmDelete()">삭제하기</button>
+        <div th:if="${reply == null}" class="form-container-inquiry mt-4 ">
+            <form th:action="@{/admin/inquiry/registReply}" method="post">
+                <label for="replyDetail2" class="form-label">답변</label>
+                <textarea name="replyDetail2" id="replyDetail2" rows="5" class="form-control" th:text="${reply != null ? reply.replyDetail : ''}"></textarea>
+                <br>
+                <div class="text-end col-12">
+                    <button type="submit" class="btn btn-primary submit-btn">등록</button>
+                </div>
+            </form>
         </div>
-    </div>
 
-    <div th:unless="${reply == null}" class="reply-container mt-4">
-        <form th:action="@{registReply}" method="post">
-            <label class="form-label">답변 내용 : </label>
-            <textarea name="replyDetail" class="form-control" th:value="${reply.replyDetail}"></textarea>
-            <button type="submit" class="submit-btn">등록</button>
+        <form th:action="@{/admin/reply/deleteReply/{code}(code=${reply != null ? reply.getReplyCode() : ''})}" method="post" id="deleteForm">
+            <input type="hidden" name="replyCode" th:value="${reply != null ? reply.replyCode : ''}">
         </form>
     </div>
-
-    <div>
-        <form th:action="@{/deleteReply/{code}(code=${reply.getReplyCode})}" method="post" id="deleteForm">
-            <input type="hidden" name="replyCode" th:value="${reply.replyCode}">
-        </form>
-
+    </div>
         <script>
             // Form validation using Bootstrap
             (() => {
@@ -119,14 +125,7 @@
                     document.getElementById('deleteForm').submit();
                 }
             }
-            // 수정 confirm
-            function confirmUpdate() {
-                if (confirm("답변을 수정하시겠습니까?")) {
-                    document.getElementById('updateForm').submit();
-                }
-            }
         </script>
-    </div>
 
 </body>
 </html>

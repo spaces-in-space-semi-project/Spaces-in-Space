@@ -48,7 +48,7 @@
             text-align: left;
         }
 
-        input, button[type="submit"] {
+        input, .btn {
             width: 100%;
             padding: 10px;
             margin-top: 4px;
@@ -57,7 +57,7 @@
             border: 1px solid #ddd;
         }
 
-        button[type="submit"] {
+        .btn {
             background-color: #5e8a45;
             color: #fff;
             border: none;
@@ -124,12 +124,21 @@
         }
 
         /* replay container css */
+        /*.reply-container {*/
+        /*    margin-top: 20px;*/
+        /*    padding: 15px;*/
+        /*    border: 1px solid #28a745;*/
+        /*    border-radius: 5px;*/
+        /*    background-color: #e9f7ef;*/
+        /*}*/
+
         .reply-container {
-            margin-top: 20px;
-            padding: 15px;
+            padding: 10px;
             border: 1px solid #28a745;
             border-radius: 5px;
-            background-color: #e9f7ef;
+            width: 100%; /* 필요에 따라 너비를 조정 */
+            word-wrap: break-word; /* 너무 긴 단어가 있을 때 자동 줄바꿈 처리 */
+            text-align: left;
         }
     </style>
 

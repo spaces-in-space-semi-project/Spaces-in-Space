@@ -20,20 +20,24 @@
         <nav class="nav-container">
             <ul class="main-nav-left horizontal-list">
                 <li><a th:href="@{/user/product/productAll}">PRODUCTS</a></li>
-                <li><a th:href="@{/}">ABOUT US</a></li>
+<!--                <li><a th:href="@{/}">ABOUT US</a></li>-->
                 <li><a th:href="@{/user/faq/list}">FAQS</a></li>
             </ul>
 
             <!-- 로그인 전 -->
-            <ul class="main-nav-right horizontal-list">
-                <li sec:authorize="isAnonymous()"><a th:href="@{auth/login}">LOGIN</a></li>
+            <ul class="main-nav-right horizontal-list" sec:authorize="isAnonymous()">
+                <li>
+                    <form th:action="@{/auth/login}" method="get" style="display: inline;">
+                        <button type="submit">LOGIN</button>
+                    </form>
+                </li>
             </ul>
 
             <!-- 로그인 후 -->
             <div class="logout-container" sec:authorize="isAuthenticated()">
                 <a th:href="@{/user/member/update}">MY PAGE</a>
-                <form th:action="@{/auth/logout}" th:method="post">
-                    <button>로그아웃</button>
+                <form th:action="@{/auth/logout}" th:method="post" style="display: inline;">
+                    <button type="submit">LOGOUT</button>
                 </form>
             </div>
         </nav>

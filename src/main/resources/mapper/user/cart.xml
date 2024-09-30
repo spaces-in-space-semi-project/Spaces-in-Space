@@ -43,20 +43,34 @@
         WHERE product_code = #{ productCode }
     </update>
 
+    <update id="updateCartItem2" parameterType="map">
+        UPDATE cart_tbl
+        SET cart_cnt = #{ cartCnt }
+        WHERE product_code = #{ productCode }
+    </update>
+
     <delete id="deleteCartMenu" parameterType="int">
         DELETE FROM cart_tbl
         WHERE product_code = #{ productCode }
     </delete>
 
+    <delete id="deleteCartAllMenu" parameterType="int">
+        DELETE FROM cart_tbl
+        WHERE member_code = #{ memberCode }
+    </delete>
+
     <select id="cartProgress" resultMap="cartResultMap">
         SELECT
+            c.product_code,
+            c.product_name,
+            c.product_price,
             b.member_code,
             b.member_name,
             b.member_email,
             b.member_phone,
             b.member_address,
-            SUM(a.cart_cnt) AS total_cart_cnt,
-            SUM(a.cart_price) AS total_cart_price
+            a.cart_cnt,
+            a.cart_price
         FROM
             cart_tbl a
         JOIN
@@ -65,8 +79,28 @@
             product_tbl c ON (a.product_code = c.product_code)
         WHERE
             b.member_code = #{memberCode}
-        GROUP BY
-            b.member_code
+    </select>
+
+    <select id="getTotalPriceForMember" resultMap="cartResultMap">
+        SELECT
+        SUM(a.cart_price) AS total_cart_price
+        FROM
+        cart_tbl a
+        JOIN
+        member_tbl b ON a.member_code = b.member_code
+        WHERE
+        b.member_code = #{memberCode}
+    </select>
+
+    <select id="getTotalCntForMember" resultMap="cartResultMap">
+        SELECT
+        SUM(a.cart_cnt) AS total_cart_cnt
+        FROM
+        cart_tbl a
+        JOIN
+        member_tbl b ON a.member_code = b.member_code
+        WHERE
+        b.member_code = #{memberCode}
     </select>
 
     <insert id="addCartMenu" parameterType="map">

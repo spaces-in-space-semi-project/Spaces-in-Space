@@ -14,7 +14,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 @Controller
-@RequestMapping("/admin/inquiry/*")
+@RequestMapping("/admin/reply/*")
 public class ReplyController {
 
     private final ReplyService replyService;
