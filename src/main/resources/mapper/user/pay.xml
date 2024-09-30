@@ -96,8 +96,8 @@
         SELECT
             a.pay_code,
             a.member_code,
-            a.member_id,
-            a.member_name,
+            b.member_id,
+            b.member_name,
             a.pay_date,
             a.pay_total_cnt,
             a.pay_total_price,
@@ -247,10 +247,9 @@
         JOIN
             member_tbl b ON (a.member_code = b.member_code)
         WHERE
-            (a.pay_code  LIKE CONCAT('%', #{searchValue}, '%') OR
+            a.pay_code  LIKE CONCAT('%', #{searchValue}, '%') OR
             b.member_id LIKE CONCAT('%', #{searchValue}, '%') OR
-            b.member_name LIKE CONCAT('%', #{searchValue}, '%'))
-            AND
+            b.member_name LIKE CONCAT('%', #{searchValue}, '%') AND
             a.pay_delete_yn = 'N'
         ORDER BY
             pay_code
