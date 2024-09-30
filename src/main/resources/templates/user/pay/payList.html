@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${pageTitle}">Spaces in Space</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Order</title>
 </head>
 <body>
-
     <div th:fragment="order">
-        <main>
-            <h1>사용자 결제 내역</h1>
-            <table>
+        <main class="container" style="padding: 10px 10px 30px 10px">
+            <h4 class="text-center my-4">MY ORDER</h4>
+            <table class="table inquiry-table">
             <tr>
                 <th>결제번호</th>
                 <th>주문날짜</th>
@@ -24,7 +24,6 @@
                 <td th:text="${pay.payDeliverStatus}"></td>
                 <td th:text="${pay.payTotalCnt}"></td>
                 <td th:text="${pay.payTotalPrice}"></td>
-                <td><button type="submit" th:onclick="|location.href='../review/regist'|">REVIEW</button></td>
             </tr>
             </table>
         </main>
