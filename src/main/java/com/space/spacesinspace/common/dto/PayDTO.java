@@ -22,117 +22,21 @@ public class PayDTO {
     public PayDTO() {
     }
 
-    public PayDTO(int payCode, int memberCode, String payDate, int payTotalCnt, int payTotalPrice, String payAddress, String payReceiver, String payDeliverPhone, String payDeliverStatus, String payRefundYn, Long payAccountNumber, Long payCardNumber, int bankCode, int cardCompanyCode) {
-        this.payCode = payCode;
-        this.memberCode = memberCode;
-        this.payDate = payDate;
-        this.payTotalCnt = payTotalCnt;
-        this.payTotalPrice = payTotalPrice;
-        this.payAddress = payAddress;
-        this.payReceiver = payReceiver;
-        this.payDeliverPhone = payDeliverPhone;
-        this.payDeliverStatus = payDeliverStatus;
-        this.payRefundYn = payRefundYn;
-        this.payAccountNumber = payAccountNumber;
-        this.payCardNumber = payCardNumber;
+    public PayDTO(int bankCode, int cardCompanyCode, int memberCode, Long payAccountNumber, String payAddress, Long payCardNumber, int payCode, String payDate, String payDeliverPhone, String payDeliverStatus, String payReceiver, String payRefundYn, int payTotalCnt, int payTotalPrice) {
         this.bankCode = bankCode;
         this.cardCompanyCode = cardCompanyCode;
-    }
-
-    public int getPayCode() {
-        return payCode;
-    }
-
-    public void setPayCode(int payCode) {
-        this.payCode = payCode;
-    }
-
-    public int getMemberCode() {
-        return memberCode;
-    }
-
-    public void setMemberCode(int memberCode) {
         this.memberCode = memberCode;
-    }
-
-    public String getPayDate() {
-        return payDate;
-    }
-
-    public void setPayDate(String payDate) {
-        this.payDate = payDate;
-    }
-
-    public int getPayTotalCnt() {
-        return payTotalCnt;
-    }
-
-    public void setPayTotalCnt(int payTotalCnt) {
-        this.payTotalCnt = payTotalCnt;
-    }
-
-    public int getPayTotalPrice() {
-        return payTotalPrice;
-    }
-
-    public void setPayTotalPrice(int payTotalPrice) {
-        this.payTotalPrice = payTotalPrice;
-    }
-
-    public String getPayAddress() {
-        return payAddress;
-    }
-
-    public void setPayAddress(String payAddress) {
-        this.payAddress = payAddress;
-    }
-
-    public String getPayReceiver() {
-        return payReceiver;
-    }
-
-    public void setPayReceiver(String payReceiver) {
-        this.payReceiver = payReceiver;
-    }
-
-    public String getPayDeliverPhone() {
-        return payDeliverPhone;
-    }
-
-    public void setPayDeliverPhone(String payDeliverPhone) {
-        this.payDeliverPhone = payDeliverPhone;
-    }
-
-    public String getPayDeliverStatus() {
-        return payDeliverStatus;
-    }
-
-    public void setPayDeliverStatus(String payDeliverStatus) {
-        this.payDeliverStatus = payDeliverStatus;
-    }
-
-    public String getPayRefundYn() {
-        return payRefundYn;
-    }
-
-    public void setPayRefundYn(String payRefundYn) {
-        this.payRefundYn = payRefundYn;
-    }
-
-    public Long getPayAccountNumber() {
-        return payAccountNumber;
-    }
-
-    public void setPayAccountNumber(Long payAccountNumber) {
         this.payAccountNumber = payAccountNumber;
-    }
-
-    public Long getPayCardNumber() {
-        return payCardNumber;
-    }
-
-    public void setPayCardNumber(Long payCardNumber) {
+        this.payAddress = payAddress;
         this.payCardNumber = payCardNumber;
+        this.payCode = payCode;
+        this.payDate = payDate;
+        this.payDeliverPhone = payDeliverPhone;
+        this.payDeliverStatus = payDeliverStatus;
+        this.payReceiver = payReceiver;
+        this.payRefundYn = payRefundYn;
+        this.payTotalCnt = payTotalCnt;
+        this.payTotalPrice = payTotalPrice;
     }
 
     public int getBankCode() {
@@ -151,12 +55,109 @@ public class PayDTO {
         this.cardCompanyCode = cardCompanyCode;
     }
 
+    public int getMemberCode() {
+        return memberCode;
+    }
+
+    public void setMemberCode(int memberCode) {
+        this.memberCode = memberCode;
+    }
+
+    public Long getPayAccountNumber() {
+        return payAccountNumber;
+    }
+
+    public void setPayAccountNumber(Long payAccountNumber) {
+        this.payAccountNumber = payAccountNumber;
+    }
+
+    public String getPayAddress() {
+        return payAddress;
+    }
+
+    public void setPayAddress(String payAddress) {
+        this.payAddress = payAddress;
+    }
+
+    public Long getPayCardNumber() {
+        return payCardNumber;
+    }
+
+    public void setPayCardNumber(Long payCardNumber) {
+        this.payCardNumber = payCardNumber;
+    }
+
+    public int getPayCode() {
+        return payCode;
+    }
+
+    public void setPayCode(int payCode) {
+        this.payCode = payCode;
+    }
+
+    public String getPayDate() {
+        return payDate;
+    }
+
+    public void setPayDate(String payDate) {
+        this.payDate = payDate;
+    }
+
+    public String getPayDeliverPhone() {
+        return payDeliverPhone;
+    }
+
+    public void setPayDeliverPhone(String payDeliverPhone) {
+        this.payDeliverPhone = payDeliverPhone;
+    }
+
+    public String getPayDeliverStatus() {
+        return payDeliverStatus;
+    }
+
+    public void setPayDeliverStatus(String payDeliverStatus) {
+        this.payDeliverStatus = payDeliverStatus;
+    }
+
+    public String getPayReceiver() {
+        return payReceiver;
+    }
+
+    public void setPayReceiver(String payReceiver) {
+        this.payReceiver = payReceiver;
+    }
+
+    public String getPayRefundYn() {
+        return payRefundYn;
+    }
+
+    public void setPayRefundYn(String payRefundYn) {
+        this.payRefundYn = payRefundYn;
+    }
+
+    public int getPayTotalCnt() {
+        return payTotalCnt;
+    }
+
+    public void setPayTotalCnt(int payTotalCnt) {
+        this.payTotalCnt = payTotalCnt;
+    }
+
+    public int getPayTotalPrice() {
+        return payTotalPrice;
+    }
+
+    public void setPayTotalPrice(int payTotalPrice) {
+        this.payTotalPrice = payTotalPrice;
+    }
+
     @Override
     public String toString() {
         return "PayDTO{" +
-                "payCode=" + payCode +
+                "bankCode=" + bankCode +
+                ", payCode=" + payCode +
                 ", memberCode=" + memberCode +
-                ", payDate=" + payDate +
+                ", payDate='" + payDate + '\'' +
                 ", payTotalCnt=" + payTotalCnt +
                 ", payTotalPrice=" + payTotalPrice +
                 ", payAddress='" + payAddress + '\'' +
@@ -166,8 +167,11 @@ public class PayDTO {
                 ", payRefundYn='" + payRefundYn + '\'' +
                 ", payAccountNumber=" + payAccountNumber +
                 ", payCardNumber=" + payCardNumber +
-                ", bankCode=" + bankCode +
                 ", cardCompanyCode=" + cardCompanyCode +
                 '}';
+    }
+
+    public void setTotalCount(int payTotalCnt) {
+
     }
 }
