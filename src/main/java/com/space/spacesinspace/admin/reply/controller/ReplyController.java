@@ -32,7 +32,7 @@ public class ReplyController {
         return "admin/inquiry/detail";
     }
 
-    @PostMapping("registReply")
+    @PostMapping("/registReply")
     public String registReply(ReplyDTO newReply, RedirectAttributes rAttr, @AuthenticationPrincipal InquiryDTO inquiry) {
 
         int inquiryCode = inquiry.getInquiryCode();

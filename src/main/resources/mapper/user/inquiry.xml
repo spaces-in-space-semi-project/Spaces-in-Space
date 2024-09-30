@@ -65,9 +65,9 @@
     </select>
 
     <insert id="registNewInquiry" parameterType="com.space.spacesinspace.common.dto.InquiryDTO">
-        INSERT INTO inquiry_tbl (inquiry_title, inquiry_detail, inquiry_date)
+        INSERT INTO inquiry_tbl (member_code, inquiry_title, inquiry_detail, inquiry_date)
         VALUES
-        (#{inquiryTitle}, #{inquiryDetail}, #{inquiryDate})
+        (#{memberCode}, #{inquiryTitle}, #{inquiryDetail}, #{inquiryDate})
     </insert>
 
     <delete id="deleteInquiry" parameterType="int">
