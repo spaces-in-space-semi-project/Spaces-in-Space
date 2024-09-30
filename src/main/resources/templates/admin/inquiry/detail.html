@@ -24,6 +24,7 @@
             <p><strong>답변 코드 : </strong><span th:text="${reply.replyCode}"></span></p>
             <p><strong>답변 내용 : </strong><span th:text="${reply.replyDetail}"></span></p>
             <p><strong>답변 날짜 : </strong><span th:text="${reply.replyDate}"></span></p>
+        </div>
 
         <form th:action="@{updateReply}" method="post">
             <div class="mb-3">
@@ -35,18 +36,15 @@
         </form>
 
         <div class="col-12 text-end">
-            <button type="submit" class="btn btn-primary">수정하기</button>
+            <button type="submit" class="btn btn-primary" onclick="confirmUpdate()">수정하기</button>
             <button type="submit" class="btn btn-danger" onclick="confirmDelete()">삭제하기</button>
-        </div>
         </div>
     </div>
 
-    <div th:if="${reply == null}" class="reply-container mt-4">
+    <div th:unless="${reply == null}" class="reply-container mt-4">
         <form th:action="@{registReply}" method="post">
             <label class="form-label">답변 내용 : </label>
-            <label>
-                <textarea name="replyDetail" class="form-control" th:value="${reply.replyDetail}"></textarea>
-            </label>
+            <textarea name="replyDetail" class="form-control" th:value="${reply.replyDetail}"></textarea>
             <button type="submit" class="submit-btn">등록</button>
         </form>
     </div>
@@ -121,12 +119,12 @@
                     document.getElementById('deleteForm').submit();
                 }
             }
-            // // 수정 confirm
-            // function confirmUpdate() {
-            //     if (confirm("답변을 수정하시겠습니까?")) {
-            //         document.getElementById('updateForm').submit();
-            //     }
-            // }
+            // 수정 confirm
+            function confirmUpdate() {
+                if (confirm("답변을 수정하시겠습니까?")) {
+                    document.getElementById('updateForm').submit();
+                }
+            }
         </script>
     </div>
 
