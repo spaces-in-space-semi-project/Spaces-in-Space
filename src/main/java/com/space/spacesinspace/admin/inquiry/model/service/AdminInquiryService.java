@@ -29,8 +29,8 @@ public class AdminInquiryService {
     }
 
     @Transactional
-    public void deleteInquiry(int inquiryCode) {
-        adminInquiryMapper.deleteInquiry(inquiryCode);
+    public void deleteInquiry(int code) {
+        adminInquiryMapper.deleteInquiry(code);
     }
 
     public ReplyDTO findReplyByCode(int inquiryCode) {

@@ -24,12 +24,12 @@ public class ReplyService {
         replyMapper.deleteReply(replyCode);
     }
 
-    public ReplyDTO findReplyByCode(int replyCode) {
-        return replyMapper.findReplyByCode(replyCode);
+    @Transactional
+    public Integer updateReply(ReplyDTO reply) {
+        replyMapper.updateReply(reply);
+        return null;
     }
 
-    @Transactional
-    public void updateReply(ReplyDTO reply) {
-        replyMapper.updateReply(reply);
+    public void registNewReply(ReplyDTO newReply) {
     }
 }
