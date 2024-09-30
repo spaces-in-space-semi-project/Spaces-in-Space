@@ -70,6 +70,22 @@
         <result property="memberDeleteYn" column="member_delete_yn"/>
     </resultMap>
 
+    <!--CartDTO-->
+    <resultMap id="cartResultMap" type="com.space.spacesinspace.user.cart.model.dto.CartDTO">
+        <id property="productCode" column="product_code"/>
+        <result property="productPrice" column="product_price"/>
+        <result property="memberCode" column="member_code"/>
+        <result property="memberPhone" column="member_phone"/>
+        <result property="memberEmail" column="member_email"/>
+        <result property="memberAddress" column="member_address"/>
+        <result property="productName" column="product_name"/>
+        <result property="memberName" column="member_name"/>
+        <result property="cartCnt" column="cart_cnt"/>
+        <result property="cartPrice" column="cart_price"/>
+        <result property="totalCartCnt" column="total_cart_cnt"/>
+        <result property="totalCartPrice" column="total_cart_price"/>
+    </resultMap>
+
     <!--=========================================구분선=============================================-->
 
     <!--사용자 결제한 내역 전체조회-->
@@ -100,7 +116,7 @@
     </select>
 
     <!--사용자 결제한 내역 전체 중 payCode로 조회-->
-    <select id="findPayListByCode" resultMap="payResultMap">
+    <select id="findPayByCode" resultMap="payResultMap">
     SELECT
     a.pay_code,
     a.member_code,
@@ -122,8 +138,6 @@
     member_tbl b ON (a.member_code = b.member_code)
     WHERE
     a.pay_code = #{payCode}
-    ORDER BY
-    pay_code
     </select>
 
     <!--사용자 상세조회-->
@@ -190,12 +204,15 @@
     <select id="showPayList" resultMap="payResultMap">
         SELECT
             a.pay_code,
+            b.member_code,
             a.pay_date,
             a.pay_deliever_status,
             a.pay_total_cnt,
             a.pay_total_price
         FROM
             pay_tbl a
+        JOIN
+            member_tbl b ON (a.member_code = b.member_code)
         ORDER BY
             pay_code
     </select>
@@ -285,8 +302,20 @@
     </insert>
 
     <!--그럼 이녀석이 잘 확인해서 payCode 꺼내서, 연속으로 db 정보 기입 가능.-->
-    <insert id="addPayDetailList" parameterType="int">
+    <insert id="addPayDetailList" parameterType="com.space.spacesinspace.common.dto.PayDetailDTO">
         INSERT INTO pay_detail_tbl (pay_code, product_code, pay_detail_cnt, pay_detail_price)
         VALUES (#{payCode}, #{productCode}, #{payDetailCnt}, #{payDetailPrice})
     </insert>
+
+    <select id="findCartList" parameterType="int" resultMap="cartResultMap">
+        SELECT
+            product_code,
+            member_code,
+            cart_cnt,
+            cart_price
+        FROM
+            cart_tbl
+        WHERE
+            member_code = #{ memberCode }
+    </select>
 </mapper>

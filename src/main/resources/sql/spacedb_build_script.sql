@@ -84,6 +84,8 @@ CREATE TABLE IF NOT EXISTS pay_tbl (
     FOREIGN KEY (member_code) REFERENCES member_tbl (member_code),
     FOREIGN KEY (bank_code) REFERENCES bank_tbl (bank_code),
     FOREIGN KEY (card_company_code) REFERENCES card_company_tbl (card_company_code),
+    pay_delete_yn CHAR(1) NOT NULL COMMENT '결제취소여부',
+    CHECK (pay_delete_yn IN ('Y', 'N')),
     CHECK (pay_refund_yn IN ('Y', 'N'))
 ) ENGINE=INNODB COMMENT '결제';
 
