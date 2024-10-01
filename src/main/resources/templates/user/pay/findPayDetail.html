@@ -43,7 +43,7 @@
 
         <!-- 주문 정보 -->
         <h6 style="margin-top: 30px"><strong>주문 정보</strong></h6>
-        <form th:action="@{/user/pay/delete/{payCode}(payCode=${findPayByCode.payCode})}" method="post" onsubmit="return confirmCancel()">
+        <form th:action="@{/user/pay/update/{payCode}(payCode=${findPayByCode.payCode})}" method="post" onsubmit="return confirmCancel()">
             <table class="table table-bordered orderlist-table" style="width: 60%; margin: 0 auto;">
                 <tbody>
                 <tr>
