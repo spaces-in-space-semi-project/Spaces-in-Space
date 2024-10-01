@@ -11,14 +11,14 @@
         <h4 class="text-center my-4">ORDER DETAIL</h4>
 
         <!-- 상품 상세 정보 테이블 -->
-        <h6><strong>상품 정보</strong></h6>
+        <h6><strong>주문 상품 정보</strong></h6>
         <table class="table order-detail-1" style="width: 60%; margin: 0 auto;">
             <thead>
             <tr>
                 <th>상품 이름</th>
                 <th>상품 수량</th>
                 <th>상품 가격</th>
-                <th>리뷰 추가</th> <!-- 리뷰 추가 버튼 열 추가 -->
+                <th>리뷰 추가</th>
             </tr>
             </thead>
             <tbody>
@@ -28,10 +28,9 @@
                 <td class="price" th:attr="data-price=${payDetail.payDetailPrice}"></td>
                 <td>
                     <!-- 리뷰 추가 버튼 -->
-                    <a th:href="@{/user/review/regist/{productCode}(productCode=${payDetail.productCode})}"
+                    <a th:href="@{/user/review/regist/{productCode}/{payDetailCode}(productCode=${payDetail.productCode}, payDetailCode=${payDetail.payDetailCode})}"
                        class="btn btn-outline-primary btn-sm"
-                       th:style="${findPayByCode.payDeliverStatus == '배송전' ? 'pointer-events:none; opacity:0.6; margin-top: 0;' : 'margin-top: 0;'}"
-                       style="width: 100px;">
+                       th:style="${findPayByCode.payDeliverStatus == '배송전' || payDetail.reviewYn == 'Y' ? 'pointer-events:none; opacity:0.6; margin-top: 0;' : 'margin-top: 0;'}">
                         리뷰 추가
                     </a>
                 </td>

@@ -95,12 +95,14 @@ CREATE TABLE IF NOT EXISTS pay_detail_tbl (
     product_code INT NOT NULL COMMENT '상품코드',
     pay_detail_cnt INT NOT NULL COMMENT '결제수량',
     pay_detail_price INT NOT NULL COMMENT '결제금액',
+    review_yn CHAR(1) NOT NULL COMMENT '리뷰존재여부',
     FOREIGN KEY (product_code) REFERENCES product_tbl (product_code),
     FOREIGN KEY (pay_code) REFERENCES pay_tbl (pay_code)
 ) ENGINE=INNODB COMMENT '결제상세';
 
 CREATE TABLE IF NOT EXISTS review_tbl (
     review_code INT AUTO_INCREMENT PRIMARY KEY COMMENT '리뷰코드',
+    pay_detail_code INT NOT NULL COMMENT '결제상세코드',
     product_code INT NOT NULL COMMENT '상품코드',
     member_code INT NOT NULL COMMENT '회원코드',
     review_title VARCHAR(100) NOT NULL COMMENT '리뷰제목',
@@ -110,6 +112,7 @@ CREATE TABLE IF NOT EXISTS review_tbl (
     review_rating INT NOT NULL COMMENT '리뷰별점',
     review_date VARCHAR(30) NOT NULL COMMENT '리뷰생성일',
     review_edit_date VARCHAR(30) COMMENT '리뷰수정일',
+    FOREIGN KEY (pay_detail_code) REFERENCES pay_detail_tbl (pay_detail_code),
     FOREIGN KEY (product_code) REFERENCES product_tbl (product_code),
     FOREIGN KEY (member_code) REFERENCES member_tbl (member_code)
 ) ENGINE=INNODB COMMENT '리뷰';
