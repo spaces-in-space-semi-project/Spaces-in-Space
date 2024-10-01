@@ -6,8 +6,6 @@ public class PayDTO {
 
     private int payCode;                // 결제코드
     private int memberCode;             // 회원코드
-    private String memberId;            // 회원Id
-    private String memberName;          // 회원 이름
     private String payDate;             // 결제일자
     private int payTotalCnt;            // 총 결제수량
     private int payTotalPrice;          // 총 결제금액
@@ -15,28 +13,24 @@ public class PayDTO {
     private String payReceiver;         // 받는분 성함
     private String payDeliverPhone;     // 받는분 연락처
     private String payDeliverStatus;    // 배송 상태
-    private String payRefundYn;         // 결제상태
+    private String payRefundYn;         // 결제결제상태
     private Long payAccountNumber;       // 계좌번호
     private Long payCardNumber;          // 카드번호
     private int bankCode;               // 은행코드
     private int cardCompanyCode;        // 카드사코드
-    private String payDeleteYn;         // 결제취소여부
 
     public PayDTO() {
     }
 
-    public PayDTO(int bankCode, int cardCompanyCode, int memberCode, String memberId, String memberName, Long payAccountNumber, String payAddress, Long payCardNumber, int payCode, String payDate, String payDeleteYn, String payDeliverPhone, String payDeliverStatus, String payReceiver, String payRefundYn, int payTotalCnt, int payTotalPrice) {
+    public PayDTO(int bankCode, int cardCompanyCode, int memberCode, Long payAccountNumber, String payAddress, Long payCardNumber, int payCode, String payDate, String payDeliverPhone, String payDeliverStatus, String payReceiver, String payRefundYn, int payTotalCnt, int payTotalPrice) {
         this.bankCode = bankCode;
         this.cardCompanyCode = cardCompanyCode;
         this.memberCode = memberCode;
-        this.memberId = memberId;
-        this.memberName = memberName;
         this.payAccountNumber = payAccountNumber;
         this.payAddress = payAddress;
         this.payCardNumber = payCardNumber;
         this.payCode = payCode;
         this.payDate = payDate;
-        this.payDeleteYn = payDeleteYn;
         this.payDeliverPhone = payDeliverPhone;
         this.payDeliverStatus = payDeliverStatus;
         this.payReceiver = payReceiver;
@@ -67,22 +61,6 @@ public class PayDTO {
 
     public void setMemberCode(int memberCode) {
         this.memberCode = memberCode;
-    }
-
-    public String getMemberId() {
-        return memberId;
-    }
-
-    public void setMemberId(String memberId) {
-        this.memberId = memberId;
-    }
-
-    public String getMemberName() {
-        return memberName;
-    }
-
-    public void setMemberName(String memberName) {
-        this.memberName = memberName;
     }
 
     public Long getPayAccountNumber() {
@@ -123,14 +101,6 @@ public class PayDTO {
 
     public void setPayDate(String payDate) {
         this.payDate = payDate;
-    }
-
-    public String getPayDeleteYn() {
-        return payDeleteYn;
-    }
-
-    public void setPayDeleteYn(String payDeleteYn) {
-        this.payDeleteYn = payDeleteYn;
     }
 
     public String getPayDeliverPhone() {
@@ -187,8 +157,6 @@ public class PayDTO {
                 "bankCode=" + bankCode +
                 ", payCode=" + payCode +
                 ", memberCode=" + memberCode +
-                ", memberId='" + memberId + '\'' +
-                ", memberName='" + memberName + '\'' +
                 ", payDate='" + payDate + '\'' +
                 ", payTotalCnt=" + payTotalCnt +
                 ", payTotalPrice=" + payTotalPrice +
@@ -200,7 +168,10 @@ public class PayDTO {
                 ", payAccountNumber=" + payAccountNumber +
                 ", payCardNumber=" + payCardNumber +
                 ", cardCompanyCode=" + cardCompanyCode +
-                ", payDeleteYn='" + payDeleteYn + '\'' +
                 '}';
+    }
+
+    public void setTotalCount(int payTotalCnt) {
+
     }
 }

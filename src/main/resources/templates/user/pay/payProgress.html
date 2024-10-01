@@ -53,7 +53,7 @@
 </head>
 <body>
 <form th:action="@{/user/pay/receipt}" method="post">
-<div class="section-title">주문자 정보</div>
+    <div class="section-title">주문자 정보</div>
     <input type="hidden" name="memberCode" th:value="${payProgressUser.memberCode}"/>
     <input type="hidden" id="toDay" name="payDate" value=""/>
     <input type="hidden" name="payTotalCnt" value="1"/>
@@ -64,134 +64,134 @@
     <input type="hidden" name="payDeleteYn" value="N"/>
     <input type="hidden" name="productCode" th:value="${payProgress.productCode}"/>
     <input type="hidden" name="productName" th:value="${payProgress.productName}"/>
-<table>
-    <tbody>
-    <tr>
-        <th>이 름</th>
-        <td><input type="text" placeholder="이름 입력" th:value="${payProgressUser.memberName}"/></td>
-    </tr>
-    <tr>
-        <th>이메일</th>
-        <td><input type="text" placeholder="이메일 입력" th:value="${payProgressUser.memberEmail}"/></td>
-    </tr>
-    <tr>
-        <th>전화번호</th>
-        <td><input type="text" placeholder="전화번호 입력" th:value="${payProgressUser.memberPhone}"/></td>
-    </tr>
-    </tbody>
-</table>
+    <table>
+        <tbody>
+        <tr>
+            <th>이 름</th>
+            <td><input type="text" placeholder="이름 입력" th:value="${payProgressUser.memberName}"/></td>
+        </tr>
+        <tr>
+            <th>이메일</th>
+            <td><input type="text" placeholder="이메일 입력" th:value="${payProgressUser.memberEmail}"/></td>
+        </tr>
+        <tr>
+            <th>전화번호</th>
+            <td><input type="text" placeholder="전화번호 입력" th:value="${payProgressUser.memberPhone}"/></td>
+        </tr>
+        </tbody>
+    </table>
 
-<div class="section-title">배송지 정보</div>
-<table>
-    <tbody>
-    <tr>
-        <th>배송자명 </th>
-        <td><input type="text" name="payReceiver" placeholder="배송자명 입력" required/></td>
-    </tr>
-    <tr>
-        <th>전화번호 </th>
-        <td><input type="text" name="payDeliverPhone" placeholder="전화번호 입력" required/></td>
-    </tr>
-    <tr>
-        <th>주소 </th>
-        <td><input type="text" name="payAddress" placeholder="주소 입력" th:value="${payProgressUser.memberAddress}"/></td>
-    </tr>
-    <tr>
-        <td colspan="2"><input type="text"  placeholder="상세주소 입력" required/></td>
-    </tr>
-    <tr>
-        <th>배송요청사항 </th>
-        <td>
-            <select name="deliveryRQ">
-                <option value="dRQ0">배송요청사항을 선택하세요</option>
-                <option value="dRQ1">집앞에 던져놔주세요</option>
-                <option value="dRQ2">문앞에 막아놔주세요</option>
-                <option value="dRQ3">창문으로 집어 던져주세요</option>
-                <option value="dRQ4">계단으로 7층으로 옮겨주세요</option>
-            </select>
-        </td>
-    </tr>
-    </tbody>
-</table>
+    <div class="section-title">배송지 정보</div>
+    <table>
+        <tbody>
+        <tr>
+            <th>배송자명 </th>
+            <td><input type="text" name="payReceiver" placeholder="배송자명 입력" required/></td>
+        </tr>
+        <tr>
+            <th>전화번호 </th>
+            <td><input type="text" name="payDeliverPhone" placeholder="전화번호 입력" required/></td>
+        </tr>
+        <tr>
+            <th>주소 </th>
+            <td><input type="text" name="payAddress" placeholder="주소 입력" th:value="${payProgressUser.memberAddress}"/></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="text"  placeholder="상세주소 입력" required/></td>
+        </tr>
+        <tr>
+            <th>배송요청사항 </th>
+            <td>
+                <select name="deliveryRQ">
+                    <option value="dRQ0">배송요청사항을 선택하세요</option>
+                    <option value="dRQ1">집앞에 던져놔주세요</option>
+                    <option value="dRQ2">문앞에 막아놔주세요</option>
+                    <option value="dRQ3">창문으로 집어 던져주세요</option>
+                    <option value="dRQ4">계단으로 7층으로 옮겨주세요</option>
+                </select>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 
-<div class="section-title">결제수단</div>
-<table>
-    <tbody>
-    <tr>
-        <th>결제선택</th>
-        <td><input type="radio" name="payPG" class="bank" id="bankRadio">은행</td>
-        <td><input type="radio" name="payPG" class="card" id="cardRadio">카드</td>
-    </tr>
-    </tbody>
-</table>
-<table id="bankTable" class="hidden">
-    <tbody>
-    <tr>
-        <th>은행 </th>
-        <td>
-            <select name="bankCode" >
-                <option value="1" selected>은행을 선택하세요</option>
-                <option value="2">우리</option>
-                <option value="3">신한</option>
-                <option value="4">국민</option>
-                <option value="5">기업</option>
-                <option value="6">농협</option>
-                <option value="7">하나</option>
-                <option value="8">SC제일</option>
-                <option value="9">우체국</option>
-                <option value="10">케이뱅크</option>
-            </select>
-        </td>
-    </tr>
-    <tr>
-        <th>계좌번호 </th>
-        <td><input name="payAccountNumber" type="text" placeholder="계좌번호 입력" value=""/></td>
-    </tr>
-    </tbody>
-</table>
+    <div class="section-title">결제수단</div>
+    <table>
+        <tbody>
+        <tr>
+            <th>결제선택</th>
+            <td><input type="radio" name="payPG" class="bank" id="bankRadio">은행</td>
+            <td><input type="radio" name="payPG" class="card" id="cardRadio">카드</td>
+        </tr>
+        </tbody>
+    </table>
+    <table id="bankTable" class="hidden">
+        <tbody>
+        <tr>
+            <th>은행 </th>
+            <td>
+                <select name="bankCode" >
+                    <option value="1" selected>은행을 선택하세요</option>
+                    <option value="2">우리</option>
+                    <option value="3">신한</option>
+                    <option value="4">국민</option>
+                    <option value="5">기업</option>
+                    <option value="6">농협</option>
+                    <option value="7">하나</option>
+                    <option value="8">SC제일</option>
+                    <option value="9">우체국</option>
+                    <option value="10">케이뱅크</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th>계좌번호 </th>
+            <td><input name="payAccountNumber" type="text" placeholder="계좌번호 입력" value=""/></td>
+        </tr>
+        </tbody>
+    </table>
 
-<!-- 카드 관련 테이블 -->
-<table id="cardTable" class="hidden">
-    <tbody>
-    <tr>
-        <th>카드사 </th>
-        <td>
-            <select name="cardCompanyCode" >
-            <option value="1" selected>카드사를 선택하세요</option>
-            <option value="2">BC</option>
-            <option value="3">우리</option>
-            <option value="4">삼성</option>
-            <option value="5">롯데</option>
-            <option value="6">신한</option>
-            <option value="7">KB국민</option>
-            <option value="8">NH농협</option>
-            <option value="9">카카오뱅크</option>
-            <option value="10">씨티</option>
-            <option value="11">하나</option>
-        </select>
-        </td>
-    </tr>
-    <tr>
-        <th>카드번호 </th>
-        <td><input type="text" name="payCardNumber" placeholder="카드번호 입력" value=""/></td>
-    </tr>
-    </tbody>
-</table>
+    <!-- 카드 관련 테이블 -->
+    <table id="cardTable" class="hidden">
+        <tbody>
+        <tr>
+            <th>카드사 </th>
+            <td>
+                <select name="cardCompanyCode" >
+                    <option value="1" selected>카드사를 선택하세요</option>
+                    <option value="2">BC</option>
+                    <option value="3">우리</option>
+                    <option value="4">삼성</option>
+                    <option value="5">롯데</option>
+                    <option value="6">신한</option>
+                    <option value="7">KB국민</option>
+                    <option value="8">NH농협</option>
+                    <option value="9">카카오뱅크</option>
+                    <option value="10">씨티</option>
+                    <option value="11">하나</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th>카드번호 </th>
+            <td><input type="text" name="payCardNumber" placeholder="카드번호 입력" value=""/></td>
+        </tr>
+        </tbody>
+    </table>
 
-<div class="section-title">결제 정보</div>
-<table>
-    <tbody>
-    <tr>
-        <th>결제하실 금액 </th>
-        <td><input type="text" name="payTotalPrice" placeholder="결제 금액 입력" th:value="${payProgress.productPrice}" required/></td>
-    </tr>
-    <tr>
-        <th>총 금액 </th>
-        <td><input type="text" th:value="${payProgress.productPrice}" disabled/></td>
-    </tr>
-    </tbody>
-</table>
-<button type="submit">결제하기</button>
+    <div class="section-title">결제 정보</div>
+    <table>
+        <tbody>
+        <tr>
+            <th>결제하실 금액 </th>
+            <td><input type="text" name="payTotalPrice" placeholder="결제 금액 입력" th:value="${payProgress.productPrice}" required/></td>
+        </tr>
+        <tr>
+            <th>총 금액 </th>
+            <td><input type="text" th:value="${payProgress.productPrice}" disabled/></td>
+        </tr>
+        </tbody>
+    </table>
+    <button type="submit">결제하기</button>
 </form>
 
 <script>
@@ -207,12 +207,12 @@
     });
 
 
-        // 현재 날짜를 yyyy-MM-dd 형식으로 가져오는 함수
-        const toDay = new Date().toISOString().split('T')[0];
+    // 현재 날짜를 yyyy-MM-dd 형식으로 가져오는 함수
+    const toDay = new Date().toISOString().split('T')[0];
 
-        // hidden input 필드에 현재 날짜 설정
-        document.getElementById('toDay').value = toDay;
-        console.log(toDay);
+    // hidden input 필드에 현재 날짜 설정
+    document.getElementById('toDay').value = toDay;
+    console.log(toDay);
 
 </script>
 </body>

@@ -6,9 +6,11 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface ReplyMapper {
 
+    void registReply(ReplyDTO newReply);
+
     void deleteReply(int replyCode);
 
-    int updateReply(ReplyDTO reply);
+    ReplyDTO findReplyByCode(int replyCode);
 
-    int registNewReply(ReplyDTO newReply);
+    void updateReply(ReplyDTO reply);
 }

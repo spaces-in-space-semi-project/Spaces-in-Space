@@ -2,132 +2,54 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <style>
+        /* 테이블 컨테이너 */
+        .table-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* 화면의 100% 높이 */
+        }
+
+        /* 테이블 스타일 */
+        table {
+            border-collapse: collapse;
+            width: 50%; /* 테이블 너비를 조정 가능 */
+        }
+
+        th, td {
+            border: 1px solid #000;
+            padding: 10px;
+            text-align: center;
+        }
+
+        thead {
+            background-color: #f2f2f2;
+        }
+    </style>
 </head>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title th:text="${pageTitle}">Spaces in Space</title>
 <body>
 <div th:fragment="adminOrder">
     <main>
-        <div class="d-flex justify-content-end mb-3">
-            <form th:action="@{/admin/pay/searchPayList}">
-            <div class="input-group" style="width: 250px;">
-                <input type="text" name="searchValue" class="form-control" placeholder="검색..." aria-label="Search">
-                <button class="btn btn-outline-secondary">검색</button>
-            </div>
-            </form>
-        </div>
-
-        <div id="grid" class="mt-4"></div>
-        <div id="pagination" class="d-flex justify-content-center mt-3"></div>
-
-        <script th:inline="javascript">
-            let adminPayList = /*[[${ payList }]]*/ [];
-            const totalItems = adminPayList.length; // Total number of items
-            const itemsPerPage = 10; // Number of items per page
-
-            // Initialize TUI Pagination
-            const pagination = new tui.Pagination(document.getElementById('pagination'), {
-                totalItems: totalItems,
-                itemsPerPage: itemsPerPage,
-                visiblePages: 5,
-                centerAlign: true,
-                firstItem: '<span class="tui-page-btn tui-first">«</span>',
-                prevItem: '<span class="tui-page-btn tui-prev">‹</span>',
-                nextItem: '<span class="tui-page-btn tui-next">›</span>',
-                lastItem: '<span class="tui-page-btn tui-last">»</span>'
-            });
-
-            // Initialize TUI Grid without pageOptions
-            const grid = new tui.Grid({
-                el: document.getElementById('grid'),
-                data: adminPayList.slice(0, itemsPerPage),
-                scrollX: false,
-                scrollY: true,
-                columns: [
-                    {
-                        header: '주문코드',
-                        name: 'payCode',
-                        sortable: true,
-                        align: 'center',
-                        width: 100
-                    },
-                    {
-                        header: '회원코드',
-                        name: 'memberCode',
-                        sortable: true,
-                        align: 'center',
-                        width: 100
-                    },
-                    {
-                        header: '회원ID',
-                        name: 'memberId',
-                        sortable: true,
-                        align: 'center',
-                        width: 150
-                    },
-                    {
-                        header: '회원이름',
-                        name: 'memberName',
-                        sortable: true,
-                        align: 'center',
-                        width: 150
-                    },
-                    {
-                        header: '주문날짜',
-                        name: 'payDate',
-                        sortable: true,
-                        align: 'center',
-                        width: 150
-                    },
-                    {
-                        header: '배송상태',
-                        name: 'payDeliverStatus',
-                        sortable: true,
-                        align: 'center',
-                        width: 150
-                    },
-                    {
-                        header: '주문수량',
-                        name: 'payTotalCnt',
-                        sortable: true,
-                        sortingType: 'desc',
-                        align: 'center',
-                        width: 100
-                    },
-                    {
-                        header: '주문금액',
-                        name: 'payTotalPrice',
-                        sortable: true,
-                        align: 'center'
-                    },
-                    {
-                        header: '결제취소여부',
-                        name: 'payDeleteYn',
-                        sortable: true,
-                        align: 'center'
-                    }
-                ]
-            });
-            // Handle pagination page change and update grid data manually
-            pagination.on('beforeMove', (event) => {
-                const currentPage = event.page;
-                const startIdx = (currentPage - 1) * itemsPerPage;
-                const endIdx = startIdx + itemsPerPage;
-                grid.resetData(productList.slice(startIdx, endIdx));
-                return true;
-            });
-
-            // Attach the row click event listener
-            grid.on('click', (ev) => {
-                const rowKey = ev.rowKey;
-                const rowData = grid.getRow(rowKey);
-
-                // Check if row data exists and navigate to the detail page
-                if (rowData && rowData.payCode) {
-                    const detailUrl = `/admin/pay/adminPayDetail/${rowData.payCode}`;
-                    window.location.href = detailUrl;
-                }
-            });
-        </script>
+        <h1>사용자 결제 내역</h1>
+        <table>
+            <tr>
+                <th>결제번호</th>
+                <th>주문날짜</th>
+                <th>배송상태</th>
+                <th>주문수량</th>
+                <th>주문금액</th>
+            </tr>
+            <tr th:each="pay : ${payList}">
+                <td><a th:href="@{/admin/pay/adminPayDetail/{payCode}(payCode=${ pay.payCode})}" th:text="${ pay.payCode }"></a></td>
+                <td th:text="${pay.payDate}"></td>
+                <td th:text="${pay.payDeliverStatus}"></td>
+                <td th:text="${pay.payTotalCnt}"></td>
+                <td th:text="${pay.payTotalPrice}"></td>
+            </tr>
+        </table>
     </main>
 </div>
 </body>

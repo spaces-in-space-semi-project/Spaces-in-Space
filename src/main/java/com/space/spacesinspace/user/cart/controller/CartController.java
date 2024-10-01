@@ -116,11 +116,11 @@ public class CartController {
 
         return ResponseEntity.ok(response);
     }
-
     //결제시 DB에 정보 기입 [주문내역 + 상세주문내역]
     @PostMapping("receipt")
     public String addPayList(@ModelAttribute PayDTO payDTO,
-                             @RequestParam("memberCode") int memberCode,
+                             @ModelAttribute PayDetailDTO payDetailDTO,
+                             @ModelAttribute ArrayList<CartDTO> cartDTOList,
                              @RequestParam("payDate") String payDate,
                              @RequestParam("payTotalCnt") int payTotalCnt,
                              @RequestParam("payTotalPrice") int payTotalPrice,
@@ -136,7 +136,6 @@ public class CartController {
                              Model model){
 
         payDTO.setPayDate(payDate);
-        payDTO.setMemberCode(memberCode);
         payDTO.setPayTotalCnt(payTotalCnt);
         payDTO.setPayTotalPrice(payTotalPrice);
         payDTO.setPayDeliverStatus(payDeliverStatus);
@@ -162,23 +161,17 @@ public class CartController {
         model.addAttribute("cardCompanyCode",cardCompanyCode);
         model.addAttribute("payCardNumber",payCardNumber);
 
-        payService.addPayList(payDTO);
-
-
-        List<CartDTO> cartDTOList = payService.findCartList(memberCode);
+        payService.addPayList(payDTO,payDetailDTO);
 
         // List<CartDTO> 안의 장바구니 항목들을 순회하며 처리
-        for(CartDTO c : cartDTOList) {
-
-            PayDetailDTO payDetailDTO = new PayDetailDTO();
+        for(CartDTO cart : cartDTOList) {
             payDetailDTO.setPayCode(payDTO.getPayCode());
-            payDetailDTO.setProductCode(c.getProductCode());
-            payDetailDTO.setPayDetailCnt(c.getCartCnt());
-            payDetailDTO.setPayDetailPrice(c.getCartPrice());
-
-            payService.addPayDetailList(payDetailDTO);
+            payDetailDTO.setProductCode(cart.getProductCode());
+            payDetailDTO.setPayDetailCnt(cart.getCartCnt());
+            payDetailDTO.setPayDetailPrice(cart.getCartPrice());
         }
 
+        int memberCode = payDTO.getMemberCode();
         cartService.deleteCartAllMenu(memberCode);
 
         return "redirect:/user/pay/payList";

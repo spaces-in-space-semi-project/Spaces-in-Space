@@ -10,7 +10,7 @@
             <div class="d-flex justify-content-end mb-3">
                 <div class="input-group" style="width: 250px;">
                     <input type="text" class="form-control" placeholder="검색..." aria-label="Search">
-                    <button class="btn btn-outline-secondary">검색</button>
+                    <button class="btn btn-outline-secondary" type="button">검색</button>
                 </div>
             </div>
             <div id="grid" class="mt-4"></div>
@@ -56,11 +56,13 @@
                         {
                             header: '문의제목',
                             name: 'inquiryTitle',
+                            sortable: true,
                             sortingType: 'desc',
                             width: 150
                         },
                         {
                             header: '문의내용',
+                            sortable: true,
                             name: 'inquiryDetail',
                             align: 'center',
                             width: 500
@@ -100,9 +102,9 @@
                         window.location.href = detailUrl;
                     }
                 });
-
             </script>
         </main>
+
     </div>
 </body>
 </html>

@@ -44,7 +44,7 @@ public class SecurityConfig {
                     "/auth/admin/login","/user/member/signup", "/auth/fail", "/fragments/*",
                     "/user/product/productList", "/user/product/productAll", "/user/product/productByCategory/*",
                     "/user/product/productDetail/*", "/img/**", "/static/**", "/uploadedFiles/**",
-                    "/user/faq/list","/main", "/", "/error/**", "/error-500", "/error-404").permitAll();
+                    "/user/faq/list","/main", "/").permitAll();
             auth.requestMatchers("/admin/*").hasAnyAuthority("ADMIN");
             auth.requestMatchers("/member/*").hasAnyAuthority("USER");
             auth.anyRequest().authenticated();

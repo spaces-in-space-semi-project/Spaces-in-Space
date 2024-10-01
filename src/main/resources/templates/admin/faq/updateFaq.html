@@ -2,19 +2,21 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>FAQ 수정</title>
-    <link rel="stylesheet" href="styles.css"> <!-- 외부 CSS 파일 링크 -->
+    <style>
+
+    </style>
 </head>
 <body>
-<div th:fragment="updateFaq" class="faq-form-container">
-    <h2 class="faq-title">FAQ 수정하기</h2>
+<div th:fragment="updateFaq" class="container">
+    <h2>FAQ 수정하기</h2>
 
-    <form th:action="@{/admin/faq/update/{faqCode}(faqCode=${faqDTO.faqCode})}" method="post" class="faq-form">
-        <label class="faq-label">FAQ 질문:</label>
-        <input type="text" th:field="*{faqDTO.faqTitle}" th:value="${faqDTO.faqTitle}" required maxlength="200" class="faq-input">
+    <form th:action="@{/admin/faq/update/{faqCode}(faqCode=${faqDTO.faqCode})}" method="post">
+        <label>FAQ 질문:</label>
+        <input type="text" th:field="*{faqDTO.faqTitle}" th:value="${faqDTO.faqTitle}" required maxlength="200">
         <div class="char-count" id="question-char-count">0/200</div> <!-- 글자수 제한 -->
 
-        <label class="faq-label">FAQ 내용:</label>
-        <textarea th:field="*{faqDTO.faqDetail}" required maxlength="200" class="faq-textarea">${faqDTO.faqDetail}</textarea>
+        <label>FAQ 내용:</label>
+        <textarea th:field="*{faqDTO.faqDetail}" required maxlength="200">${faqDTO.faqDetail}</textarea>
         <div class="char-count" id="content-char-count">0/200</div> <!-- 글자수 제한 -->
 
         <button type="submit" class="submit-btn">수정</button>
@@ -23,7 +25,7 @@
 
     <script>
         // 질문 글자 수 제한 카운트
-        const questionInput = document.querySelector('.faq-input');
+        const questionInput = document.querySelector('input[th\\:field="*{faqDTO.faqTitle}"]');
         const questionCount = document.getElementById('question-char-count');
 
         questionInput.addEventListener('input', () => {
@@ -32,7 +34,7 @@
         });
 
         // 내용 글자 수 제한 카운트
-        const contentInput = document.querySelector('.faq-textarea');
+        const contentInput = document.querySelector('textarea[th\\:field="*{faqDTO.faqDetail}"]');
         const contentCount = document.getElementById('content-char-count');
 
         contentInput.addEventListener('input', () => {
@@ -45,5 +47,6 @@
         contentCount.textContent = `${contentInput.value.length}/200`;
     </script>
 </div>
+
 </body>
 </html>

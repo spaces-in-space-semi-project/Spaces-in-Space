@@ -13,7 +13,7 @@ public interface AdminInquiryMapper {
 
     InquiryDTO findInquiryByCode(int inquiryCode);
 
-    void deleteInquiry(int code);
+    void deleteInquiry(int inquiryCode);
 
     ReplyDTO findReplyByCode(int inquiryCode);
 }

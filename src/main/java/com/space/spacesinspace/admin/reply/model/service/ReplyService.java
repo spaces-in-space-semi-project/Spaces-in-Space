@@ -15,17 +15,21 @@ public class ReplyService {
     }
 
     @Transactional
+    public void registReply(ReplyDTO newReply) {
+        replyMapper.registReply(newReply);
+    }
+
+    @Transactional
     public void deleteReply(int replyCode) {
         replyMapper.deleteReply(replyCode);
     }
 
-    @Transactional
-    public Integer updateReply(ReplyDTO reply) {
-        return replyMapper.updateReply(reply);
+    public ReplyDTO findReplyByCode(int replyCode) {
+        return replyMapper.findReplyByCode(replyCode);
     }
 
     @Transactional
-    public Integer registNewReply(ReplyDTO newReply) {
-        return replyMapper.registNewReply(newReply);
+    public void updateReply(ReplyDTO reply) {
+        replyMapper.updateReply(reply);
     }
 }

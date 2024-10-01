@@ -55,11 +55,11 @@ public class AdminInquiryController {
         return mv;
     }
 
-    @PostMapping("/delete/{code}")
-    public String deleteInquiry(@PathVariable("code") int code,
+    @PostMapping("/delete/{inquiryCode}")
+    public String deleteInquiry(@PathVariable("inquiryCode") int inquiryCode,
                                 RedirectAttributes rAttr) {
 
-        adminInquiryService.deleteInquiry(code);
+        adminInquiryService.deleteInquiry(inquiryCode);
 
         rAttr.addFlashAttribute("message", "문의글이 삭제되었습니다.");
 
