@@ -120,4 +120,15 @@
             review_code = #{ reviewCode }
     </update>
 
+    <select id="findReviewByProductCode" parameterType="int" resultMap="ReviewResultMap">
+        SELECT
+            *
+        FROM
+            review_tbl
+        WHERE
+            product_code = #{productCode}
+        ORDER BY
+            review_code ASC
+    </select>
+
 </mapper>
