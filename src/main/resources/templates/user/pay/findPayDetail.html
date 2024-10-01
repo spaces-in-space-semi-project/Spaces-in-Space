@@ -28,7 +28,7 @@
                 <td class="price" th:attr="data-price=${payDetail.payDetailPrice}"></td>
                 <td>
                     <!-- 리뷰 추가 버튼 -->
-                    <a th:href="@{/user/review/regist/{productCode}(productCode=${findPayByCode.productCode})}" class="btn btn-outline-primary btn-sm" style="margin-top: 0; width: 100px;">리뷰 추가</a>
+                    <a th:href="@{/user/review/regist/{productCode}(productCode=${payDetail.productCode})}" class="btn btn-outline-primary btn-sm" style="margin-top: 0; width: 100px;">리뷰 추가</a>
                 </td>
             </tr>
             </tbody>
