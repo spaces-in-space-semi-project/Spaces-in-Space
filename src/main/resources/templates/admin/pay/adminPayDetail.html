@@ -4,22 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>주문 상세</title>
+
 </head>
 <body>
-<div th:fragment="adminOrderDetail" class="container my-5">
-    <h2 class="mb-4">주문 상세</h2>
+<div th:fragment="adminOrderDetail" class="container my-4">
+    <h2 class="mb-3">주문 상세</h2>
 
     <!-- 상품 상세 정보 -->
     <div class="card mb-4">
         <div class="card-header">
             상품 목록
         </div>
-        <div class="card-body">
-            <div th:each="payDetail : ${payDetailList}">
-                <p><strong>상품 이름:</strong> <span th:text="${payDetail.productName}"></span></p>
-                <p><strong>상품 수량:</strong> <span th:text="${payDetail.payDetailCnt}"></span></p>
-                <p><strong>상품 가격:</strong> <span th:text="${payDetail.payDetailPrice}"></span></p>
-            </div>
+        <div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>상품 이름</th>
+                    <th>상품 수량</th>
+                    <th>상품 가격</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="payDetail : ${payDetailList}">
+                    <td th:text="${payDetail.productName}"></td>
+                    <td th:text="${payDetail.payDetailCnt}"></td>
+                    <td th:text="${payDetail.payDetailPrice}"></td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 
@@ -29,44 +41,79 @@
             주문 정보
         </div>
         <div class="card-body">
+            <table class="table">
+                <tbody>
+                <tr>
+                    <th>주문 날짜</th>
+                    <td th:text="${findPayByCode.payDate}"></td>
+                </tr>
+                <tr>
+                    <th>배송자명</th>
+                    <td th:text="${findPayByCode.payReceiver}"></td>
+                </tr>
+                <tr>
+                    <th>배송받을 연락처</th>
+                    <td th:text="${findPayByCode.payDeliverPhone}"></td>
+                </tr>
+                <tr>
+                    <th>주문 결제 상태</th>
+                    <td th:text="${findPayByCode.payRefundYn}"></td>
+                </tr>
+                <tr>
+                    <th>주문 결제 수량</th>
+                    <td th:text="${findPayByCode.payTotalCnt}"></td>
+                </tr>
+                <tr>
+                    <th>주문 결제 금액</th>
+                    <td th:text="${findPayByCode.payTotalPrice}"></td>
+                </tr>
+                <tr>
+                    <th>배송 상태</th>
+                    <td th:text="${findPayByCode.payDeliverStatus}"></td>
+                </tr>
+                <tr>
+                    <th>계좌번호</th>
+                    <td th:text="${findPayByCode.payAccountNumber}"></td>
+                </tr>
+                <tr>
+                    <th>카드번호</th>
+                    <td th:text="${findPayByCode.payCardNumber}"></td>
+                </tr>
+                <tr>
+                    <th>결제취소여부</th>
+                    <td th:text="${findPayByCode.payDeleteYn}" id="paydeleteyn"></td>
+                </tr>
+                </tbody>
+            </table>
+
             <!-- 주문 취소 버튼 -->
-            <form th:action="@{/admin/pay/update/{payCode}(payCode=${findPayByCode.payCode})}" method="post" onsubmit="return confirmCancel()">
-            <p><strong>주문 날짜:</strong> <span th:text="${findPayByCode.payDate}"></span></p>
-            <p><strong>배송자명:</strong> <span th:text="${findPayByCode.payReceiver}"></span></p>
-            <p><strong>배송받을 연락처:</strong> <span th:text="${findPayByCode.payDeliverPhone}"></span></p>
-            <p><strong>주문 결제 상태:</strong> <span th:text="${findPayByCode.payRefundYn}"></span></p>
-            <p><strong>주문 결제 수량:</strong> <span th:text="${findPayByCode.payTotalCnt}"></span></p>
-            <p><strong>주문 결제 금액:</strong> <span th:text="${findPayByCode.payTotalPrice}"></span></p>
-            <p><strong>배송 상태:</strong> <span th:text="${findPayByCode.payDeliverStatus}"></span></p>
-            <p><strong>계좌번호:</strong> <span th:text="${findPayByCode.payAccountNumber}"></span></p>
-            <p><strong>카드번호:</strong> <span th:text="${findPayByCode.payCardNumber}"></span></p>
-            <p><strong>결제취소여부:</strong> <span th:text="${findPayByCode.payDeleteYn}"></span></p>
-                <button type="submit" name="cancel" class="btn btn-danger mt-3" th:if="${findPayByCode.payDeliverStatus == '배송전' and findPayByCode.payDeleteYn == 'N'}">주문취소</button>
-               </form>
-            <form th:action="@{/admin/pay/updateDeliverStatus/{payCode}(payCode=${findPayByCode.payCode})}" method="post">
-                <button type="submit" class="btn btn-primary mt-3" th:if="${findPayByCode.payDeliverStatus == '배송전' and findPayByCode.payDeleteYn == 'N'}">배송하기</button>
-            </form>
-        <script>
-            function confirmCancel() {
-                return confirm("주문을 취소하시겠습니까?");
-            }
-
-            document.addEventListener('DOMContentLoaded',function(){
-
-                const paydeleteY = document.getElementById('paydeleteyn');
-
-                if (paydeleteY) {
-                    if (paydeleteY.textContent.trim() === 'Y') {
-                        paydeleteY.textContent = '주문이 취소되었습니다.';
-                    } else if (paydeleteY.textContent.trim() === 'N') {
-                        paydeleteY.textContent = '취소 가능';
-                    }
-                }
-            });
-
-        </script>
+            <div class="d-flex justify-content-between align-items-center mt-3">
+                <form th:action="@{/admin/pay/update/{payCode}(payCode=${findPayByCode.payCode})}" method="post" onsubmit="return confirmCancel()">
+                    <button type="submit" name="cancel" class="btn btn-danger" th:if="${findPayByCode.payDeliverStatus == '배송전' and findPayByCode.payDeleteYn == 'N'}">주문취소</button>
+                </form>
+                <form th:action="@{/admin/pay/updateDeliverStatus/{payCode}(payCode=${findPayByCode.payCode})}" method="post">
+                    <button type="submit" class="btn btn-primary" th:if="${findPayByCode.payDeliverStatus == '배송전' and findPayByCode.payDeleteYn == 'N'}">배송하기</button>
+                </form>
+            </div>
         </div>
     </div>
+
+    <script>
+        function confirmCancel() {
+            return confirm("주문을 취소하시겠습니까?");
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const paydeleteY = document.getElementById('paydeleteyn');
+            if (paydeleteY) {
+                if (paydeleteY.textContent.trim() === 'Y') {
+                    paydeleteY.textContent = '주문이 취소되었습니다.';
+                } else if (paydeleteY.textContent.trim() === 'N') {
+                    paydeleteY.textContent = '';
+                }
+            }
+        });
+    </script>
 </div>
 </body>
 </html>
