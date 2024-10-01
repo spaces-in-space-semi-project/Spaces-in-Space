@@ -16,7 +16,7 @@
                     <label for="inquiryTitle" class="form-label">문의 제목</label><input type="text" name="inquiryTitle" id="inquiryTitle" class="form-control" th:value="${ inquiry.inquiryTitle }" readonly><br>
                 </div>
                 <div class="mb-3">
-                    <label for="inquiryDetail" class="form-label">문의 내용</label><textarea name="inquiryDetail" id="inquiryDetail" class="form-control" rows="7" th:text="${ inquiry.inquiryDetail }" readonly></textarea>
+                    <label for="inquiryDetail" class="form-label">문의 내용</label><textarea name="inquiryDetail" id="inquiryDetail" class="form-control" rows="7" style="resize: none;" th:text="${ inquiry.inquiryDetail }" readonly></textarea>
                 </div>
             </form>
 
@@ -27,7 +27,7 @@
                 <input type="hidden" id="replyCode" name="replyCode" th:value="${reply.replyCode}">
                 <div class="mb-3">
                     <label for="replyDetail" class="form-label">답변</label>
-                    <textarea id="replyDetail" name="replyDetail" class="form-control" rows="5" th:text="${reply.replyDetail}" required></textarea>
+                    <textarea id="replyDetail" name="replyDetail" class="form-control" rows="5" style="resize: none;" th:text="${reply.replyDetail}" required></textarea>
                     <div class="invalid-feedback">내용을 입력해주세요.</div>
                 </div>
                 <div class="col-12 text-end">
@@ -44,15 +44,14 @@
         <div th:if="${reply == null}" class="form-container-inquiry mt-4 ">
             <form id="replyForm2" th:action="@{/admin/reply/registReply/{inquiryCode}(inquiryCode=${ inquiry.inquiryCode })}" method="post" novalidate>
                 <label for="replyDetail2" class="form-label">답변</label>
-                <textarea name="replyDetail2" id="replyDetail2" rows="5" class="form-control" th:text="${reply != null ? reply.replyDetail : ''}"></textarea>
+                <textarea name="replyDetail2" id="replyDetail2" rows="5" style="resize: none;" class="form-control" th:text="${reply != null ? reply.replyDetail : ''}" required></textarea>
+                <div class="invalid-feedback">내용을 입력해주세요.</div>
                 <br>
                 <div class="text-end col-12">
                     <button type="submit" class="btn btn-primary submit-btn">등록</button>
                 </div>
             </form>
         </div>
-
-
     </div>
     <script th:inline="javascript">
         // 삭제 confirm

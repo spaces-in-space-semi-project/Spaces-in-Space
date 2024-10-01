@@ -3,7 +3,9 @@ package com.space.spacesinspace.user.review.model.dto;
 public class ReviewDTO {
 
     private int reviewCode;
+    private int payDetailCode;
     private int productCode;
+    private String productName;
     private int memberCode;
     private String reviewTitle;
     private String reviewDetail;
@@ -16,9 +18,11 @@ public class ReviewDTO {
     public ReviewDTO() {
     }
 
-    public ReviewDTO(int reviewCode, int productCode, int memberCode, String reviewTitle, String reviewDetail, String reviewPhotoOriginal, String reviewPhotoThumbnail, int reviewRating, String reviewDate, String reviewEditDate) {
+    public ReviewDTO(int reviewCode, int payDetailCode, int productCode, int memberCode, String reviewTitle, String reviewDetail, String reviewPhotoOriginal, String reviewPhotoThumbnail, int reviewRating, String reviewDate, String reviewEditDate) {
         this.reviewCode = reviewCode;
+        this.payDetailCode = payDetailCode;
         this.productCode = productCode;
+        this.productName = productName;
         this.memberCode = memberCode;
         this.reviewTitle = reviewTitle;
         this.reviewDetail = reviewDetail;
@@ -29,12 +33,28 @@ public class ReviewDTO {
         this.reviewEditDate = reviewEditDate;
     }
 
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
     public int getReviewCode() {
         return reviewCode;
     }
 
     public void setReviewCode(int reviewCode) {
         this.reviewCode = reviewCode;
+    }
+
+    public int getPayDetailCode() {
+        return payDetailCode;
+    }
+
+    public void setPayDetailCode(int payDetailCode) {
+        this.payDetailCode = payDetailCode;
     }
 
     public int getProductCode() {
@@ -114,6 +134,8 @@ public class ReviewDTO {
         return "ReviewDTO{" +
                 "reviewCode=" + reviewCode +
                 ", productCode=" + productCode +
+                ", productName=" + productName +
+                ", payDetailCode=" + payDetailCode +
                 ", memberCode=" + memberCode +
                 ", reviewTitle='" + reviewTitle + '\'' +
                 ", reviewDetail='" + reviewDetail + '\'' +

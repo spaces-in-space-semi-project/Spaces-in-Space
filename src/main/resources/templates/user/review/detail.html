@@ -6,36 +6,142 @@
     <title>Review Detail</title>
 </head>
 <body>
-    <h1>REVIEW</h1>
+<div th:fragment="reviewDetails">
+    <main class="container my-5">
+        <h3 class="text-center mb-4">리뷰 상세</h3>
+        <div class="form-container-review">
+            <form id="updateForm" th:action="@{/user/review/update}" method="post" enctype="multipart/form-data" novalidate>
 
-    <h2>리뷰 내용</h2>
+                <input type="hidden" id="reviewCode" name="reviewCode" th:value="${review.reviewCode}">
+                <input type="hidden" id="productCode" name="productCode" th:value="${review.productCode}">
+                <input type="hidden" name="existingPhotoOriginal" th:value="${review.reviewPhotoOriginal}">
+                <input type="hidden" name="existingPhotoThumbnail" th:value="${review.reviewPhotoThumbnail}">
+                <!-- 리뷰 사진 -->
+                <div class="mb-3">
+                    <label for="reviewPhotoOriginal" class="form-label">리뷰 사진</label>
+                    <div th:if="${review.reviewPhotoOriginal != null && review.reviewPhotoOriginal != ''}" class="mt-2">
+                        <img th:src="@{${review.reviewPhotoOriginal}}" alt="리뷰 이미지" style="max-width: 200px;">
+                    </div><br>
+                    <input type="file" class="form-control" id="reviewPhotoOriginal" name="reviewPhotoOriginal" th:value="${review.reviewPhotoOriginal}">
+                </div>
 
-    <main>
-        <div th:fragment="inquiry">
-            <p>리뷰 코드: <span th:text="${ review.reviewCode }"></span></p>
-            <p>상품 코드: <span th:text="${ review.productCode }"></span></p>
-            <p>회원 코드: <span th:text="${ review.memberCode }"></span></p>
-            <p>리뷰 사진: <span th:text="${ review.reviewPhotoOriginal }"></span></p>
-            <p>리뷰 제목: <span th:text="${ review.reviewTitle}"></span></p>
-            <p>리뷰 내용: <span th:text="${ review.reviewDetail }"></span></p>
-            <p>리뷰 별점: <span th:text="${ review.reviewRating }"></span></p>
-            <p>리뷰 생성일: <span th:text="${ review.reviewDate }"></span></p>
-            <p>리뷰 수정일: <span th:text="${ review.reviewEditDate }"></span></p>
+                <!-- 리뷰 제목 -->
+                <div class="mb-3">
+                    <label for="reviewTitle" class="form-label">리뷰 제목</label>
+                    <input type="text" class="form-control" id="reviewTitle" name="reviewTitle" th:value="${review.reviewTitle}" required>
+                    <div class="invalid-feedback">
+                        리뷰 제목을 입력해주세요.
+                    </div>
+                </div>
+
+                <!-- 리뷰 내용 -->
+                <div class="mb-3">
+                    <label for="reviewDetail" class="form-label">리뷰 내용</label>
+                    <textarea class="form-control" id="reviewDetail" name="reviewDetail" rows="3" th:text="${review.reviewDetail}" required></textarea>
+                    <div class="invalid-feedback">
+                        리뷰 내용을 입력해주세요.
+                    </div>
+                </div>
+
+                <!-- 리뷰 별점 -->
+                <div class="mb-3">
+                    <label for="reviewRating" class="form-label">리뷰 별점</label>
+                    <div class="star-rating">
+                        <!-- Star Rating Radio Buttons -->
+                        <input type="radio" id="star5" name="reviewRating" value="5" th:checked="${review.reviewRating == 5}">
+                        <label for="star5">&#9733;</label>
+
+                        <input type="radio" id="star4" name="reviewRating" value="4" th:checked="${review.reviewRating == 4}">
+                        <label for="star4">&#9733;</label>
+
+                        <input type="radio" id="star3" name="reviewRating" value="3" th:checked="${review.reviewRating == 3}">
+                        <label for="star3">&#9733;</label>
+
+                        <input type="radio" id="star2" name="reviewRating" value="2" th:checked="${review.reviewRating == 2}">
+                        <label for="star2">&#9733;</label>
+
+                        <input type="radio" id="star1" name="reviewRating" value="1" th:checked="${review.reviewRating == 1}">
+                        <label for="star1">&#9733;</label>
+                    </div>
+                </div>
+
+                <input type="hidden" id="hiddenReviewRating" name="reviewRating" th:value="${review.reviewRating}">
+
+<!--                <div class="mb-3">-->
+<!--                    <label for="reviewRating" class="form-label">리뷰 별점</label>-->
+<!--                    <div id="starRating" class="star-rating"></div>-->
+<!--                </div>-->
+
+                <div class="col-12 text-end">
+                    <button type="submit" class="btn btn-primary">수정하기</button>
+                    <button type="button" class="btn btn-danger" onclick="confirmDelete()">삭제하기</button>
+                </div>
+            </form>
         </div>
     </main>
 
-    <button id="editButton">수정</button>
-
-    <form th:action="@{/user/review/detail/{code}(code=${ review.reviewCode })}" method="post">
-        <button type="submit">삭제</button>
+    <form th:action="@{/user/review/delete/{reviewCode}/{payDetailCode}(reviewCode=${review.reviewCode}, payDetailCode=${review.payDetailCode})}" method="post" id="deleteForm">
     </form>
 
-    <button onclick="location.href='/user/review/list'">리뷰 목록</button>
+<!--    <button onclick="location.href='/user/review/list'">리뷰 목록</button>-->
 
-    <script>
-        document.getElementById('editButton').addEventListener('click', function () {
-            window.location.href = '/user/list' + [[${inquiry.code}]];
+    <script th:inline="javascript">
+        // 삭제 confirm
+        function confirmDelete() {
+            if (confirm("리뷰를 삭제하겠습니까?")) {
+                document.getElementById('deleteForm').submit();
+            }
+        }
+
+        // Bootstrap validation 체크
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('updateForm');
+            const submitButton = document.getElementById('updateSubmitButton');
+
+            // Add event listener for form submission
+            form.addEventListener('submit', function(event) {
+                // Trigger validation for each field
+                Array.from(form.elements).forEach(input => {
+                    if (!input.checkValidity()) {
+                        input.classList.add('is-invalid');
+                    } else {
+                        input.classList.remove('is-invalid');
+                        input.classList.add('is-valid');
+                    }
+                });
+
+                // Prevent submission if form is invalid
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                } else {
+                    form.classList.add('was-validated');
+                }
+            });
+
+            // Reset validation states on input change
+            form.addEventListener('input', function(event) {
+                const input = event.target;
+                if (input.checkValidity()) {
+                    input.classList.remove('is-invalid');
+                    input.classList.add('is-valid');
+                } else {
+                    input.classList.remove('is-valid');
+                    input.classList.add('is-invalid');
+                }
+            });
+
+            // 별점 설정
+            const ratingRadios = document.querySelectorAll('input[name="reviewRating"]');
+            const hiddenRatingInput = document.getElementById('hiddenReviewRating');
+
+            ratingRadios.forEach((radio) => {
+                radio.addEventListener('change', function () {
+                    hiddenRatingInput.value = this.value;
+                });
+            });
         });
     </script>
+</div>
 </body>
 </html>

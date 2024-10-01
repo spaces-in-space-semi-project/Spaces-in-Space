@@ -32,6 +32,7 @@
         <result property="productCode" column="product_code"/>
         <result property="payDetailCnt" column="pay_detail_cnt"/>
         <result property="payDetailPrice" column="pay_detail_price"/>
+        <result property="reviewYn" column="review_yn"/>
         <result property="payDate" column="pay_date"/>
         <result property="payRefundYn" column="pay_refund_yn"/>
         <result property="productName" column="product_name"/>
@@ -219,7 +220,8 @@
         b.pay_deliever_status,
         d.bank_name,
         b.pay_account_number,
-        e.card_company_name
+        e.card_company_name,
+        a.review_yn
         FROM
         pay_detail_tbl a
         JOIN
@@ -239,6 +241,7 @@
         SELECT
         b.pay_date,
         b.pay_code,
+        a.pay_detail_code,
         c.product_name,
         c.product_code,
         a.pay_detail_cnt,
@@ -250,7 +253,8 @@
         b.pay_deliever_status,
         d.bank_name,
         b.pay_account_number,
-        e.card_company_name
+        e.card_company_name,
+        a.review_yn
         FROM
         pay_detail_tbl a
         JOIN
@@ -407,8 +411,8 @@
 
     <!--그럼 이녀석이 잘 확인해서 payCode 꺼내서, 연속으로 db 정보 기입 가능.-->
     <insert id="addPayDetailList" parameterType="com.space.spacesinspace.common.dto.PayDetailDTO">
-        INSERT INTO pay_detail_tbl (pay_code, product_code, pay_detail_cnt, pay_detail_price)
-        VALUES (#{payCode}, #{productCode}, #{payDetailCnt}, #{payDetailPrice})
+        INSERT INTO pay_detail_tbl (pay_code, product_code, pay_detail_cnt, pay_detail_price, review_yn)
+        VALUES (#{payCode}, #{productCode}, #{payDetailCnt}, #{payDetailPrice}, 'N')
     </insert>
 
     <!--장바구니를 조회한다. 음.-->

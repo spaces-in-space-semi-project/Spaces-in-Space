@@ -7,6 +7,7 @@ public class PayDetailDTO {
     private int productCode;        // 상품코드
     private int payDetailCnt;       // 결제수량
     private int payDetailPrice;     // 결제 금액
+    private String reviewYn;        // 리뷰 존재 여부
     private String payDate;         // 결제일자
     private String payRefundYn;     // 결제결제상태
     private String productName;     // 상품이름
@@ -21,12 +22,13 @@ public class PayDetailDTO {
     public PayDetailDTO() {
     }
 
-    public PayDetailDTO(int payDetailCode, int payCode, int productCode, int payDetailCnt, int payDetailPrice, String payDate, String payRefundYn, String productName, String payReceiver, String payDeliverPhone, String payDeliverStatus, Long payAccountNumber, Long payCardNumber, String bankName, String cardCompanyName) {
+    public PayDetailDTO(int payDetailCode, int payCode, int productCode, int payDetailCnt, int payDetailPrice, String reviewYn, String payDate, String payRefundYn, String productName, String payReceiver, String payDeliverPhone, String payDeliverStatus, Long payAccountNumber, Long payCardNumber, String bankName, String cardCompanyName) {
         this.payDetailCode = payDetailCode;
         this.payCode = payCode;
         this.productCode = productCode;
         this.payDetailCnt = payDetailCnt;
         this.payDetailPrice = payDetailPrice;
+        this.reviewYn = reviewYn;
         this.payDate = payDate;
         this.payRefundYn = payRefundYn;
         this.productName = productName;
@@ -37,6 +39,14 @@ public class PayDetailDTO {
         this.payCardNumber = payCardNumber;
         this.bankName = bankName;
         this.cardCompanyName = cardCompanyName;
+    }
+
+    public String getReviewYn() {
+        return reviewYn;
+    }
+
+    public void setReviewYn(String reviewYn) {
+        this.reviewYn = reviewYn;
     }
 
     public int getPayDetailCode() {
@@ -165,6 +175,7 @@ public class PayDetailDTO {
                 "payDetailCode=" + payDetailCode +
                 ", payCode=" + payCode +
                 ", productCode=" + productCode +
+                ", reviewYn=" + reviewYn +
                 ", payDetailCnt=" + payDetailCnt +
                 ", payDetailPrice=" + payDetailPrice +
                 ", payDate='" + payDate + '\'' +
