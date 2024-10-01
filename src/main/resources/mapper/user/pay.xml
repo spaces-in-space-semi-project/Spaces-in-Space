@@ -308,8 +308,7 @@
         WHERE
         a.pay_code  LIKE CONCAT('%', #{searchValue}, '%') OR
         b.member_id LIKE CONCAT('%', #{searchValue}, '%') OR
-        b.member_name LIKE CONCAT('%', #{searchValue}, '%') AND
-        a.pay_delete_yn = 'N'
+        b.member_name LIKE CONCAT('%', #{searchValue}, '%')
         ORDER BY
         pay_code
     </select>

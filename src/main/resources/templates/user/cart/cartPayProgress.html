@@ -93,7 +93,7 @@
     </tr>
     <tr>
         <th>전화번호 </th>
-        <td><input type="text" name="payDeliverPhone" placeholder="전화번호 입력" required/></td>
+        <td><input type="text" name="payDeliverPhone" placeholder="전화번호 입력" pattern="^[0-9]+$" required/></td>
     </tr>
     <tr>
         <th>배송주소 </th>
@@ -148,7 +148,7 @@
     </tr>
     <tr>
         <th>계좌번호 </th>
-        <td><input name="payAccountNumber" type="text" placeholder="계좌번호 입력" value=""/></td>
+        <td><input name="payAccountNumber" type="text" placeholder="계좌번호 입력"  pattern="^[0-9]+$" value=""/></td>
     </tr>
     </tbody>
 </table>
@@ -176,7 +176,7 @@
     </tr>
     <tr>
         <th>카드번호 </th>
-        <td><input type="text" name="payCardNumber" placeholder="카드번호 입력" value=""/></td>
+        <td><input type="text" name="payCardNumber" placeholder="카드번호 입력"  pattern="^[0-9]+$" value=""/></td>
     </tr>
     </tbody>
 </table>
