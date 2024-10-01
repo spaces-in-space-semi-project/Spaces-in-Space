@@ -23,7 +23,7 @@
                 <div class="mb-3">
                     <label for="inquiryDetail" class="form-label">문의 내용:</label>
                     <textarea id="inquiryDetail" name="inquiryDetail" class="form-control" rows="10"
-                              th:text="${inquiry.inquiryDetail}" required style="text-align:left; letter-spacing: 2px;"
+                              th:text="${inquiry.inquiryDetail}" required style="text-align:left; letter-spacing: 2px; resize: none;"
                               th:attr="readonly=${reply != null ? 'readonly' : null}"></textarea>
                     <div class="invalid-feedback">내용을 입력해주세요.</div>
                 </div>
