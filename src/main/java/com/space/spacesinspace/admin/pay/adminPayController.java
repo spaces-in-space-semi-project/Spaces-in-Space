@@ -22,6 +22,7 @@ public class adminPayController {
         this.payService = payService;
     }
 
+    /*관리자 전체 주문 내역 조회*/
     @GetMapping("adminPayList")
     public String showPayList(Model mv,
                                     @ModelAttribute PayDTO payDTO,
@@ -34,6 +35,19 @@ public class adminPayController {
         return "admin/layout/adminLayout";
     }
 
+    /*관리자 전체 주문 내역 중 검색 (주문번호, 회원아이디, 회원번호 )*/
+    @GetMapping("searchPayList")
+    public ModelAndView searchPayList(ModelAndView mv, @RequestParam String searchValue) {
+
+        List<PayDTO> searchPayList = payService.searchPayList(searchValue);
+
+        mv.addObject("payList", searchPayList);
+        mv.addObject("activeSection","adminOrder");
+        mv.setViewName("admin/layout/adminLayout");
+        return mv;
+    }
+
+    /*관리자 주문 전체 내역 중, 골라서 1개 상세 조회*/
     @GetMapping("adminPayDetail/{payCode}")
     public String findAdminPayDetail(@PathVariable("payCode") int payCode, Model mv) {
 
@@ -47,9 +61,16 @@ public class adminPayController {
         return "admin/layout/adminLayout";
     }
 
+    /*관리자 주문 상세 내역 중 배송전 이면 취소 삭제 기능 ( 보류 )*/
     @PostMapping("delete/{payCode}")
     public String deleteAdminPayMenu(@PathVariable("payCode") int payCode){
         payService.deleteAdminPayMenu(payCode);
+        return "redirect:/admin/pay/adminPayList";
+    }
+
+    @PostMapping("update/{payCode}")
+    public String updateAdminPayMenu(@PathVariable("payCode") int payCode){
+        payService.updateAdminPayMenu(payCode);
         return "redirect:/admin/pay/adminPayList";
     }
 }
