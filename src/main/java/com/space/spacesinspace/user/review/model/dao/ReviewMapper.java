@@ -10,11 +10,17 @@ public interface ReviewMapper {
 
     List<ReviewDTO> findAllReviewBy(int memberCode);
 
-    ReviewDTO findReviewByCode(int code);
+    ReviewDTO findReviewByCode(int reviewCode);
 
-    void registNewReview(ReviewDTO newReview);
+    int registNewReview(ReviewDTO newReview);
 
-    void deleteReview(int code);
+    int deleteReview(int code);
 
-    void updateReview(ReviewDTO review);
+    int updateReview(ReviewDTO review);
+
+    int updatePayDetailReviewYnInsert(int payDetailCode);
+
+    int updatePayDetailReviewYnDelete(int payDetailCode);
+
+    ReviewDTO findReviewByProductCode(int productCode);
 }

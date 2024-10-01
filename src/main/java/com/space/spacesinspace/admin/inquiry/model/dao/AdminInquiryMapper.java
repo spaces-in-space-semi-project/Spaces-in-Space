@@ -16,4 +16,6 @@ public interface AdminInquiryMapper {
     void deleteInquiry(int inquiryCode);
 
     ReplyDTO findReplyByCode(int inquiryCode);
+
+    List<InquiryDTO> findInquiryBySearch(String searchValue);
 }

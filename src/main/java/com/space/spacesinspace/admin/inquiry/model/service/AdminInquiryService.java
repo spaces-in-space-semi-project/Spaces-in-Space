@@ -36,4 +36,8 @@ public class AdminInquiryService {
     public ReplyDTO findReplyByCode(int inquiryCode) {
         return adminInquiryMapper.findReplyByCode(inquiryCode);
     }
+
+    public List<InquiryDTO> findInquiryBySearch(String searchValue) {
+        return adminInquiryMapper.findInquiryBySearch(searchValue);
+    }
 }

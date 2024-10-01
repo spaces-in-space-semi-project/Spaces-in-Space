@@ -1,15 +1,11 @@
 package com.space.spacesinspace.admin.inquiry.controller;
 
 import com.space.spacesinspace.admin.inquiry.model.service.AdminInquiryService;
-import com.space.spacesinspace.admin.reply.model.service.ReplyService;
 import com.space.spacesinspace.common.dto.InquiryDTO;
 import com.space.spacesinspace.common.dto.ReplyDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -20,12 +16,10 @@ import java.util.List;
 public class AdminInquiryController {
 
     private final AdminInquiryService adminInquiryService;
-    private final ReplyService replyService;
 
     @Autowired
-    public AdminInquiryController(AdminInquiryService adminInquiryService, ReplyService replyService) {
+    public AdminInquiryController(AdminInquiryService adminInquiryService) {
         this.adminInquiryService = adminInquiryService;
-        this.replyService = replyService;
     }
 
     @GetMapping("/list")
@@ -37,6 +31,15 @@ public class AdminInquiryController {
         mv.addObject("activeSection", "inquiry");
         mv.setViewName("admin/layout/adminLayout");
 
+        return mv;
+    }
+
+    @GetMapping("searchInquiry")
+    public ModelAndView searchInquiry(ModelAndView mv, @RequestParam String searchValue) {
+        List<InquiryDTO> searchedInquiryList = adminInquiryService.findInquiryBySearch(searchValue);
+        mv.addObject("inquiryList", searchedInquiryList);
+        mv.addObject("activeSection", "inquiry");
+        mv.setViewName("admin/layout/adminLayout");
         return mv;
     }
 

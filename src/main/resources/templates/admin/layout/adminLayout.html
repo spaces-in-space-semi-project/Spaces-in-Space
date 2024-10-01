@@ -80,6 +80,12 @@
       /*padding: 20px;*/
     }
 
+    .form-container-inquiry {
+      max-width: 495px;
+      /*margin: 0 auto;*/
+      /*padding: 20px;*/
+    }
+
     /* Add padding and background styling for a better click area */
     #pagination .tui-page-item a,
     #pagination .tui-page-btn {
@@ -95,24 +101,22 @@
     }
 
     /* faqList 페이지 CSS */
+    /* Updated FAQ list page styling */
     .faq-page {
-      background-color: #f8f9fa; /* 배경색 */
+      background-color: #f8f9fa;
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh; /* 최소 높이 설정 */
-      margin: 0;
+      min-height: 100vh;
     }
 
     .faq-container {
-      width: 60%;
-      max-height: 400px;
+      width: 70%;
       margin: 50px auto;
-      background-color: white;
+      background-color: #fff;
       padding: 20px;
       border-radius: 10px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      overflow-y: auto; /* 수직 스크롤바 추가 */
     }
 
     .faq-container h2 {
@@ -127,16 +131,22 @@
     .faq-question {
       display: flex;
       justify-content: space-between;
-      background-color: #f1f1f1;
-      padding: 10px;
-      border-radius: 5px;
+      background-color: #e9ecef;
+      padding: 7px;
+      padding-left: 5px;
+      border-radius: 0px;
       cursor: pointer;
+      transition: background-color 0.3s;
     }
 
     .faq-question h2 {
-      margin: 0;
+      margin: 5px;
       font-size: 18px;
-      color: #555;
+      color: #333;
+    }
+
+    .faq-question:hover {
+      background-color: #ced4da;
     }
 
     .toggle-btn {
@@ -149,9 +159,10 @@
 
     .faq-answer {
       display: none;
-      padding: 10px;
-      background-color: #fff;
-      border-left: 4px solid #007bff;
+      padding: 15px;
+      background-color: #f8f9fa;
+      border-left: 4px solid #2b2b2b;
+      margin-top: 10px;
     }
 
     .faq-answer p {
@@ -160,45 +171,259 @@
       color: #666;
     }
 
-    /* 액션 버튼 관련 CSS */
-    .faq-actions {
-      margin-top: 10px;
-      display: flex;
-      justify-content: flex-end;
-    }
-
-    .action-btn {
-      border: none;
-      border-radius: 5px;
-      padding: 8px 12px;
-      margin-left: 10px;
-      cursor: pointer;
-    }
-
-    .update-btn {
-      background-color: black;
-      color: white;
-    }
-
-    .delete-btn {
-      background-color: red;
-      color: white;
-    }
-
-    /* FAQ 추가 버튼 CSS */
+    /* 상단 중앙 FAQ 추가 버튼 스타일링 */
     .faq-add-container {
-      text-align: center;
-      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+      text-align:center;
     }
 
     .add-btn {
-      background-color: red;
+      background-color: #385ed5;
       color: white;
-      padding: 10px 20px;
-      border-radius: 5px;
+      padding: 5px 10px;
       border: none;
+      border-radius: 8px;
+      font-size: 16px;
       cursor: pointer;
+      transition: background-color 0.3s;
     }
+
+    .add-btn:hover {
+      background-color: #515151;
+    }
+
+    /* 수정 및 삭제 버튼을 오른쪽에 배치 */
+    .faq-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px; /* 수정과 삭제 버튼 간의 간격 */
+      margin-top: 10px; /* 상단과의 간격 조정 */
+    }
+
+    /* 수정 및 삭제 버튼 스타일 */
+    .action-btn {
+      background-color: #373737; /* 기본 배경색 */
+      border: 1px solid #3e3e3e; /* 테두리 */
+      border-radius: 5px; /* 약간 둥근 모서리 */
+      padding: 8px 16px; /* 버튼 안의 공간 */
+      cursor: pointer;
+      font-size: 14px;
+      color: #ffffff; /* 기본 글자색 */
+      transition: background-color 0.3s, border-color 0.3s; /* hover 효과를 위한 transition */
+    }
+
+    .action-btn:hover {
+      background-color: #555555; /* hover 시 배경색 */
+      border-color: #373737; /* hover 시 테두리 색상 */
+      color: white; /* hover 시 글자색 */
+    }
+
+    /* 추가 버튼과 통일성을 위한 삭제 및 수정 버튼 크기 */
+    .add-btn {
+      object-position: right;
+      background-color: #3f4ddd;
+      color: white;
+      padding: 7px 14px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+
+    }
+
+    .add-btn:hover {
+      background-color: #ff3c37;
+    }
+
+    /* FAQ 추가 버튼을 오른쪽으로 배치 */
+    .faq-add-container {
+      display: flex;
+      justify-content: flex-end; /* 오른쪽 정렬 */
+      margin-bottom: 20px;
+    }
+
+
+    /* 전체 폼 컨테이너 스타일 */
+    .container-faq-form-container {
+      width: 50%; /* 화면 너비의 50%만 차지 */
+      margin: 0 auto; /* 화면 중앙에 정렬 */
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      background-color: #f9f9f9;
+    }
+
+    /* 폼 내부 요소 스타일 */
+    .faq-form label {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .faq-form input[type="text"],
+    .faq-form textarea {
+      width: 50%; /* 텍스트박스가 폼 너비를 100% 차지하도록 */
+      padding: 15px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-bottom: 15px;
+      box-sizing: border-box; /* padding을 포함한 크기 계산 */
+      transition: border 0.3s ease;
+    }
+
+    .faq-form input[type="text"]:focus,
+    .faq-form textarea:focus {
+      border: 1px solid #666; /* 포커스 시 경계선 색상 변경 */
+      outline: none;
+    }
+
+    .faq-form textarea {
+      height: 150px; /* 텍스트 영역의 기본 높이 */
+      resize: vertical; /* 세로 크기만 조절 가능 */
+    }
+
+    .char-count {
+      font-size: 14px;
+      color: #999;
+      text-align: right;
+      margin-bottom: 10px;
+      width:50%;
+    }
+
+    /* 버튼 스타일 */
+    .submit-btn {
+      background-color: #303030;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      display: block; /* 버튼을 한 줄로 */
+      width: 100%; /* 버튼 너비를 폼에 맞춤 */
+      margin-bottom: 15px;
+      width:50%
+    }
+
+    .submit-btn:hover {
+      background-color: #cf4314;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 10px;
+      font-size: 14px;
+      color: #007BFF;
+      text-decoration: none;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+
+    /* 전체 폼 컨테이너 스타일 */
+    .faq-form-container {
+      width: 50%; /* 화면 너비의 50%만 차지 */
+      margin: 0 auto; /* 화면 중앙에 정렬 */
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      background-color: #f9f9f9;
+    }
+
+    /* 제목 스타일 */
+    .faq-title {
+      font-size: 24px;
+      text-align: left;
+      margin-bottom: 20px;
+      color: #333;
+
+    }
+
+    /* 폼 내부 요소 스타일 */
+    .faq-form label.faq-label {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .faq-form input.faq-input,
+    .faq-form textarea.faq-textarea {
+      width: 50%; /* 텍스트박스가 폼 너비를 50% 차지하도록 */
+      padding: 15px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-bottom: 15px;
+      box-sizing: border-box; /* padding을 포함한 크기 계산 */
+      transition: border 0.3s ease;
+    }
+
+    .faq-form input.faq-input:focus,
+    .faq-form textarea.faq-textarea:focus {
+      border: 1px solid #666; /* 포커스 시 경계선 색상 변경 */
+      outline: none;
+    }
+
+    .faq-form textarea.faq-textarea {
+      height: 150px; /* 텍스트 영역의 기본 높이 */
+      resize: vertical; /* 세로 크기만 조절 가능 */
+    }
+
+    .char-count {
+      font-size: 14px;
+      color: #999;
+      text-align: right;
+      margin-bottom: 10px;
+      width: 50%; /* 글자 수 카운트 텍스트가 텍스트박스와 같은 너비 */
+    }
+
+    /* 버튼 스타일 */
+    .submit-btn {
+      background-color: #303030;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      display: block; /* 버튼을 한 줄로 */
+      width: 50%; /* 버튼 너비를 폼에 맞춤 */
+      margin-bottom: 15px;
+    }
+
+    .submit-btn:hover {
+      background-color: #cf4314;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 10px;
+      font-size: 14px;
+      color: #007BFF;
+      text-decoration: none;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+
+
+
 
   </style>
 
@@ -226,7 +451,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a href="#">
+      <a th:href="@{/admin/pay/adminPayList}">
         <i class="bi bi-cart"></i> 주문 관리
       </a>
     </li>
@@ -250,9 +475,11 @@
     <div th:case="'productDetail'" th:include="admin/product/productDetail :: productDetail"></div>
     <div th:case="'member'" th:include="admin/member/memberList :: memberList"></div>
     <div th:case="'memberDetail'" th:include="admin/member/memberDetail :: memberDetail"></div>
+    <div th:case="'adminOrder'" th:include="/admin/pay/adminPayList :: adminOrder"></div>
+    <div th:case="'adminOrderDetail'" th:include="/admin/pay/adminPayDetail :: adminOrderDetail"></div>
+
     <div th:case="'inquiry'" th:include="admin/inquiry/list :: inquiry"></div>
-<!--    <div th:case="'inquiryDetail'" th:include="admin/inquiry/detail :: inquiryDetail"></div>-->
-<!--    <div th:case="'replyRegist'" th:include="admin/inquiry/replyRegist :: replyRegist"></div>-->
+    <div th:case="'inquiryDetail'" th:include="admin/inquiry/detail :: inquiryDetail"></div>
     <div th:case="'faqList'" th:include="admin/faq/faqList :: faqList"></div>
     <div th:case="'createFaq'" th:include="admin/faq/createFaq :: createFaq"></div>
     <div th:case="'updateFaq'" th:include="admin/faq/updateFaq :: updateFaq"></div>

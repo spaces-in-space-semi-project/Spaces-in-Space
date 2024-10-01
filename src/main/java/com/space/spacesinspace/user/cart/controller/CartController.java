@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -67,11 +68,16 @@ public class CartController {
         return "redirect:/user/cart/cartList";
     }
 
-//     사용자가 장바구니에서 [구매하기] 누르면 들고 결제 진행
+    //     사용자가 장바구니에서 [구매하기] 누르면 들고 결제 진행
     @PostMapping("cartPayProgress")
-    public ModelAndView cartProgress(ModelAndView mv, @RequestParam(value = "memberCode") int memberCode){
+    public ModelAndView cartProgress(ModelAndView mv, @RequestParam(value = "memberCode") int memberCode, RedirectAttributes rAttr){
 
         List<CartDTO> checkMenu = cartService.cartProgress(memberCode);
+        if (checkMenu == null) {
+            rAttr.addFlashAttribute("message","장바구니에 상품이 없습니다.");
+            mv.setViewName("/user/cart/cartList");
+            return mv;
+        }
         CartDTO cnt = cartService.getTotalCntForMember(memberCode);
         CartDTO price = cartService.getTotalPriceForMember(memberCode);
         int totalCartCnt = cnt.getTotalCartCnt();
@@ -79,11 +85,11 @@ public class CartController {
         mv.addObject("checkMenu", checkMenu);
         mv.addObject("totalCartCnt",totalCartCnt);
         mv.addObject("totalCartPrice",totalCartPrice);
-        mv.setViewName("user/cart/cartPayProgress");
+        mv.setViewName("/user/cart/cartPayProgress");
         return mv;
     }
 
-//    장바구니로 상품 정보 등록
+    //    장바구니로 상품 정보 등록
     @PostMapping(value= "addCartMenu", consumes = "application/json", produces = "application/json; charset=UTF-8")
     @ResponseBody
     public ResponseEntity<Map<String, String>> addCartMenu(@AuthenticationPrincipal MemberDTO member,

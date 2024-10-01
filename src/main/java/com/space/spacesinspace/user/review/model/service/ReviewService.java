@@ -4,6 +4,7 @@ import com.space.spacesinspace.user.review.model.dao.ReviewMapper;
 import com.space.spacesinspace.user.review.model.dto.ReviewDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,19 +22,36 @@ public class ReviewService {
         return reviewMapper.findAllReviewBy(memberCode);
     }
 
-    public ReviewDTO findReviewByCode(int code) {
-        return reviewMapper.findReviewByCode(code);
+    public ReviewDTO findReviewByCode(int reviewCode) {
+        return reviewMapper.findReviewByCode(reviewCode);
     }
 
-    public void registNewReview(ReviewDTO newReview) {
-        reviewMapper.registNewReview(newReview);
+    @Transactional
+    public Integer registNewReview(ReviewDTO newReview) {
+        return reviewMapper.registNewReview(newReview);
     }
 
-    public void deleteReview(int code) {
-        reviewMapper.deleteReview(code);
+    @Transactional
+    public Integer deleteReview(int code) {
+        return reviewMapper.deleteReview(code);
     }
 
-    public void updateReview(ReviewDTO review) {
-        reviewMapper.updateReview(review);
+    @Transactional
+    public Integer updateReview(ReviewDTO review) {
+        return reviewMapper.updateReview(review);
+    }
+
+    @Transactional
+    public Integer updatePayDetailReviewYnInsert(int payDetailCode) {
+        return reviewMapper.updatePayDetailReviewYnInsert(payDetailCode);
+    }
+
+    @Transactional
+    public Integer updatePayDetailReviewYnDelete(int payDetailCode) {
+        return reviewMapper.updatePayDetailReviewYnDelete(payDetailCode);
+    }
+
+    public ReviewDTO findReviewByProductCode(int productCode) {
+        return reviewMapper.findReviewByProductCode(productCode);
     }
 }

@@ -7,9 +7,9 @@
 </head>
 <body>
 <div th:fragment="order">
-    <main class="container" style="padding: 10px 10px 30px 10px">
-        <h4 class="text-center my-4">MY ORDER</h4>
-        <table class="table inquiry-table">
+        <main class="container" style="padding: 10px 10px 30px 10px">
+            <h4 class="text-center my-4">MY ORDER</h4>
+            <table class="table inquiry-table">
             <tr>
                 <th>결제번호</th>
                 <th>주문날짜</th>
@@ -18,17 +18,31 @@
                 <th>주문금액</th>
                 <th>결제취소여부</th>
             </tr>
-            <tr th:each="pay : ${payList}">
-                <td><a th:href="@{/user/pay/findPayDetail/{code}(code=${ pay.payCode})}" th:text="${ pay.payCode }"></a></td>
+            <tr th:each="pay : ${payList}" th:onclick="|window.location.href='/user/pay/findPayDetail/' + ${ pay.payCode}|">
+                <td th:text="${ pay.payCode }"></td>
                 <input type="hidden" name="payCode" th:value="pay.payCode"/>
                 <td th:text="${pay.payDate}"></td>
                 <td th:text="${pay.payDeliverStatus}"></td>
                 <td th:text="${pay.payTotalCnt}"></td>
-                <td th:text="${pay.payTotalPrice}"></td>
+                <td class="price" th:attr="data-price=${pay.payTotalPrice}"></td>
                 <td th:text="${pay.payDeleteYn}"></td>
             </tr>
-        </table>
-    </main>
+            </table>
+        </main>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const priceElements = document.querySelectorAll('.price');
+
+                priceElements.forEach(priceElement => {
+                    const rawPrice = priceElement.getAttribute('data-price');
+
+                    const formattedPrice = Number(rawPrice).toLocaleString();
+
+                    priceElement.textContent = formattedPrice + '원';
+                });
+            });
+        </script>
 </div>
 </body>
 

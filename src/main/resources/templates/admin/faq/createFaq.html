@@ -1,31 +1,34 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>FAQ 추가</title>
+    <title>FAQ 추가</title>
+    <link rel="stylesheet" href="styles.css"> <!-- 외부 CSS 파일 링크 -->
 </head>
 <body>
-<div th:fragment="createFaq" class="container">
-    <h2>FAQ 질문 추가</h2>
-    <form th:action="@{/admin/faq/create}" method="post">
-      <label>FAQ 질문:</label>
-      <input type="text" th:field="*{faqDTO.faqTitle}" placeholder="FAQ 질문 입력" required maxlength="200">
-      <div class="char-count" id="question-char-count">0/200</div> <!-- 글자수 제한 -->
+<div th:fragment="createFaq" class="container-faq-form-container">
+    <h3>FAQ 질문을 추가해주세요</h3>
+    <form th:action="@{/admin/faq/create}" method="post" class="faq-form">
+        <label>FAQ 질문:</label>
+        <input type="text" th:field="*{faqDTO.faqTitle}" placeholder="FAQ 질문 입력" required maxlength="200">
+        <div class="char-count" id="question-char-count">0/200</div> <!-- 글자수 제한 -->
 
-      <label>FAQ 내용:</label>
-      <textarea th:field="*{faqDTO.faqDetail}" placeholder="FAQ 내용 입력" required maxlength="200"></textarea>
-      <div class="char-count" id="content-char-count">0/200</div> <!-- 글자수 제한 -->
+        <label>FAQ 내용:</label>
+        <textarea th:field="*{faqDTO.faqDetail}" placeholder="FAQ 내용 입력" required maxlength="200"></textarea>
+        <div class="char-count" id="content-char-count">0/200</div> <!-- 글자수 제한 -->
 
-      <button type="submit" class="submit-btn">추가</button>
+        <button type="submit" class="submit-btn">추가</button>
     </form>
     <a class="back-link" href="/admin/faq/list">목록으로 돌아가기</a>
-  <script>
+</div>
+
+<script>
     // 질문 글자 수 제한 카운트
     const questionInput = document.querySelector('input[th\\:field="*{faqDTO.faqTitle}"]');
     const questionCount = document.getElementById('question-char-count');
 
     questionInput.addEventListener('input', () => {
-      const length = questionInput.value.length;
-      questionCount.textContent = `${length}/200`;
+        const length = questionInput.value.length;
+        questionCount.textContent = `${length}/200`;
     });
 
     // 내용 글자 수 제한 카운트
@@ -33,11 +36,10 @@
     const contentCount = document.getElementById('content-char-count');
 
     contentInput.addEventListener('input', () => {
-      const length = contentInput.value.length;
-      contentCount.textContent = `${length}/200`;
+        const length = contentInput.value.length;
+        contentCount.textContent = `${length}/200`;
     });
-  </script>
-</div>
+</script>
 
 </body>
 </html>

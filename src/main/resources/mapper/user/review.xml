@@ -6,7 +6,9 @@
 
     <resultMap id="ReviewResultMap" type="com.space.spacesinspace.user.review.model.dto.ReviewDTO">
         <id property="reviewCode" column="review_code"/>
+        <result property="payDetailCode" column="pay_detail_code"/>
         <result property="productCode" column="product_code"/>
+        <result property="productName" column="product_name"/>
         <result property="memberCode" column="member_code"/>
         <result property="reviewTitle" column="review_title"/>
         <result property="reviewDetail" column="review_detail"/>
@@ -19,18 +21,20 @@
 
     <select id="findAllReviewBy" resultMap="ReviewResultMap">
         SELECT
-            review_code,
-            product_code,
-            member_code,
-            review_title,
-            review_detail,
-            review_photo_original,
-            review_photo_thumbnail,
-            review_rating,
-            review_date,
-            review_edit_date
+            r.review_code,
+            r.product_code,
+            p.product_name,
+            r.member_code,
+            r.review_title,
+            r.review_detail,
+            r.review_photo_original,
+            r.review_photo_thumbnail,
+            r.review_rating,
+            r.review_date,
+            r.review_edit_date
         FROM
-            review_tbl
+            review_tbl r
+        LEFT JOIN product_tbl p on r.product_code = p.product_code
         WHERE
             member_code = #{ memberCode }
     </select>
@@ -38,6 +42,7 @@
     <select id="findReviewByCode" parameterType="int" resultMap="ReviewResultMap">
         SELECT
             review_code,
+            pay_detail_code,
             product_code,
             member_code,
             review_title,
@@ -47,36 +52,45 @@
             review_rating,
             review_date,
             review_edit_date
-            )
         FROM
             review_tbl
         WHERE
-            member_code = #{ code }
+            review_code = #{ reviewCode }
     </select>
 
-    <insert id="registNewReview" parameterType="com.space.spacesinspace.user.review.model.dto.ReviewDTO" useGeneratedKeys="true" keyProperty="code">
-        INSERT INTO
-            review_tbl
+    <insert id="registNewReview" parameterType="com.space.spacesinspace.user.review.model.dto.ReviewDTO" useGeneratedKeys="true" keyProperty="reviewCode">
+        INSERT INTO review_tbl
             (
+            pay_detail_code,
             product_code,
             member_code,
             review_title,
             review_detail,
             review_photo_original,
+            review_photo_thumbnail,
             review_rating,
             review_date
             )
         VALUES
             (
-            #{code},
-            #{code},
-            #{title},
-            #{detail},
-            #{photoOriginal},
-            #{rating},
-            #{date}
+            #{payDetailCode},
+            #{productCode},
+            #{memberCode},
+            #{reviewTitle},
+            #{reviewDetail},
+            #{reviewPhotoOriginal},
+            #{reviewPhotoThumbnail},
+            #{reviewRating},
+            #{reviewDate}
             )
     </insert>
+
+    <!-- 해당 상품에 대해 리뷰 등록 후 결제상세 테이블에 리뷰 존재 여부 업데이트 -->
+    <update id="updatePayDetailReviewYnInsert" parameterType="int">
+        UPDATE pay_detail_tbl
+        SET review_yn = 'Y'
+        WHERE pay_detail_code = #{payDetailCode}
+    </update>
 
     <delete id="deleteReview" parameterType="int">
         DELETE
@@ -86,16 +100,35 @@
             review_code = #{ code }
     </delete>
 
+    <!-- 리뷰 삭제 후 결제상세 테이블에 리뷰 존재 여부 업데이트 -->
+    <update id="updatePayDetailReviewYnDelete" parameterType="int">
+        UPDATE pay_detail_tbl
+        SET review_yn = 'N'
+        WHERE pay_detail_code = #{payDetailCode}
+    </update>
+
     <update id="updateReview" parameterType="com.space.spacesinspace.user.review.model.dto.ReviewDTO">
         UPDATE review_tbl
         SET
-            review_title = #{ title },
-            review_detail = #{ detail },
-            review_photo_original = #{ photoOriginal },
-            review_rating = #{ rating },
-            review_date = #{ date }
+            review_title = #{ reviewTitle },
+            review_detail = #{ reviewDetail },
+            review_photo_original = #{ reviewPhotoOriginal },
+            review_photo_thumbnail = #{ reviewPhotoThumbnail },
+            review_rating = #{ reviewRating },
+            review_edit_date = #{ reviewEditDate }
         WHERE
-            inquiry_code = #{ code }
+            review_code = #{ reviewCode }
     </update>
+
+    <select id="findReviewByProductCode" parameterType="int" resultMap="ReviewResultMap">
+        SELECT
+            *
+        FROM
+            review_tbl
+        WHERE
+            product_code = #{productCode}
+        ORDER BY
+            review_code ASC
+    </select>
 
 </mapper>

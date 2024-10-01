@@ -93,12 +93,14 @@ CREATE TABLE IF NOT EXISTS pay_detail_tbl (
     product_code INT NOT NULL COMMENT '상품코드',
     pay_detail_cnt INT NOT NULL COMMENT '결제수량',
     pay_detail_price INT NOT NULL COMMENT '결제금액',
+    review_yn CHAR(1) NOT NULL COMMENT '리뷰존재여부',
     FOREIGN KEY (product_code) REFERENCES product_tbl (product_code),
     FOREIGN KEY (pay_code) REFERENCES pay_tbl (pay_code)
 ) ENGINE=INNODB COMMENT '결제상세';
 
 CREATE TABLE IF NOT EXISTS review_tbl (
     review_code INT AUTO_INCREMENT PRIMARY KEY COMMENT '리뷰코드',
+    pay_detail_code INT NOT NULL COMMENT '결제상세코드',
     product_code INT NOT NULL COMMENT '상품코드',
     member_code INT NOT NULL COMMENT '회원코드',
     review_title VARCHAR(100) NOT NULL COMMENT '리뷰제목',
@@ -108,6 +110,7 @@ CREATE TABLE IF NOT EXISTS review_tbl (
     review_rating INT NOT NULL COMMENT '리뷰별점',
     review_date VARCHAR(30) NOT NULL COMMENT '리뷰생성일',
     review_edit_date VARCHAR(30) COMMENT '리뷰수정일',
+    FOREIGN KEY (pay_detail_code) REFERENCES pay_detail_tbl (pay_detail_code),
     FOREIGN KEY (product_code) REFERENCES product_tbl (product_code),
     FOREIGN KEY (member_code) REFERENCES member_tbl (member_code)
 ) ENGINE=INNODB COMMENT '리뷰';
@@ -164,11 +167,6 @@ VALUES (1, 'CLIP Chair', '/uploadedFiles/img/eb7afb1c658a4b0d833b75279b5c9158.jp
        (5, 'Pond of Light x bluehour', '/uploadedFiles/img/e166464f80dc4ed7bc60f85d302ff5ff.jpg', '/uploadedFiles/img/e166464f80dc4ed7bc60f85d302ff5ff_thumbnail.jpg', 32000, '주문 후 약8-10주 평일 직배송', 0, 'SM 670W x 1000H =', '100% Pure Wool from New Zealand', '독창적인 형상과 컬러 조합으로 \n기존의 러그에서는 볼 수 없었던 색다른 매력을 발산합니다.', 'N'),
        (5, 'Finn Side Console', '/uploadedFiles/img/5c5e0faa35c54a628b3d9eb071f7d841.jpg', '/uploadedFiles/img/5c5e0faa35c54a628b3d9eb071f7d841_thumbnail.jpg', 40000, '주문 후 3-6주 소요', 0, '430W x 420D x 520H', '소재 : 클린터치, HPL, 천연 건식 무늬목, 자작나무 합판', '북유럽 감성의 클래식한 디자인이 \n컬러풀한 언어로 재해석되어 \n모던한 매력을 선보입니다.', 'N'),
        (5, 'TUBE Mirror', '/uploadedFiles/img/83d395a92a554a9f83383f8a2aca0834.jpg', '/uploadedFiles/img/83d395a92a554a9f83383f8a2aca0834_thumbnail.jpg', 45000, '주문 후 3-6주 소요', 5000, '634W x 34D x 2029H', '스테인리스 스틸 (SUS304), 고밀도 MDF', '깊은 빛을 자랑하는 스테인리스 스틸과 5mm 두께의 거울을 견고하게 받치는 스테인리스 프레임, \n그리고 수축 및 팽창이 없는 고밀도 MDF의 사용으로 특유의 내구성을 자랑합니다.', 'N');
-
-INSERT INTO faq_tbl(faq_title, faq_detail)
-VALUES ('배송일 지정 가능한가요?', '제품별 표기된 평균 배송기간 이후부터 희망 배송주간 신청이 가능하며, 시간 지정은 불가합니다. 제품 파손의 우려가 있는 이사 당일은 피해주세요. 제작상품 특성상 구매 시점에는 배송 날짜 확정이 어렵고 일정에 변동 있을 수 있는 점 양해 부탁드립니다'),
-       ('배송 기간이 어떻게 되나요?', '결제 후 영업일 기준 약 1-8주로 제품별 상이하며 제주 도서 산간지역은 추가 배송기간이 소요됩니다. 상품 페이지에서 평균 배송기간 및 운송수단 확인이 가능합니다. 주문 제품이나 제작상의 이유 및 배송과 기상 상황 등으로 배송 기간은 유동적일 수 있습니다'),
-       ('먼저 주문하고, 입주 후 받을 수 있나요', '평균 배송기간 이후부터의 평일 중 희망 배송주간 신청이 가능하며 시간 지정은 불가합니다. 제품 파손의 우려가 있는 이사 당일에는 배송이 어렵습니다');
 
 INSERT INTO bank_tbl (bank_code, bank_name)
 VALUES (1, '선택하지않음'),

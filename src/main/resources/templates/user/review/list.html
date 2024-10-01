@@ -10,28 +10,30 @@
     <div th:fragment="review">
         <main class="container" style="padding: 10px 10px 30px 10px">
         <h4 class="text-center my-4">REVIEW LIST</h4>
-        <table class="table inquiry-table">
+        <table class="table review-table">
             <tr>
-                <th>리뷰 썸네일</th>
-                <th>상품 코드</th>
+                <th>리뷰 상품명</th>
+                <th>리뷰 사진</th>
                 <th>리뷰 제목</th>
                 <th>리뷰 별점</th>
                 <th>리뷰 생성일</th>
                 <th>리뷰 수정일</th>
             </tr>
-            <tr th:each="review : ${ reviewList }"
-                th:attr="onclick='location.href=\'http://localhost:8080/user/review/detail/' + ${ review.reviewCode } + '\';'"
-                style="width:100%; cursor:pointer;">
-            <td th:text="${ review.reviewPhotoOriginal }"></td>
-            <td th:text="${ review.productCode }"></td>
-            <td th:text="${ review.reviewTitle }"></td>
-            <td th:text="${ review.reviewRating }"></td>
-            <td th:text="${ review.reviewDate }"></td>
-            <td>
-                <script>
-                    document.write(document.lastModified+"")
-                </script>
-            </td>
+            <tr th:each="review : ${ reviewList }" th:onclick="|window.location.href='/user/review/detail/' + ${review.reviewCode}|" style="width:100%; cursor:pointer;">
+                <td th:text="${review.productName}" style="width: 30%"></td>
+                <td><img th:if="${review.reviewPhotoThumbnail}" alt="이미지 없음" style="max-width: 100px;" th:src="${review.reviewPhotoThumbnail}"></td>
+                <td th:text="${ review.reviewTitle }" style="text-align: center; width: 30%;"></td>
+                    <td>
+                        <!-- Star Rating Display for Review List -->
+                        <div class="review-list-star-rating">
+                            <span th:each="i : ${#numbers.sequence(1, 5)}">
+                                <span th:if="${i <= review.reviewRating}" class="filled-star">&#9733;</span>
+                                <span th:if="${i > review.reviewRating}" class="empty-star">&#9734;</span>
+                            </span>
+                        </div>
+                    </td>
+            <td th:text="${ review.reviewDate }" style="width: 20%"></td>
+            <td th:text="${ review.reviewEditDate }" style="width: 20%"></td>
         </table>
         </main>
     </div>
