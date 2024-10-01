@@ -25,8 +25,8 @@ public class adminPayController {
     /*관리자 전체 주문 내역 조회*/
     @GetMapping("adminPayList")
     public String showPayList(Model mv,
-                                    @ModelAttribute PayDTO payDTO,
-                                    @ModelAttribute PayDetailDTO payDetailDTO){
+                              @ModelAttribute PayDTO payDTO,
+                              @ModelAttribute PayDetailDTO payDetailDTO){
 
         List<PayDTO> payList = payService.showPayList();
 

@@ -60,8 +60,8 @@ public class PayController {
     // 사용자가 상품페이지에서 [구매하기] 누르면 들고 결제진행.
     @PostMapping("payProgress")
     public String payProgress(Model mv,
-                                    @RequestParam(value = "productCode", required = false, defaultValue = "0")int productCode,
-                                    @AuthenticationPrincipal MemberDTO member){
+                              @RequestParam(value = "productCode", required = false, defaultValue = "0")int productCode,
+                              @AuthenticationPrincipal MemberDTO member){
 
         int memberCode = member.getMemberCode();
 
