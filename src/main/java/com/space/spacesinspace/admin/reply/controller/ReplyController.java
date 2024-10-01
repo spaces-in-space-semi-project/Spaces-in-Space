@@ -7,10 +7,11 @@ import com.space.spacesinspace.common.dto.ReplyDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 @Controller
@@ -35,9 +36,9 @@ public class ReplyController {
         int memberCode = member.getMemberCode();
         newReply.setMemberCode(memberCode);
 
-        LocalDate currentDate = LocalDate.now();
-        String formattedDate = currentDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        newReply.setReplyDate(formattedDate);
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        String formattedDateTime = currentDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        newReply.setReplyDate(formattedDateTime);
 
         Integer result = replyService.registNewReply(newReply);
 
@@ -72,9 +73,9 @@ public class ReplyController {
 
     @PostMapping("/updateReply/{inquiryCode}")
     public String updateReply(@ModelAttribute ReplyDTO reply, @PathVariable int inquiryCode, RedirectAttributes rAttr) {
-        LocalDate currentDate = LocalDate.now();
-        String formattedDate = currentDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        reply.setReplyEditDate(formattedDate);
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        String formattedDateTime = currentDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        reply.setReplyEditDate(formattedDateTime);
 
         Integer result = replyService.updateReply(reply);
 

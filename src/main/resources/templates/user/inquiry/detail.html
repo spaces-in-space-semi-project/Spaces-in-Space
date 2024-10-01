@@ -9,7 +9,7 @@
     <main class="container my-5">
         <h5 class="text-center mb-4">문의글 수정</h5>
         <div class="form-container-inquiry">
-            <form th:action="@{/user/inquiry/update}" method="post">
+            <form id="updateForm" th:action="@{/user/inquiry/update}" method="post" novalidate>
                 <input type="hidden" name="inquiryCode" th:value="${inquiry.inquiryCode}" />
 
                 <div class="mb-3">
@@ -23,7 +23,7 @@
                 <div class="mb-3">
                     <label for="inquiryDetail" class="form-label">문의 내용:</label>
                     <textarea id="inquiryDetail" name="inquiryDetail" class="form-control" rows="10"
-                              th:text="${inquiry.inquiryDetail}" required style="text-align:left; letter-spacing: 2px;"
+                              th:text="${inquiry.inquiryDetail}" required style="text-align:left; letter-spacing: 2px; resize: none;"
                               th:attr="readonly=${reply != null ? 'readonly' : null}"></textarea>
                     <div class="invalid-feedback">내용을 입력해주세요.</div>
                 </div>
@@ -44,6 +44,46 @@
             </div>
         </div>
     </main>
+
+    <script th:inline="javascript">
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('updateForm');
+            const submitButton = document.getElementById('updateSubmitButton');
+
+            // Add event listener for form submission
+            form.addEventListener('submit', function(event) {
+                // Trigger validation for each field
+                Array.from(form.elements).forEach(input => {
+                    if (!input.checkValidity()) {
+                        input.classList.add('is-invalid');
+                    } else {
+                        input.classList.remove('is-invalid');
+                        input.classList.add('is-valid');
+                    }
+                });
+
+                // Prevent submission if form is invalid
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                } else {
+                    form.classList.add('was-validated');
+                }
+            });
+
+            // Reset validation states on input change
+            form.addEventListener('input', function(event) {
+                const input = event.target;
+                if (input.checkValidity()) {
+                    input.classList.remove('is-invalid');
+                    input.classList.add('is-valid');
+                } else {
+                    input.classList.remove('is-valid');
+                    input.classList.add('is-invalid');
+                }
+            });
+        });
+    </script>
 </div>
 </body>
 </html>
