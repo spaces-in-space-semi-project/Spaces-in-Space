@@ -16,6 +16,7 @@
                 <th>배송상태</th>
                 <th>주문수량</th>
                 <th>주문금액</th>
+                <th>결제취소여부</th>
             </tr>
             <tr th:each="pay : ${payList}" th:onclick="|window.location.href='/user/pay/findPayDetail/' + ${ pay.payCode}|">
                 <td th:text="${ pay.payCode }"></td>
@@ -23,6 +24,7 @@
                 <td th:text="${pay.payDate}"></td>
                 <td th:text="${pay.payDeliverStatus}"></td>
                 <td th:text="${pay.payTotalCnt}"></td>
+                <td th:text="${pay.payDeleteYn}"></td>
                 <td class="price" th:attr="data-price=${pay.payTotalPrice}"></td>
             </tr>
             </table>
