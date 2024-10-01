@@ -8,11 +8,14 @@
     <div th:fragment="inquiry">
         <main>
             <div class="d-flex justify-content-end mb-3">
-                <div class="input-group" style="width: 250px;">
-                    <input type="text" class="form-control" placeholder="검색..." aria-label="Search">
-                    <button class="btn btn-outline-secondary">검색</button>
-                </div>
+                <form th:action="@{/admin/inquiry/searchInquiry}">
+                    <div class="input-group" style="width: 250px;">
+                        <input type="text" name="searchValue" class="form-control" placeholder="검색..." aria-label="Search">
+                        <button class="btn btn-outline-secondary">검색</button>
+                    </div>
+                </form>
             </div>
+
             <div id="grid" class="mt-4"></div>
             <div id="pagination" class="d-flex justify-content-center mt-3"></div>
 
@@ -100,7 +103,6 @@
                         window.location.href = detailUrl;
                     }
                 });
-
             </script>
         </main>
     </div>

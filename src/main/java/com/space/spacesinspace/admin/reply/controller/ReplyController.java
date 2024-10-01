@@ -7,7 +7,6 @@ import com.space.spacesinspace.common.dto.ReplyDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -56,24 +55,32 @@ public class ReplyController {
         return "redirect:/admin/inquiry/detail/" + inquiryCode;
     }
 
-    @PostMapping("/deleteReply")
-    public String deleteReply(@RequestParam int replyCode,
+    @PostMapping("/deleteReply/{inquiryCode}")
+    public String deleteReply(@RequestParam int replyCode, @PathVariable int inquiryCode,
                               RedirectAttributes rAttr) {
 
         replyService.deleteReply(replyCode);
 
+        ReplyDTO deleteReply;
+        deleteReply = new ReplyDTO();
+        deleteReply.setInquiryCode(inquiryCode);
+
         rAttr.addFlashAttribute("successMessage", "문의글이 삭제되었습니다.");
 
-        return "redirect:/admin/inquiry/list";
+        return "redirect:/admin/inquiry/detail/" + inquiryCode;
     }
 
-    @PostMapping("/updateReply")
-    public String updateReply(@ModelAttribute ReplyDTO reply, RedirectAttributes rAttr) {
+    @PostMapping("/updateReply/{inquiryCode}")
+    public String updateReply(@ModelAttribute ReplyDTO reply, @PathVariable int inquiryCode, RedirectAttributes rAttr) {
         LocalDate currentDate = LocalDate.now();
         String formattedDate = currentDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         reply.setReplyEditDate(formattedDate);
 
         Integer result = replyService.updateReply(reply);
+
+        ReplyDTO updateReply;
+        updateReply = new ReplyDTO();
+        updateReply.setInquiryCode(inquiryCode);
 
         String message;
         if (result == null || result == 0) {
@@ -86,6 +93,6 @@ public class ReplyController {
 
         rAttr.addFlashAttribute("message", message);
 
-        return "redirect:/admin/inquiry/list";
+        return "redirect:/admin/inquiry/detail/" + inquiryCode;
     }
 }
