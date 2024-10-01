@@ -23,7 +23,7 @@
 
         <div th:if="${reply != null}" class="mt-4 form-container-inquiry">
             <p><strong>답변 날짜 : </strong><span th:text="${reply.replyDate != null ? reply.replyEditDate : reply.replyDate}"></span></p>
-            <form th:action="@{/admin/reply/updateReply/{inquiryCode}(inquiryCode=${ inquiry.inquiryCode })}" method="post">
+            <form id="replyForm" th:action="@{/admin/reply/updateReply/{inquiryCode}(inquiryCode=${ inquiry.inquiryCode })}" method="post" novalidate>
                 <input type="hidden" id="replyCode" name="replyCode" th:value="${reply.replyCode}">
                 <div class="mb-3">
                     <label for="replyDetail" class="form-label">답변</label>
@@ -42,7 +42,7 @@
         </form>
 
         <div th:if="${reply == null}" class="form-container-inquiry mt-4 ">
-            <form th:action="@{/admin/reply/registReply/{inquiryCode}(inquiryCode=${ inquiry.inquiryCode })}" method="post">
+            <form id="replyForm2" th:action="@{/admin/reply/registReply/{inquiryCode}(inquiryCode=${ inquiry.inquiryCode })}" method="post" novalidate>
                 <label for="replyDetail2" class="form-label">답변</label>
                 <textarea name="replyDetail2" id="replyDetail2" rows="5" class="form-control" th:text="${reply != null ? reply.replyDetail : ''}"></textarea>
                 <br>
@@ -61,25 +61,79 @@
                 document.getElementById('deleteForm').submit();
             }
         }
-        // Form validation using Bootstrap
-        (() => {
-            'use strict';
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('replyForm');
+            const submitButton = document.getElementById('updateSubmitButton');
 
-            // Fetch all the forms we want to apply custom Bootstrap validation styles to
-            const forms = document.querySelectorAll('.needs-validation');
-
-            // Loop over them and prevent submission
-            Array.from(forms).forEach(form => {
-                form.addEventListener('submit', event => {
-                    if (!form.checkValidity()) {
-                        event.preventDefault();
-                        event.stopPropagation();
+            // Add event listener for form submission
+            form.addEventListener('submit', function(event) {
+                // Trigger validation for each field
+                Array.from(form.elements).forEach(input => {
+                    if (!input.checkValidity()) {
+                        input.classList.add('is-invalid');
+                    } else {
+                        input.classList.remove('is-invalid');
+                        input.classList.add('is-valid');
                     }
+                });
 
+                // Prevent submission if form is invalid
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                } else {
                     form.classList.add('was-validated');
-                }, false);
+                }
             });
-        })();
+
+            // Reset validation states on input change
+            form.addEventListener('input', function(event) {
+                const input = event.target;
+                if (input.checkValidity()) {
+                    input.classList.remove('is-invalid');
+                    input.classList.add('is-valid');
+                } else {
+                    input.classList.remove('is-valid');
+                    input.classList.add('is-invalid');
+                }
+            });
+
+            const form2 = document.getElementById('replyForm2');
+
+            // Add event listener for form submission
+            form2.addEventListener('submit', function(event) {
+                // Trigger validation for each field
+                Array.from(form2.elements).forEach(input => {
+                    if (!input.checkValidity()) {
+                        input.classList.add('is-invalid');
+                    } else {
+                        input.classList.remove('is-invalid');
+                        input.classList.add('is-valid');
+                    }
+                });
+
+                // Prevent submission if form is invalid
+                if (!form2.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                } else {
+                    form2.classList.add('was-validated');
+                }
+            });
+
+            // Reset validation states on input change
+            form2.addEventListener('input', function(event) {
+                const input = event.target;
+                if (input.checkValidity()) {
+                    input.classList.remove('is-invalid');
+                    input.classList.add('is-valid');
+                } else {
+                    input.classList.remove('is-valid');
+                    input.classList.add('is-invalid');
+                }
+            });
+        });
+
     </script>
     </div>
 
