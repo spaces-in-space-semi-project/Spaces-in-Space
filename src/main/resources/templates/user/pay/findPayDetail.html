@@ -84,7 +84,7 @@
                 </tbody>
             </table>
             <!-- 배송 상태가 '배송전'일 경우에만 주문 취소 버튼을 보이도록 설정 -->
-            <button type="submit" style="width: 150px" class="btn btn-danger" th:if="${findPayByCode.payDeliverStatus == '배송전'}">주문취소</button>
+            <button type="submit" style="width: 150px" class="btn btn-danger" th:if="${findPayByCode.payDeliverStatus == '배송전' and findPayByCode.payDeleteYn == 'N'}">주문취소</button>
         </form>
     </main>
     <script>
@@ -94,9 +94,14 @@
             priceElements.forEach(priceElement => {
                 const rawPrice = priceElement.getAttribute('data-price');
 
-                const formattedPrice = Number(rawPrice).toLocaleString();
-
-                priceElement.textContent = formattedPrice + '원';
+                // rawPrice 값이 유효한지 확인하고 처리
+                if (rawPrice && !isNaN(rawPrice)) {
+                    const formattedPrice = Number(rawPrice).toLocaleString();
+                    priceElement.textContent = formattedPrice + '원';
+                } else {
+                    console.warn('유효하지 않은 가격입니다:', rawPrice);
+                    priceElement.textContent = '가격 정보 없음';
+                }
             });
         });
 
