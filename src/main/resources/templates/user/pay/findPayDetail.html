@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${pageTitle}">Spaces in Space</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Spaces in Space</title>
+
 </head>
 <body>
 <div th:fragment="orderDetail">
@@ -11,30 +11,35 @@
         <h4 class="text-center my-4">ORDER DETAIL</h4>
 
         <!-- 상품 상세 정보 테이블 -->
-        <h5>상품 정보</h5>
-        <table class="table table-bordered inquiry-table">
+        <h6><strong>상품 정보</strong></h6>
+        <table class="table order-detail-1" style="width: 60%; margin: 0 auto;">
             <thead>
             <tr>
                 <th>상품 이름</th>
                 <th>상품 수량</th>
                 <th>상품 가격</th>
+                <th>리뷰 추가</th> <!-- 리뷰 추가 버튼 열 추가 -->
             </tr>
             </thead>
             <tbody>
             <tr th:each="payDetail : ${payDetailList}">
                 <td th:text="${payDetail.productName}"></td>
                 <td th:text="${payDetail.payDetailCnt}"></td>
-                <td th:text="${payDetail.payDetailPrice}"></td>
+                <td class="price" th:attr="data-price=${payDetail.payDetailPrice}"></td>
+                <td>
+                    <!-- 리뷰 추가 버튼 -->
+                    <a th:href="@{/user/review/regist/{productCode}(productCode=${payDetail.productCode})}" class="btn btn-outline-primary btn-sm" style="margin-top: 0; width: 100px;">리뷰 추가</a>
+                </td>
             </tr>
             </tbody>
         </table>
 
-        <hr>
+        <hr style="width: 60%; margin: 30px auto;">
 
         <!-- 주문 정보 -->
-        <h5>주문 정보</h5>
-        <form th:action="@{/user/pay/delete/{payCode}(payCode=${findPayByCode.payCode})}" method="post" onsubmit="return confirmCancel()">
-            <table class="table table-bordered">
+        <h6 style="margin-top: 30px"><strong>주문 정보</strong></h6>
+        <form th:action="@{/user/pay/update/{payCode}(payCode=${findPayByCode.payCode})}" method="post" onsubmit="return confirmCancel()">
+            <table class="table table-bordered orderlist-table" style="width: 60%; margin: 0 auto;">
                 <tbody>
                 <tr>
                     <td>주문 날짜:</td>
@@ -58,7 +63,7 @@
                 </tr>
                 <tr>
                     <td>주문 결제 금액:</td>
-                    <td th:text="${findPayByCode.payTotalPrice}"></td>
+                    <td class="price" th:attr="data-price=${findPayByCode.payTotalPrice}"></td>
                 </tr>
                 <tr>
                     <td>배송 상태:</td>
@@ -72,13 +77,29 @@
                     <td>카드번호:</td>
                     <td th:text="${findPayByCode.payCardNumber}"></td>
                 </tr>
+                <tr>
+                    <td>결제취소여부:</td>
+                    <td th:text="${findPayByCode.payDeleteYn}"></td>
+                </tr>
                 </tbody>
             </table>
             <!-- 배송 상태가 '배송전'일 경우에만 주문 취소 버튼을 보이도록 설정 -->
-            <button type="submit" class="btn btn-danger" th:if="${findPayByCode.payDeliverStatus == '배송전'}">주문취소</button>
+            <button type="submit" style="width: 150px" class="btn btn-danger" th:if="${findPayByCode.payDeliverStatus == '배송전'}">주문취소</button>
         </form>
     </main>
     <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const priceElements = document.querySelectorAll('.price');
+
+            priceElements.forEach(priceElement => {
+                const rawPrice = priceElement.getAttribute('data-price');
+
+                const formattedPrice = Number(rawPrice).toLocaleString();
+
+                priceElement.textContent = formattedPrice + '원';
+            });
+        });
+
         function confirmCancel() {
             return confirm("주문을 취소하시겠습니까?");
         }

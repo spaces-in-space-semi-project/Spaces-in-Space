@@ -8,10 +8,12 @@
 <div th:fragment="adminOrder">
     <main>
         <div class="d-flex justify-content-end mb-3">
+            <form th:action="@{/admin/pay/searchPayList}">
             <div class="input-group" style="width: 250px;">
-                <input type="text" class="form-control" placeholder="검색..." aria-label="Search">
-                <button class="btn btn-outline-secondary" type="button">검색</button>
+                <input type="text" name="searchValue" class="form-control" placeholder="검색..." aria-label="Search">
+                <button class="btn btn-outline-secondary">검색</button>
             </div>
+            </form>
         </div>
 
         <div id="grid" class="mt-4"></div>
@@ -56,31 +58,52 @@
                         width: 100
                     },
                     {
+                        header: '회원ID',
+                        name: 'memberId',
+                        sortable: true,
+                        align: 'center',
+                        width: 150
+                    },
+                    {
+                        header: '회원이름',
+                        name: 'memberName',
+                        sortable: true,
+                        align: 'center',
+                        width: 150
+                    },
+                    {
                         header: '주문날짜',
                         name: 'payDate',
                         sortable: true,
-                        align: 'center'
+                        align: 'center',
+                        width: 150
                     },
                     {
                         header: '배송상태',
                         name: 'payDeliverStatus',
                         sortable: true,
                         align: 'center',
-                        width: 100
+                        width: 150
                     },
                     {
                         header: '주문수량',
                         name: 'payTotalCnt',
                         sortable: true,
                         sortingType: 'desc',
-                        width: 50
+                        align: 'center',
+                        width: 100
                     },
                     {
                         header: '주문금액',
                         name: 'payTotalPrice',
                         sortable: true,
-                        align: 'center',
-                        width: 300
+                        align: 'center'
+                    },
+                    {
+                        header: '결제취소여부',
+                        name: 'payDeleteYn',
+                        sortable: true,
+                        align: 'center'
                     }
                 ]
             });

@@ -15,6 +15,9 @@ public interface PayMapper {
     // 사용자 아이디의 전체 주문내역 조회
     List<PayDTO> findPayList(String loggedInUsername);
 
+    // 사용자 아이디의 전체 주문내역 조회 ( pay_delete_yn 이 'Y' 이면 이거 조회)
+    List<PayDTO> findPayListY(String loggedInUsername);
+
     // 사용자 아이디의 주문내역 중 상세내역 조회
     List<PayDetailDTO> findPayDetailList(int payCode);
 
@@ -45,7 +48,16 @@ public interface PayMapper {
     // 위에서 추가하면서 상세내역도 같이 db 추가
     void addPayDetailList(PayDetailDTO payDTO);
 
+
     PayDTO findPayByCode(int payCode);
 
+    PayDTO findPayByCodeY(int payCode);
+
     List<CartDTO> findCartList(int memberCode);
+
+    List<PayDTO> searchPayList(String searchValue);
+
+    void updatePayMenu(int payCode);
+
+
 }

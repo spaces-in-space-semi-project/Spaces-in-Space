@@ -30,16 +30,17 @@ public class PayService {
     public List<PayDTO> findPayList() {
 
         String loggedInUsername = getLoggedInUsername();  // 로그인된 사용자 ID 가져오기
-        if (loggedInUsername != null) {
-            return payMapper.findPayList(loggedInUsername);  // 로그인된 사용자 ID로 쿼리 실행
+        List<PayDTO> list = payMapper.findPayList(loggedInUsername);
+        if (loggedInUsername != null && list != null && !list.isEmpty()) {
+            return list;
         } else {
-            return new ArrayList<>();  // 로그인이 안 된 경우 빈 리스트 반환
+            return payMapper.findPayListY(loggedInUsername);
         }
     }
 
     public PayDetailDTO findPayDetail(int payCode) { return payMapper.findPayDetail(payCode); }
 
-/*================================================================================================*/
+    /*================================================================================================*/
 
     public String getLoggedInUsername() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -49,7 +50,7 @@ public class PayService {
         }
         return null;  // 로그인이 되어 있지 않으면 null 반환
     }
-/*================================================================================================*/
+    /*================================================================================================*/
 
     public List<PayDTO> showPayList() {
         return payMapper.showPayList();
@@ -94,11 +95,32 @@ public class PayService {
         payMapper.addPayDetailList(payDetailDTO);
     }
 
+
     public PayDTO findPayByCode(int payCode) {
-        return payMapper.findPayByCode(payCode);
+
+        PayDTO payList = payMapper.findPayByCode(payCode);
+
+        if (payList != null) {
+            return payList;
+        } else {
+            return payMapper.findPayByCodeY(payCode);
+        }
     }
 
     public List<CartDTO> findCartList(int memberCode) {
         return payMapper.findCartList(memberCode);
+    }
+
+    public List<PayDTO> searchPayList(String searchValue) {
+        return payMapper.searchPayList(searchValue);
+    }
+
+
+    public void updatePayMenu(int payCode) {
+        payMapper.updatePayMenu(payCode);
+    }
+
+    public void updateAdminPayMenu(int payCode) {
+        payMapper.updatePayMenu(payCode);
     }
 }

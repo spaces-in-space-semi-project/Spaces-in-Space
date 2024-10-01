@@ -4,6 +4,7 @@ import com.space.spacesinspace.user.review.model.dao.ReviewMapper;
 import com.space.spacesinspace.user.review.model.dto.ReviewDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -25,14 +26,18 @@ public class ReviewService {
         return reviewMapper.findReviewByCode(code);
     }
 
-    public void registNewReview(ReviewDTO newReview) {
-        reviewMapper.registNewReview(newReview);
+    @Transactional
+    public Integer registNewReview(ReviewDTO newReview) {
+        return reviewMapper.registNewReview(newReview);
     }
+
+    @Transactional
 
     public void deleteReview(int code) {
         reviewMapper.deleteReview(code);
     }
 
+    @Transactional
     public void updateReview(ReviewDTO review) {
         reviewMapper.updateReview(review);
     }
