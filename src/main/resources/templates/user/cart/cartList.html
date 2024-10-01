@@ -56,7 +56,7 @@
 <body>
 <div th:fragment="cart">
     <main class="container" style="padding: 10px 10px 30px 10px;">
-<!--        <h4 class="text-center my-4">장바구니 목록</h4>-->
+        <h4 class="text-center my-4">장바구니</h4>
         <table class="table inquiry-table">
             <thead class="table-light">
             <tr>
@@ -84,10 +84,12 @@
             </tbody>
         </table>
 
-        <form th:action="@{/user/cart/cartPayProgress}" method="post">
-            <input type="hidden" th:value="${memberCode}" name="memberCode">
-            <button type="submit" class="btn btn-primary btn-custom">결제하기</button>
-        </form>
+        <div th:style="${cart != null ? 'display:none;' : null}">
+            <form th:action="@{/user/cart/cartPayProgress}" method="post">
+                <input type="hidden" th:value="${memberCode}" name="memberCode">
+                <button type="submit" style="width: 150px" class="btn btn-primary btn-custom">결제하기</button>
+            </form>
+        </div>
 
     </main>
 
