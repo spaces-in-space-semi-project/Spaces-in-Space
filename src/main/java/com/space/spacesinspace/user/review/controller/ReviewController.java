@@ -90,11 +90,11 @@ public class ReviewController {
         newReview.setReviewDate(formattedDate);
 
         // directory 선언
-        Resource resource = resourceLoader.getResource("classpath:static/uploadedFiles/img");
+        Resource resource = resourceLoader.getResource("classpath:static/uploadedFiles/img/review");
         String filePath = null;
         if (!resource.exists()) {
             // 경로가 존재하지 않을 때
-            String root = "src/main/resources/static/uploadedFiles/img";
+            String root = "src/main/resources/static/uploadedFiles/img/review";
 
             File file = new File(root);
             file.mkdirs();
@@ -102,7 +102,7 @@ public class ReviewController {
             filePath = file.getAbsolutePath();
         } else {
             // 경로가 이미 존재할 때
-            filePath = resourceLoader.getResource("classpath:static/uploadedFiles/img")
+            filePath = resourceLoader.getResource("classpath:static/uploadedFiles/img/review")
                     .getFile()
                     .getAbsolutePath();
         }
@@ -121,23 +121,23 @@ public class ReviewController {
 
             // Thumbnailator 사용하여 썸네일 생성
             Thumbnails.of(originalFile)
-                    .size(160, 90) // Define thumbnail dimensions
+                    .size(160, 90) // thumbnail 사이즈
                     .toFile(thumbnailFile);
 
             // DTO에 저장된 파일의 경로를 String으로 저장
-            newReview.setReviewPhotoOriginal("/uploadedFiles/img/" + savedName);
-            newReview.setReviewPhotoThumbnail("/uploadedFiles/img/" + thumbnailName);
+            newReview.setReviewPhotoOriginal("/uploadedFiles/img/review/" + savedName);
+            newReview.setReviewPhotoThumbnail("/uploadedFiles/img/review/" + thumbnailName);
 
-            // 상품 등록 로직
+            // 리뷰 등록 로직
             Integer result = reviewService.registNewReview(newReview);
 
             String message;
             if (result == null || result == 0) {
-                message = "상품등록에 실패했습니다. 다시 시도해주세요.";
-                mv.setViewName("redirect:/admin/product/productRegist");
+                message = "리뷰등록에 실패했습니다. 다시 시도해주세요.";
+                mv.setViewName("redirect:/user/review/regist");
             } else {
-                message = "상품을 성공적으로 등록했습니다.";
-                mv.setViewName("redirect:/admin/product/productsManage");
+                message = "리뷰를 성공적으로 등록했습니다.";
+                mv.setViewName("redirect:/user/review/list");
             }
 
             rAttr.addFlashAttribute("message", message);
