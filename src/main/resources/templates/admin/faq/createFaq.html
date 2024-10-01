@@ -6,7 +6,7 @@
 </head>
 <body>
 <div th:fragment="createFaq" class="container-faq-form-container">
-    <h2>FAQ 질문을 추가해주세요</h2>
+    <h3>FAQ 질문을 추가해주세요</h3>
     <form th:action="@{/admin/faq/create}" method="post" class="faq-form">
         <label>FAQ 질문:</label>
         <input type="text" th:field="*{faqDTO.faqTitle}" placeholder="FAQ 질문 입력" required maxlength="200">
