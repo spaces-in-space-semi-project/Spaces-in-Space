@@ -18,16 +18,12 @@
                 <div class="mb-3">
                     <label for="inquiryDetail" class="form-label">문의 내용</label><textarea name="inquiryDetail" id="inquiryDetail" class="form-control" rows="7" th:text="${ inquiry.inquiryDetail }" readonly></textarea>
                 </div>
-
-<!--                <div class="col-12 text-end">-->
-<!--                    <button type="submit" class="btn btn-danger">삭제</button>-->
-<!--                </div>-->
             </form>
 
 
         <div th:if="${reply != null}" class="mt-4 form-container-inquiry">
-            <p><strong>답변 날짜 : </strong><span th:text="${reply.replyDate}"></span></p>
-            <form th:action="@{/admin/reply/updateReply}" method="post">
+            <p><strong>답변 날짜 : </strong><span th:text="${reply.replyDate != null ? reply.replyEditDate : reply.replyDate}"></span></p>
+            <form th:action="@{/admin/reply/updateReply/{inquiryCode}(inquiryCode=${ inquiry.inquiryCode })}" method="post">
                 <input type="hidden" id="replyCode" name="replyCode" th:value="${reply.replyCode}">
                 <div class="mb-3">
                     <label for="replyDetail" class="form-label">답변</label>
@@ -41,7 +37,7 @@
             </form>
         </div>
 
-        <form th:action="@{/admin/reply/deleteReply}" method="post" id="deleteForm">
+        <form th:action="@{/admin/reply/deleteReply/{inquiryCode}(inquiryCode=${ inquiry.inquiryCode })}" method="post" id="deleteForm">
             <input type="hidden" name="replyCode" th:value="${reply != null ? reply.replyCode : ''}">
         </form>
 
