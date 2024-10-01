@@ -116,8 +116,7 @@
         JOIN
         member_tbl b ON (a.member_code = b.member_code)
         WHERE
-        b.member_id = #{loggedInUsername} AND
-        a.pay_delete_yn = 'N'
+        b.member_id = #{loggedInUsername}
     </select>
 
     <!--사용자 결제한 내역 전체조회 (취소여부가 'Y' 일때 데이터 조회)-->
@@ -395,6 +394,15 @@
         UPDATE pay_tbl
         SET
         pay_delete_yn = 'Y'
+        WHERE
+        pay_code = #{ payCode }
+    </update>
+
+    <!--사용자 결제내역 중 배송상태를 배송전 -> 배송중 으로 update 하는 쿼리문-->
+    <update id="updateAdminDeliverStatus" parameterType="com.space.spacesinspace.common.dto.PayDTO">
+        UPDATE pay_tbl
+        SET
+        pay_deliever_status = '배송중'
         WHERE
         pay_code = #{ payCode }
     </update>

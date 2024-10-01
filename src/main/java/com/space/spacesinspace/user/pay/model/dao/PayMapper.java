@@ -59,5 +59,5 @@ public interface PayMapper {
 
     void updatePayMenu(int payCode);
 
-
+    void updateAdminDeliverStatus(int payCode);
 }

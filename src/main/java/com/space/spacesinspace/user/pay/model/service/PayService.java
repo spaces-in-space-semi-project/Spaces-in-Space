@@ -123,4 +123,8 @@ public class PayService {
     public void updateAdminPayMenu(int payCode) {
         payMapper.updatePayMenu(payCode);
     }
+
+    public void updateAdminDeliverStatus(int payCode) {
+        payMapper.updateAdminDeliverStatus(payCode);
+    }
 }
