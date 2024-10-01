@@ -22,8 +22,8 @@ public class ReviewService {
         return reviewMapper.findAllReviewBy(memberCode);
     }
 
-    public ReviewDTO findReviewByCode(int code) {
-        return reviewMapper.findReviewByCode(code);
+    public ReviewDTO findReviewByCode(int reviewCode) {
+        return reviewMapper.findReviewByCode(reviewCode);
     }
 
     @Transactional
@@ -32,13 +32,22 @@ public class ReviewService {
     }
 
     @Transactional
-
-    public void deleteReview(int code) {
-        reviewMapper.deleteReview(code);
+    public Integer deleteReview(int code) {
+        return reviewMapper.deleteReview(code);
     }
 
     @Transactional
-    public void updateReview(ReviewDTO review) {
-        reviewMapper.updateReview(review);
+    public Integer updateReview(ReviewDTO review) {
+        return reviewMapper.updateReview(review);
+    }
+
+    @Transactional
+    public Integer updatePayDetailReviewYnInsert(int payDetailCode) {
+        return reviewMapper.updatePayDetailReviewYnInsert(payDetailCode);
+    }
+
+    @Transactional
+    public Integer updatePayDetailReviewYnDelete(int payDetailCode) {
+        return reviewMapper.updatePayDetailReviewYnDelete(payDetailCode);
     }
 }
