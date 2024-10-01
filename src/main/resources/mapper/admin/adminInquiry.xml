@@ -71,4 +71,21 @@
         WHERE
             inquiry_code = #{inquiryCode}
     </select>
+
+    <select id="findInquiryBySearch" parameterType="String" resultMap="InquiryResultMap">
+        SELECT
+            inquiry_code,
+            member_code,
+            inquiry_title,
+            inquiry_detail,
+            inquiry_date,
+            inquiry_edit_date
+        FROM
+            inquiry_tbl
+        WHERE
+            (inquiry_title LIKE CONCAT('%', #{searchValue}, '%') OR
+            inquiry_detail LIKE CONCAT('%', #{searchValue}, '%'))
+        ORDER BY
+            inquiry_code
+    </select>
 </mapper>

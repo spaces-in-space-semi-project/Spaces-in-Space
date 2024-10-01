@@ -8,7 +8,7 @@
 <body>
     <div th:fragment="order">
         <main class="container" style="padding: 10px 10px 30px 10px">
-            <h4 class="text-center my-4">MY ORDER</h4>
+<!--            <h4 class="text-center my-4">MY ORDER</h4>-->
             <table class="table inquiry-table">
             <tr>
                 <th>결제번호</th>
@@ -24,8 +24,8 @@
                 <td th:text="${pay.payDate}"></td>
                 <td th:text="${pay.payDeliverStatus}"></td>
                 <td th:text="${pay.payTotalCnt}"></td>
-                <td th:text="${pay.payDeleteYn}"></td>
                 <td class="price" th:attr="data-price=${pay.payTotalPrice}"></td>
+                <td th:text="${pay.payDeleteYn}"></td>
             </tr>
             </table>
         </main>
