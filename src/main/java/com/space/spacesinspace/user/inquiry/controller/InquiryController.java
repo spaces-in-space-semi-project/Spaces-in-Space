@@ -9,9 +9,11 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -64,30 +66,46 @@ public class InquiryController {
     }
 
     @PostMapping("/user/inquiry/regist")
-    public String registInquiry(InquiryDTO newInquiry, RedirectAttributes rAttr, @AuthenticationPrincipal MemberDTO member) {
+    public ModelAndView registInquiry(ModelAndView mv, @ModelAttribute InquiryDTO newInquiry, RedirectAttributes rAttr, @AuthenticationPrincipal MemberDTO member) {
         int memberCode = member.getMemberCode();
         newInquiry.setMemberCode(memberCode);
 
-        LocalDate currentDate = LocalDate.now();
-        String formattedDate = currentDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        newInquiry.setInquiryDate(formattedDate);
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        String formattedDateTime = currentDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        newInquiry.setInquiryDate(formattedDateTime);
 
-        inquiryService.registNewInquiry(newInquiry);
+        Integer result =  inquiryService.registNewInquiry(newInquiry);
 
-        rAttr.addFlashAttribute("message", "신규 문의글이 등록되었습니다.");
+        String message;
+        if (result == null || result == 0) {
+            message = "문의글 등록에 실패했습니다. 다시 시도해주세요.";
+        } else {
+            message = "문의글을 성공적으로 등록했습니다.";
+        }
 
-        return "redirect:/user/inquiry/list";
+        rAttr.addFlashAttribute("message", message);
+        mv.setViewName("redirect:/user/inquiry/list");
+
+        return mv;
     }
 
     @PostMapping("/delete/{code}")
-    public String deleteInquiry(@PathVariable("code") int code,
-                                RedirectAttributes rAttr) {
+    public ModelAndView deleteInquiry(@PathVariable("code") int code,
+                                      RedirectAttributes rAttr, ModelAndView mv) {
 
-        inquiryService.deleteInquiry(code);
+        Integer result = inquiryService.deleteInquiry(code);
 
-        rAttr.addFlashAttribute("message", "문의글이 삭제되었습니다.");
+        String message;
+        if (result == null || result == 0) {
+            message = "문의글 삭제에 실패했습니다. 다시 시도해주세요.";
+        } else {
+            message = "문의글을 성공적으로 삭제했습니다.";
+        }
 
-        return "redirect:/user/inquiry/list";
+        rAttr.addFlashAttribute("message", message);
+        mv.setViewName("redirect:/user/inquiry/list");
+
+        return mv;
     }
 
 //    @GetMapping("edit/{inquiryCode}")
@@ -104,9 +122,9 @@ public class InquiryController {
 
     @PostMapping("update")
     public String updateInquiry(@ModelAttribute InquiryDTO inquiry, RedirectAttributes rAttr) {
-        LocalDate currentDate = LocalDate.now();
-        String formattedDate = currentDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        inquiry.setInquiryEditDate(formattedDate);
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        String formattedDateTime = currentDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        inquiry.setInquiryEditDate(formattedDateTime);
 
         Integer result = inquiryService.updateInquiry(inquiry);
 

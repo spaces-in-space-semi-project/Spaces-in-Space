@@ -7,11 +7,12 @@
 <body>
 <div th:fragment="reviewRegist">
     <main class="container my-5">
-        <h3 class="text-center mb-4">신규 리뷰 등록</h3>
+        <h3 class="text-center mb-4">리뷰 등록</h3>
         <div class="form-container-review">
-        <form th:action="@{/user/review/regist}" method="post" enctype="multipart/form-data" class="needs-validation">
+        <form id="registForm" th:action="@{/user/review/regist}" method="post" enctype="multipart/form-data" novalidate>
 
             <input type="hidden" id="productCode" name="productCode" th:value="${productCode}">
+            <input type="hidden" id="payDetailCode" name="payDetailCode" th:value="${payDetailCode}">
 
             <!-- 리뷰 사진 -->
             <div class="mb-3">
@@ -40,19 +41,83 @@
             <!-- 리뷰 별점 -->
             <div class="mb-3">
                 <label for="reviewRating" class="form-label">리뷰 별점</label>
-                <div class="star-rating">
-                    <input type="radio" id="star5" name="reviewRating" value="5"><label for="star5">&#9733;</label>
-                    <input type="radio" id="star4" name="reviewRating" value="4"><label for="star4">&#9733;</label>
-                    <input type="radio" id="star3" name="reviewRating" value="3"><label for="star3">&#9733;</label>
-                    <input type="radio" id="star2" name="reviewRating" value="2"><label for="star2">&#9733;</label>
-                    <input type="radio" id="star1" name="reviewRating" value="1"><label for="star1">&#9733;</label>
+                <div class="star-rating" id="starRatingGroup">
+                    <input type="radio" id="star5" name="reviewRating" value="5" required>
+                    <label for="star5">&#9733;</label>
+
+                    <input type="radio" id="star4" name="reviewRating" value="4">
+                    <label for="star4">&#9733;</label>
+
+                    <input type="radio" id="star3" name="reviewRating" value="3">
+                    <label for="star3">&#9733;</label>
+
+                    <input type="radio" id="star2" name="reviewRating" value="2">
+                    <label for="star2">&#9733;</label>
+
+                    <input type="radio" id="star1" name="reviewRating" value="1">
+                    <label for="star1">&#9733;</label>
                 </div>
+                <div class="invalid-feedback" style="font-size: 0.875rem; margin-top: 0.5rem;">
+                    별점을 선택해주세요.
+                </div>
+
             </div>
 
             <button type="submit" class="btn btn-primary btn-block" id="reviewRegistBtn" style="width: 150px">등록</button>
         </form>
         </div>
     </main>
+
+    <script th:inline="javascript">
+        // Bootstrap validation 체크
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('registForm');
+            const submitButton = document.getElementById('updateSubmitButton');
+
+            // Add event listener for form submission
+            form.addEventListener('submit', function(event) {
+                // Trigger validation for each field
+                Array.from(form.elements).forEach(input => {
+                    if (!input.checkValidity()) {
+                        input.classList.add('is-invalid');
+                    } else {
+                        input.classList.remove('is-invalid');
+                        input.classList.add('is-valid');
+                    }
+                });
+
+                // Prevent submission if form is invalid
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                } else {
+                    form.classList.add('was-validated');
+                }
+            });
+
+            // Reset validation states on input change
+            form.addEventListener('input', function(event) {
+                const input = event.target;
+                if (input.checkValidity()) {
+                    input.classList.remove('is-invalid');
+                    input.classList.add('is-valid');
+                } else {
+                    input.classList.remove('is-valid');
+                    input.classList.add('is-invalid');
+                }
+            });
+
+            // 별점 설정
+            const ratingRadios = document.querySelectorAll('input[name="reviewRating"]');
+            const hiddenRatingInput = document.getElementById('hiddenReviewRating');
+
+            ratingRadios.forEach((radio) => {
+                radio.addEventListener('change', function () {
+                    hiddenRatingInput.value = this.value;
+                });
+            });
+        });
+    </script>
 </div>
 </body>
 </html>

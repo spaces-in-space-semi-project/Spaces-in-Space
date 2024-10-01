@@ -128,6 +128,34 @@
             cursor: pointer;
         }
 
+        .review-table {
+            width: 100%;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .review-table td {
+            word-wrap: break-word;
+            word-break: break-all;
+        }
+
+        .review-table th, .review-table td {
+            padding: 15px;
+            text-align: center;
+            vertical-align: middle;
+        }
+        .review-table th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+
+        .review-table tr:hover {
+            background-color: #f1f1f1;
+            cursor: pointer;
+        }
+
         /* inquiry regist, detail css*/
         .form-container-inquiry {
             max-width: 500px;
@@ -135,7 +163,7 @@
             padding: 20px;
         }
 
-        /* replay container css */
+        /* reply container css */
         /*.reply-container {*/
         /*    margin-top: 20px;*/
         /*    padding: 15px;*/
@@ -176,12 +204,17 @@
             font-weight: bold;
         }
         .order-detail-1 td:nth-child(2) {
-            width: 30%;
+            width: 15%;
             text-align: center;
         }
         .order-detail-1 td:nth-child(3) {
+            width: 20%;
+        }
+
+        .order-detail-1 td:nth-child(4) {
             width: 15%;
         }
+
         .order-detail-1 tr:hover {
             background-color: #f1f1f1;
             cursor: pointer;
@@ -192,7 +225,7 @@
             direction: rtl;
             display: inline-flex;
             gap: 5px; /* Adjust this value to control spacing between stars */
-            font-size: 1.5rem;
+            font-size: 1rem;
             align-items: flex-start;
         }
 
@@ -204,6 +237,7 @@
             color: #ddd;
             cursor: pointer;
             transition: color 0.3s ease;
+            font-size: 1.5rem !important;
         }
 
         .star-rating input:checked ~ label {
@@ -213,6 +247,22 @@
         .star-rating label:hover,
         .star-rating label:hover ~ label {
             color: #ffc700;
+        }
+
+        .review-list-star-rating {
+            direction: ltr;
+            display: inline-flex;
+            gap: 5px; /* Adjust this value to control spacing between stars */
+            font-size: 1rem;
+            align-items: flex-start;
+        }
+
+        .review-list-star-rating .filled-star {
+            color: #ffc700; /* Filled stars color */
+        }
+
+        .review-list-star-rating .empty-star {
+            color: #ddd; /* Empty stars color */
         }
     </style>
 
@@ -263,6 +313,7 @@
         <div th:case="'orderDetail'" th:include="user/pay/findPayDetail :: orderDetail"></div>
         <div th:case="'review'" th:include="user/review/list :: review"></div>
         <div th:case="'reviewRegist'" th:include="user/review/regist :: reviewRegist"></div>
+        <div th:case="'reviewDetails'" th:include="user/review/detail :: reviewDetails"></div>
         <form id="deleteAccountForm" th:action="@{/user/member/delete}" method="post" style="display: none;">
             <input type="hidden" name="_method" value="delete">
         </form>

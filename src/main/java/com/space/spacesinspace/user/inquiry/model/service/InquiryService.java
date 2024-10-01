@@ -28,13 +28,13 @@ public class InquiryService {
     }
 
     @Transactional
-    public void deleteInquiry(int code) {
-        inquiryMapper.deleteInquiry(code);
+    public Integer deleteInquiry(int code) {
+        return inquiryMapper.deleteInquiry(code);
     }
 
     @Transactional
-    public void registNewInquiry(InquiryDTO newInquiry) {
-        inquiryMapper.registNewInquiry(newInquiry);
+    public Integer registNewInquiry(InquiryDTO newInquiry) {
+        return inquiryMapper.registNewInquiry(newInquiry);
     }
 
     @Transactional
