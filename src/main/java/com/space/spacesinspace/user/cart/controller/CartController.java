@@ -68,7 +68,7 @@ public class CartController {
         return "redirect:/user/cart/cartList";
     }
 
-//     사용자가 장바구니에서 [구매하기] 누르면 들고 결제 진행
+    //     사용자가 장바구니에서 [구매하기] 누르면 들고 결제 진행
     @PostMapping("cartPayProgress")
     public ModelAndView cartProgress(ModelAndView mv, @RequestParam(value = "memberCode") int memberCode, RedirectAttributes rAttr){
 
@@ -89,7 +89,7 @@ public class CartController {
         return mv;
     }
 
-//    장바구니로 상품 정보 등록
+    //    장바구니로 상품 정보 등록
     @PostMapping(value= "addCartMenu", consumes = "application/json", produces = "application/json; charset=UTF-8")
     @ResponseBody
     public ResponseEntity<Map<String, String>> addCartMenu(@AuthenticationPrincipal MemberDTO member,

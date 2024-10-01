@@ -41,12 +41,29 @@
             <p><strong>계좌번호:</strong> <span th:text="${findPayByCode.payAccountNumber}"></span></p>
             <p><strong>카드번호:</strong> <span th:text="${findPayByCode.payCardNumber}"></span></p>
             <p><strong>결제취소여부:</strong> <span th:text="${findPayByCode.payDeleteYn}"></span></p>
-                <button type="submit" class="btn btn-danger mt-3" th:if="${findPayByCode.payDeliverStatus == '배송전' and findPayByCode.payDeleteYn == 'N'}">주문취소</button>
+                <button type="submit" name="cancel" class="btn btn-danger mt-3" th:if="${findPayByCode.payDeliverStatus == '배송전' and findPayByCode.payDeleteYn == 'N'}">주문취소</button>
+               </form>
+            <form th:action="@{/admin/pay/updateDeliverStatus/{payCode}(payCode=${findPayByCode.payCode})}" method="post">
+                <button type="submit" class="btn btn-primary mt-3" th:if="${findPayByCode.payDeliverStatus == '배송전' and findPayByCode.payDeleteYn == 'N'}">배송하기</button>
             </form>
         <script>
             function confirmCancel() {
                 return confirm("주문을 취소하시겠습니까?");
             }
+
+            document.addEventListener('DOMContentLoaded',function(){
+
+                const paydeleteY = document.getElementById('paydeleteyn');
+
+                if (paydeleteY) {
+                    if (paydeleteY.textContent.trim() === 'Y') {
+                        paydeleteY.textContent = '주문이 취소되었습니다.';
+                    } else if (paydeleteY.textContent.trim() === 'N') {
+                        paydeleteY.textContent = '취소 가능';
+                    }
+                }
+            });
+
         </script>
         </div>
     </div>

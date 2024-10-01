@@ -71,7 +71,7 @@ public class PayController {
         mv.addAttribute("payProgress", payProgress);
         mv.addAttribute("payProgressUser", payProgressUser);
 
-        return "user/pay/payProgress";
+        return "/user/pay/payProgress";
     }
 
     /*주문 상세내역조회 시, 배송전이면 삭제하는 기능 보류*/
@@ -96,7 +96,6 @@ public class PayController {
         payService.addPayList(payDTO);
         payDetailDTO.setPayCode(payDTO.getPayCode());
         payService.addPayDetailList(payDetailDTO);
-
 
         return "redirect:/user/pay/payList";
     }

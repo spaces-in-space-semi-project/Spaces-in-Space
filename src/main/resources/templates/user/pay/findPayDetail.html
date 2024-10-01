@@ -83,7 +83,7 @@
                 </tr>
                 <tr>
                     <td>결제취소여부:</td>
-                    <td th:text="${findPayByCode.payDeleteYn}"></td>
+                    <td id="paydeleteyn" th:text="${findPayByCode.payDeleteYn}"></td>
                 </tr>
                 </tbody>
             </table>
@@ -112,6 +112,20 @@
         function confirmCancel() {
             return confirm("주문을 취소하시겠습니까?");
         }
+
+        document.addEventListener('DOMContentLoaded',function(){
+
+            const paydeleteY = document.getElementById('paydeleteyn');
+
+            if (paydeleteY) {
+                if (paydeleteY.textContent.trim() === 'Y') {
+                    paydeleteY.textContent = '주문이 취소되었습니다.';
+                } else if (paydeleteY.textContent.trim() === 'N') {
+                    paydeleteY.textContent = '취소 가능';
+                }
+            }
+        });
+
     </script>
 </div>
 </body>

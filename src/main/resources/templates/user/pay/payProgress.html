@@ -60,8 +60,9 @@
     <input type="hidden" name="payDetailCnt" value="1"/>
     <input type="hidden" name="payDetailPrice" th:value="${payProgress.productPrice}"/>
     <input type="hidden" name="payDeliverStatus" value="배송전"/>
-    <input type="hidden" name="payRefundYn" value="N"/>
+    <input type="hidden" name="payRefundYn" value="Y"/>
     <input type="hidden" name="payDeleteYn" value="N"/>
+    <input type="hidden" name="reviewYn" value="N"/>
     <input type="hidden" name="productCode" th:value="${payProgress.productCode}"/>
     <input type="hidden" name="productName" th:value="${payProgress.productName}"/>
 <table>
@@ -85,7 +86,7 @@
 <table>
     <tbody>
     <tr>
-        <th>배송자명 </th>
+        <th>받는분 성함 </th>
         <td><input type="text" name="payReceiver" placeholder="배송자명 입력" required/></td>
     </tr>
     <tr>
@@ -93,21 +94,21 @@
         <td><input type="text" name="payDeliverPhone" placeholder="전화번호 입력" required/></td>
     </tr>
     <tr>
-        <th>주소 </th>
-        <td><input type="text" name="payAddress" placeholder="주소 입력" th:value="${payProgressUser.memberAddress}"/></td>
+        <th>배송주소 </th>
+        <td><input type="text" name="payAddress" placeholder="주소 입력" required/></td>
     </tr>
-    <tr>
-        <td colspan="2"><input type="text"  placeholder="상세주소 입력" required/></td>
-    </tr>
+<!--    <tr>-->
+<!--        <td colspan="2"><input type="text"  placeholder="상세주소 입력" required/></td>-->
+<!--    </tr>-->
     <tr>
         <th>배송요청사항 </th>
         <td>
             <select name="deliveryRQ">
                 <option value="dRQ0">배송요청사항을 선택하세요</option>
                 <option value="dRQ1">집앞에 던져놔주세요</option>
-                <option value="dRQ2">문앞에 막아놔주세요</option>
+                <option value="dRQ2">문앞을 막아놔주세요</option>
                 <option value="dRQ3">창문으로 집어 던져주세요</option>
-                <option value="dRQ4">계단으로 7층으로 옮겨주세요</option>
+                <option value="dRQ4">계단인데 7층으로 옮겨주세요</option>
             </select>
         </td>
     </tr>
@@ -129,8 +130,8 @@
     <tr>
         <th>은행 </th>
         <td>
-            <select name="bankCode" >
-                <option value="1" selected>은행을 선택하세요</option>
+            <select name="bankCode">
+                <option value="1" selected >은행을 선택하세요</option>
                 <option value="2">우리</option>
                 <option value="3">신한</option>
                 <option value="4">국민</option>
@@ -213,6 +214,55 @@
         // hidden input 필드에 현재 날짜 설정
         document.getElementById('toDay').value = toDay;
         console.log(toDay);
+
+        document.querySelector('form').addEventListener('submit', function (ev) {
+            // 결제수단 선택 확인
+            const bankSelected = document.getElementById('bankRadio').checked;
+            const cardSelected = document.getElementById('cardRadio').checked;
+
+            if (!bankSelected && !cardSelected) {
+                alert('결제수단을 선택하세요.');
+                ev.preventDefault(); // 폼 제출 방지
+                return;
+            }
+
+            // 결제수단이 은행인 경우
+            if (bankSelected) {
+                const bankCode = document.querySelector('select[name="bankCode"]').value;
+                const accountNumber = document.querySelector('input[name="payAccountNumber"]').value;
+
+                if (bankCode === "1") {
+                    alert('은행을 선택하세요.');
+                    ev.preventDefault();
+                    return;
+                }
+
+                if (!accountNumber) {
+                    alert('계좌번호를 입력하세요.');
+                    ev.preventDefault();
+                    return;
+                }
+            }
+
+            // 결제수단이 카드인 경우
+            if (cardSelected) {
+                const cardCompanyCode = document.querySelector('select[name="cardCompanyCode"]').value;
+                const cardNumber = document.querySelector('input[name="payCardNumber"]').value;
+
+                if (cardCompanyCode === "1") {
+                    alert('카드사를 선택하세요.');
+                    ev.preventDefault();
+                    return;
+                }
+
+                if (!cardNumber) {
+                    alert('카드번호를 입력하세요.');
+                    ev.preventDefault();
+                    return;
+                }
+            }
+
+        });
 
 </script>
 </body>
