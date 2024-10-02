@@ -421,6 +421,27 @@
       text-decoration: underline;
     }
 
+    .sidebar-footer {
+      position: absolute;
+      bottom: 20px; /* 어사이드바 하단에서 20px 떨어지게 설정 */
+      margin-left: 20px;
+      width: 100%;
+      text-align: left;
+    }
+
+    .return-to-main {
+      display: inline-block;
+      padding: 10px;
+      background-color: #505050; /* 원하는 배경색 설정 */
+      color: #fff;
+      text-decoration: none;
+      border-radius: 10px; /* 버튼 모서리를 둥글게 */
+    }
+
+    .return-to-main:hover {
+      background-color: #268df3; /* 마우스를 올렸을 때 배경색 변경 */
+    }
+
 
 
 
@@ -465,6 +486,12 @@
         <i class="bi bi-info-circle"></i> FAQ 관리
       </a>
     </li>
+
+      <!-- 기존 어사이드바 내용 -->
+      <li class="sidebar-footer">
+        <a href="http://localhost:8080" class="return-to-main">메인페이지로 돌아가기</a>
+      </li>
+
   </ul>
 </nav>
 
