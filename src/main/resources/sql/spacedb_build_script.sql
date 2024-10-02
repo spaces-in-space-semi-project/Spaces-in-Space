@@ -51,7 +51,6 @@ CREATE TABLE IF NOT EXISTS cart_tbl (
     member_code INT COMMENT '회원코드',
     cart_cnt INT NOT NULL COMMENT '수량',
     cart_price INT NOT NULL COMMENT '상품가격',
-	cart_total_price
     PRIMARY KEY (product_code, member_code),
     FOREIGN KEY (product_code) REFERENCES product_tbl (product_code),
     FOREIGN KEY (member_code) REFERENCES member_tbl (member_code)
