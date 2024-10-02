@@ -44,9 +44,8 @@ public class CartService {
 
     @Transactional
     public void updateCartItem(int productCode, int cartCnt) {
-        cartMapper.updateCartItem(productCode,cartCnt);
+        cartMapper.updateCartItem(productCode, cartCnt);
     }
-
 
     @Transactional
     public void deleteCartMenu(int productCode) {
@@ -62,7 +61,6 @@ public class CartService {
         return cartMapper.addCartMenu(params);
     }
 
-
     public CartDTO checkCartItem(Map<String, Integer> params) {
         return cartMapper.checkCartItem(params);
     }
@@ -75,6 +73,7 @@ public class CartService {
         return cartMapper.getTotalCntForMember(memberCode);
     }
 
+    @Transactional
     public void deleteCartAllMenu(int memberCode) {
         cartMapper.deleteCartAllMenu(memberCode);
     }

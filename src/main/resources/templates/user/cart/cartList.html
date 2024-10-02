@@ -71,16 +71,24 @@
             </thead>
             <tbody>
             <tr th:each="c : ${cart}">
-                <form th:action="@{/user/cart/delete/{productCode}(productCode=${c.productCode})}" method="post">
                     <td><input type="checkbox" checked class="cart"/></td>
                     <td th:text="${c.productName}"></td>
-                    <td th:text="${c.cartCnt}"></td>
+<!--                    <td th:text="${c.cartCnt}"></td>-->
+                    <td>
+                    <form th:action="@{/user/cart/cartUpdate}" method="post">
+                        <input type="number" name="cartCnt"
+                               min="1" th:value="${c.cartCnt}">
+                        <input type="hidden" name="productCode" th:value="${c.productCode}">
+                    <button type="submit">변경</button>
+                    </form>
+                    </td>
                     <td th:text="${c.cartPrice}"></td>
                     <td th:text="${c.cartPrice} * ${c.cartCnt}"></td>
                     <td>
-                        <button type="submit" class="btn btn-custom-delete">삭제하기</button>
-                    </td>
+                <form th:action="@{/user/cart/delete/{productCode}(productCode=${c.productCode})}" method="post">
+                <button type="submit" class="btn btn-custom-delete">삭제하기</button>
                 </form>
+                    </td>
             </tr>
             </tbody>
         </table>
