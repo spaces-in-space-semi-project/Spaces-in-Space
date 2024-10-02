@@ -58,7 +58,7 @@ public class CartController {
                                  @AuthenticationPrincipal MemberDTO member,
                                  @RequestParam("cartCnt") int cartCnt,
                                  @RequestParam("productPrice") int productPrice,
-                                 Model model, RedirectAttributes rAttr) {
+                                 RedirectAttributes rAttr) {
 
          int memberCode =  member.getMemberCode();
          int cartTotalPrice =  productPrice * cartCnt;

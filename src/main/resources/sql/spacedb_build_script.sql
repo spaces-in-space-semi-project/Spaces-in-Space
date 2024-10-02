@@ -196,7 +196,6 @@ VALUES (1, 'CLIP Chair', '/uploadedFiles/img/eb7afb1c658a4b0d833b75279b5c9158.jp
        (5, 'Bubble Dresser', '/uploadedFiles/img/81d22269887444f9aafbd7111a00eca5.jpg', '/uploadedFiles/img/81d22269887444f9aafbd7111a00eca5_thumbnail.jpg', 69000, '주문 후 3-6주 소요', 0, '520W x 420D x 1571H', '소재 : 클린터치, HPL, 자작나무 합판', '단순한 서랍장에서 조형적 의미를 추구합니다. \n넉넉한 수납공간은 터치-오픈식 서랍으로 개방되며 \n어느 공간에서든 위트와 따스함이 넘치는 형태로 \n모두의 시선을 사로잡습니다.', 'N'),
        (5, 'MAREN Stand Lighting', '/uploadedFiles/img/0425b373d2e4453e999548732cf71a73.jpeg', '/uploadedFiles/img/0425b373d2e4453e999548732cf71a73_thumbnail.jpeg', 36000, '주문 후 2-4주 소요, 택배출고', 0, '24 * 39 * 44 (cm)', '소재 : 스테인리스 스틸 (SUS304)', '모던함을 담은 디자인이 매력적인 \nMAREN 스탠드 조명은 블랙의 시크함이 더해져 \n현대적인 오브제 같은 조명입니다.', 'N');
 
-
 INSERT INTO bank_tbl (bank_code, bank_name)
 VALUES (1, '선택하지않음'),
        (2, '우리'),

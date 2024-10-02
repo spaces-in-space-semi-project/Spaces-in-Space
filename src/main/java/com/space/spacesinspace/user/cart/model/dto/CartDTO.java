@@ -3,6 +3,7 @@ package com.space.spacesinspace.user.cart.model.dto;
 public class CartDTO {
 
     private int productCode;    // 상품코드
+    private String productImageThumbnail; // 상품썸네일
     private int productPrice;   // 상품가격
     private int memberCode;     // 회원코드
     private String productName; // 상품이름
@@ -18,27 +19,20 @@ public class CartDTO {
     public CartDTO() {
     }
 
-    public CartDTO(int productCode, int productPrice, int memberCode, String productName, String memberName, String memberEmail, String memberPhone, String memberAddress, int cartCnt, int cartPrice, int totalCartCnt, int totalCartPrice) {
-        this.productCode = productCode;
-        this.productPrice = productPrice;
-        this.memberCode = memberCode;
-        this.productName = productName;
-        this.memberName = memberName;
-        this.memberEmail = memberEmail;
-        this.memberPhone = memberPhone;
-        this.memberAddress = memberAddress;
+    public CartDTO(int cartCnt, int cartPrice, String memberAddress, int memberCode, String memberEmail, String memberName, String memberPhone, int productCode, String productImageThumbnail, String productName, int productPrice, int totalCartCnt, int totalCartPrice) {
         this.cartCnt = cartCnt;
         this.cartPrice = cartPrice;
+        this.memberAddress = memberAddress;
+        this.memberCode = memberCode;
+        this.memberEmail = memberEmail;
+        this.memberName = memberName;
+        this.memberPhone = memberPhone;
+        this.productCode = productCode;
+        this.productImageThumbnail = productImageThumbnail;
+        this.productName = productName;
+        this.productPrice = productPrice;
         this.totalCartCnt = totalCartCnt;
         this.totalCartPrice = totalCartPrice;
-    }
-
-    public int getProductCode() {
-        return productCode;
-    }
-
-    public void setProductCode(int productCode) {
-        this.productCode = productCode;
     }
 
     public int getCartCnt() {
@@ -97,6 +91,22 @@ public class CartDTO {
         this.memberPhone = memberPhone;
     }
 
+    public int getProductCode() {
+        return productCode;
+    }
+
+    public void setProductCode(int productCode) {
+        this.productCode = productCode;
+    }
+
+    public String getProductImageThumbnail() {
+        return productImageThumbnail;
+    }
+
+    public void setProductImageThumbnail(String productImageThumbnail) {
+        this.productImageThumbnail = productImageThumbnail;
+    }
+
     public String getProductName() {
         return productName;
     }
@@ -134,6 +144,7 @@ public class CartDTO {
         return "CartDTO{" +
                 "cartCnt=" + cartCnt +
                 ", productCode=" + productCode +
+                ", productImageThumbnail='" + productImageThumbnail + '\'' +
                 ", productPrice=" + productPrice +
                 ", memberCode=" + memberCode +
                 ", productName='" + productName + '\'' +
