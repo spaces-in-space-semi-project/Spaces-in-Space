@@ -50,4 +50,8 @@ public class ReviewService {
     public Integer updatePayDetailReviewYnDelete(int payDetailCode) {
         return reviewMapper.updatePayDetailReviewYnDelete(payDetailCode);
     }
+
+    public  List<ReviewDTO> findReviewByProductCode(int productCode) {
+        return reviewMapper.findReviewByProductCode(productCode);
+    }
 }

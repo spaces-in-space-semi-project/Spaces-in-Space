@@ -52,6 +52,23 @@
             border-top: 1px solid #eaeaea;
             padding-top: 20px;
         }
+
+        /* 리뷰 별점 css */
+        .review-list-star-rating {
+            direction: ltr;
+            display: inline-flex;
+            gap: 5px; /* Adjust this value to control spacing between stars */
+            font-size: 1rem;
+            align-items: flex-start;
+        }
+
+        .review-list-star-rating .filled-star {
+            color: #ffc700; /* Filled stars color */
+        }
+
+        .review-list-star-rating .empty-star {
+            color: #ddd; /* Empty stars color */
+        }
     </style>
 </head>
 <body>
@@ -78,9 +95,32 @@
         </div>
     </div>
 
-    <div class="reviews-section">
-        <h6>리뷰</h6>
-        <!-- 리뷰 관련 내용 여기에 -->
+    <div th:if="!${reviewListByProduct.isEmpty()}" class="reviews-section">
+<!--        <h6>리뷰</h6><br>-->
+        <table class="table" style="word-wrap: break-word; word-break: break-all;">
+            <tr>
+                <th>리뷰 사진</th>
+                <th>리뷰 제목</th>
+                <th>리뷰 내용</th>
+                <th>리뷰 별점</th>
+                <th>리뷰 생성일</th>
+<!--                <th>리뷰 수정일</th>-->
+            </tr>
+            <tr th:each="review : ${ reviewListByProduct }">
+                <td><img th:if="${review.reviewPhotoOriginal}" alt="이미지 없음" style="max-width: 150px;" th:src="${review.reviewPhotoOriginal}"></td>
+                <td th:text="${ review.reviewTitle }" style="text-align: center; width: 20%;"></td>
+                <td th:text="${ review.reviewDetail }" style="text-align: center; width: 30%;"></td>
+                <td>
+                    <div class="review-list-star-rating">
+                            <span th:each="i : ${#numbers.sequence(1, 5)}">
+                                <span th:if="${i <= review.reviewRating}" class="filled-star">&#9733;</span>
+                                <span th:if="${i > review.reviewRating}" class="empty-star">&#9734;</span>
+                            </span>
+                    </div>
+                </td>
+                <td th:text="${ review.reviewDate }" style="width: 15%"></td>
+<!--                <td th:text="${ review.reviewEditDate }" style="width: 15%"></td>-->
+        </table>
     </div>
 </main>
 

@@ -54,11 +54,14 @@ public class CartController {
     }
 
     // 수량 변경  , 이거 우선순위 뒤로 미룸. 원룸이면 1개만 사라.
-    @PostMapping(value="update", produces = "application/json; charset=UTF-8")
-    @ResponseBody
-    public void updateCartItem(@RequestBody CartDTO cartDTO) {
-        System.out.println("cartDTO = " + cartDTO);
-        cartService.updateCartItem(cartDTO.getProductCode(), cartDTO.getCartCnt());
+    @PostMapping("cartUpdate")
+    public String updateCartItem(@RequestParam("productCode") int productCode,
+                                 @RequestParam("cartCnt") int cartCnt,
+                                 Model model) {
+
+        cartService.updateCartItem(productCode, cartCnt);
+
+        return "redirect:/user/cart/cartList";
     }
 
     // 장바구니 가차없이 삭제.
@@ -68,7 +71,7 @@ public class CartController {
         return "redirect:/user/cart/cartList";
     }
 
-//     사용자가 장바구니에서 [구매하기] 누르면 들고 결제 진행
+    //     사용자가 장바구니에서 [구매하기] 누르면 들고 결제 진행
     @PostMapping("cartPayProgress")
     public ModelAndView cartProgress(ModelAndView mv, @RequestParam(value = "memberCode") int memberCode, RedirectAttributes rAttr){
 
@@ -89,7 +92,7 @@ public class CartController {
         return mv;
     }
 
-//    장바구니로 상품 정보 등록
+    //    장바구니로 상품 정보 등록
     @PostMapping(value= "addCartMenu", consumes = "application/json", produces = "application/json; charset=UTF-8")
     @ResponseBody
     public ResponseEntity<Map<String, String>> addCartMenu(@AuthenticationPrincipal MemberDTO member,

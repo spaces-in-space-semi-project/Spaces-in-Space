@@ -18,7 +18,7 @@
                 <th>상품 이름</th>
                 <th>상품 수량</th>
                 <th>상품 가격</th>
-                <th>리뷰 추가</th>
+                <th>리뷰 등록</th>
             </tr>
             </thead>
             <tbody>
@@ -31,7 +31,7 @@
                     <a th:href="@{/user/review/regist/{productCode}/{payDetailCode}(productCode=${payDetail.productCode}, payDetailCode=${payDetail.payDetailCode})}"
                        class="btn btn-outline-primary btn-sm"
                        th:style="${findPayByCode.payDeliverStatus == '배송전' || payDetail.reviewYn == 'Y' ? 'pointer-events:none; opacity:0.6; margin-top: 0;' : 'margin-top: 0;'}">
-                        리뷰 추가
+                        리뷰 등록
                     </a>
                 </td>
             </tr>
@@ -46,44 +46,52 @@
             <table class="table table-bordered orderlist-table" style="width: 60%; margin: 0 auto;">
                 <tbody>
                 <tr>
-                    <td>주문 날짜:</td>
+                    <td>주문 날짜</td>
                     <td th:text="${findPayByCode.payDate}"></td>
                 </tr>
                 <tr>
-                    <td>배송자명:</td>
+                    <td>받는분 성함</td>
                     <td th:text="${findPayByCode.payReceiver}"></td>
                 </tr>
                 <tr>
-                    <td>배송받을 연락처:</td>
+                    <td>배송받는 전화번호</td>
                     <td th:text="${findPayByCode.payDeliverPhone}"></td>
                 </tr>
+<!--                <tr>-->
+<!--                    <td>주문 결제 상태:</td>-->
+<!--                    <td th:text="${findPayByCode.payRefundYn}"></td>-->
+<!--                </tr>-->
                 <tr>
-                    <td>주문 결제 상태:</td>
-                    <td th:text="${findPayByCode.payRefundYn}"></td>
-                </tr>
-                <tr>
-                    <td>주문 결제 수량:</td>
+                    <td>주문 결제 수량</td>
                     <td th:text="${findPayByCode.payTotalCnt}"></td>
                 </tr>
                 <tr>
-                    <td>주문 결제 금액:</td>
+                    <td>주문 결제 금액</td>
                     <td class="price" th:attr="data-price=${findPayByCode.payTotalPrice}"></td>
                 </tr>
                 <tr>
-                    <td>배송 상태:</td>
+                    <td>배송 상태</td>
                     <td th:text="${findPayByCode.payDeliverStatus}"></td>
                 </tr>
-                <tr>
-                    <td>계좌번호:</td>
+                <tr th:if="${findPayByCode.bankCode} != 1">
+                    <td>은행명</td>
+                    <td th:text="${findPayByCode.bankName}"></td>
+                </tr>
+                <tr th:if="${findPayByCode.bankCode} != 1">
+                    <td>계좌번호</td>
                     <td th:text="${findPayByCode.payAccountNumber}"></td>
                 </tr>
-                <tr>
-                    <td>카드번호:</td>
+                <tr th:if="${findPayByCode.cardCompanyCode} != 1">
+                    <td>카드사명</td>
+                    <td th:text="${findPayByCode.cardCompanyName}"></td>
+                </tr>
+                <tr th:if="${findPayByCode.cardCompanyCode} != 1">
+                    <td>카드번호</td>
                     <td th:text="${findPayByCode.payCardNumber}"></td>
                 </tr>
                 <tr>
-                    <td>결제취소여부:</td>
-                    <td th:text="${findPayByCode.payDeleteYn}"></td>
+                    <td>결제취소여부</td>
+                    <td id="paydeleteyn" th:text="${findPayByCode.payDeleteYn}"></td>
                 </tr>
                 </tbody>
             </table>
@@ -112,6 +120,20 @@
         function confirmCancel() {
             return confirm("주문을 취소하시겠습니까?");
         }
+
+        document.addEventListener('DOMContentLoaded',function(){
+
+            const paydeleteY = document.getElementById('paydeleteyn');
+
+            if (paydeleteY) {
+                if (paydeleteY.textContent.trim() === 'Y') {
+                    paydeleteY.textContent = '주문이 취소되었습니다.';
+                } else if (paydeleteY.textContent.trim() === 'N') {
+                    paydeleteY.textContent = '';
+                }
+            }
+        });
+
     </script>
 </div>
 </body>

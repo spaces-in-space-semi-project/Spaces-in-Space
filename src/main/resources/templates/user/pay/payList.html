@@ -6,26 +6,26 @@
     <title>Order</title>
 </head>
 <body>
-    <div th:fragment="order">
+<div th:fragment="order">
         <main class="container" style="padding: 10px 10px 30px 10px">
-<!--            <h4 class="text-center my-4">MY ORDER</h4>-->
+            <h4 class="text-center my-4">MY ORDER</h4>
             <table class="table inquiry-table">
             <tr>
                 <th>결제번호</th>
                 <th>주문날짜</th>
-                <th>배송상태</th>
                 <th>주문수량</th>
                 <th>주문금액</th>
+                <th>배송상태</th>
                 <th>결제취소여부</th>
             </tr>
-            <tr th:each="pay : ${payList}" th:onclick="|window.location.href='/user/pay/findPayDetail/' + ${ pay.payCode}|">
+            <tr th:each="pay : ${payList}" th:onclick="|window.location.href='/user/pay/findPayDetail/' + [[${pay.payCode}]]|">
                 <td th:text="${ pay.payCode }"></td>
                 <input type="hidden" name="payCode" th:value="pay.payCode"/>
                 <td th:text="${pay.payDate}"></td>
-                <td th:text="${pay.payDeliverStatus}"></td>
                 <td th:text="${pay.payTotalCnt}"></td>
                 <td class="price" th:attr="data-price=${pay.payTotalPrice}"></td>
-                <td th:text="${pay.payDeleteYn}"></td>
+                <td th:text="${pay.payDeliverStatus}"></td>
+                <td th:text="${pay.payDeleteYn == 'Y' ? '주문취소' : ''}"></td>
             </tr>
             </table>
         </main>
@@ -43,7 +43,7 @@
                 });
             });
         </script>
-    </div>
+</div>
 </body>
 
 </html>

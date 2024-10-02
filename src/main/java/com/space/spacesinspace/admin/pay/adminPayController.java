@@ -68,9 +68,22 @@ public class adminPayController {
         return "redirect:/admin/pay/adminPayList";
     }
 
+    /*관리자 주문 상세 내역 중 삭제 대신 결제취소여부를 Y 로 변경하여 기록*/
     @PostMapping("update/{payCode}")
     public String updateAdminPayMenu(@PathVariable("payCode") int payCode){
+
         payService.updateAdminPayMenu(payCode);
+
         return "redirect:/admin/pay/adminPayList";
+    }
+
+    /*관리자 주문 상세 내역 중 배송상태를 배송전 에서 배송중 으로 변경*/
+    @PostMapping("updateDeliverStatus/{payCode}")
+    public String updateAdminDeliverStatus(@PathVariable("payCode") int payCode){
+
+        payService.updateAdminDeliverStatus(payCode);
+
+        return "redirect:/admin/pay/adminPayList";
+
     }
 }

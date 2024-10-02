@@ -145,10 +145,14 @@ CREATE TABLE IF NOT EXISTS faq_tbl (
 ) ENGINE=INNODB COMMENT '공지';
 
 
-
+/* ========================= dummy data =========================== */
 INSERT INTO member_tbl (member_id, member_pw, member_name, member_email, member_phone, member_address, member_role, member_delete_yn)
 VALUES ('admin', '$2a$10$SOW/Hm3eQC1BL/iB3YV5DOc2r6ii4EkO/ioyfi9rrpe0Bk/4oP.ym', 'admin',
-        'admin@admin.com', '01000000000', 'Some Address', 'ADMIN', 'N');
+        'admin@admin.com', '01000000000', 'Some Address', 'ADMIN', 'N'),
+        ('user01', '$2a$10$WG7JflBd3Ut5JpnBMVvWW.FoMkx40cfd82rllyQqsNGbkQ79isfWO', '나혼자',
+         'homealone@gmail.com', '01012345678', '서울특별시 어쩌구 저쩌구 111번길 11', 'USER', 'N'),
+        ('user02', '$2a$10$V2LzoaIjTkoIcsMp5If/RO1HX3e3rXO5D.lXFbVk1DCjX0xMu78Hq', '나도옹',
+         'metoo@naver.com', '01088888888', '서울특별시 엉덩시 엉덩구 888번길 8', 'USER', 'N');
 
 INSERT INTO faq_tbl (faq_code, faq_title, faq_detail)
     VALUES (1, '배송 기간이 어떻게 되나요?', '결제 후 영업일 기준 약 1-8주로 제품별 상이하며 제주 도서 산간지역은 추가 배송기간이 소요됩니다. 상품 페이지에서 평균 배송기간 및 운송수단 확인이 가능합니다. 주문 제품이나 제작상의 이유 및 배송과 기상 상황 등으로 배송 기간은 유동적일 수 있습니다'),
@@ -181,6 +185,11 @@ VALUES (1, 'CLIP Chair', '/uploadedFiles/img/eb7afb1c658a4b0d833b75279b5c9158.jp
        (5, 'Finn Side Console', '/uploadedFiles/img/5c5e0faa35c54a628b3d9eb071f7d841.jpg', '/uploadedFiles/img/5c5e0faa35c54a628b3d9eb071f7d841_thumbnail.jpg', 40000, '주문 후 3-6주 소요', 0, '430W x 420D x 520H', '소재 : 클린터치, HPL, 천연 건식 무늬목, 자작나무 합판', '북유럽 감성의 클래식한 디자인이 \n컬러풀한 언어로 재해석되어 \n모던한 매력을 선보입니다.', 'N'),
        (5, 'TUBE Mirror', '/uploadedFiles/img/83d395a92a554a9f83383f8a2aca0834.jpg', '/uploadedFiles/img/83d395a92a554a9f83383f8a2aca0834_thumbnail.jpg', 45000, '주문 후 3-6주 소요', 5000, '634W x 34D x 2029H', '스테인리스 스틸 (SUS304), 고밀도 MDF', '깊은 빛을 자랑하는 스테인리스 스틸과 5mm 두께의 거울을 견고하게 받치는 스테인리스 프레임, \n그리고 수축 및 팽창이 없는 고밀도 MDF의 사용으로 특유의 내구성을 자랑합니다.', 'N');
 
+INSERT INTO faq_tbl(faq_title, faq_detail)
+VALUES ('배송일 지정 가능한가요?', '제품별 표기된 평균 배송기간 이후부터 희망 배송주간 신청이 가능하며, 시간 지정은 불가합니다. 제품 파손의 우려가 있는 이사 당일은 피해주세요. 제작상품 특성상 구매 시점에는 배송 날짜 확정이 어렵고 일정에 변동 있을 수 있는 점 양해 부탁드립니다'),
+       ('배송 기간이 어떻게 되나요?', '결제 후 영업일 기준 약 1-8주로 제품별 상이하며 제주 도서 산간지역은 추가 배송기간이 소요됩니다. 상품 페이지에서 평균 배송기간 및 운송수단 확인이 가능합니다. 주문 제품이나 제작상의 이유 및 배송과 기상 상황 등으로 배송 기간은 유동적일 수 있습니다'),
+       ('먼저 주문하고, 입주 후 받을 수 있나요', '평균 배송기간 이후부터의 평일 중 희망 배송주간 신청이 가능하며 시간 지정은 불가합니다. 제품 파손의 우려가 있는 이사 당일에는 배송이 어렵습니다');
+
 INSERT INTO bank_tbl (bank_code, bank_name)
 VALUES (1, '선택하지않음'),
        (2, '우리'),
@@ -206,3 +215,15 @@ VALUES (1, '선택하지않음'),
        (9,'카카오뱅크'),
        (10,'씨티'),
        (11,'하나');
+
+INSERT INTO pay_tbl(member_code, pay_date, pay_total_cnt, pay_total_price, pay_address, pay_receiver, pay_deliver_phone, pay_deliever_status, pay_refund_yn, pay_account_number, pay_card_number, bank_code, card_company_code, pay_delete_yn)
+VALUES (2, '2024-10-02', 1, 30200, '서울특별시 어쩌구 저쩌구 111번길 11', '나혼자', '01012345678', '배송완료', 'N','1002345667822', null, 3, null, 'N'),
+       (3, '2024-10-02', 1, 30200, '서울특별시 엉덩시 엉덩구 888번길 8', '나도옹', '01088888888', '배송완료', 'N',null, 1234567891111111, null, 2, 'N');
+
+INSERT INTO pay_detail_tbl(pay_code, product_code, pay_detail_cnt, pay_detail_price, review_yn)
+VALUES (1,2, 1, 30200, 'Y'),
+       (2,2, 1, 30200, 'Y');
+
+INSERT INTO review_tbl(pay_detail_code, product_code, member_code, review_title, review_detail, review_photo_original, review_photo_thumbnail, review_rating, review_date)
+VALUES (1, 2, 2, '만족합니다', '배송이 조금 오래 걸리긴 했는데 이뻐요', '/uploadedFiles/img/review/4b19742030a548ba998a876bcdf169e2.jpg', '/uploadedFiles/img/review/4b19742030a548ba998a876bcdf169e2_thumbnail.jpg', 4, '2024-10-02 13:01:33'),
+       (2, 2, 3, '여러개 살 수 밖에 없는 디자인', '색감 참 마음에 들고 의자도 튼튼합니다. 또 구매할게요', '/uploadedFiles/img/review/4ca66cb9e99b4123a45c4a01b10e4b34.jpeg', '/uploadedFiles/img/review/4ca66cb9e99b4123a45c4a01b10e4b34_thumbnail.jpeg', 5, '2024-10-04 12:45:33');

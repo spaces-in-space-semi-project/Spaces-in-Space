@@ -21,4 +21,6 @@ public interface ReviewMapper {
     int updatePayDetailReviewYnInsert(int payDetailCode);
 
     int updatePayDetailReviewYnDelete(int payDetailCode);
+
+    List<ReviewDTO> findReviewByProductCode(int productCode);
 }
