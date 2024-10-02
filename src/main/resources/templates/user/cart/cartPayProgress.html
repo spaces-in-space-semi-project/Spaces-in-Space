@@ -100,21 +100,6 @@
         <th>배송주소 </th>
         <td><input type="text" name="payAddress" placeholder="주소 입력" required/></td>
     </tr>
-<!--    <tr>-->
-<!--        <td colspan="2"><input type="text" placeholder="상세주소 입력" required/></td>-->
-<!--    </tr>-->
-<!--    <tr>-->
-<!--        <th>배송요청사항 </th>-->
-<!--        <td>-->
-<!--            <select name="deliveryRQ">-->
-<!--                <option value="dRQ0">배송요청사항을 선택하세요</option>-->
-<!--                <option value="dRQ1">집앞에 던져놔주세요</option>-->
-<!--                <option value="dRQ2">문앞을 막아놔주세요</option>-->
-<!--                <option value="dRQ3">창문으로 집어 던져주세요</option>-->
-<!--                <option value="dRQ4">계단인데 7층으로 옮겨주세요</option>-->
-<!--            </select>-->
-<!--        </td>-->
-<!--    </tr>-->
     </tbody>
 </table>
 
@@ -200,15 +185,17 @@
             </div></div></div>
 </form>
 <script>
-    // 은행과 카드 테이블을 숨기거나 표시하는 함수
-    document.getElementById('bankRadio').addEventListener('click', function() {
+    // 은행과 카드 테이블을 숨기거나 표시하는 함수 + 하나를 선택했을때, 다른 하나는 선택할수 없다.
+    document.getElementById('bankRadio').addEventListener('click', function () {
         document.getElementById('bankTable').classList.remove('hidden');
         document.getElementById('cardTable').classList.add('hidden');
+        document.getElementById('cardRadio').disabled = true; // 카드 radio 비활성화
     });
 
-    document.getElementById('cardRadio').addEventListener('click', function() {
+    document.getElementById('cardRadio').addEventListener('click', function () {
         document.getElementById('cardTable').classList.remove('hidden');
         document.getElementById('bankTable').classList.add('hidden');
+        document.getElementById('bankRadio').disabled = true; // 은행 radio 비활성화
     });
 
     // 현재 날짜를 yyyy-MM-dd 형식으로 가져오는 함수
