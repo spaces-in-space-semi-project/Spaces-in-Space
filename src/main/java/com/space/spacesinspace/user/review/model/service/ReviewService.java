@@ -51,7 +51,7 @@ public class ReviewService {
         return reviewMapper.updatePayDetailReviewYnDelete(payDetailCode);
     }
 
-    public ReviewDTO findReviewByProductCode(int productCode) {
+    public  List<ReviewDTO> findReviewByProductCode(int productCode) {
         return reviewMapper.findReviewByProductCode(productCode);
     }
 }

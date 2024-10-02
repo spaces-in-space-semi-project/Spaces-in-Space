@@ -59,6 +59,7 @@
             product_tbl
         WHERE
             category_code = #{categoryCode}
+        AND product_delete_yn = 'N'
     </select>
 
 
