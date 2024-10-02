@@ -23,6 +23,9 @@
         <result property="payAccountNumber" column="pay_account_number"/>
         <result property="bankCode" column="bank_code"/>
         <result property="cardCompanyCode" column="card_company_code"/>
+        <result property="bankName" column="bank_name"/>
+        <result property="cardCompanyName" column="card_company_name"/>
+        <result property="payCardNumber" column="pay_card_number"/>
     </resultMap>
 
     <!--PayDetailDTO-->
@@ -166,11 +169,17 @@
         a.pay_account_number,
         a.pay_card_number,
         a.bank_code,
-        a.card_company_code
+        c.bank_name,
+        a.card_company_code,
+        d.card_company_name
         FROM
         pay_tbl a
         JOIN
         member_tbl b ON (a.member_code = b.member_code)
+        JOIN
+        bank_tbl c ON (a.bank_code = c.bank_code)
+        JOIN
+        card_company_tbl d ON (a.card_company_code = d.card_company_code)
         WHERE
         a.pay_code = #{payCode} AND
         a.pay_delete_yn = 'N'
@@ -193,11 +202,17 @@
         a.pay_account_number,
         a.pay_card_number,
         a.bank_code,
-        a.card_company_code
+        c.bank_name,
+        a.card_company_code,
+        d.card_company_name
         FROM
         pay_tbl a
         JOIN
         member_tbl b ON (a.member_code = b.member_code)
+        JOIN
+        bank_tbl c ON (a.bank_code = c.bank_code)
+        JOIN
+        card_company_tbl d ON (a.card_company_code = d.card_company_code)
         WHERE
         a.pay_code = #{payCode} AND
         a.pay_delete_yn = 'Y'
@@ -405,7 +420,7 @@
     <update id="updateAdminDeliverStatus" parameterType="com.space.spacesinspace.common.dto.PayDTO">
         UPDATE pay_tbl
         SET
-        pay_deliever_status = '배송중'
+        pay_deliever_status = '배송완료'
         WHERE
         pay_code = #{ payCode }
     </update>
