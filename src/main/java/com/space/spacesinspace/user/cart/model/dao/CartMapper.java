@@ -10,7 +10,7 @@ import java.util.Map;
 public interface CartMapper {
     List<CartDTO> showCartView(String loggedInUsername);
 
-    void updateCartItem(int productCode, int cartCnt);
+    int updateCartItem(CartDTO cart);
 
     void deleteCartMenu(int productCode);
 
@@ -25,4 +25,6 @@ public interface CartMapper {
     CartDTO getTotalCntForMember(int memberCode);
 
     void deleteCartAllMenu(int memberCode);
+
+
 }
