@@ -191,7 +191,7 @@ VALUES (1, 'CLIP Chair', '/uploadedFiles/img/eb7afb1c658a4b0d833b75279b5c9158.jp
        (4, 'AMETHYST Dining Table', '/uploadedFiles/img/cff230d1a7c4488c88e8e27126596d15.jpeg', '/uploadedFiles/img/cff230d1a7c4488c88e8e27126596d15_thumbnail.jpeg', 65000, '주문 후 3-6주 소요', 0, '42"d x 42"w x 29.5"h', '상판소재 : 클린터치, 스테인리스 스틸 (SUS304)', '304 스테인리스 스틸이 뽐내는 투명함과 \n 슬림한 디자인으로 어느 공간에서든 스타일리쉬한 분위기를 연출해줄 수 있는 테이블입니다.', 'N'),
        (5, 'Pond of Light x bluehour', '/uploadedFiles/img/e166464f80dc4ed7bc60f85d302ff5ff.jpg', '/uploadedFiles/img/e166464f80dc4ed7bc60f85d302ff5ff_thumbnail.jpg', 32000, '주문 후 약 8-10주 평일 직배송', 0, 'SM 670W x 1000H =', '100% Pure Wool from New Zealand', '독창적인 형상과 컬러 조합으로 \n기존의 러그에서는 볼 수 없었던 색다른 매력을 발산합니다.', 'N'),
        (5, 'Finn Side Console', '/uploadedFiles/img/5c5e0faa35c54a628b3d9eb071f7d841.jpg', '/uploadedFiles/img/5c5e0faa35c54a628b3d9eb071f7d841_thumbnail.jpg', 40000, '주문 후 3-6주 소요', 0, '430W x 420D x 520H', '소재 : 클린터치, HPL, 천연 건식 무늬목, 자작나무 합판', '북유럽 감성의 클래식한 디자인이 \n컬러풀한 언어로 재해석되어 \n모던한 매력을 선보입니다.', 'N'),
-       (5, 'TUBE Mirror', '/uploadedFiles/img/83d395a92a554a9f83383f8a2aca0834.jpg', '/uploadedFiles/img/83d395a92a554a9f83383f8a2aca0834_thumbnail.jpg', 45000, '주문 후 3-6주 소요', 5000, '634W x 34D x 2029H', '스테인리스 스틸 (SUS304), 고밀도 MDF', '깊은 빛을 자랑하는 스테인리스 스틸과 5mm 두께의 거울을 견고하게 받치는 스테인리스 프레임, \n그리고 수축 및 팽창이 없는 고밀도 MDF의 사용으로 특유의 내구성을 자랑합니다.', 'N'),
+       (5, 'TUBE Mirror', '/uploadedFiles/img/83d395a92a554a9f83383f8a2aca0834.jpg', '/uploadedFiles/img/83d395a92a554a9f83383f8a2aca0834_thumbnail.jpg', 45000, '주문 후 3-6주 소요', 0, '634W x 34D x 2029H', '스테인리스 스틸 (SUS304), 고밀도 MDF', '깊은 빛을 자랑하는 스테인리스 스틸과 5mm 두께의 거울을 견고하게 받치는 스테인리스 프레임, \n그리고 수축 및 팽창이 없는 고밀도 MDF의 사용으로 특유의 내구성을 자랑합니다.', 'N'),
        (5, 'Fluid Rug', '/uploadedFiles/img/8592b044b7c84bf2a9dc2e900d2c4543.jpg', '/uploadedFiles/img/8592b044b7c84bf2a9dc2e900d2c4543_thumbnail.jpg', 51900, '주문 후 약 8-10주 평일 직배송', 0, '1000W x 1000H', '100% Pure Wool from New Zealand', '플루이드 러그는 비정형의 형상이 자아내는 분위기로 \n모든 공간을 더욱 특별하게 만들어줍니다.', 'N'),
        (5, 'Bubble Dresser', '/uploadedFiles/img/81d22269887444f9aafbd7111a00eca5.jpg', '/uploadedFiles/img/81d22269887444f9aafbd7111a00eca5_thumbnail.jpg', 69000, '주문 후 3-6주 소요', 0, '520W x 420D x 1571H', '소재 : 클린터치, HPL, 자작나무 합판', '단순한 서랍장에서 조형적 의미를 추구합니다. \n넉넉한 수납공간은 터치-오픈식 서랍으로 개방되며 \n어느 공간에서든 위트와 따스함이 넘치는 형태로 \n모두의 시선을 사로잡습니다.', 'N'),
        (5, 'MAREN Stand Lighting', '/uploadedFiles/img/0425b373d2e4453e999548732cf71a73.jpeg', '/uploadedFiles/img/0425b373d2e4453e999548732cf71a73_thumbnail.jpeg', 36000, '주문 후 2-4주 소요, 택배출고', 0, '24 * 39 * 44 (cm)', '소재 : 스테인리스 스틸 (SUS304)', '모던함을 담은 디자인이 매력적인 \nMAREN 스탠드 조명은 블랙의 시크함이 더해져 \n현대적인 오브제 같은 조명입니다.', 'N');
@@ -222,9 +222,9 @@ VALUES (1, '선택하지않음'),
        (10,'씨티'),
        (11,'하나');
 
-INSERT INTO pay_tbl(member_code, pay_date, pay_total_cnt, pay_total_price, pay_address, pay_receiver, pay_deliver_phone, pay_deliever_status, pay_refund_yn, pay_account_number, pay_card_number, bank_code, card_company_code, pay_delete_yn)
-VALUES (2, '2024-10-02', 1, 30200, '서울특별시 어쩌구 저쩌구 111번길 11', '나혼자', '01012345678', '배송완료', 'N','1002345667822', null, 3, null, 'N'),
-       (3, '2024-10-02', 1, 30200, '서울특별시 엉덩시 엉덩구 888번길 8', '나도옹', '01088888888', '배송완료', 'N',null, 1234567891111111, null, 2, 'N');
+INSERT INTO pay_tbl(pay_code, member_code, pay_date, pay_total_cnt, pay_total_price, pay_address, pay_receiver, pay_deliver_phone, pay_deliever_status, pay_refund_yn, pay_account_number, pay_card_number, bank_code, card_company_code, pay_delete_yn)
+VALUES (1,2, '2024-10-02', 1, 30200, '서울특별시 어쩌구 저쩌구 111번길 11', '나혼자', '01012345678', '배송완료', 'N','1002345667822', null, 3, 1, 'N'),
+       (2,3, '2024-10-02', 1, 30200, '서울특별시 엉덩시 엉덩구 888번길 8', '나도옹', '01088888888', '배송완료', 'N',null, 1234567891111111, 1, 2, 'N');
 
 INSERT INTO pay_detail_tbl(pay_code, product_code, pay_detail_cnt, pay_detail_price, review_yn)
 VALUES (1,2, 1, 30200, 'Y'),
