@@ -38,7 +38,7 @@
         WHERE
             product_delete_yn = 'N'
         ORDER BY
-            product_code
+            product_code DESC
     </select>
 
     <select id="findProductsByCategory" parameterType="int" resultMap="productResultMap">

@@ -4,19 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>주문 상세</title>
-
 </head>
 <body>
 <div th:fragment="adminOrderDetail" class="container my-4">
     <h2 class="mb-3">주문 상세</h2>
 
     <!-- 상품 상세 정보 -->
-    <div class="card mb-4">
-        <div class="card-header">
-            상품 목록
+    <div class="card mb-4" style="width: 600px">
+        <div class="card-header" style="text-align: center;">
+            주문 상품 목록
         </div>
-        <div>
-            <table class="table">
+<!--        <div>-->
+            <table class="table" style="text-align: center">
                 <thead>
                 <tr>
                     <th>상품 이름</th>
@@ -32,11 +31,11 @@
                 </tr>
                 </tbody>
             </table>
-        </div>
+<!--        </div>-->
     </div>
 
     <!-- 주문 정보 및 취소 -->
-    <div class="card">
+    <div class="card" style="width: 600px; text-align: center">
         <div class="card-header">
             주문 정보
         </div>
