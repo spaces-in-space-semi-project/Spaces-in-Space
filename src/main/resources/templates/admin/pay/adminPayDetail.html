@@ -71,11 +71,19 @@
                     <th>배송 상태</th>
                     <td th:text="${findPayByCode.payDeliverStatus}"></td>
                 </tr>
-                <tr>
+                <tr th:if="${findPayByCode.bankCode} != 1">
+                    <th>은행명</th>
+                    <td th:text="${findPayByCode.bankName}"></td>
+                </tr>
+                <tr th:if="${findPayByCode.bankCode} != 1">
                     <th>계좌번호</th>
                     <td th:text="${findPayByCode.payAccountNumber}"></td>
                 </tr>
-                <tr>
+                <tr th:if="${findPayByCode.cardCompanyCode} != 1">
+                    <th>카드사명</th>
+                    <td th:text="${findPayByCode.cardCompanyName}"></td>
+                </tr>
+                <tr th:if="${findPayByCode.cardCompanyCode} != 1">
                     <th>카드번호</th>
                     <td th:text="${findPayByCode.payCardNumber}"></td>
                 </tr>
