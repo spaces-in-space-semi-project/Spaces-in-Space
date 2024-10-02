@@ -18,7 +18,7 @@
                 <th>배송상태</th>
                 <th>결제취소여부</th>
             </tr>
-            <tr th:each="pay : ${payList}" th:onclick="|window.location.href='/user/pay/findPayDetail/' + ${ pay.payCode}|">
+            <tr th:each="pay : ${payList}" th:onclick="|window.location.href='/user/pay/findPayDetail/' + [[${pay.payCode}]]|">
                 <td th:text="${ pay.payCode }"></td>
                 <input type="hidden" name="payCode" th:value="pay.payCode"/>
                 <td th:text="${pay.payDate}"></td>
