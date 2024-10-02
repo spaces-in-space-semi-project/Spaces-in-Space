@@ -54,11 +54,14 @@ public class CartController {
     }
 
     // 수량 변경  , 이거 우선순위 뒤로 미룸. 원룸이면 1개만 사라.
-    @PostMapping(value="update", produces = "application/json; charset=UTF-8")
-    @ResponseBody
-    public void updateCartItem(@RequestBody CartDTO cartDTO) {
-        System.out.println("cartDTO = " + cartDTO);
-        cartService.updateCartItem(cartDTO.getProductCode(), cartDTO.getCartCnt());
+    @PostMapping("cartUpdate")
+    public String updateCartItem(@RequestParam("productCode") int productCode,
+                                 @RequestParam("cartCnt") int cartCnt,
+                                 Model model) {
+
+        cartService.updateCartItem(productCode, cartCnt);
+
+        return "redirect:/user/cart/cartList";
     }
 
     // 장바구니 가차없이 삭제.

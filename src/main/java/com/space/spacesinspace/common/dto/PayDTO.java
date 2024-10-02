@@ -21,13 +21,17 @@ public class PayDTO {
     private int bankCode;               // 은행코드
     private int cardCompanyCode;        // 카드사코드
     private String payDeleteYn;         // 결제취소여부
+    private String bankName;
+    private String cardCompanyName;
 
     public PayDTO() {
     }
 
-    public PayDTO(int bankCode, int cardCompanyCode, int memberCode, String memberId, String memberName, Long payAccountNumber, String payAddress, Long payCardNumber, int payCode, String payDate, String payDeleteYn, String payDeliverPhone, String payDeliverStatus, String payReceiver, String payRefundYn, int payTotalCnt, int payTotalPrice) {
+    public PayDTO(int bankCode, String bankName, int cardCompanyCode, String cardCompanyName, int memberCode, String memberId, String memberName, Long payAccountNumber, String payAddress, Long payCardNumber, int payCode, String payDate, String payDeleteYn, String payDeliverPhone, String payDeliverStatus, String payReceiver, String payRefundYn, int payTotalCnt, int payTotalPrice) {
         this.bankCode = bankCode;
+        this.bankName = bankName;
         this.cardCompanyCode = cardCompanyCode;
+        this.cardCompanyName = cardCompanyName;
         this.memberCode = memberCode;
         this.memberId = memberId;
         this.memberName = memberName;
@@ -53,12 +57,28 @@ public class PayDTO {
         this.bankCode = bankCode;
     }
 
+    public String getBankName() {
+        return bankName;
+    }
+
+    public void setBankName(String bankName) {
+        this.bankName = bankName;
+    }
+
     public int getCardCompanyCode() {
         return cardCompanyCode;
     }
 
     public void setCardCompanyCode(int cardCompanyCode) {
         this.cardCompanyCode = cardCompanyCode;
+    }
+
+    public String getCardCompanyName() {
+        return cardCompanyName;
+    }
+
+    public void setCardCompanyName(String cardCompanyName) {
+        this.cardCompanyName = cardCompanyName;
     }
 
     public int getMemberCode() {
@@ -201,6 +221,8 @@ public class PayDTO {
                 ", payCardNumber=" + payCardNumber +
                 ", cardCompanyCode=" + cardCompanyCode +
                 ", payDeleteYn='" + payDeleteYn + '\'' +
+                ", bankName='" + bankName + '\'' +
+                ", cardCompanyName='" + cardCompanyName + '\'' +
                 '}';
     }
 }

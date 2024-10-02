@@ -145,10 +145,14 @@ CREATE TABLE IF NOT EXISTS faq_tbl (
 ) ENGINE=INNODB COMMENT '공지';
 
 
-
+/* ========================= dummy data =========================== */
 INSERT INTO member_tbl (member_id, member_pw, member_name, member_email, member_phone, member_address, member_role, member_delete_yn)
 VALUES ('admin', '$2a$10$SOW/Hm3eQC1BL/iB3YV5DOc2r6ii4EkO/ioyfi9rrpe0Bk/4oP.ym', 'admin',
-        'admin@admin.com', '01000000000', 'Some Address', 'ADMIN', 'N');
+        'admin@admin.com', '01000000000', 'Some Address', 'ADMIN', 'N'),
+        ('user01', '$2a$10$WG7JflBd3Ut5JpnBMVvWW.FoMkx40cfd82rllyQqsNGbkQ79isfWO', '나혼자',
+         'homealone@gmail.com', '01012345678', '서울특별시 어쩌구 저쩌구 111번길 11', 'USER', 'N'),
+        ('user02', '$2a$10$V2LzoaIjTkoIcsMp5If/RO1HX3e3rXO5D.lXFbVk1DCjX0xMu78Hq', '나도옹',
+         'metoo@naver.com', '01088888888', '서울특별시 엉덩시 엉덩구 888번길 8', 'USER', 'N');
 
 INSERT INTO faq_tbl (faq_code, faq_title, faq_detail)
     VALUES (1, '배송 기간이 어떻게 되나요?', '결제 후 영업일 기준 약 1-8주로 제품별 상이하며 제주 도서 산간지역은 추가 배송기간이 소요됩니다. 상품 페이지에서 평균 배송기간 및 운송수단 확인이 가능합니다. 주문 제품이나 제작상의 이유 및 배송과 기상 상황 등으로 배송 기간은 유동적일 수 있습니다'),
@@ -217,3 +221,15 @@ VALUES (1, '선택하지않음'),
        (9,'카카오뱅크'),
        (10,'씨티'),
        (11,'하나');
+
+INSERT INTO pay_tbl(member_code, pay_date, pay_total_cnt, pay_total_price, pay_address, pay_receiver, pay_deliver_phone, pay_deliever_status, pay_refund_yn, pay_account_number, pay_card_number, bank_code, card_company_code, pay_delete_yn)
+VALUES (2, '2024-10-02', 1, 30200, '서울특별시 어쩌구 저쩌구 111번길 11', '나혼자', '01012345678', '배송완료', 'N','1002345667822', null, 3, null, 'N'),
+       (3, '2024-10-02', 1, 30200, '서울특별시 엉덩시 엉덩구 888번길 8', '나도옹', '01088888888', '배송완료', 'N',null, 1234567891111111, null, 2, 'N');
+
+INSERT INTO pay_detail_tbl(pay_code, product_code, pay_detail_cnt, pay_detail_price, review_yn)
+VALUES (1,2, 1, 30200, 'Y'),
+       (2,2, 1, 30200, 'Y');
+
+INSERT INTO review_tbl(pay_detail_code, product_code, member_code, review_title, review_detail, review_photo_original, review_photo_thumbnail, review_rating, review_date)
+VALUES (1, 2, 2, '만족합니다', '배송이 조금 오래 걸리긴 했는데 이뻐요', '/uploadedFiles/img/review/4b19742030a548ba998a876bcdf169e2.jpg', '/uploadedFiles/img/review/4b19742030a548ba998a876bcdf169e2_thumbnail.jpg', 4, '2024-10-02 13:01:33'),
+       (2, 2, 3, '여러개 살 수 밖에 없는 디자인', '색감 참 마음에 들고 의자도 튼튼합니다. 또 구매할게요', '/uploadedFiles/img/review/4ca66cb9e99b4123a45c4a01b10e4b34.jpeg', '/uploadedFiles/img/review/4ca66cb9e99b4123a45c4a01b10e4b34_thumbnail.jpeg', 5, '2024-10-04 12:45:33');

@@ -67,6 +67,7 @@
     <input type="hidden" name="payDeleteYn" value="N"/>
     <input type="hidden" name="reviewYn" value="N"/>
     <input type="hidden" name="productCode" th:value="${Menu.productCode}"/>
+    <input type="hidden" name="productName" th:value="${Menu.productName}"/>
 <table>
     <tbody>
     <tr>
@@ -89,11 +90,11 @@
     <tbody>
     <tr>
         <th>받는분 성함 </th>
-        <td><input type="text" name="payReceiver" placeholder="배송자명 입력" required/></td>
+        <td><input type="text" name="payReceiver" placeholder="받는분 성함 입력" required/></td>
     </tr>
     <tr>
         <th>전화번호 </th>
-        <td><input type="text" name="payDeliverPhone" placeholder="전화번호 입력" pattern="^[0-9]+$" required/></td>
+        <td><input type="text" name="payDeliverPhone" placeholder="전화번호 입력 (숫자만 입력해주세요)" pattern="^[0-9]+$" title="숫자만 입력해주세요." required/></td>
     </tr>
     <tr>
         <th>배송주소 </th>
@@ -102,18 +103,18 @@
 <!--    <tr>-->
 <!--        <td colspan="2"><input type="text" placeholder="상세주소 입력" required/></td>-->
 <!--    </tr>-->
-    <tr>
-        <th>배송요청사항 </th>
-        <td>
-            <select name="deliveryRQ">
-                <option value="dRQ0">배송요청사항을 선택하세요</option>
-                <option value="dRQ1">집앞에 던져놔주세요</option>
-                <option value="dRQ2">문앞을 막아놔주세요</option>
-                <option value="dRQ3">창문으로 집어 던져주세요</option>
-                <option value="dRQ4">계단인데 7층으로 옮겨주세요</option>
-            </select>
-        </td>
-    </tr>
+<!--    <tr>-->
+<!--        <th>배송요청사항 </th>-->
+<!--        <td>-->
+<!--            <select name="deliveryRQ">-->
+<!--                <option value="dRQ0">배송요청사항을 선택하세요</option>-->
+<!--                <option value="dRQ1">집앞에 던져놔주세요</option>-->
+<!--                <option value="dRQ2">문앞을 막아놔주세요</option>-->
+<!--                <option value="dRQ3">창문으로 집어 던져주세요</option>-->
+<!--                <option value="dRQ4">계단인데 7층으로 옮겨주세요</option>-->
+<!--            </select>-->
+<!--        </td>-->
+<!--    </tr>-->
     </tbody>
 </table>
 
@@ -148,7 +149,7 @@
     </tr>
     <tr>
         <th>계좌번호 </th>
-        <td><input name="payAccountNumber" type="text" placeholder="계좌번호 입력"  pattern="^[0-9]+$" value=""/></td>
+        <td><input name="payAccountNumber" type="text" placeholder="계좌번호 입력"  pattern="^[0-9]+$" title="숫자만 입력해주세요." value=""/></td>
     </tr>
     </tbody>
 </table>
@@ -176,7 +177,7 @@
     </tr>
     <tr>
         <th>카드번호 </th>
-        <td><input type="text" name="payCardNumber" placeholder="카드번호 입력"  pattern="^[0-9]+$" value=""/></td>
+        <td><input type="text" name="payCardNumber" placeholder="카드번호 입력"  pattern="^[0-9]{16}$" title="카드번호는 16자리 숫자여야 합니다." value=""/></td>
     </tr>
     </tbody>
 </table>
