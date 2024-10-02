@@ -61,8 +61,9 @@
         <table class="table inquiry-table">
             <thead class="table-light">
             <tr>
-                <th style="width: 100px;">선택</th>
+                <th style="width: 25px;">선택</th>
                 <th>상품이름</th>
+                <th></th>
                 <th>수량</th>
                 <th>금액</th>
                 <th>총 금액</th>
@@ -71,15 +72,15 @@
             </thead>
             <tbody>
             <tr th:each="c : ${cart}">
-                    <td><input type="checkbox" checked class="cart" th:value="${c.productCode}"></td>
+                    <td><input type="checkbox" checked class="table cart-1" th:value="${c.productCode}"></td>
                     <td th:text="${c.productName}"></td>
-<!--                    <td th:text="${c.cartCnt}"></td>-->
+                <td><img th:src="${c.productImageThumbnail}" alt=""></td>
                     <td>
                         <form th:action="@{/user/cart/cartUpdate}" method="post">
                             <input type="number" name="cartCnt"
                                    min="1" th:value="${c.cartCnt}">
                             <input type="hidden" name="productCode" th:value="${c.productCode}">
-                        <button type="submit">변경</button>
+                        <button type="submit" class="btn btn-primary btn-custom">변경</button>
 
                     <td th:text="${c.productPrice}"></td>
                     <td th:text="${c.productPrice} * ${c.cartCnt}"></td>

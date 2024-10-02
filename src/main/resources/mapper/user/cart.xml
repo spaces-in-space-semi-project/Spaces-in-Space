@@ -7,6 +7,7 @@
     <resultMap id="cartResultMap" type="com.space.spacesinspace.user.cart.model.dto.CartDTO">
         <id property="productCode" column="product_code"/>
         <result property="productPrice" column="product_price"/>
+        <result property="productImageThumbnail" column="product_image_thumbnail"/>
         <result property="memberCode" column="member_code"/>
         <result property="memberPhone" column="member_phone"/>
         <result property="memberEmail" column="member_email"/>
@@ -24,6 +25,7 @@
             a.product_code,
             c.product_name,
             c.product_price,
+            c.product_image_thumbnail,
             b.member_id,
             b.member_code,
             a.cart_cnt,
