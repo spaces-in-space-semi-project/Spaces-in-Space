@@ -70,7 +70,7 @@ public class ProductController {
                                           ModelAndView mv, RedirectAttributes rAttr,
                                           Authentication authentication) {
         ProductDTO product = productService.findProductByCode(productCode);
-        ReviewDTO review = reviewService.findReviewByProductCode(productCode);
+        List<ReviewDTO> review = reviewService.findReviewByProductCode(productCode);
         System.out.println(review);
 
         boolean isLoggedIn = authentication != null && authentication.isAuthenticated();

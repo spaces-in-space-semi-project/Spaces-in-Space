@@ -22,5 +22,5 @@ public interface ReviewMapper {
 
     int updatePayDetailReviewYnDelete(int payDetailCode);
 
-    ReviewDTO findReviewByProductCode(int productCode);
+    List<ReviewDTO> findReviewByProductCode(int productCode);
 }

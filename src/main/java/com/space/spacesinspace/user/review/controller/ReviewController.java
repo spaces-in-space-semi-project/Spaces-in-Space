@@ -276,7 +276,7 @@ public class ReviewController {
                 review.setReviewPhotoThumbnail("/uploadedFiles/img/review/" + thumbnailName);
 
                 // 리뷰 등록 로직
-                Integer result = reviewService.registNewReview(review);
+                Integer result = reviewService.updateReview(review);
 
                 String message;
                 if (result == null || result == 0) {
