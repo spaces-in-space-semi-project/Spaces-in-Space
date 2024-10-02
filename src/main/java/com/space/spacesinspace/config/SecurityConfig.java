@@ -46,7 +46,7 @@ public class SecurityConfig {
                     "/user/product/productDetail/*", "/img/**", "/static/**", "/uploadedFiles/**",
                     "/user/faq/list","/main", "/", "/error/**", "/error-500", "/error-404").permitAll();
             auth.requestMatchers("/admin/*").hasAnyAuthority("ADMIN");
-            auth.requestMatchers("/member/*").hasAnyAuthority("USER");
+            auth.requestMatchers("/member/*").hasAnyAuthority("USER", "ADMIN");
             auth.anyRequest().authenticated();
         }).formLogin(login -> {
             login.loginPage("/auth/login");

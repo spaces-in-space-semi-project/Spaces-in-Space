@@ -85,7 +85,7 @@ public class MemberController {
         return mv;
     }
 
-    @GetMapping("update")
+    @GetMapping("updatee")
     public ModelAndView update(ModelAndView mv, @AuthenticationPrincipal MemberDTO member) {
         String memberId = member.getUsername();
 
@@ -94,7 +94,7 @@ public class MemberController {
         mv.addObject("memberName", "회원");
         mv.addObject("memberInfo", memberInfo);
         mv.addObject("activeSection", "update");
-        mv.setViewName("user/member/myPage");
+        mv.setViewName("user/member/myPagee");
 
         return mv;
     }

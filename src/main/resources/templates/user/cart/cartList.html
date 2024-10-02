@@ -87,7 +87,7 @@
                     <td class="price" th:attr="data-price=${c.productPrice} * ${c.cartCnt}"></td>
                     <td>
                         <form th:action="@{/user/cart/delete/{productCode}(productCode=${c.productCode})}" method="post">
-                            <button type="submit" class="btn btn-custom-delete">삭제하기</button>
+                            <button type="submit" class="btn btn-warning">삭제하기</button>
                         </form>
                     </td>
             </tr>
