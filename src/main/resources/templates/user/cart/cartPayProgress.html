@@ -205,13 +205,13 @@
     <div class="section-title h5 mb-3" style="margin-top: 10px">결제 정보</div>
     <div class="mb-3">
         <label for="payTotalPrice" class="form-label">결제하실 금액</label>
-        <input type="text" id="payTotalPrice" name="payTotalPrice" class="form-control" placeholder="결제 금액 입력"
+        <input type="text" id="payTotalPrice" name="payTotalPrice" class="form-control price" placeholder="결제 금액 입력"
                th:value="${totalCartPrice}" required>
         <div class="invalid-feedback">결제 금액을 입력해주세요.</div>
     </div>
     <div class="mb-3">
         <label for="totalPrice" class="form-label">총 금액</label>
-        <input type="text" id="totalPrice" class="form-control" th:value="${totalCartPrice}" disabled>
+        <input type="text" id="totalPrice" class="form-control price" th:value="${totalCartPrice}" disabled>
     </div>
 
     <button type="submit" class="btn btn-primary">결제하기</button>
