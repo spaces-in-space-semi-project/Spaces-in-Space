@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -56,10 +55,32 @@ public class CartController {
     // 수량 변경  , 이거 우선순위 뒤로 미룸. 원룸이면 1개만 사라.
     @PostMapping("cartUpdate")
     public String updateCartItem(@RequestParam("productCode") int productCode,
+                                 @AuthenticationPrincipal MemberDTO member,
                                  @RequestParam("cartCnt") int cartCnt,
-                                 Model model) {
+                                 @RequestParam("productPrice") int productPrice,
+                                 Model model, RedirectAttributes rAttr) {
 
-        cartService.updateCartItem(productCode, cartCnt);
+         int memberCode =  member.getMemberCode();
+         int cartTotalPrice =  productPrice * cartCnt;
+
+        CartDTO cart = new CartDTO();
+        cart.setCartCnt(cartCnt);
+        cart.setCartPrice(cartTotalPrice);
+        cart.setMemberCode(memberCode);
+        cart.setProductCode(productCode);
+
+        Integer result = cartService.updateCartItem(cart);
+
+        String message = "";
+        if (result == null || result == 0) {
+           message = "장바구니 수정에 실패했습니다. 다시 시도해주세요.";
+        } else if (result >= 1) {
+            message = "장바구니 수정이 성공적으로 완료되었습니다.";
+        } else {
+            message = "알 수 없는 오류가 발생했습니다. 다시 시도해보시거나 관리자에게 문의해주세요.";
+        }
+
+        rAttr.addFlashAttribute("message", message);
 
         return "redirect:/user/cart/cartList";
     }
