@@ -106,7 +106,14 @@ public class CartController {
         CartDTO price = cartService.getTotalPriceForMember(memberCode);
         int totalCartCnt = cnt.getTotalCartCnt();
         int totalCartPrice = price.getTotalCartPrice();
+
+        int productDelieverCost = 0;
+        if (totalCartCnt == 1) {
+            productDelieverCost = cartService.getProductDelieverCost(memberCode);
+        }
+
         mv.addObject("checkMenu", checkMenu);
+        mv.addObject("productDelieverCost", productDelieverCost);
         mv.addObject("totalCartCnt",totalCartCnt);
         mv.addObject("totalCartPrice",totalCartPrice);
         mv.setViewName("/user/cart/cartPayProgress");
@@ -211,6 +218,6 @@ public class CartController {
 
         cartService.deleteCartAllMenu(memberCode);
 
-        return "redirect:/user/pay/payList";
+        return "redirect:/user/pay/findPayDetail/" + payDTO.getPayCode();
     }
 }

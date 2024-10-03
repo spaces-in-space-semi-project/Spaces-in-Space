@@ -26,5 +26,5 @@ public interface CartMapper {
 
     void deleteCartAllMenu(int memberCode);
 
-
+    int getProductDelieverCost(int memberCode);
 }

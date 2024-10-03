@@ -70,7 +70,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="c : ${cart}">
+            <tr th:each="c : ${cart}" th:onclick="|window.location.href='/user/product/productDetail/' + [[${c.productCode}]]|">
                     <td th:text="${c.productName}"></td>
                     <td><img th:src="${c.productImageThumbnail}" alt=""></td>
                     <td>

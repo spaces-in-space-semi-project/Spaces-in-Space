@@ -82,4 +82,7 @@ public class CartService {
         cartMapper.deleteCartAllMenu(memberCode);
     }
 
+    public int getProductDelieverCost(int memberCode) {
+        return cartMapper.getProductDelieverCost(memberCode);
+    }
 }

@@ -86,7 +86,7 @@
             <p th:text="${product.productMaterial}"></p>
             <p th:text="${product.productSize}"></p>
             <p th:text="${product.productDeliverTime}"></p>
-            <small th:text="${product.productDelieverCost == 0 ? '무료배송' : '배송비: ' + product.productDelieverCost + '원'}"></small>
+            <small id="deliverPrice" th:text="${product.productDelieverCost == 0 ? '무료배송' : product.productDelieverCost}"></small>
             <br>
             <div class="d-grid gap-2 d-md-block">
                 <button class="btn btn-dark" onclick="confirmLogin('buy')">구매하기</button>
@@ -127,12 +127,18 @@
 <script th:inline="javascript">
     document.addEventListener('DOMContentLoaded', function () {
         const priceElement = document.getElementById('price');
+        const priceElement2 = document.getElementById('deliverPrice');
         const rawPrice = priceElement.getAttribute('data-price');
+        const rawPrice2 = parseInt(priceElement2.innerText);
 
         // 숫자 콤마 붙이기
         const formattedPrice = Number(rawPrice).toLocaleString();
-
         priceElement.textContent = formattedPrice + '원';
+
+        if (!isNaN(rawPrice2)) {
+            priceElement2.innerText = '배송비 ' + rawPrice2.toLocaleString() + '원';
+        }
+
     });
 
     let isLoggedIn = /*[[${isLoggedIn}]]*/ false;

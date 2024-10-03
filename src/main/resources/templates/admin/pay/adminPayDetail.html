@@ -27,7 +27,7 @@
                 <tr th:each="payDetail : ${payDetailList}">
                     <td th:text="${payDetail.productName}"></td>
                     <td th:text="${payDetail.payDetailCnt}"></td>
-                    <td th:text="${payDetail.payDetailPrice}"></td>
+                    <td class="price" th:attr="data-price=${payDetail.payDetailPrice}"></td>
                 </tr>
                 </tbody>
             </table>
@@ -64,7 +64,7 @@
                 </tr>
                 <tr>
                     <th>주문 결제 금액</th>
-                    <td th:text="${findPayByCode.payTotalPrice}"></td>
+                    <td class="price" th:attr="data-price=${findPayByCode.payTotalPrice}"></td>
                 </tr>
                 <tr>
                     <th>배송 상태</th>
@@ -119,6 +119,16 @@
                     paydeleteY.textContent = '';
                 }
             }
+
+            const priceElements = document.querySelectorAll('.price');
+
+            priceElements.forEach(priceElement => {
+                const rawPrice = priceElement.getAttribute('data-price');
+
+                const formattedPrice = Number(rawPrice).toLocaleString();
+
+                priceElement.textContent = formattedPrice + '원';
+            });
         });
     </script>
 </div>

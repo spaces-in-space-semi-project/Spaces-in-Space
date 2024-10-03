@@ -39,89 +39,108 @@
         <!--        </tr>-->
         <!--    </table>-->
 
-            <script th:inline="javascript">
-                let productList = /*[[${ productList }]]*/ [];
-                const totalItems = productList.length; // Total number of items
-                const itemsPerPage = 10; // Number of items per page
+        </main>
+        <script th:inline="javascript">
+            let productList = /*[[${ productList }]]*/ [];
+            const totalItems = productList.length; // Total number of items
+            const itemsPerPage = 10; // Number of items per page
 
-                // Initialize TUI Pagination
-                const pagination = new tui.Pagination(document.getElementById('pagination'), {
-                    totalItems: totalItems,
-                    itemsPerPage: itemsPerPage,
-                    visiblePages: 5,
-                    centerAlign: true,
-                    firstItem: '<span class="tui-page-btn tui-first">«</span>',
-                    prevItem: '<span class="tui-page-btn tui-prev">‹</span>',
-                    nextItem: '<span class="tui-page-btn tui-next">›</span>',
-                    lastItem: '<span class="tui-page-btn tui-last">»</span>'
-                });
+            // Initialize TUI Pagination
+            const pagination = new tui.Pagination(document.getElementById('pagination'), {
+                totalItems: totalItems,
+                itemsPerPage: itemsPerPage,
+                visiblePages: 5,
+                centerAlign: true,
+                firstItem: '<span class="tui-page-btn tui-first">«</span>',
+                prevItem: '<span class="tui-page-btn tui-prev">‹</span>',
+                nextItem: '<span class="tui-page-btn tui-next">›</span>',
+                lastItem: '<span class="tui-page-btn tui-last">»</span>'
+            });
 
-                // Initialize TUI Grid without pageOptions
-                const grid = new tui.Grid({
-                    el: document.getElementById('grid'),
-                    data: productList.slice(0, itemsPerPage),
-                    scrollX: false,
-                    scrollY: true,
-                    columns: [
-                        {
-                            header: '상품코드',
-                            name: 'productCode',
-                            sortable: true,
-                            align: 'center',
-                            width: 100
-                        },
-                        {
-                            header: '상품카테고리',
-                            name: 'categoryName',
-                            sortable: true,
-                            align: 'center',
-                            width: 150
-                        },
-                        {
-                            header: '상품명',
-                            name: 'productName',
-                            sortable: true,
-                            sortingType: 'desc',
-                            width: 500
-                        },
-                        {
-                            header: '상품가격',
-                            sortable: true,
-                            name: 'productPrice',
-                            align: 'right'
-                        },
-                        {
-                            header: '상품배달비',
-                            name: 'productDelieverCost',
-                            sortable: true,
-                            align: 'right'
-                        }
-                    ]
-                });
+            // Initialize TUI Grid without pageOptions
+            const grid = new tui.Grid({
+                el: document.getElementById('grid'),
+                data: productList.slice(0, itemsPerPage),
+                scrollX: false,
+                scrollY: true,
+                columns: [
+                    {
+                        header: '상품코드',
+                        name: 'productCode',
+                        sortable: true,
+                        align: 'center',
+                        width: 100
+                    },
+                    {
+                        header: '상품카테고리',
+                        name: 'categoryName',
+                        sortable: true,
+                        align: 'center',
+                        width: 150
+                    },
+                    {
+                        header: '상품명',
+                        name: 'productName',
+                        sortable: true,
+                        sortingType: 'desc',
+                        width: 500
+                    },
+                    {
+                        header: '상품가격',
+                        sortable: true,
+                        name: 'productPrice',
+                        align: 'right'
+                    },
+                    {
+                        header: '상품배달비',
+                        name: 'productDelieverCost',
+                        sortable: true,
+                        align: 'right'
+                    }
+                ]
+            });
 
-                // Handle pagination page change and update grid data manually
-                pagination.on('beforeMove', (event) => {
-                    const currentPage = event.page;
-                    const startIdx = (currentPage - 1) * itemsPerPage;
-                    const endIdx = startIdx + itemsPerPage;
-                    grid.resetData(productList.slice(startIdx, endIdx));
-                    return true;
-                });
+            // Handle pagination page change and update grid data manually
+            pagination.on('beforeMove', (event) => {
+                const currentPage = event.page;
+                const startIdx = (currentPage - 1) * itemsPerPage;
+                const endIdx = startIdx + itemsPerPage;
+                grid.resetData(productList.slice(startIdx, endIdx));
+                return true;
+            });
 
-                // Attach the row click event listener
-                grid.on('click', (ev) => {
-                    const rowKey = ev.rowKey;
-                    const rowData = grid.getRow(rowKey);
+            // Attach the row click event listener
+            grid.on('click', (ev) => {
+                const rowKey = ev.rowKey;
+                const rowData = grid.getRow(rowKey);
 
-                    // Check if row data exists and navigate to the detail page
-                    if (rowData && rowData.productCode) {
-                        const detailUrl = `/admin/product/productDetail/${rowData.productCode}`;
-                        window.location.href = detailUrl;
+                // Check if row data exists and navigate to the detail page
+                if (rowData && rowData.productCode) {
+                    const detailUrl = `/admin/product/productDetail/${rowData.productCode}`;
+                    window.location.href = detailUrl;
+                }
+            });
+
+            // Function to format prices after grid data is set
+            function formatPrices() {
+                const priceCells = document.querySelectorAll('.tui-grid-cell[data-column-name="productPrice"], .tui-grid-cell[data-column-name="productDelieverCost"]');
+
+                priceCells.forEach(priceCell => {
+                    const rawPrice = parseInt(priceCell.innerText);
+                    if (!isNaN(rawPrice)) {
+                        priceCell.innerText = rawPrice.toLocaleString() + "원";
                     }
                 });
-            </script>
-        </main>
+            }
 
+            // Attach event listener for when the grid is fully updated
+            grid.on('onGridUpdated', () => {
+                formatPrices();
+            });
+
+            // Format prices initially when grid data is loaded
+            formatPrices();
+        </script>
     </div>
 </body>
 </html>
