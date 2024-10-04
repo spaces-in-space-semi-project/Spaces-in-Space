@@ -76,7 +76,7 @@
                     <td>
                         <form th:action="@{/user/cart/cartUpdate}" method="post">
                             <input type="hidden" class="table cart-1" th:value="${c.productCode}">
-                            <input type="number" name="cartCnt" min="1" th:value="${c.cartCnt}">
+                            <input type="number" name="cartCnt" min="1" max="999" th:value="${c.cartCnt}">
                             <input type="hidden" name="productCode" th:value="${c.productCode}">
                             <button type="submit" class="btn btn-primary btn-custom">변경</button>
                             <input type="hidden" name="cartPrice" th:value="${c.productPrice * c.cartCnt}">

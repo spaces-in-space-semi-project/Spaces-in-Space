@@ -157,57 +157,17 @@ public class CartController {
     //결제시 DB에 정보 기입 [주문내역 + 상세주문내역]
     @PostMapping("receipt")
     public String addPayList(@ModelAttribute PayDTO payDTO,
-                             @RequestParam("memberCode") int memberCode,
-                             @RequestParam("payDate") String payDate,
-                             @RequestParam("payTotalCnt") int payTotalCnt,
-                             @RequestParam("payTotalPrice") int payTotalPrice,
-                             @RequestParam("payDeliverStatus") String payDeliverStatus,
-                             @RequestParam("payRefundYn") String payRefundYn,
-                             @RequestParam("payReceiver") String payReceiver,
-                             @RequestParam("payDeliverPhone") String payDeliverPhone,
-                             @RequestParam("payAddress") String payAddress,
-                             @RequestParam(value = "bankCode", required = false, defaultValue = "") int bankCode,
-                             @RequestParam(value = "payAccountNumber", required = false, defaultValue = "") Long payAccountNumber,
-                             @RequestParam(value = "cardCompanyCode", required = false, defaultValue = "") int cardCompanyCode,
-                             @RequestParam(value = "payCardNumber", required = false, defaultValue = "") Long payCardNumber,
-                             Model model){
-
-        payDTO.setPayDate(payDate);
-        payDTO.setMemberCode(memberCode);
-        payDTO.setPayTotalCnt(payTotalCnt);
-        payDTO.setPayTotalPrice(payTotalPrice);
-        payDTO.setPayDeliverStatus(payDeliverStatus);
-        payDTO.setPayRefundYn(payRefundYn);
-        payDTO.setPayReceiver(payReceiver);
-        payDTO.setPayDeliverPhone(payDeliverPhone);
-        payDTO.setPayAddress(payAddress);
-        payDTO.setBankCode(bankCode);
-        payDTO.setPayAccountNumber(payAccountNumber);
-        payDTO.setCardCompanyCode(cardCompanyCode);
-        payDTO.setPayCardNumber(payCardNumber);
-
-        model.addAttribute("payDate",payDate);
-        model.addAttribute("payTotalCnt",payTotalCnt);
-        model.addAttribute("payTotalPrice",payTotalPrice);
-        model.addAttribute("payDeliverStatus",payDeliverStatus);
-        model.addAttribute("payRefundYn",payRefundYn);
-        model.addAttribute("payReceiver",payReceiver);
-        model.addAttribute("payDeliverPhone",payDeliverPhone);
-        model.addAttribute("payAddress",payAddress);
-        model.addAttribute("bankCode",bankCode);
-        model.addAttribute("payAccountNumber",payAccountNumber);
-        model.addAttribute("cardCompanyCode",cardCompanyCode);
-        model.addAttribute("payCardNumber",payCardNumber);
+                             @RequestParam("memberCode") int memberCode){
 
         payService.addPayList(payDTO);
 
-
         List<CartDTO> cartDTOList = payService.findCartList(memberCode);
 
-        // List<CartDTO> 안의 장바구니 항목들을 순회하며 처리
+        // List<CartDTO> 안의 장바구니 항목들을 순회하며 payDetailDTO 에 DB 입력
         for(CartDTO c : cartDTOList) {
 
             PayDetailDTO payDetailDTO = new PayDetailDTO();
+
             payDetailDTO.setPayCode(payDTO.getPayCode());
             payDetailDTO.setProductCode(c.getProductCode());
             payDetailDTO.setPayDetailCnt(c.getCartCnt());
