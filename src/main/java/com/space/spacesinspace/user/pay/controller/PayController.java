@@ -97,6 +97,6 @@ public class PayController {
         payDetailDTO.setPayCode(payDTO.getPayCode());
         payService.addPayDetailList(payDetailDTO);
 
-        return "redirect:/user/pay/payList";
+        return "redirect:/user/pay/findPayDetail/" + payDTO.getPayCode();
     }
 }

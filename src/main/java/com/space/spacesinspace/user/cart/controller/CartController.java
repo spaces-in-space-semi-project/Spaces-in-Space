@@ -120,7 +120,7 @@ public class CartController {
         return mv;
     }
 
-    //    장바구니로 상품 정보 등록
+    //    장바구니로 상품 정보 등록 ( javascript 사용해서 동적 db 저장 , by 서형님)
     @PostMapping(value= "addCartMenu", consumes = "application/json", produces = "application/json; charset=UTF-8")
     @ResponseBody
     public ResponseEntity<Map<String, String>> addCartMenu(@AuthenticationPrincipal MemberDTO member,

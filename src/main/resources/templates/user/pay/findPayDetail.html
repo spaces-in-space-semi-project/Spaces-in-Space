@@ -43,7 +43,7 @@
         <!-- 주문 정보 -->
         <h6 style="margin-top: 30px"><strong>주문 정보</strong></h6>
         <form th:action="@{/user/pay/update/{payCode}(payCode=${findPayByCode.payCode})}" method="post" onsubmit="return confirmCancel()">
-            <table class="table table-bordered orderlist-table" style="width: 60%; margin: 0 auto;">
+            <table class="table table-bordered orderlist-table">
                 <tbody>
                 <tr>
                     <td>주문 날짜</td>
@@ -96,7 +96,7 @@
                 </tbody>
             </table>
             <!-- 배송 상태가 '배송전'일 경우에만 주문 취소 버튼을 보이도록 설정 -->
-            <button type="submit" style="width: 150px" class="btn btn-danger" th:if="${findPayByCode.payDeliverStatus == '배송전' and findPayByCode.payDeleteYn == 'N'}">주문취소</button>
+            <button type="submit" style="width: 150px; margin-top: 20px;" class="btn btn-danger" th:if="${findPayByCode.payDeliverStatus == '배송전' and findPayByCode.payDeleteYn == 'N'}">주문취소</button>
         </form>
     </main>
     <script>
