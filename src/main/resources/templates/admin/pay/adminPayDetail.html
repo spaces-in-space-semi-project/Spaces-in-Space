@@ -56,7 +56,7 @@
                 </tr>
                 <tr>
                     <th>주문 결제 상태</th>
-                    <td th:text="${findPayByCode.payRefundYn}"></td>
+                    <td id="payrefundyn" th:text="${findPayByCode.payRefundYn}" ></td>
                 </tr>
                 <tr>
                     <th>주문 결제 수량</th>
@@ -65,10 +65,6 @@
                 <tr>
                     <th>주문 결제 금액</th>
                     <td class="price" th:attr="data-price=${findPayByCode.payTotalPrice}"></td>
-                </tr>
-                <tr>
-                    <th>배송 상태</th>
-                    <td th:text="${findPayByCode.payDeliverStatus}"></td>
                 </tr>
                 <tr th:if="${findPayByCode.bankCode} != 1">
                     <th>은행명</th>
@@ -87,8 +83,12 @@
                     <td th:text="${findPayByCode.payCardNumber}"></td>
                 </tr>
                 <tr>
+                    <th>배송 상태</th>
+                    <td th:text="${findPayByCode.payDeliverStatus}"></td>
+                </tr>
+                <tr>
                     <th>결제취소여부</th>
-                    <td th:text="${findPayByCode.payDeleteYn}" id="paydeleteyn"></td>
+                    <td id="paydeleteyn" th:text="${findPayByCode.payDeleteYn}" ></td>
                 </tr>
                 </tbody>
             </table>
@@ -119,16 +119,28 @@
                     paydeleteY.textContent = '';
                 }
             }
+        });
 
-            const priceElements = document.querySelectorAll('.price');
+        document.addEventListener('DOMContentLoaded', function() {
+            const payrefundY = document.getElementById('payrefundyn');
+            if (payrefundY) {
+                if (payrefundY.textContent.trim() === 'Y') {
+                    payrefundY.textContent = '결제 완료';
+                } else if (payrefundY.textContent.trim() === 'N') {
+                    payrefundY.textContent = '결제 취소';
+                }
+            }
+        });
 
-            priceElements.forEach(priceElement => {
-                const rawPrice = priceElement.getAttribute('data-price');
+        const priceElements = document.querySelectorAll('.price');
 
-                const formattedPrice = Number(rawPrice).toLocaleString();
+        priceElements.forEach(priceElement => {
+            const rawPrice = priceElement.getAttribute('data-price');
 
-                priceElement.textContent = formattedPrice + '원';
-            });
+            const formattedPrice = Number(rawPrice).toLocaleString();
+
+            priceElement.textContent = formattedPrice + '원';
+
         });
     </script>
 </div>
