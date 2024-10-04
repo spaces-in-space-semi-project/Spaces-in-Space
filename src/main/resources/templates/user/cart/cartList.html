@@ -70,9 +70,9 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="c : ${cart}" th:onclick="|window.location.href='/user/product/productDetail/' + [[${c.productCode}]]|">
-                    <td th:text="${c.productName}"></td>
-                    <td><img th:src="${c.productImageThumbnail}" alt=""></td>
+            <tr th:each="c : ${cart}">
+                    <td th:text="${c.productName}" th:onclick="|window.location.href='/user/product/productDetail/' + [[${c.productCode}]]|"></td>
+                    <td><img th:src="${c.productImageThumbnail}" alt="" th:onclick="|window.location.href='/user/product/productDetail/' + [[${c.productCode}]]|"></td>
                     <td>
                         <form th:action="@{/user/cart/cartUpdate}" method="post">
                             <input type="hidden" class="table cart-1" th:value="${c.productCode}">
