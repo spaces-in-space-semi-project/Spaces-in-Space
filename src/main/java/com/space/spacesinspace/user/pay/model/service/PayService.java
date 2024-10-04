@@ -52,6 +52,7 @@ public class PayService {
     }
     /*================================================================================================*/
 
+    /*관리자 주문내역 전체 조회*/
     public List<PayDTO> showPayList() {
         return payMapper.showPayList();
     }
