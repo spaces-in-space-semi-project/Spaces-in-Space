@@ -1,6 +1,6 @@
 # 프로젝트 소개
 
-![logo.png](assets/logo.png)
+![logo.png](assets/logo_white.jpg)
 
 ### Spaces in Space
 
