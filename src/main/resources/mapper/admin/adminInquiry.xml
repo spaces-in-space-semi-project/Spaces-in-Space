@@ -24,14 +24,18 @@
 
     <select id="findAllInquiry" resultMap="InquiryResultMap">
         SELECT
-            inquiry_code,
-            member_code,
-            inquiry_title,
-            inquiry_detail,
-            inquiry_date,
-            inquiry_edit_date
+            i.inquiry_code,
+            i.member_code,
+            i.inquiry_title,
+            i.inquiry_detail,
+            i.inquiry_date,
+            i.inquiry_edit_date
         FROM
-            inquiry_tbl
+            inquiry_tbl i
+        JOIN
+            member_tbl m ON i.member_code = m.member_code
+        WHERE
+            m.member_delete_yn = 'N'
         ORDER BY
             inquiry_code
     </select>
