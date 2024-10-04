@@ -8,15 +8,15 @@
 <body>
 <div th:fragment="order">
         <main class="container" style="padding: 10px 10px 30px 10px">
-            <h4 class="text-center my-4">MY ORDER</h4>
+            <h4 class="text-center my-4">전체 주문 목록</h4>
             <table class="table inquiry-table">
             <tr>
-                <th>결제번호</th>
+                <th>주문번호</th>
                 <th>주문날짜</th>
                 <th>주문수량</th>
                 <th>주문금액</th>
                 <th>배송상태</th>
-                <th>결제취소여부</th>
+                <th>주문취소여부</th>
             </tr>
             <tr th:each="pay : ${payList}" th:onclick="|window.location.href='/user/pay/findPayDetail/' + [[${pay.payCode}]]|">
                 <td th:text="${ pay.payCode }"></td>

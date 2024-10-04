@@ -1,10 +1,10 @@
 server:
   port: 8080
 
-#  error:
-#    whitelabel:
-#      enabled: false  # 기본 오류 페이지 비활성화
-#    include-stacktrace: never  # 스택 트레이스를 표시하지 않음
+  error:
+    whitelabel:
+      enabled: false  # 기본 오류 페이지 비활성화
+    include-stacktrace: never  # 스택 트레이스를 표시하지 않음
 
 spring:
   datasource:

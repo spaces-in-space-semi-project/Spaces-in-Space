@@ -127,6 +127,26 @@
                     window.location.href = detailUrl;
                 }
             });
+
+            // Function to format prices after grid data is set
+            function formatPrices() {
+                const priceCells = document.querySelectorAll('.tui-grid-cell[data-column-name="payTotalPrice"]');
+
+                priceCells.forEach(priceCell => {
+                    const rawPrice = parseInt(priceCell.innerText);
+                    if (!isNaN(rawPrice)) {
+                        priceCell.innerText = rawPrice.toLocaleString() + "원";
+                    }
+                });
+            }
+
+            // Attach event listener for when the grid is fully updated
+            grid.on('onGridUpdated', () => {
+                formatPrices();
+            });
+
+            // Format prices initially when grid data is loaded
+            formatPrices();
         </script>
     </main>
 </div>

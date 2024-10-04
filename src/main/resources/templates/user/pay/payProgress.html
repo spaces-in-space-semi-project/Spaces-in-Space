@@ -82,6 +82,7 @@
             <input type="hidden" name="reviewYn" value="N"/>
             <input type="hidden" name="productCode" th:value="${payProgress.productCode}"/>
             <input type="hidden" name="productName" th:value="${payProgress.productName}"/>
+            <input type="hidden" name="payTotalPrice" th:value="${payProgress.productPrice + payProgress.productDelieverCost}">
 
             <!-- 주문자 정보 -->
             <div class="mb-3">
@@ -132,7 +133,7 @@
             <!-- 결제수단 선택 -->
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" name="payPG" id="bankRadio">
-                <label class="form-check-label" for="bankRadio">은행</label>
+                <label class="form-check-label" for="bankRadio">계좌이체</label>
             </div>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" name="payPG" id="cardRadio">
@@ -150,6 +151,13 @@
                         <option value="1" selected>은행을 선택하세요</option>
                         <option value="2">우리</option>
                         <option value="3">신한</option>
+                        <option value="4">국민</option>
+                        <option value="5">기업</option>
+                        <option value="6">농협</option>
+                        <option value="7">하나</option>
+                        <option value="8">SC제일</option>
+                        <option value="9">우체국</option>
+                        <option value="10">케이뱅크</option>
                         <!-- 기타 은행 목록 추가 -->
                     </select>
                     <div class="invalid-feedback">은행을 선택해주세요.</div>
@@ -170,6 +178,13 @@
                         <option value="1" selected>카드사를 선택하세요</option>
                         <option value="2">BC</option>
                         <option value="3">삼성</option>
+                        <option value="5">롯데</option>
+                        <option value="6">신한</option>
+                        <option value="7">KB국민</option>
+                        <option value="8">NH농협</option>
+                        <option value="9">카카오뱅크</option>
+                        <option value="10">씨티</option>
+                        <option value="11">하나</option>
                         <!-- 기타 카드사 목록 추가 -->
                     </select>
                     <div class="invalid-feedback">카드사를 선택해주세요.</div>
@@ -185,14 +200,16 @@
             <!-- 결제 정보 -->
             <div class="section-title h5 mb-3" style="margin-top: 10px">결제 정보</div>
             <div class="mb-3">
-                <label for="payTotalPrice" class="form-label">결제하실 금액</label>
-                <input type="text" id="payTotalPrice" name="payTotalPrice" class="form-control" placeholder="결제 금액 입력"
-                       th:value="${payProgress.productPrice}" required>
-                <div class="invalid-feedback">결제 금액을 입력해주세요.</div>
+                <label for="productPrice" class="form-label">결제하실 금액: </label>
+                <span id="productPrice" th:text="${payProgress.productPrice}"></span>
             </div>
             <div class="mb-3">
-                <label for="totalPrice" class="form-label">총 금액</label>
-                <input type="text" id="totalPrice" class="form-control" th:value="${payProgress.productPrice}" disabled>
+                <label for="productDelieverCost" class="form-label">배송비: </label>
+                <span id="productDelieverCost" th:text="${payProgress.productDelieverCost == 0 ? '무료' : payProgress.productDelieverCost}"></span>
+            </div>
+            <div class="mb-3">
+                <label for="payTotalPrice" class="form-label">총 금액</label>
+                <h5><strong id="payTotalPrice" th:text="${payProgress.productPrice + payProgress.productDelieverCost}"></strong></h5>
             </div>
 
             <button type="submit" class="btn btn-primary">결제하기</button>
@@ -202,6 +219,20 @@
 <div th:replace="fragments/footer :: footer"></div>
 
 <script>
+    // 숫자 포멧
+    const costElement = document.getElementById('productDelieverCost');
+    const costElement2 = document.getElementById('productPrice');
+    const costElement3 = document.getElementById('payTotalPrice');
+    const costValue = parseInt(costElement.innerText);
+    const costValue2 = parseInt(costElement2.innerText);
+    const costValue3 = parseInt(costElement3.innerText);
+
+    if (!isNaN(costValue)) {
+        costElement.innerText = costValue.toLocaleString() + '원';
+    }
+    costElement2.innerText = costValue2.toLocaleString() + '원';
+    costElement3.innerText = costValue3.toLocaleString() + '원';
+
     // 은행과 카드 테이블을 숨기거나 표시하는 함수
     // 은행과 카드 테이블을 숨기거나 표시하고, required 속성을 관리하는 함수
     document.getElementById('bankRadio').addEventListener('click', function () {

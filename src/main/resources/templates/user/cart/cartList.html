@@ -58,12 +58,11 @@
 <div th:fragment="cart">
     <main class="container" style="padding: 10px 10px 30px 10px;">
         <h4 class="text-center my-4">장바구니</h4>
-        <table class="table inquiry-table">
+        <table class="table cart-table">
             <thead class="table-light">
             <tr>
-                <th style="width: 25px;"></th>
                 <th>상품이름</th>
-                <th></th>
+                <th>상품이미지</th>
                 <th>수량</th>
                 <th>금액</th>
                 <th>총 금액</th>
@@ -71,27 +70,25 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="c : ${cart}">
-                    <td><input type="hidden" class="table cart-1" th:value="${c.productCode}"></td>
+            <tr th:each="c : ${cart}" th:onclick="|window.location.href='/user/product/productDetail/' + [[${c.productCode}]]|">
                     <td th:text="${c.productName}"></td>
-                <td><img th:src="${c.productImageThumbnail}" alt=""></td>
+                    <td><img th:src="${c.productImageThumbnail}" alt=""></td>
                     <td>
                         <form th:action="@{/user/cart/cartUpdate}" method="post">
-                            <input type="number" name="cartCnt"
-                                   min="1" th:value="${c.cartCnt}">
+                            <input type="hidden" class="table cart-1" th:value="${c.productCode}">
+                            <input type="number" name="cartCnt" min="1" th:value="${c.cartCnt}">
                             <input type="hidden" name="productCode" th:value="${c.productCode}">
-                        <button type="submit" class="btn btn-primary btn-custom">변경</button>
-
-                    <td th:text="${c.productPrice}"></td>
-                    <td th:text="${c.productPrice} * ${c.cartCnt}"></td>
-                    <input type="hidden" name="cartPrice" th:value="${c.productPrice} * ${c.cartCnt}">
-                    <input type="hidden" name="productPrice" th:value="${c.productPrice}">
-                    </form>
-                </td>
+                            <button type="submit" class="btn btn-primary btn-custom">변경</button>
+                            <input type="hidden" name="cartPrice" th:value="${c.productPrice} * ${c.cartCnt}">
+                            <input type="hidden" name="productPrice" th:value="${c.productPrice}">
+                        </form>
+                    </td>
+                    <td class="price" th:attr="data-price=${c.productPrice}"></td>
+                    <td class="price" th:attr="data-price=${c.productPrice} * ${c.cartCnt}"></td>
                     <td>
-                <form th:action="@{/user/cart/delete/{productCode}(productCode=${c.productCode})}" method="post">
-                <button type="submit" class="btn btn-custom-delete">삭제하기</button>
-                </form>
+                        <form th:action="@{/user/cart/delete/{productCode}(productCode=${c.productCode})}" method="post">
+                            <button type="submit" class="btn btn-warning">삭제하기</button>
+                        </form>
                     </td>
             </tr>
             </tbody>
@@ -103,6 +100,20 @@
             </form>
         </div>
     </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const priceElements = document.querySelectorAll('.price');
+
+            priceElements.forEach(priceElement => {
+                const rawPrice = priceElement.getAttribute('data-price');
+
+                const formattedPrice = Number(rawPrice).toLocaleString();
+
+                priceElement.textContent = formattedPrice + '원';
+            });
+        });
+    </script>
 
 </div>
 

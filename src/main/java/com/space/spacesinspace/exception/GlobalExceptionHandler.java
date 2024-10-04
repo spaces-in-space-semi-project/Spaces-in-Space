@@ -5,6 +5,7 @@
 //import org.springframework.web.bind.annotation.ControllerAdvice;
 //import org.springframework.web.bind.annotation.ExceptionHandler;
 //import org.springframework.web.bind.annotation.ResponseStatus;
+//import org.springframework.web.client.HttpClientErrorException;
 //import org.springframework.web.servlet.NoHandlerFoundException;
 //
 //@ControllerAdvice
@@ -18,12 +19,16 @@
 //        return "error-404";  // 404 오류 페이지로 이동
 //    }
 //
-//    // 기타 예외 처리 (500 등)
-//    @ExceptionHandler(Exception.class)
-//    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-//    public String handleServerError(Model model, Exception ex) {
-////        model.addAttribute("errorMessage", "An unexpected error occurred.");
-////        model.addAttribute("errorDetails", ex.getMessage());
+////    // 기타 예외 처리 (500 등)
+////    @ExceptionHandler(Exception.class)
+////    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+////    public String handleServerError(Model model, Exception ex) {
+////        return "error-500";  // 500 오류 페이지로 이동
+////    }
+//
+//    @ExceptionHandler(HttpClientErrorException.BadRequest.class)
+//    @ResponseStatus(HttpStatus.BAD_REQUEST)
+//    public String handleServerError2(Model model, Exception ex) {
 //        return "error-500";  // 500 오류 페이지로 이동
 //    }
 //}
