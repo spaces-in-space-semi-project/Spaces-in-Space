@@ -223,8 +223,8 @@ VALUES (1, '선택하지않음'),
        (11,'하나');
 
 INSERT INTO pay_tbl(pay_code, member_code, pay_date, pay_total_cnt, pay_total_price, pay_address, pay_receiver, pay_deliver_phone, pay_deliever_status, pay_refund_yn, pay_account_number, pay_card_number, bank_code, card_company_code, pay_delete_yn)
-VALUES (1,2, '2024-10-02', 1, 30200, '서울특별시 어쩌구 저쩌구 111번길 11', '나혼자', '01012345678', '배송완료', 'N','1002345667822', null, 3, 1, 'N'),
-       (2,3, '2024-10-02', 1, 30200, '서울특별시 엉덩시 엉덩구 888번길 8', '나도옹', '01088888888', '배송완료', 'N',null, 1234567891111111, 1, 2, 'N');
+VALUES (1,2, '2024-10-02', 1, 30200, '서울특별시 어쩌구 저쩌구 111번길 11', '나혼자', '01012345678', '배송완료', 'Y','1002345667822', null, 3, 1, 'N'),
+       (2,3, '2024-10-02', 1, 30200, '서울특별시 엉덩시 엉덩구 888번길 8', '나도옹', '01088888888', '배송완료', 'Y',null, 1234567891111111, 1, 2, 'N');
 
 INSERT INTO pay_detail_tbl(pay_code, product_code, pay_detail_cnt, pay_detail_price, review_yn)
 VALUES (1,2, 1, 30200, 'Y'),

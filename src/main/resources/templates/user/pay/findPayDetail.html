@@ -69,10 +69,6 @@
                     <td>주문 결제 금액</td>
                     <td class="price" th:attr="data-price=${findPayByCode.payTotalPrice}"></td>
                 </tr>
-                <tr>
-                    <td>배송 상태</td>
-                    <td th:text="${findPayByCode.payDeliverStatus}"></td>
-                </tr>
                 <tr th:if="${findPayByCode.bankCode} != 1">
                     <td>은행명</td>
                     <td th:text="${findPayByCode.bankName}"></td>
@@ -88,6 +84,10 @@
                 <tr th:if="${findPayByCode.cardCompanyCode} != 1">
                     <td>카드번호</td>
                     <td th:text="${findPayByCode.payCardNumber}"></td>
+                </tr>
+                <tr>
+                    <td>배송 상태</td>
+                    <td th:text="${findPayByCode.payDeliverStatus}"></td>
                 </tr>
                 <tr>
                     <td>결제취소여부</td>

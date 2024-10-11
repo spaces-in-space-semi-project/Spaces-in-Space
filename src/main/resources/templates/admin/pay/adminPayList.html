@@ -79,13 +79,6 @@
                         width: 150
                     },
                     {
-                        header: '배송상태',
-                        name: 'payDeliverStatus',
-                        sortable: true,
-                        align: 'center',
-                        width: 150
-                    },
-                    {
                         header: '주문수량',
                         name: 'payTotalCnt',
                         sortable: true,
@@ -100,8 +93,16 @@
                         align: 'center'
                     },
                     {
+                        header: '배송상태',
+                        name: 'payDeliverStatus',
+                        sortable: true,
+                        align: 'center',
+                        width: 150
+                    },
+                    {
                         header: '결제취소여부',
                         name: 'payDeleteYn',
+                        id: 'paydeleteyn',
                         sortable: true,
                         align: 'center'
                     }
@@ -147,6 +148,19 @@
 
             // Format prices initially when grid data is loaded
             formatPrices();
+
+            document.addEventListener('DOMContentLoaded', function() {
+                const paydeleteCells = document.querySelectorAll('.tui-grid-cell[data-column-name="payDeleteYn"]'); // 클래스 대신 데이터 속성으로 모든 셀 선택
+
+                paydeleteCells.forEach(cell => {
+                    if (cell.textContent.trim() === 'Y') {
+                        cell.textContent = '주문 취소';
+                    } else if (cell.textContent.trim() === 'N') {
+                        cell.textContent = '';
+                    }
+                });
+            });
+
         </script>
     </main>
 </div>
